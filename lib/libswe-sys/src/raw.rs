@@ -9,4 +9,8 @@ use std::os::raw::c_char;
 extern "C" {
     // pub fn swe_test(path: *const c_char); // swe_test try
     pub fn swe_set_ephe_path(path: *const c_char);
+    /// Version
+    pub fn swe_version(s_version: *mut c_char) -> *mut c_char;
+    /// Free memory
+    pub fn swe_close();
 }
