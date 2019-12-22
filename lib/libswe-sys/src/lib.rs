@@ -1,8 +1,12 @@
-/*#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)
-*/
+use std::os::raw::c_char;
 
+mod raw;
 pub fn test_lib() -> String {
-    "Ok from lib - Rust format without ffi".to_string()
+    // Initial path swissephem
+    let path = b"./swisseph/sweph".as_ptr() as *const c_char;
+    unsafe {
+        raw::swe_test(path);
+    }
+    // Return to rusty
+    "Path set swe_set_ephe_path".to_string()
 }
