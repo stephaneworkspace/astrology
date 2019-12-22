@@ -1,6 +1,6 @@
 use std::env;
 use std::os::raw::c_char;
-
+//use std::ptr;
 mod raw;
 pub fn test_lib() -> String {
     // Initial path swissephem
@@ -9,6 +9,7 @@ pub fn test_lib() -> String {
     //let path_final = b"./swisseph/sweph".as_ptr() as *const c_char;
     let path_final = path_full.as_bytes().as_ptr() as *const c_char;
     let version: *mut c_char = "\0".as_bytes().as_ptr() as *mut c_char;
+    //let version = ptr::null_mut() as *mut c_char;
     unsafe {
         raw::swe_set_ephe_path(path_final);
         // Get the version
