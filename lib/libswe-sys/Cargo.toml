@@ -1,0 +1,13 @@
+[package]
+name = "libswe-sys"
+version = "0.1.0"
+links = "libswe"
+#build = "build.rs"
+edition = "2018"
+
+[dependencies]
+libc = "0.2"
+
+#[build-dependencies]
+#cc = { version = "1.0", features = ["parallel"] }
+#pkg-config = "0.3"
