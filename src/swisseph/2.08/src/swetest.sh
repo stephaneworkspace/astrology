@@ -1,0 +1,1 @@
+./swetest -edir../../sweph

@@ -3,10 +3,15 @@ name = "astro_compute_swisseph"
 version = "0.1.0"
 authors = ["Stéphane Bressani <s.bressani@bluewin.ch>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+build = "build.rs"
 
 [lib]
 crate-type = ["lib", "staticlib"]
 
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [dependencies]
+ferris-says = "0.1"
+
+[build-dependencies]
+cbindgen = "0.12"
