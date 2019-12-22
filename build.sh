@@ -1,4 +1,5 @@
 #!/bin/sh
 cargo build
-cargo test
+#cargo test
 cargo run --example ferris-astro-example
+# --verbose

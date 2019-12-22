@@ -7,5 +7,6 @@ use std::os::raw::c_char;
 
 #[link(name = "swe")]
 extern "C" {
-    pub fn swe_test(path: *const c_char);
+    // pub fn swe_test(path: *const c_char); // swe_test try
+    pub fn swe_set_ephe_path(path: *const c_char);
 }
