@@ -1,3 +1,0 @@
-/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/2.08/src/build/CMakeFiles/rebuild_cache.dir
-/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/2.08/src/build/CMakeFiles/edit_cache.dir
-/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/2.08/src/build/CMakeFiles/swe.dir
