@@ -8,7 +8,7 @@ use std::os::raw::c_char;
 /// Simple write in console
 #[no_mangle]
 pub extern "C" fn example_intro() {
-    let phrase = b"Welcome to astro_compute_swisseph version";
+    let phrase = b"Welcome to astro_compute_swisseph";
     let stdout = stdout();
     let mut writer = BufWriter::new(stdout.lock());
     ferris_says::say(phrase, 40, &mut writer).unwrap();
