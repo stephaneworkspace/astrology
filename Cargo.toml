@@ -1,5 +1,5 @@
 [package]
-name = "astro_compute_swisseph"
+name = "astro"
 version = "0.1.0"
 authors = ["Stéphane Bressani <s.bressani@bluewin.ch>"]
 edition = "2018"
