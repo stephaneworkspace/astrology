@@ -1,6 +1,6 @@
 extern crate libswe_sys;
 
-use astro_compute_swisseph::*;
+use astro::*;
 use libswe_sys::test_lib;
 
 fn main() {
