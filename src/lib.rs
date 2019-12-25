@@ -1,6 +1,6 @@
 extern crate ferris_says;
 
-use libswe_sys::get_version;
+//use libswe_sys::get_version;
 use std::ffi::CString;
 use std::io::{stdout, BufWriter};
 use std::os::raw::c_char;
@@ -21,7 +21,7 @@ pub extern "C" fn sweversion() -> *mut c_char {
     // CString::new(get_version()).unwrap().into_raw()
     CString::new("Hello world").unwrap().into_raw()
 }
-
+/*
 /// This code is not detect by lipo
 /// I think &[u8] is not valid
 #[no_mangle]
@@ -30,7 +30,7 @@ pub extern "C" fn example_from_lib(phrase: &[u8]) {
     let mut writer = BufWriter::new(stdout.lock());
     ferris_says::say(phrase, 40, &mut writer).unwrap();
 }
-
+*/
 /// Unit test
 #[cfg(test)]
 mod tests {
