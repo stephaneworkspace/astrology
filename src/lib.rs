@@ -1,6 +1,7 @@
 extern crate ferris_says;
 
 use libswe_sys::get_version;
+use std::ffi::CString;
 use std::io::{stdout, BufWriter};
 use std::os::raw::c_char;
 
@@ -15,8 +16,9 @@ pub extern "C" fn example_intro() {
 
 /// Return version of api
 #[no_mangle]
-pub extern "C" fn version() -> *const c_char {
-    get_version().as_ptr()
+pub extern "C" fn swe_version() -> *mut c_char {
+    //get_version().as_ptr()
+    CString::new(get_version()).unwrap().into_raw()
 }
 
 /// This code is not detect by lipo
