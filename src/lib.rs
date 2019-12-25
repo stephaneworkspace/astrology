@@ -16,7 +16,7 @@ pub extern "C" fn example_intro() {
 
 /// Return version of api
 #[no_mangle]
-pub extern "C" fn swe_version() -> *mut c_char {
+pub extern "C" fn sweversion() -> *mut c_char {
     //get_version().as_ptr()
     CString::new(get_version()).unwrap().into_raw()
 }
