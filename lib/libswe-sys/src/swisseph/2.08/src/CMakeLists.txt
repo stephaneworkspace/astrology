@@ -20,15 +20,15 @@ set( SOURCES
     )
 
 include_directories( BEFORE . )
-
-if ( MSVC )
-    add_definitions( -D_CRT_SECURE_NO_WARNINGS )
-else()
-    add_definitions( -g -O9 -Wall )
-    if ( NOT MINGW )
-        add_definitions( -fPIC )
-    endif()
-endif()
+# --target
+#if ( MSVC )
+#    add_definitions( -D_CRT_SECURE_NO_WARNINGS )
+#else()
+add_definitions( -g -O9 -Wall)
+#    if ( NOT MINGW )
+#    add_definitions( -fPIC )
+#endif()
+#endif()
 
 add_library( swe STATIC ${SOURCES} )
 
