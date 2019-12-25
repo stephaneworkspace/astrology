@@ -17,8 +17,9 @@ pub extern "C" fn example_intro() {
 /// Return version of api
 #[no_mangle]
 pub extern "C" fn sweversion() -> *mut c_char {
-    //get_version().as_ptr()
-    CString::new(get_version()).unwrap().into_raw()
+    // get_version().as_ptr()
+    // CString::new(get_version()).unwrap().into_raw()
+    CString::new("Hello world").unwrap().into_raw()
 }
 
 /// This code is not detect by lipo
