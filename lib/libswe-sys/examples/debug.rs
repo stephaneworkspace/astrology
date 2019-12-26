@@ -16,7 +16,6 @@
  * commercial license.
  */
 use libswe_sys::swerust::handler_swe02;
-use libswe_sys::test_lib;
 use std::env;
 
 fn main() {
@@ -31,5 +30,8 @@ fn main() {
     println!("------------------------------");
     println!("swe2.4");
     println!("Version swephem: {}", handler_swe02::version());
-    println!("{}", test_lib());
+    println!("------------------------------");
+    println!("swe2.2");
+    println!("Exit and free memory swephem");
+    handler_swe02::close()
 }

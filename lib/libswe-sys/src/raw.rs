@@ -39,7 +39,7 @@ extern "C" {
     /// /* set name of JPL ephemeris file */
     /// void swe_set_jpl_file(
     ///     char *fname);
-    // pub fn swe_set_jpl_file(fname: *const c_char);
+    pub fn swe_set_jpl_file(fname: *const c_char);
 
     /// 2.4
     /// /* find out version number of your Swiss Ephemeris version */

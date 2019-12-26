@@ -22,6 +22,7 @@ use std::os::raw::c_char;
 /*
  * 2. The Ephemeris file related functions
  */
+
 /// 2.1
 /// Set the path of ephemeris
 pub fn set_ephe_path(path: &str) {
@@ -32,6 +33,25 @@ pub fn set_ephe_path(path: &str) {
     let path_final: *const c_char = c_str.as_ptr() as *const c_char;
     unsafe {
         raw::swe_set_ephe_path(path_final);
+    }
+}
+
+/// 2.2
+/// Close swiss ephemeris, free memory
+pub fn close() {
+    unsafe { raw::swe_close() }
+}
+
+/// 2.3
+/// Set the path of ephemeris for working with JPL file
+pub fn set_jpl_file(fname: &str) {
+    if fname.len() > 255 {
+        panic!("swe 2.3 -> set_jpl_file -> fname to long");
+    }
+    let c_str = CString::new(fname).unwrap();
+    let fname_final: *const c_char = c_str.as_ptr() as *const c_char;
+    unsafe {
+        raw::swe_set_jpl_file(fname_final);
     }
 }
 
