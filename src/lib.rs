@@ -33,18 +33,9 @@ pub extern "C" fn intro() {
 
 /// Return version of api
 #[no_mangle]
-pub extern "C" fn sweversion() -> *mut c_char {
+pub extern "C" fn sweversion() -> *const c_char {
     //CString::new(get_version()).unwrap().into_raw()
     CString::new(handler_swe02::version()).unwrap().into_raw()
-}
-
-/// This code is not detect by lipo
-/// I think &[u8] is not valid
-#[no_mangle]
-pub extern "C" fn example_from_lib(phrase: &[u8]) {
-    let stdout = stdout();
-    let mut writer = BufWriter::new(stdout.lock());
-    ferris_says::say(phrase, 40, &mut writer).unwrap();
 }
 
 /// Unit test
