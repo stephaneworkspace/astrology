@@ -15,21 +15,37 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-/*#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)
-*/
 
 use std::os::raw::c_char;
-
+/// Interface https://www.astro.com/ftp/swisseph/doc/swephprg.htm#_Toc19111156
 #[link(name = "swe")]
 extern "C" {
-    // pub fn swe_test(path: *c_char); // swe_test try
+    /*
+     * 2. The Ephemeris file related functions
+     */
+
+    /// 2.1
+    /// void swe_set_ephe_path(
+    ///     char *path);
     pub fn swe_set_ephe_path(path: *const c_char);
-    // Set location jpl
-    // pub fn swe_set_jpl_file(fname: *const c_char);
-    /// Version
-    pub fn swe_version(s_version: *mut c_char) -> *mut c_char;
-    /// Free memory
+
+    /// 2.2
+    /// /* close Swiss Ephemeris */
+    /// void swe_close(
+    ///     void);
     pub fn swe_close();
+
+    /// 2.3
+    /// /* set name of JPL ephemeris file */
+    /// void swe_set_jpl_file(
+    ///     char *fname);
+    // pub fn swe_set_jpl_file(fname: *const c_char);
+
+    /// 2.4
+    /// /* find out version number of your Swiss Ephemeris version */
+    /// char *swe_version(
+    ///     char *svers);
+    /// /* svers is a string variable with sufficient space to contain the
+    /// version number (255 char) */
+    pub fn swe_version(s_version: *mut c_char) -> *mut c_char;
 }

@@ -15,8 +15,27 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
+use libswe_sys::swerust::handler_swe02;
 use libswe_sys::test_lib;
+use std::env;
 
 fn main() {
+    println!("Swissephem C -> Rust");
+    println!("");
+    println!("------------------------------");
+    println!("");
+
+    // swe02
+    // Setting the path
+    let swe02_path_final = "src/swisseph/sweph";
+    let swe02_path: String =
+        env::var("CARGO_MANIFEST_DIR").unwrap() + swe02_path_final;
+    println!("Set the path of ephemeris to: {}", swe02_path);
+    handler_swe02::set_ephe_path(&swe02_path);
+
+    println!("");
+    println!("------------------------------");
+    println!("");
+
     println!("{}", test_lib());
 }

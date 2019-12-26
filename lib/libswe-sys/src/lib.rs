@@ -19,6 +19,8 @@ use std::env;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 mod raw;
+pub mod swerust;
+
 /// Get version
 pub fn get_version() -> CString {
     // Get the version
