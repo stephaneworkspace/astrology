@@ -5,5 +5,5 @@ use libswe_sys::test_lib;
 
 fn main() {
     example_intro();
-    //example_from_lib(test_lib().as_bytes());
+    example_from_lib(test_lib().as_bytes());
 }

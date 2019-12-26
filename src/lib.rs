@@ -20,7 +20,7 @@ pub extern "C" fn sweversion() -> *mut c_char {
     // get_version().as_ptr()
     CString::new(get_version()).unwrap().into_raw()
 }
-/*
+
 /// This code is not detect by lipo
 /// I think &[u8] is not valid
 #[no_mangle]
@@ -29,7 +29,7 @@ pub extern "C" fn example_from_lib(phrase: &[u8]) {
     let mut writer = BufWriter::new(stdout.lock());
     ferris_says::say(phrase, 40, &mut writer).unwrap();
 }
-*/
+
 /// Unit test
 #[cfg(test)]
 mod tests {
