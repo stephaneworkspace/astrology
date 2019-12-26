@@ -4,7 +4,7 @@
 #cd ../..
 cargo build
 cargo test
-# cargo run --example ferris-astro-example
+cargo run --example ferris-astro-example
 
 # Group binary with lipo
 cargo build --target aarch64-apple-ios

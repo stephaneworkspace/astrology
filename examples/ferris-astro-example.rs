@@ -15,12 +15,7 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-extern crate libswe_sys;
-
-use astro::*;
-use libswe_sys::test_lib;
-
+use astro::intro;
 fn main() {
-    example_intro();
-    example_from_lib(test_lib().as_bytes());
+    intro();
 }
