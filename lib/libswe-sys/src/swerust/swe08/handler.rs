@@ -15,10 +15,22 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-mod swe02;
-mod swe03;
-mod swe08;
+use crate::raw;
+use crate::sweconst::Calandar;
+//use std::ffi::{CStr, CString};
+// use std::os::raw::c_char;
 
-pub use self::swe02::handler as handler_swe02;
-pub use self::swe03::handler as handler_swe03;
-pub use self::swe08::handler as handler_swe08;
+/*
+ * 8. Date and time conversion functions
+ */
+pub fn julday(
+    year: i32,
+    month: i32,
+    day: i32,
+    hour: f64,
+    calandar: Calandar,
+) -> f64 {
+    let result: f64 =
+        unsafe { raw::swe_julday(year, month, day, hour, calandar as i32) };
+    result
+}

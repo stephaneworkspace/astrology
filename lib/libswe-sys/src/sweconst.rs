@@ -92,3 +92,7 @@ pub enum Bodies {
     AsteroidZeus = 10000 + 5731,
     AsteroidNessus = 10000 + 7066,
 }
+pub enum Calandar {
+    Julian = 0,
+    GregoGregoriann = 1,
+}

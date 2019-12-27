@@ -83,4 +83,22 @@ extern "C" {
         xx: *mut c_double,
         serr: *mut c_char,
     ) -> c_int;
+
+    /*
+     * 8. Date and time conversion functions
+     */
+
+    /// double swe_julday(
+    ///     int year,
+    ///     int month,
+    ///     int day,
+    ///     double hour,
+    ///     int gregflag);
+    pub fn swe_julday(
+        year: c_int,
+        month: c_int,
+        day: c_int,
+        hour: c_double,
+        gregflag: c_int,
+    ) -> c_double;
 }
