@@ -19,6 +19,7 @@ use std::os::raw::{c_char, c_double, c_int};
 /// Interface https://www.astro.com/ftp/swisseph/doc/swephprg.htm#_Toc19111156
 #[link(name = "swe")]
 extern "C" {
+
     /*
      * 2. The Ephemeris file related functions
      */
@@ -100,5 +101,27 @@ extern "C" {
         day: c_int,
         hour: c_double,
         gregflag: c_int,
+    ) -> c_double;
+
+    /*
+     * 17. Auxiliary functions
+     */
+
+    /// double swe_split_deg(
+    ///     double ddeg,
+    ///     int32 roundflag,
+    ///     int32 *ideg,
+    ///     int32 *imin,
+    ///     int32 *isec,
+    ///     double *dsecfr,
+    ///     int32 *isgn);
+    pub fn swe_split_deg(
+        ddeg: c_double,
+        roundflag: c_int,
+        ideg: *mut c_int,
+        imin: *mut c_int,
+        isec: *mut c_int,
+        cdegfr: *mut c_double,
+        isgn: *mut c_int,
     ) -> c_double;
 }

@@ -19,8 +19,10 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-use libswe_sys::sweconst::Calandar;
-use libswe_sys::swerust::{handler_swe02, handler_swe08};
+use libswe_sys::sweconst::{Bodies, Calandar};
+use libswe_sys::swerust::{
+    handler_swe02, handler_swe03, handler_swe08, handler_swe17,
+};
 use serde::Deserialize;
 use std::env;
 use std::fs::File;
@@ -37,9 +39,10 @@ pub struct Data {
 
 fn main() {
     println!("Swissephem C -> Rust");
-    let swe02_path_final = "src/swisseph/sweph";
-    let swe02_path: String =
-        env::var("CARGO_MANIFEST_DIR").unwrap() + swe02_path_final;
+    // let swe02_path_final = "/src/swisseph/sweph";
+    // let swe02_path: String =
+    //    env::var("CARGO_MANIFEST_DIR").unwrap() + swe02_path_final;
+    let swe02_path: &str = "/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/sweph/";
     println!("Set the path of ephemeris to: {}", swe02_path);
     handler_swe02::set_ephe_path(&swe02_path);
     println!("Version swephem: {}", handler_swe02::version());
@@ -56,16 +59,22 @@ fn main() {
         .unwrap();
     let data: Data = serde_json::from_str(&s).unwrap();
     println!("Data: {:?}", data);
+    let julday: f64 = handler_swe08::julday(
+        data.year,
+        data.month,
+        data.day,
+        data.hour,
+        Calandar::Julian,
+    );
+    println!("Get julday: {:?}", julday);
+    let calc: handler_swe03::CalcUtResult =
+        handler_swe03::calc_ut(julday, Bodies::Sun, 0);
+    // Check the status in prod ! -> calc_ut
+    println!("CalcUt : {:?}", calc);
     println!(
-        "Get julday: {:?}",
-        handler_swe08::julday(
-            data.year,
-            data.month,
-            data.day,
-            data.hour,
-            Calandar::Julian
-        )
+        "Sun longitude {:?}",
+        handler_swe17::split_deg(calc.longitude, 0)
     );
     println!("Exit and free memory swephem");
-    handler_swe02::close()
+    handler_swe02::close();
 }

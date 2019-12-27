@@ -30,11 +30,6 @@ use std::ffi::{CStr, CString};
  * function makes important initializations. If you don’t do that, the Swiss
  * Ephemeris may work but the results may be not 100% consistent.
  */
-#[derive(Debug)]
-struct CalcResult {
-    serr: String,
-    status: i32,
-}
 
 /*
  * xx
@@ -47,8 +42,19 @@ struct CalcResult {
  * Speed in latitude (deg/day)     speed in declination (deg/day)
  * Speed in distance (AU/day)      speed in distance (AU/day)
  */
+#[derive(Debug)]
+pub struct CalcUtResult {
+    pub longitude: f64,
+    pub latitude: f64,
+    pub distance_au: f64,
+    pub speed_longitude: f64,
+    pub speed_latitude: f64,
+    pub speed_distance_au: f64,
+    pub status: i32,
+    pub serr: String,
+}
 
-pub fn calc_ut(tjd_ut: f64, ipl: Bodies, iflag: i32) {
+pub fn calc_ut(tjd_ut: f64, ipl: Bodies, iflag: i32) -> CalcUtResult {
     let mut xx: [f64; 6] = [0.0; 6];
     let mut serr = [0; 255];
     let result = unsafe {
@@ -59,10 +65,16 @@ pub fn calc_ut(tjd_ut: f64, ipl: Bodies, iflag: i32) {
             .to_str()
             .unwrap()
             .to_string();
-        CalcResult {
+        CalcUtResult {
+            longitude: xx[0],
+            latitude: xx[1],
+            distance_au: xx[2],
+            speed_longitude: xx[3],
+            speed_latitude: xx[4],
+            speed_distance_au: xx[5],
             serr: s_serr,
             status: status,
         }
     };
-    println!("{:?}", result);
+    result
 }
