@@ -36,7 +36,19 @@ struct CalcResult {
     status: i32,
 }
 
-pub fn calc(tjd_ut: f64, ipl: Bodies, iflag: i32) {
+/*
+ * xx
+ *
+ * Ecliptic position               Equatorial position (SEFLG_EQUATORIAL)
+ * Longitude                       right ascension
+ * Latitude                        declination
+ * Distance in AU                  distance in AU
+ * Speed in longitude (deg/day)    speed in right ascension (deg/day)
+ * Speed in latitude (deg/day)     speed in declination (deg/day)
+ * Speed in distance (AU/day)      speed in distance (AU/day)
+ */
+
+pub fn calc_ut(tjd_ut: f64, ipl: Bodies, iflag: i32) {
     let mut xx: [f64; 6] = [0.0; 6];
     let mut serr = [0; 255];
     let result = unsafe {
