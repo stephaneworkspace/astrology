@@ -15,8 +15,4 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-mod swe02;
-mod swe03;
-
-pub use self::swe02::handler as handler_swe02;
-pub use self::swe03::handler as handler_swe03;
+pub mod handler;

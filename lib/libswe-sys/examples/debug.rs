@@ -21,23 +21,19 @@ use std::env;
 fn main() {
     println!("Swissephem C -> Rust");
     println!("------------------------------");
-    println!("swe2.1");
     let swe02_path_final = "src/swisseph/sweph";
     let swe02_path: String =
         env::var("CARGO_MANIFEST_DIR").unwrap() + swe02_path_final;
     println!("Set the path of ephemeris to: {}", swe02_path);
     handler_swe02::set_ephe_path(&swe02_path);
     println!("------------------------------");
-    println!("swe2.4");
     println!("Version swephem: {}", handler_swe02::version());
     println!("------------------------------");
-    println!("swe2.5");
     println!("Get path of library: {}", handler_swe02::get_library_path());
     println!("------------------------------");
     println!("swe3.1");
     println!("------------------------------");
     println!("------------------------------");
-    println!("swe2.2");
     println!("Exit and free memory swephem");
     handler_swe02::close()
 }

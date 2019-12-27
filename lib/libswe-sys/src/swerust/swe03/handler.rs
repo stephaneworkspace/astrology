@@ -15,15 +15,22 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-use crate::raw;
-use std::ffi::{CStr, CString};
-use std::os::raw::c_char;
+// use crate::raw;
+// use std::ffi::{CStr, CString};
+// use std::os::raw::c_char;
 
 /*
- * 2. The Ephemeris file related functions
+ * 3. The functions swe_calc_ut() and swe_calc()
+ *
+ * Before calling one of these functions or any other Swiss Ephemeris function,
+ * it is strongly recommended to call the function swe_set_ephe_path(). Even if
+ * you don’t want to set an ephemeris path and use the Moshier ephemeris, it is
+ * nevertheless recommended to call swe_set_ephe_path(NULL), because this
+ * function makes important initializations. If you don’t do that, the Swiss
+ * Ephemeris may work but the results may be not 100% consistent.
  */
-
-/// Set the path of ephemeris
+/*
+/// The call parameter
 pub fn set_ephe_path(path: &str) {
     if path.len() > 255 {
         panic!("swe 2.1 -> set_ephe_path -> path to long");
@@ -35,11 +42,13 @@ pub fn set_ephe_path(path: &str) {
     }
 }
 
+/// 2.2
 /// Close swiss ephemeris, free memory
 pub fn close() {
     unsafe { raw::swe_close() }
 }
 
+/// 2.3
 /// Set the path of ephemeris for working with JPL file
 pub fn set_jpl_file(fname: &str) {
     if fname.len() > 255 {
@@ -52,6 +61,7 @@ pub fn set_jpl_file(fname: &str) {
     }
 }
 
+/// 2.4
 /// Get version of swiss ephemeris
 pub fn version() -> String {
     // Get the version
@@ -68,6 +78,7 @@ pub fn version() -> String {
     CString::from(v).to_str().unwrap().to_string()
 }
 
+/// 2.5
 /// Get librarx path dll
 pub fn get_library_path() -> String {
     // Get dll path
@@ -82,4 +93,4 @@ pub fn get_library_path() -> String {
         raw::swe_close();
     }
     CString::from(dll).to_str().unwrap().to_string()
-}
+}*/
