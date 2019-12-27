@@ -48,4 +48,12 @@ extern "C" {
     /// /* svers is a string variable with sufficient space to contain the
     /// version number (255 char) */
     pub fn swe_version(s_version: *mut c_char) -> *mut c_char;
+
+    /// 2.5
+    /// /* find out the library path of the DLL or executable */
+    /// char *swe_get_library_path(
+    ///     char *spath);
+    /// /* spath is a string variable with sufficient space to contain the
+    /// library path (255 char) */
+    pub fn swe_get_library_path(spath: *mut c_char) -> *mut c_char;
 }

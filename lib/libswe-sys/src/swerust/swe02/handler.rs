@@ -71,3 +71,20 @@ pub fn version() -> String {
     }
     CString::from(v).to_str().unwrap().to_string()
 }
+
+/// 2.5
+/// Get librarx path dll
+pub fn get_library_path() -> String {
+    // Get dll path
+    let mut dll_path = [0; 255];
+    let dll = unsafe {
+        let p = dll_path.as_mut_ptr();
+        raw::swe_get_library_path(p);
+        CStr::from_ptr(p)
+    };
+    // Memory clean
+    unsafe {
+        raw::swe_close();
+    }
+    CString::from(dll).to_str().unwrap().to_string()
+}
