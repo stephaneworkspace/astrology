@@ -16,9 +16,10 @@
  * commercial license.
  */
 use crate::raw;
-// use std::ffi::{CStr, CString};
-// use std::os::raw::c_char;
 use crate::sweconst::Bodies;
+use std::ffi::{CStr, CString};
+// use std::os::raw::c_char;
+
 /*
  * 3. The functions swe_calc_ut() and swe_calc()
  *
@@ -29,31 +30,27 @@ use crate::sweconst::Bodies;
  * function makes important initializations. If you don’t do that, the Swiss
  * Ephemeris may work but the results may be not 100% consistent.
  */
+#[derive(Debug)]
+struct CalcResult {
+    serr: String,
+    status: i32,
+}
+
 pub fn calc(tjd_ut: f64, ipl: Bodies, iflag: i32) {
     let mut xx: [f64; 6] = [0.0; 6];
     let mut serr = [0; 255];
-    unsafe {
+    let result = unsafe {
         let p_xx = xx.as_mut_ptr();
         let p_serr = serr.as_mut_ptr();
-        raw::swe_calc_ut(tjd_ut, ipl as i32, iflag, p_xx, p_serr);
-    }
-}
-/*
-/// 2.4
-/// Get version of swiss ephemeris
-pub fn version() -> String {
-    // Get the version
-    let mut version = [0; 255];
-    let v = unsafe {
-        let p = version.as_mut_ptr();
-        raw::swe_version(p);
-        CStr::from_ptr(p)
+        let status = raw::swe_calc_ut(tjd_ut, ipl as i32, iflag, p_xx, p_serr);
+        let s_serr = CString::from(CStr::from_ptr(p_serr))
+            .to_str()
+            .unwrap()
+            .to_string();
+        CalcResult {
+            serr: s_serr,
+            status: status,
+        }
     };
-    // Memory clean
-    unsafe {
-        raw::swe_close();
-    }
-    CString::from(v).to_str().unwrap().to_string()
+    println!("{:?}", result);
 }
-
-}*/
