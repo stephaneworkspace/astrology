@@ -31,6 +31,12 @@ fn main() {
     println!("swe2.4");
     println!("Version swephem: {}", handler_swe02::version());
     println!("------------------------------");
+    println!("swe2.5");
+    println!("Get path of library: {}", handler_swe02::get_library_path());
+    println!("------------------------------");
+    println!("swe3.1");
+    println!("------------------------------");
+    println!("------------------------------");
     println!("swe2.2");
     println!("Exit and free memory swephem");
     handler_swe02::close()
