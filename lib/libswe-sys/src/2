@@ -31,7 +31,7 @@ use crate::sweconst::Bodies;
  */
 pub fn calc(tjd_ut: f64, ipl: Bodies, iflag: i32) {
     let mut xx: [f64; 6] = [0.0; 6];
-    let mut serr = [0; 255];
+    let mut serr = [0;, 255];
     unsafe {
         let p_xx = xx.as_mut_ptr();
         let p_serr = serr.as_mut_ptr();

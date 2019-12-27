@@ -61,10 +61,6 @@ pub fn version() -> String {
         raw::swe_version(p);
         CStr::from_ptr(p)
     };
-    // Memory clean
-    unsafe {
-        raw::swe_close();
-    }
     CString::from(v).to_str().unwrap().to_string()
 }
 
@@ -77,9 +73,5 @@ pub fn get_library_path() -> String {
         raw::swe_get_library_path(p);
         CStr::from_ptr(p)
     };
-    // Memory clean
-    unsafe {
-        raw::swe_close();
-    }
     CString::from(dll).to_str().unwrap().to_string()
 }

@@ -16,4 +16,5 @@
  * commercial license.
  */
 mod raw;
+pub mod sweconst;
 pub mod swerust;
