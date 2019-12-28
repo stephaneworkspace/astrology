@@ -86,6 +86,24 @@ extern "C" {
     ) -> c_int;
 
     /*
+     * 7. Eclipses, risings, settings, meridian transits, planetary phenomena
+     */
+
+    /// int32 swe_pheno_ut(
+    ///     double tjd_ut,       /* time Jul. Day UT */
+    ///     int32 ipl,           /* planet number */
+    ///     int32 iflag,         /* ephemeris flag */
+    ///     double *attr,        /* return array, 20 doubles, see below */
+    ///     char *serr);         /* return error string */
+    pub fn swe_pheno_ut(
+        tjd_ut: c_double,
+        ipl: c_int,
+        iflag: c_int,
+        atr: *mut c_double,
+        serr: *mut c_char,
+    ) -> c_int;
+
+    /*
      * 8. Date and time conversion functions
      */
 

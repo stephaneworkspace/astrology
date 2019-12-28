@@ -18,7 +18,6 @@
 use crate::raw;
 use crate::sweconst::Bodies;
 use std::ffi::{CStr, CString};
-// use std::os::raw::c_char;
 
 /*
  * 3. The functions swe_calc_ut() and swe_calc()
