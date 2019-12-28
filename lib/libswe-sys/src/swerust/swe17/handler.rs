@@ -23,6 +23,14 @@ use crate::raw;
 /*
  * 17. Auxilliary functions
  */
+pub fn degnorm(x: f64) -> f64 {
+    unsafe { raw::swe_degnorm(x) }
+}
+
+pub fn radnorm(x: f64) -> f64 {
+    unsafe { raw::swe_radnorm(x) }
+}
+
 #[derive(Debug)]
 pub struct SplitDegResult {
     string_result: String,

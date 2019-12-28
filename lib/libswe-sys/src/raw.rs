@@ -107,6 +107,12 @@ extern "C" {
      * 17. Auxiliary functions
      */
 
+    /// double swe_degnorm(double x);
+    pub fn swe_degnorm(x: c_double) -> c_double;
+
+    /// double swe_radnorm(double x);
+    pub fn swe_radnorm(x: c_double) -> c_double;
+
     /// double swe_split_deg(
     ///     double ddeg,
     ///     int32 roundflag,
