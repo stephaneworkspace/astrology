@@ -59,24 +59,17 @@ fn main() {
         .unwrap();
     let data: Data = serde_json::from_str(&s).unwrap();
     println!("Data: {:?}", data);
-    let julday: f64 = handler_swe08::julday(
-        data.year,
-        data.month,
-        data.day,
-        data.hour,
-        Calandar::Julian,
-    );
+    let julday: f64 =
+        handler_swe08::julday(data.year, data.month, data.day, data.hour, Calandar::Julian);
     println!("Get julday: {:?}", julday);
-    let calc: handler_swe03::CalcUtResult =
-        handler_swe03::calc_ut(julday, Bodies::Sun, 0);
+    let calc: handler_swe03::CalcUtResult = handler_swe03::calc_ut(julday, Bodies::Sun, 0);
     // Check the status in prod ! -> calc_ut
     println!("CalcUt : {:?}", calc);
     println!(
         "Sun longitude raw from calc_ut{:?}",
         handler_swe17::split_deg(calc.longitude, 0)
     );
-    let pheno_ut: handler_swe07::PhenoUtResult =
-        handler_swe07::pheno_ut(julday, Bodies::Sun, 0);
+    let pheno_ut: handler_swe07::PhenoUtResult = handler_swe07::pheno_ut(julday, Bodies::Sun, 0);
     println!("PhenoUt : {:?}", pheno_ut);
     println!("Exit and free memory swephem");
     handler_swe02::close();

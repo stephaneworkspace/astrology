@@ -92,7 +92,47 @@ pub enum Bodies {
     AsteroidZeus = 10000 + 5731,
     AsteroidNessus = 10000 + 7066,
 }
+
 pub enum Calandar {
     Julian = 0,
     GregoGregoriann = 1,
+}
+
+/// I have put in enum only the most important houses methods
+pub enum HouseSystem {
+    Campanus,
+    Equal,
+    Koch,
+    Placidus,
+    Porphyrius,
+    Regiomontanus,
+    WholeSign,
+}
+
+impl HouseSystem {
+    /// Return unit for call in c
+    fn hsys(self) -> char {
+        match self {
+            HouseSystem::Campanus => 'C',
+            HouseSystem::Equal => 'E',
+            HouseSystem::Koch => 'K',
+            HouseSystem::Placidus => 'P',
+            HouseSystem::Porphyrius => 'O',
+            HouseSystem::Regiomontanus => 'R',
+            HouseSystem::WholeSign => 'W',
+        }
+    }
+
+    /// Return name of house in english
+    fn name(self) -> &'static str {
+        match self {
+            HouseSystem::Campanus => "Campanus",
+            HouseSystem::Equal => "Equal",
+            HouseSystem::Koch => "Koch",
+            HouseSystem::Placidus => "Placidus",
+            HouseSystem::Porphyrius => "Porphyrius",
+            HouseSystem::Regiomontanus => "Regiomontanus",
+            HouseSystem::WholeSign => "Whole sign",
+        }
+    }
 }
