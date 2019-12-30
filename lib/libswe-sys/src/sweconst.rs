@@ -98,6 +98,32 @@ pub enum Calandar {
     Gregorian = 1,
 }
 
+pub enum OptionalFlag {
+    JplEph = 1,
+    SwissEph = 2,
+    Moshier = 4,
+    Heliocentric = 8,
+    TruePosition = 16,
+    J2000Equinox = 32,
+    NoNutation = 64,
+    Speed3 = 128,
+    Speed = 256,
+    NoGravitanionalDeflection = 512,
+    NoAnnualAberration = 1024,
+    AstronomicPosition = 1024 | 512,
+    // AstronomicPosition = OptionalFlag::NoAnnualAberration
+    //     | OptionalFlag::NoGravitanionalDeflection,
+    EquatorialPosition = 2 * 1024,
+    XYZCartesianNotPolarCoordinate = 4 * 1024,
+    Radians = 8 * 1024,
+    BarycentricPosition = 16 * 1024,
+    TopocentricPosition = 32 * 1024,
+    SideralPosition = 64 * 1024,
+    ICRS = 128 * 1024,
+    Dpsideps1980 = 256 * 1024,
+    JplHorApprox = 512 * 1024,
+}
+
 /// I have put in enum only the most important houses methods
 pub enum HouseSystem {
     Campanus,

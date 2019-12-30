@@ -20,7 +20,7 @@ extern crate serde_derive;
 extern crate serde_json;
 
 //use libswe_sys::sweconst::{Bodies, Calandar, HouseSystem};
-use libswe_sys::sweconst::{Bodies, Calandar};
+use libswe_sys::sweconst::{Bodies, Calandar, OptionalFlag};
 use libswe_sys::swerust::{
     handler_swe02, handler_swe03, handler_swe07, handler_swe08, handler_swe14,
     handler_swe17,
@@ -77,8 +77,11 @@ fn main() {
         "Sun longitude raw from calc_ut{:?}",
         handler_swe17::split_deg(calc.longitude, 0)
     );
-    let pheno_ut: handler_swe07::PhenoUtResult =
-        handler_swe07::pheno_ut(julday, Bodies::Sun, 0);
+    let pheno_ut: handler_swe07::PhenoUtResult = handler_swe07::pheno_ut(
+        julday,
+        Bodies::Sun,
+        OptionalFlag::Speed as i32,
+    );
     println!("PhenoUt: {:?}", pheno_ut);
 
     // let hsys = HouseSystem::Placidus;
