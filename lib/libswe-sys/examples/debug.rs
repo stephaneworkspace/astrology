@@ -66,7 +66,7 @@ fn main() {
         data.month,
         data.day,
         data.hour,
-        Calandar::Julian,
+        Calandar::Gregorian,
     );
     println!("Get julday: {:?}", julday);
     let calc: handler_swe03::CalcUtResult =

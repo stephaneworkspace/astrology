@@ -95,7 +95,7 @@ pub enum Bodies {
 
 pub enum Calandar {
     Julian = 0,
-    GregoGregoriann = 1,
+    Gregorian = 1,
 }
 
 /// I have put in enum only the most important houses methods
