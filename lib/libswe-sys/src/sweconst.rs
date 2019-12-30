@@ -96,6 +96,116 @@ pub enum Bodies {
     AsteroidNessus = 10000 + 7066,
 }
 
+// Don't forgot to remove in exemple this structure
+#[derive(Debug, PartialEq, Display, EnumIter)]
+pub enum ObjectType {
+    Unknown,
+    PlanetOrStar,
+    Earth,
+    Fiction,
+    Asteroid,
+}
+
+impl Bodies {
+    pub fn object_type(self) -> ObjectType {
+        match self {
+            Bodies::EclNut => ObjectType::Unknown,
+            Bodies::Sun => ObjectType::PlanetOrStar,
+            Bodies::Moon => ObjectType::PlanetOrStar,
+            Bodies::Mercury => ObjectType::PlanetOrStar,
+            Bodies::Venus => ObjectType::PlanetOrStar,
+            Bodies::Mars => ObjectType::PlanetOrStar,
+            Bodies::Jupiter => ObjectType::PlanetOrStar,
+            Bodies::Saturn => ObjectType::PlanetOrStar,
+            Bodies::Uranus => ObjectType::PlanetOrStar,
+            Bodies::Neptune => ObjectType::PlanetOrStar,
+            Bodies::Pluto => ObjectType::PlanetOrStar,
+            Bodies::MeanNode => ObjectType::PlanetOrStar,
+            Bodies::TrueNode => ObjectType::PlanetOrStar,
+            Bodies::MeanApog => ObjectType::PlanetOrStar,
+            Bodies::OscuApog => ObjectType::PlanetOrStar,
+            Bodies::Earth => ObjectType::Earth,
+            Bodies::Chiron => ObjectType::Fiction,
+            Bodies::Pholus => ObjectType::Fiction,
+            Bodies::Ceres => ObjectType::Fiction,
+            Bodies::Pallas => ObjectType::Fiction,
+            Bodies::Juno => ObjectType::Fiction,
+            Bodies::Vesta => ObjectType::Fiction,
+            Bodies::IntpApog => ObjectType::Fiction,
+            Bodies::IntpPerg => ObjectType::Fiction,
+            Bodies::NPlanets => ObjectType::Fiction,
+            Bodies::Cupido => ObjectType::Fiction,
+            Bodies::Hades => ObjectType::Fiction,
+            Bodies::Zeus => ObjectType::Fiction,
+            Bodies::Kronos => ObjectType::Fiction,
+            Bodies::Apollon => ObjectType::Fiction,
+            Bodies::Admetos => ObjectType::Fiction,
+            Bodies::Vulkanus => ObjectType::Fiction,
+            Bodies::Poseidon => ObjectType::Fiction,
+            Bodies::Isis => ObjectType::Fiction,
+            Bodies::Nibiru => ObjectType::Fiction,
+            Bodies::Harrington => ObjectType::Fiction,
+            Bodies::NeptuneLeverrier => ObjectType::Fiction,
+            Bodies::NeptuneAdams => ObjectType::Fiction,
+            Bodies::PlutoLowell => ObjectType::Fiction,
+            Bodies::PlutoPickering => ObjectType::Fiction,
+            Bodies::AsteroidAstera => ObjectType::Asteroid,
+            Bodies::AsteroidHebe => ObjectType::Asteroid,
+            Bodies::AsteroidIris => ObjectType::Asteroid,
+            Bodies::AsteroidFlora => ObjectType::Asteroid,
+            Bodies::AsteroidMetis => ObjectType::Asteroid,
+            Bodies::AsteroidHygiea => ObjectType::Asteroid,
+            Bodies::AsteroidUrania => ObjectType::Asteroid,
+            Bodies::AsteroidIsis => ObjectType::Asteroid,
+            Bodies::AsteroidHilda => ObjectType::Asteroid,
+            Bodies::AsteroidPhilosophia => ObjectType::Asteroid,
+            Bodies::AsteroidSophia => ObjectType::Asteroid,
+            Bodies::AsteroidAletheia => ObjectType::Asteroid,
+            Bodies::AsteroidSapientia => ObjectType::Asteroid,
+            Bodies::AsteroidThule => ObjectType::Asteroid,
+            Bodies::AsteroidUrsula => ObjectType::Asteroid,
+            Bodies::AsteroidEros => ObjectType::Asteroid,
+            Bodies::AsteroidCupido => ObjectType::Asteroid,
+            Bodies::AsteroidHidalgo => ObjectType::Asteroid,
+            Bodies::AsteroidLilith => ObjectType::Asteroid,
+            Bodies::AsteroidAmor => ObjectType::Asteroid,
+            Bodies::AsteroidKama => ObjectType::Asteroid,
+            Bodies::AsteroidAphrodite => ObjectType::Asteroid,
+            Bodies::AsteroidApollo => ObjectType::Asteroid,
+            Bodies::AsteroidDamocles => ObjectType::Asteroid,
+            Bodies::AsteroidCruithne => ObjectType::Asteroid,
+            Bodies::AsteroidPoseidon => ObjectType::Asteroid,
+            Bodies::AsteroidVulcano => ObjectType::Asteroid,
+            Bodies::AsteroidZeus => ObjectType::Asteroid,
+            Bodies::AsteroidNessus => ObjectType::Asteroid,
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct Object {
+    object_name: String,
+    object_type: ObjectType,
+    longitude: f64,
+    latitude: f64,
+}
+
+impl Object {
+    pub fn new(
+        object_name: &str,
+        object_type: ObjectType,
+        longitude: f64,
+        latitude: f64,
+    ) -> Object {
+        Object {
+            object_name: object_name.to_string(),
+            object_type: object_type,
+            longitude: longitude,
+            latitude: latitude,
+        }
+    }
+}
+
 pub enum Calandar {
     Julian = 0,
     Gregorian = 1,
