@@ -108,7 +108,7 @@ pub enum HouseSystem {
     Regiomontanus,
     WholeSign,
 }
-
+/*
 impl HouseSystem {
     /// Return unit for call in c
     fn hsys(self) -> char {
@@ -135,4 +135,4 @@ impl HouseSystem {
             HouseSystem::WholeSign => "Whole sign",
         }
     }
-}
+}*/

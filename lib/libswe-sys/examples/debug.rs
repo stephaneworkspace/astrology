@@ -19,9 +19,11 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
+//use libswe_sys::sweconst::{Bodies, Calandar, HouseSystem};
 use libswe_sys::sweconst::{Bodies, Calandar};
 use libswe_sys::swerust::{
-    handler_swe02, handler_swe03, handler_swe07, handler_swe08, handler_swe17,
+    handler_swe02, handler_swe03, handler_swe07, handler_swe08, handler_swe14,
+    handler_swe17,
 };
 use serde::Deserialize;
 use std::env;
@@ -59,18 +61,34 @@ fn main() {
         .unwrap();
     let data: Data = serde_json::from_str(&s).unwrap();
     println!("Data: {:?}", data);
-    let julday: f64 =
-        handler_swe08::julday(data.year, data.month, data.day, data.hour, Calandar::Julian);
+    let julday: f64 = handler_swe08::julday(
+        data.year,
+        data.month,
+        data.day,
+        data.hour,
+        Calandar::Julian,
+    );
     println!("Get julday: {:?}", julday);
-    let calc: handler_swe03::CalcUtResult = handler_swe03::calc_ut(julday, Bodies::Sun, 0);
+    let calc: handler_swe03::CalcUtResult =
+        handler_swe03::calc_ut(julday, Bodies::Sun, 0);
     // Check the status in prod ! -> calc_ut
-    println!("CalcUt : {:?}", calc);
+    println!("CalcUt: {:?}", calc);
     println!(
         "Sun longitude raw from calc_ut{:?}",
         handler_swe17::split_deg(calc.longitude, 0)
     );
-    let pheno_ut: handler_swe07::PhenoUtResult = handler_swe07::pheno_ut(julday, Bodies::Sun, 0);
-    println!("PhenoUt : {:?}", pheno_ut);
+    let pheno_ut: handler_swe07::PhenoUtResult =
+        handler_swe07::pheno_ut(julday, Bodies::Sun, 0);
+    println!("PhenoUt: {:?}", pheno_ut);
+
+    // let hsys = HouseSystem::Placidus;
+    let name = handler_swe14::house_name('P');
+    println!("Hsys: {}", name);
+
+    let result =
+        handler_swe14::houses(julday, calc.longitude, calc.latitude, 'P');
+    println!("House object: {:?}", result);
+
     println!("Exit and free memory swephem");
     handler_swe02::close();
 }

@@ -122,6 +122,30 @@ extern "C" {
     ) -> c_double;
 
     /*
+     * 14. House cups calculation
+     */
+
+    /// int swe_house_names(
+    ///     int hsys);
+    pub fn swe_house_name(hsys: c_int) -> *mut c_char;
+
+    /// int swe_houses(
+    ///     double tjd_ut,
+    ///     double geolat,
+    ///     double geolon,
+    ///     int hsys,
+    ///     double *cusps,
+    ///     double *ascmc);
+    pub fn swe_houses(
+        tjd_ut: c_double,
+        geolat: c_double,
+        geolon: c_double,
+        hysy: c_int,
+        cusps: *mut c_double,
+        ascmc: *mut c_double,
+    ) -> c_int;
+
+    /*
      * 17. Auxiliary functions
      */
 
