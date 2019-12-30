@@ -18,6 +18,40 @@
 extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
+extern crate strum;
+#[macro_use]
+extern crate strum_macros;
+
+use strum::{AsStaticRef, IntoEnumIterator};
+
+#[derive(Debug, Display, EnumIter)]
+pub enum ObjectType {
+    Planet,
+}
+
+#[derive(Debug)]
+pub struct Object {
+    object_name: String,
+    object_type: ObjectType,
+    longitude: f64,
+    latitude: f64,
+}
+
+impl Object {
+    fn new(
+        object_name: &str,
+        object_type: ObjectType,
+        longitude: f64,
+        latitude: f64,
+    ) -> Object {
+        Object {
+            object_name: object_name.to_string(),
+            object_type: object_type,
+            longitude: longitude,
+            latitude: latitude,
+        }
+    }
+}
 
 //use libswe_sys::sweconst::{Bodies, Calandar, HouseSystem};
 use libswe_sys::sweconst::{Bodies, Calandar, OptionalFlag};
@@ -69,6 +103,27 @@ fn main() {
         Calandar::Gregorian,
     );
     println!("Get julday: {:?}", julday);
+
+    let mut object: Vec<Object> = Vec::new();
+    let mut calc: handler_swe03::CalcUtResult;
+    for bodies in Bodies::iter() {
+        calc = handler_swe03::calc_ut(
+            julday,
+            bodies.clone(),
+            OptionalFlag::Speed as i32,
+        );
+        object.push(Object::new(
+            bodies.clone().as_static(),
+            ObjectType::Planet,
+            calc.longitude,
+            calc.latitude,
+        ));
+    }
+
+    for o in object {
+        println!("{:?}", o);
+    }
+
     let calc: handler_swe03::CalcUtResult =
         handler_swe03::calc_ut(julday, Bodies::Sun, 0);
     // Check the status in prod ! -> calc_ut

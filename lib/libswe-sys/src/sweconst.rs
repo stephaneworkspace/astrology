@@ -15,6 +15,9 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
+extern crate strum;
+
+#[derive(Debug, Clone, Display, EnumIter, AsStaticStr)]
 pub enum Bodies {
     EclNut = -1,
     Sun = 0,

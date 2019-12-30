@@ -15,6 +15,9 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
+extern crate strum;
+#[macro_use]
+extern crate strum_macros;
 mod raw;
 pub mod sweconst;
 pub mod swerust;
