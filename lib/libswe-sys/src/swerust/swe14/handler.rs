@@ -53,8 +53,9 @@ pub fn houses(
     let result: i32 = unsafe {
         let p_cuspsw = cusps.as_mut_ptr();
         let p_ascmc = ascmc.as_mut_ptr();
-        raw::swe_houses(
+        raw::swe_houses_ex(
             tjd_ut,
+            0, //| (64 * 1024),
             geolat,
             geolong,
             hsys as c_int,

@@ -121,6 +121,48 @@ extern "C" {
         gregflag: c_int,
     ) -> c_double;
 
+    /// void swe_utc_time_zone(
+    ///     int32 iyear, int32 imonth, int32 iday,
+    ///     int32 ihour, int32 imin, double dsec,
+    ///     double d_timezone,
+    ///     int32 *iyear_out, int32 *imonth_out, int32 *iday_out,
+    ///     int32 *ihour_out, int32 *imin_out, double *dsec_out);
+    pub fn swe_utc_time_zone(
+        iyear: c_int,
+        imonth: c_int,
+        iday: c_int,
+        ihour: c_int,
+        imin: c_int,
+        dsec: c_double,
+        d_timezone: c_double,
+        iyear_out: *mut c_int,
+        imonth_out: *mut c_int,
+        iday_out: *mut c_int,
+        ihour_out: *mut c_int,
+        imin_out: *mut c_int,
+        dsec_out: *mut c_double,
+    );
+
+    /// int32 swe_utc_to_jd(
+    /// int32 iyear, int32 imonth, int32 iday,
+    /// int32 ihour, int32 imin, double dsec,          /* NOTE: second is a decimal */
+    /// gregflag,            /* Gregorian calendar: 1, Julian calendar: 0 */
+    /// dret                 /* return array, two doubles:
+    ///                       * dret[0] = Julian day in ET (TT)
+    ///                       * dret[1] = Julian day in UT (UT1) */
+    /// serr);               /* error string */
+    pub fn swe_utc_to_jd(
+        iyear: c_int,
+        imonth: c_int,
+        iday: c_int,
+        ihour: c_int,
+        imin: c_int,
+        dsec: c_double,
+        gregflag: c_int,
+        dret: *mut c_double,
+        serr: *mut c_char,
+    ) -> c_int;
+
     /*
      * 14. House cups calculation
      */
@@ -129,15 +171,17 @@ extern "C" {
     ///     int hsys);
     pub fn swe_house_name(hsys: c_int) -> *mut c_char;
 
-    /// int swe_houses(
+    /// int swe_houses_ex(
     ///     double tjd_ut,
+    ///     int32 iflag,
     ///     double geolat,
     ///     double geolon,
     ///     int hsys,
     ///     double *cusps,
     ///     double *ascmc);
-    pub fn swe_houses(
+    pub fn swe_houses_ex(
         tjd_ut: c_double,
+        iflag: c_int,
         geolat: c_double,
         geolon: c_double,
         hsys: c_int,
