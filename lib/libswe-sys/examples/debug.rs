@@ -45,7 +45,10 @@ pub struct Data {
     year: i32,
     month: i32,
     day: i32,
-    hour: f64,
+    hourf64: f64,
+    hour: i32,
+    min: i32,
+    sec: f64,
     lat: f64,
     lng: f64,
 }
@@ -76,7 +79,7 @@ fn main() {
         data.year,
         data.month,
         data.day,
-        data.hour,
+        data.hourf64,
         Calandar::Gregorian,
     );
     println!("Get julday: {:?}", julday);
@@ -114,7 +117,26 @@ fn main() {
     let name = handler_swe14::house_name('P');
     println!("Hsys: {}", name);
 
-    let result = handler_swe14::houses(julday, data.lng, data.lat, 'P');
+    let utc_time_zone: handler_swe08::UtcTimeZoneResult =
+        handler_swe08::utc_time_zone(
+            data.year, data.month, data.day, data.hour, data.min, data.sec, 2.0,
+        );
+    println!("utc_time_zone: {:?}", utc_time_zone);
+
+    let utc_to_jd: handler_swe08::UtcToJdResult = handler_swe08::utc_to_jd(
+        data.year,
+        data.month,
+        data.day,
+        data.hour,
+        data.min,
+        data.sec,
+        Calandar::Gregorian,
+    );
+    println!("utc_to_jd: {:?}", utc_to_jd);
+
+    // let result = handler_swe14::houses(julday, data.lng, data.lat, 'P');
+    let result =
+        handler_swe14::houses(utc_to_jd.julian_day_ut, data.lng, data.lat, 'P');
     //println!("House object: {:?}", result);
     let mut house: Vec<House> = Vec::new();
     for (i, res) in result.clone().cusps.iter().enumerate() {

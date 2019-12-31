@@ -108,19 +108,23 @@ pub fn utc_to_jd(
     hour: i32,
     min: i32,
     sec: f64,
-    sw_gregorian: bool, // To do in other file same struc swe 3
+    calandar: Calandar,
 ) -> UtcToJdResult {
     let mut dret = [0.0; 2];
     let mut serr = [0; 255];
     unsafe {
         let p_dret = dret.as_mut_ptr();
         let p_serr = serr.as_mut_ptr();
-        let mut sw = 0;
-        if sw_gregorian == true {
-            sw = 1;
-        }
         let result = raw::swe_utc_to_jd(
-            year, month, day, hour, min, sec, sw, p_dret, p_serr,
+            year,
+            month,
+            day,
+            hour,
+            min,
+            sec,
+            calandar as i32,
+            p_dret,
+            p_serr,
         );
         let s_serr = CString::from(CStr::from_ptr(p_serr))
             .to_str()
