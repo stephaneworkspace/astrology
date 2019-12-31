@@ -33,7 +33,7 @@ pub fn radnorm(x: f64) -> f64 {
 
 #[derive(Debug)]
 pub struct SplitDegResult {
-    string_result: String,
+    print: String,
     deg: i32,
     min: i32,
     sec: i32,
@@ -67,7 +67,7 @@ pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
         sec[0],
     );
     SplitDegResult {
-        string_result: string_result,
+        print: string_result,
         deg: deg[0],
         min: min[0],
         sec: sec[0],

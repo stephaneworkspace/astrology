@@ -15,7 +15,10 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
+extern crate math;
 extern crate strum;
+use crate::swerust::handler_swe17;
+use math::round;
 
 #[derive(Debug, Clone, Display, EnumIter, AsStaticStr)]
 pub enum Bodies {
@@ -188,6 +191,7 @@ pub struct Object {
     object_type: ObjectType,
     longitude: f64,
     latitude: f64,
+    longitude_deg: handler_swe17::SplitDegResult,
 }
 
 impl Object {
@@ -197,11 +201,15 @@ impl Object {
         longitude: f64,
         latitude: f64,
     ) -> Object {
+        let house_calc = round::floor(longitude.clone() / 30.0, 0);
+        let long_30 = (house_calc * 30.0) - longitude.clone();
         Object {
             object_name: object_name.to_string(),
             object_type: object_type,
             longitude: longitude,
             latitude: latitude,
+            longitude_deg: handler_swe17::split_deg(long_30, 0),
+            // longitude_deg: handler_swe17::split_deg(longitude, 0),
         }
     }
 }

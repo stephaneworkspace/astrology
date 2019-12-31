@@ -28,7 +28,6 @@ use libswe_sys::sweconst::{
 };
 use libswe_sys::swerust::{
     handler_swe02, handler_swe03, handler_swe07, handler_swe08, handler_swe14,
-    handler_swe17,
 };
 use serde::Deserialize;
 use std::env;
@@ -42,6 +41,8 @@ pub struct Data {
     month: i32,
     day: i32,
     hour: f64,
+    lat: f64,
+    lng: f64,
 }
 
 fn main() {
@@ -97,14 +98,6 @@ fn main() {
         println!("{:?}", o);
     }
 
-    let calc: handler_swe03::CalcUtResult =
-        handler_swe03::calc_ut(julday, Bodies::Sun, 0);
-    // Check the status in prod ! -> calc_ut
-    println!("CalcUt: {:?}", calc);
-    println!(
-        "Sun longitude raw from calc_ut{:?}",
-        handler_swe17::split_deg(calc.longitude, 0)
-    );
     let pheno_ut: handler_swe07::PhenoUtResult = handler_swe07::pheno_ut(
         julday,
         Bodies::Sun,
@@ -116,8 +109,7 @@ fn main() {
     let name = handler_swe14::house_name('P');
     println!("Hsys: {}", name);
 
-    let result =
-        handler_swe14::houses(julday, calc.longitude, calc.latitude, 'P');
+    let result = handler_swe14::houses(julday, data.lng, data.lat, 'P');
     println!("House object: {:?}", result);
 
     println!("Exit and free memory swephem");
