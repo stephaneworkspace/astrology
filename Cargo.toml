@@ -8,11 +8,15 @@ build = "build.rs"
 [lib]
 crate-type = ["lib", "staticlib"]
 
+[[bin]]
+name = "yew"
+path = "src/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 ferris-says = "0.1"
 libswe-sys = { path = "lib/libswe-sys" }
+yew = "0.10.0"
 
 [build-dependencies]
 cbindgen = "0.12"
