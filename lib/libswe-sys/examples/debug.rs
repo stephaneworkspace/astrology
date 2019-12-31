@@ -118,9 +118,11 @@ fn main() {
     //println!("House object: {:?}", result);
     let mut house: Vec<House> = Vec::new();
     for (i, res) in result.clone().cusps.iter().enumerate() {
-        house.push(House::new(i as i32 + 1, res.clone()));
-        if i + 1 > 12 {
-            break;
+        if i > 0 {
+            house.push(House::new(i as i32, res.clone()));
+            if i + 1 > 12 {
+                break;
+            }
         }
     }
 
