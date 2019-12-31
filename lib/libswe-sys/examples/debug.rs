@@ -124,19 +124,24 @@ fn main() {
     println!("utc_time_zone: {:?}", utc_time_zone);
 
     let utc_to_jd: handler_swe08::UtcToJdResult = handler_swe08::utc_to_jd(
-        data.year,
-        data.month,
-        data.day,
-        data.hour,
-        data.min,
-        data.sec,
+        utc_time_zone.year[0],
+        utc_time_zone.month[0],
+        utc_time_zone.day[0],
+        utc_time_zone.hour[0],
+        utc_time_zone.min[0],
+        utc_time_zone.sec[0],
+        /*utc_time_zone.year[1],
+        utc_time_zone.month[1],
+        utc_time_zone.day[1],
+        utc_time_zone.hour[1],
+        utc_time_zone.min[1],
+        utc_time_zone.sec[1],*/
         Calandar::Gregorian,
     );
     println!("utc_to_jd: {:?}", utc_to_jd);
 
-    // let result = handler_swe14::houses(julday, data.lng, data.lat, 'P');
     let result =
-        handler_swe14::houses(utc_to_jd.julian_day_ut, data.lng, data.lat, 'P');
+        handler_swe14::houses(utc_to_jd.julian_day_ut, data.lat, data.lng, 'P');
     //println!("House object: {:?}", result);
     let mut house: Vec<House> = Vec::new();
     for (i, res) in result.clone().cusps.iter().enumerate() {
@@ -152,16 +157,6 @@ fn main() {
         println!("{:?}", h);
     }
     println!("House: {:?}", result.clone());
-    /*
-     * #[derive(Debug)]
-    pub struct HousesResult {
-        // cusps: [f64; 37], // Limtation to 32 ->
-        // /* array for 13 (or 37 for system G) doubles */
-        cusps: Vec<f64>,
-        ascmc: [f64; 10],
-        result: i32,
-    }
-    */
 
     println!("Exit and free memory swephem");
     handler_swe02::close();

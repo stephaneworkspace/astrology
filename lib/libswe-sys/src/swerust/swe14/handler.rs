@@ -55,7 +55,7 @@ pub fn houses(
         let p_ascmc = ascmc.as_mut_ptr();
         raw::swe_houses_ex(
             tjd_ut,
-            64 | (64 * 1024),
+            0, // 64 | (64 * 1024),
             geolat,
             geolong,
             hsys as c_int,
