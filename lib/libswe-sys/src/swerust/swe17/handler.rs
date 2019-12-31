@@ -78,14 +78,12 @@ pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
         sec[0],
     );
     let mut sign = Signs::Aries;
-    let mut i = 0;
-    for s in Signs::iter() {
-        i += 1;
-        if i == sign_calc as i32 {
+    for (i, s) in Signs::iter().enumerate() {
+        if (i + 1) as i32 == sign_calc {
             sign = s;
             break;
         }
-    }
+    } 
     SplitDegResult {
         print: print,
         deg: deg[0],
