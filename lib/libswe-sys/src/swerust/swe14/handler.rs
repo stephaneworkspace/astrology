@@ -33,13 +33,13 @@ pub fn house_name(hsys: char) -> String {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct HousesResult {
     // cusps: [f64; 37], // Limtation to 32 ->
     // /* array for 13 (or 37 for system G) doubles */
-    cusps: Vec<f64>,
-    ascmc: [f64; 10],
-    result: i32,
+    pub cusps: Vec<f64>,
+    pub ascmc: [f64; 10],
+    pub result: i32,
 }
 
 pub fn houses(

@@ -50,7 +50,7 @@ pub struct SplitDegResult {
 /// isgn return me always 0 ? I compute this value manualy
 pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
     // Convert deg to sign 30°
-    let sign_calc = round::half_up(ddeg / 30.0, 0) as i32;
+    let sign_calc = round::floor(ddeg / 30.0, 0) as usize;
     let house_calc = round::floor(ddeg / 30.0, 0);
     let long_30 = (house_calc as f64 * 30.0) - ddeg;
     // Call c library
@@ -77,13 +77,6 @@ pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
         "'",
         sec[0],
     );
-    let mut sign = Signs::Aries;
-    for (i, s) in Signs::iter().enumerate() {
-        if (i + 1) as i32 == sign_calc {
-            sign = s;
-            break;
-        }
-    } 
     SplitDegResult {
         print: print,
         deg: deg[0],
@@ -91,7 +84,7 @@ pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
         sec: sec[0],
         cdegfr: cdegfr[0],
         // isgn: isgn[0],
-        sign: sign,
+        sign: Signs::iter().nth(sign_calc).unwrap(),
         result: result,
     }
 }

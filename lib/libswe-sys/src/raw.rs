@@ -140,7 +140,7 @@ extern "C" {
         tjd_ut: c_double,
         geolat: c_double,
         geolon: c_double,
-        hysy: c_int,
+        hsys: c_int,
         cusps: *mut c_double,
         ascmc: *mut c_double,
     ) -> c_int;

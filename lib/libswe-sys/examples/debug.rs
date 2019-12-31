@@ -24,10 +24,15 @@ use strum::{AsStaticRef, IntoEnumIterator};
 
 //use libswe_sys::sweconst::{Bodies, Calandar, HouseSystem};
 use libswe_sys::sweconst::{
-    Bodies, Calandar, Object, ObjectType, OptionalFlag,
+    Bodies, Calandar, House, Object, ObjectType, OptionalFlag,
 };
 use libswe_sys::swerust::{
-    handler_swe02, handler_swe03, handler_swe07, handler_swe08, handler_swe14,
+    handler_swe02,
+    handler_swe03,
+    handler_swe07,
+    handler_swe08,
+    handler_swe14,
+    //    handler_swe14::HousesResult,
 };
 use serde::Deserialize;
 use std::env;
@@ -110,7 +115,29 @@ fn main() {
     println!("Hsys: {}", name);
 
     let result = handler_swe14::houses(julday, data.lng, data.lat, 'P');
-    println!("House object: {:?}", result);
+    //println!("House object: {:?}", result);
+    let mut house: Vec<House> = Vec::new();
+    for (i, res) in result.clone().cusps.iter().enumerate() {
+        house.push(House::new(i as i32 + 1, res.clone()));
+        if i + 1 > 12 {
+            break;
+        }
+    }
+
+    for h in house {
+        println!("{:?}", h);
+    }
+    println!("House: {:?}", result.clone());
+    /*
+     * #[derive(Debug)]
+    pub struct HousesResult {
+        // cusps: [f64; 37], // Limtation to 32 ->
+        // /* array for 13 (or 37 for system G) doubles */
+        cusps: Vec<f64>,
+        ascmc: [f64; 10],
+        result: i32,
+    }
+    */
 
     println!("Exit and free memory swephem");
     handler_swe02::close();

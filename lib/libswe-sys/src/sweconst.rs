@@ -225,6 +225,23 @@ impl Object {
     }
 }
 
+#[derive(Debug)]
+pub struct House {
+    object_id: i32,
+    longitude: f64,
+    split: SplitDegResult,
+}
+
+impl House {
+    pub fn new(object_id: i32, longitude: f64) -> House {
+        House {
+            object_id: object_id,
+            longitude: longitude,
+            split: split_deg(longitude, 0),
+        }
+    }
+}
+
 pub enum Calandar {
     Julian = 0,
     Gregorian = 1,
