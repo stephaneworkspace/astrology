@@ -18,7 +18,7 @@
 extern crate strum;
 use crate::swerust::handler_swe17::{split_deg, SplitDegResult};
 
-#[derive(Debug, Clone, Display, EnumIters)]
+#[derive(Debug, Clone, Display, EnumIter)]
 pub enum Signs {
     Aries = 1,
     Taurus = 2,
