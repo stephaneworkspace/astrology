@@ -15,8 +15,11 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
+extern crate math;
 use crate::raw;
-// use crate::sweconst::Calandar;
+use crate::sweconst::Signs;
+use math::round;
+use strum::IntoEnumIterator;
 // use std::ffi::{CStr, CString};
 // use std::os::raw::c_char;
 
@@ -38,11 +41,19 @@ pub struct SplitDegResult {
     min: i32,
     sec: i32,
     cdegfr: f64,
-    isgn: i32,
+    //isgn: i32,
+    sign: Signs,
     result: f64,
 }
 
+/// float to deg
+/// isgn return me always 0 ? I compute this value manualy
 pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
+    // Convert deg to sign 30°
+    let sign_calc = round::half_up(ddeg / 30.0, 0) as i32;
+    let house_calc = round::floor(ddeg / 30.0, 0);
+    let long_30 = (house_calc as f64 * 30.0) - ddeg;
+    // Call c library
     let mut deg = [0; 1];
     let mut min = [0; 1];
     let mut sec = [0; 1];
@@ -55,10 +66,10 @@ pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
         let p_cdegfr = cdegfr.as_mut_ptr();
         let p_isgn = isgn.as_mut_ptr();
         raw::swe_split_deg(
-            ddeg, roundflag, p_deg, p_min, p_sec, p_cdegfr, p_isgn,
+            long_30, roundflag, p_deg, p_min, p_sec, p_cdegfr, p_isgn,
         )
     };
-    let string_result = format!(
+    let print = format!(
         "{}{}{:02}{}{:02}",
         i32::abs(deg[0]),
         "°",
@@ -66,13 +77,23 @@ pub fn split_deg(ddeg: f64, roundflag: i32) -> SplitDegResult {
         "'",
         sec[0],
     );
+    let mut sign = Signs::Aries;
+    let mut i = 0;
+    for s in Signs::iter() {
+        i += 1;
+        if i == sign_calc as i32 {
+            sign = s;
+            break;
+        }
+    }
     SplitDegResult {
-        print: string_result,
+        print: print,
         deg: deg[0],
         min: min[0],
         sec: sec[0],
         cdegfr: cdegfr[0],
-        isgn: isgn[0],
+        // isgn: isgn[0],
+        sign: sign,
         result: result,
     }
 }

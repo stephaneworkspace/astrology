@@ -15,10 +15,24 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-extern crate math;
 extern crate strum;
-use crate::swerust::handler_swe17;
-use math::round;
+use crate::swerust::handler_swe17::{split_deg, SplitDegResult};
+
+#[derive(Debug, Clone, Display, EnumIter, AsStaticStr)]
+pub enum Signs {
+    Aries = 1,
+    Taurus = 2,
+    Gemini = 3,
+    Cancer = 4,
+    Leo = 5,
+    Virgo = 6,
+    Libra = 7,
+    Scorpio = 8,
+    Sagittarius = 9,
+    Capricorn = 10,
+    Aquarius = 11,
+    Pisces = 12,
+}
 
 #[derive(Debug, Clone, Display, EnumIter, AsStaticStr)]
 pub enum Bodies {
@@ -191,7 +205,7 @@ pub struct Object {
     object_type: ObjectType,
     longitude: f64,
     latitude: f64,
-    longitude_deg: handler_swe17::SplitDegResult,
+    split: SplitDegResult,
 }
 
 impl Object {
@@ -201,15 +215,12 @@ impl Object {
         longitude: f64,
         latitude: f64,
     ) -> Object {
-        let house_calc = round::floor(longitude.clone() / 30.0, 0);
-        let long_30 = (house_calc * 30.0) - longitude.clone();
         Object {
             object_name: object_name.to_string(),
             object_type: object_type,
             longitude: longitude,
             latitude: latitude,
-            longitude_deg: handler_swe17::split_deg(long_30, 0),
-            // longitude_deg: handler_swe17::split_deg(longitude, 0),
+            split: split_deg(longitude, 0),
         }
     }
 }
