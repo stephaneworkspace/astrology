@@ -42,8 +42,7 @@ pub extern "C" fn sweversion() -> *const c_char {
 // For yew front end
 #[no_mangle]
 pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
-    println!("{:?}", max_size.to_string());
-    CString::new(astrology_draw_svg::write())
+    CString::new(astrology_draw_svg::chart(max_size as f64))
         .unwrap()
         .into_raw()
 }
