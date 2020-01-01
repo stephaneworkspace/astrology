@@ -15,6 +15,7 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
+extern crate astrology_draw_svg;
 extern crate ferris_says;
 
 use libswe_sys::swerust::handler_swe02;
@@ -36,6 +37,11 @@ pub extern "C" fn intro() {
 pub extern "C" fn sweversion() -> *const c_char {
     //CString::new(get_version()).unwrap().into_raw()
     CString::new(handler_swe02::version()).unwrap().into_raw()
+}
+
+// For yew front end
+pub fn svg() -> String {
+    astrology_draw_svg::write()
 }
 
 /// Unit test

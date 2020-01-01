@@ -13,6 +13,7 @@ crate-type = ["lib", "staticlib"]
 [dependencies]
 ferris-says = "0.1"
 libswe-sys = { path = "lib/libswe-sys" }
+astrology_draw_svg = { git = "https://github.com/stephaneworkspace/astrology_draw_svg.git" }
 
 [build-dependencies]
 cbindgen = "0.12"
