@@ -16,4 +16,5 @@
 *.sym
 
 # CMake
-build/
+# build/ -> This is not a proper way, but I will have a frontend in another 
+#           crate (Yew)
