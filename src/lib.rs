@@ -41,8 +41,10 @@ pub extern "C" fn sweversion() -> *const c_char {
 
 // For yew front end
 #[no_mangle]
-pub fn svg() -> String {
-    astrology_draw_svg::write()
+pub extern "C" fn simple_svg() -> *const c_char {
+    CString::new(astrology_draw_svg::write())
+        .unwrap()
+        .into_raw()
 }
 
 /// Unit test
