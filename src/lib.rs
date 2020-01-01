@@ -40,6 +40,7 @@ pub extern "C" fn sweversion() -> *const c_char {
 }
 
 // For yew front end
+#[no_mangle]
 pub fn svg() -> String {
     astrology_draw_svg::write()
 }
