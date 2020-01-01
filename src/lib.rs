@@ -21,7 +21,7 @@ extern crate ferris_says;
 use libswe_sys::swerust::handler_swe02;
 use std::ffi::CString;
 use std::io::{stdout, BufWriter};
-use std::os::raw::c_char;
+use std::os::raw::{c_char, c_double};
 
 /// Simple write in console
 #[no_mangle]
@@ -41,7 +41,8 @@ pub extern "C" fn sweversion() -> *const c_char {
 
 // For yew front end
 #[no_mangle]
-pub extern "C" fn simple_svg() -> *const c_char {
+pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
+    println!("{:?}", max_size.to_string());
     CString::new(astrology_draw_svg::write())
         .unwrap()
         .into_raw()
