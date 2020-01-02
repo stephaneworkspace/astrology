@@ -140,6 +140,7 @@ fn main() {
     );
     println!("utc_to_jd: {:?}", utc_to_jd);
 
+    // To do struct for frontend (for draw canvas/svg)
     let result =
         handler_swe14::houses(utc_to_jd.julian_day_ut, data.lat, data.lng, 'P');
     //println!("House object: {:?}", result);
