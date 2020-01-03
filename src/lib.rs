@@ -75,12 +75,12 @@ pub extern "C" fn sweversion() -> *const c_char {
 // For yew front end
 #[no_mangle]
 pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
-    CString::new(astrology_draw_svg::chart(max_size as f64, ""))
+    CString::new(astrology_draw_svg::chart(max_size as f32, ""))
         .unwrap()
         .into_raw()
 }
 
-pub fn intern_svg(max_size: f64, path: &str) {
+pub fn intern_svg(max_size: f32, path: &str) {
     let ephe_path: &str = "/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/sweph/";
     handler_swe02::set_ephe_path(&ephe_path);
 
