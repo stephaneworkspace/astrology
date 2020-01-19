@@ -19,12 +19,32 @@ use std::env;
 use std::path::Path;
 
 fn main() {
-    // println!("cargo:rustc-link-lib=static=swe");
+    /*
+     * Old Way
+     * Not work with cargo
+     *
+        let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+        println!(
+            "cargo:rustc-link-search=native={}",
+            Path::new(&dir)
+                .join("src/swisseph/2.08/src/build")
+                .display()
+        );
+    */
     let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    println!(
-        "cargo:rustc-link-search=native={}",
-        Path::new(&dir)
-            .join("src/swisseph/2.08/src/build")
-            .display()
-    );
+    cc::Build::new()
+        .flag("-g")
+        //        .flag("-09")
+        .flag("-Wall")
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swecl.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swedate.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swehel.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swehouse.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swejpl.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swemmoon.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swemplan.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swepcalc.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/sweph.c"))
+        .file(Path::new(&dir).join("src/swisseph/2.08/src/swephlib.c"))
+        .compile("swe")
 }

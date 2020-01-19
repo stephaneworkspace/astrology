@@ -14,6 +14,6 @@ strum = "0.17.1"
 strum_macros = "0.17.1"
 libmath = "0.2.1"
 
-#[build-dependencies]
-#cc = { version = "1.0", features = ["parallel"] }
+[build-dependencies]
+cc = { version = "1.0", features = ["parallel"] }
 #pkg-config = "0.3"
