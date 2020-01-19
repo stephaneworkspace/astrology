@@ -1,4 +1,5 @@
 #!/bin/bash
+# 01.2020 : DEPREACED
 lipo -info ./build/libswe_ios.a
 lipo -info ./build/libswe_sim.a
 
