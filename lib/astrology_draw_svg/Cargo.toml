@@ -1,0 +1,13 @@
+[package]
+name = "astrology_draw_svg"
+version = "0.1.0"
+authors = ["stephaneworkspace <s.bressani@bluewin.ch>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+svg = "0.6.0"
+strum = "0.17.1"
+strum_macros = "0.17.1"
+base64 = "0.11.0"

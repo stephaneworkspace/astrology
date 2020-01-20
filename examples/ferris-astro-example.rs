@@ -15,7 +15,7 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-use astro::intro;
+use astrology::intro;
 fn main() {
     intro();
 }
