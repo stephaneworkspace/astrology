@@ -1,13 +1,15 @@
 extern crate base64;
 extern crate strum;
-use libswe_sys::sweconst::Bodies;
+use libswe_sys::sweconst::{Bodies, Signs};
 use svg::node::element::path::Data;
 use svg::node::element::path::Number;
 use svg::node::element::{Circle, Path};
 use svg::Document;
 pub mod svg_draw_bodies;
+pub mod svg_draw_signs;
 use base64::encode;
 use svg_draw_bodies::draw_bodie;
+use svg_draw_signs::draw_sign;
 //use strum::{AsStaticRef, IntoEnumIterator};
 use std::fs::File;
 use std::io::prelude::*;
@@ -85,6 +87,10 @@ pub fn chart_html(
                     Chiron
                     {}
                     -->
+                    <!--
+                    Aries
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -107,7 +113,8 @@ pub fn chart_html(
         draw_bodie(Bodies::Neptune),
         draw_bodie(Bodies::Pluto),
         draw_bodie(Bodies::TrueNode),
-        draw_bodie(Bodies::Chiron)
+        draw_bodie(Bodies::Chiron),
+        draw_sign(Signs::Aries)
     );
 
     if path_and_file_export != "" {
