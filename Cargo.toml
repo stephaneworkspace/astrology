@@ -8,7 +8,7 @@ keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
 documentation = "https://github.com/stephaneworkspace/astrology"
 repository = "https://github.com/stephaneworkspace/astrology"
 description = "Astrology lib connected to the C lib Swiss ephemeris"
-
+license-file = "LICENSE"
 [lib]
 crate-type = ["lib", "staticlib"]
 
