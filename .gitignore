@@ -10,8 +10,11 @@ Cargo.lock
 **/*.rs.bk
 
 
-#Added by cargo
+# Added by cargo
 
 /target
 .DS_Store
 **/.DS_Store
+
+# Debugger
+/.vscode
