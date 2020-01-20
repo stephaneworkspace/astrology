@@ -24,5 +24,8 @@ pub extern "C" fn sweversion() -> *const c_char {
 
 # Version
 
-0.1
+0.1.1
+Add Aries svg
+
+0.1.0
 Simple swiss ephemeris call based on version 2.8 of swiss ephemeris
