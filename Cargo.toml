@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["Stéphane Bressani <s.bressani@bluewin.ch>"]
 edition = "2018"
 build = "build.rs"
+keyword = ["astrology", "swiss ephemem", "planet", "ephemeris"]
+documentation = "https://github.com/stephaneworkspace/astrology"
+repository = "https://github.com/stephaneworkspace/astrology"
+description = "Astrology lib connected to the C lib Swiss ephemeris"
 
 [lib]
 crate-type = ["lib", "staticlib"]

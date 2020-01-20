@@ -13,6 +13,15 @@ Therefore, if you want to use astro_compute_swisseph in your commercial
 projects, you must adhere to the GPL license or buy a Swiss Ephemeris
 commercial license.
 
+# Use
+Actuallay the version is like a hello world (0.1), just this method is available:
+
+```
+pub extern "C" fn sweversion() -> *const c_char {
+    CString::new(handler_swe02::version()).unwrap().into_raw()
+}
+```
+
 # Version
 
 0.1
