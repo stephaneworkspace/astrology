@@ -1,17 +1,14 @@
 extern crate base64;
 extern crate strum;
+use libswe_sys::sweconst::Bodies;
 use svg::node::element::path::Data;
 use svg::node::element::path::Number;
 use svg::node::element::{Circle, Path};
 use svg::Document;
-mod svg_draw_bodies;
-mod sweconst;
+pub mod svg_draw_bodies;
 use base64::encode;
 use svg_draw_bodies::draw_bodie;
-use sweconst::Bodies;
 //use strum::{AsStaticRef, IntoEnumIterator};
-#[macro_use]
-extern crate strum_macros;
 use std::fs::File;
 use std::io::prelude::*;
 //use strum::AsStaticRef;

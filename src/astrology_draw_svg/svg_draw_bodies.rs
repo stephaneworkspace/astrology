@@ -1,6 +1,6 @@
 extern crate strum;
-use crate::sweconst::Bodies;
 //use strum::AsStaticRef;
+use libswe_sys::sweconst::Bodies;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
@@ -625,6 +625,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
+        },
+        _ => {
+            document = Document::new().set("viewBox", (0, 0, 50, 50));
         },
     }
     document

@@ -15,7 +15,8 @@
  * projects, you must adhere to the GPL license or buy a Swiss Ephemeris
  * commercial license.
  */
-use astrology::intern_svg;
+use astrology::export_chart_html;
 fn main() {
-    intern_svg(550.0, "/Users/stephanebressani/Svg/")
+    export_chart_html(550.0, "/Users/stephanebressani/Svg/index.html")
+        .expect("Error generate svg html");
 }

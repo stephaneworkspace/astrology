@@ -19,9 +19,10 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 extern crate strum;
+//#[macro_use]
+extern crate strum_macros;
 
 use strum::{AsStaticRef, IntoEnumIterator};
-extern crate astrology_draw_svg;
 extern crate ferris_says;
 use libswe_sys::sweconst::{
     Bodies, Calandar, House, Object, ObjectType, OptionalFlag,
@@ -42,6 +43,8 @@ use std::io::Read;
 use std::io::{stdout, BufWriter};
 use std::os::raw::{c_char, c_double};
 use std::path::PathBuf;
+pub mod astrology_draw_svg;
+pub use self::astrology_draw_svg::chart_html as export_chart_html;
 
 #[derive(Deserialize, Debug)]
 pub struct Data {

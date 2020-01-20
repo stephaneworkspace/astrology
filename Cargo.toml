@@ -16,13 +16,14 @@ crate-type = ["lib", "staticlib"]
 
 [dependencies]
 ferris-says = "0.1"
-libswe-sys = { version = "0.1.0", path = "lib/libswe-sys" }
-astrology_draw_svg = { version = "0.1.0", path = "lib/astrology_draw_svg" }
+libswe-sys = { path = "lib/libswe-sys" }
 serde = { version = "1.0.102", features = ["derive"] }
 serde_json = "1.0.41"
 serde_derive = "1.0.102"
 strum = "0.17.1"
 strum_macros = "0.17.1"
+svg = "0.6.0"
+base64 = "0.11.0"
 
 [build-dependencies]
 cbindgen = "0.12"
