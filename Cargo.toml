@@ -1,10 +1,10 @@
 [package]
 name = "astrology"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Stéphane Bressani <s.bressani@bluewin.ch>"]
 edition = "2018"
 build = "build.rs"
-keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
+#keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
 documentation = "https://github.com/stephaneworkspace/astrology"
 repository = "https://github.com/stephaneworkspace/astrology"
 description = "Astrology lib connected to the C lib Swiss ephemeris"
