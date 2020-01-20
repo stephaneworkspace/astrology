@@ -25,5 +25,5 @@ fn main() {
     config.language = cbindgen::Language::C;
     cbindgen::generate_with_config(&crate_dir, config)
         .unwrap()
-        .write_to_file("target/libastro.h");
+        .write_to_file("target/libastrology.h");
 }

@@ -1,5 +1,5 @@
 [package]
-name = "astro" # Give another crate name and not forgive change scripts
+name = "astrology"
 version = "0.1.0"
 authors = ["Stéphane Bressani <s.bressani@bluewin.ch>"]
 edition = "2018"

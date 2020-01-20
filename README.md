@@ -12,3 +12,8 @@ licensed GPL.
 Therefore, if you want to use astro_compute_swisseph in your commercial
 projects, you must adhere to the GPL license or buy a Swiss Ephemeris
 commercial license.
+
+# Version
+
+0.1
+Simple swiss ephemeris call based on version 2.8 of swiss ephemeris
