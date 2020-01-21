@@ -52,6 +52,71 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Taurus => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((10.1, 11.4)) // M
+                .cubic_curve_by((-0.6, -1.3, -1.4, -2.6, -2.4, -3.6)) // c
+                .cubic_curve_by((-1, -1, -2.2, -1.8, -3.5, -2.3)) // c
+                .cubic_curve_to((2.8, 4.9, 1.4, 4.7, 0, 4.7)) // C
+                .vertical_line_to(0) // V
+                .cubic_curve_by((2, 0, 4.1, 0.4, 5.9, 1.1)) // c
+                .cubic_curve_to((7.8, 2, 9.5, 3.1, 11, 4.6)) // C
+                .cubic_curve_by((1.5, 1.4, 2.6, 3.2, 3.4, 5.1)) // c
+                .cubic_curve_by((0.6, 1.3, 1.4, 2.5, 2.4, 3.6)) // c
+                .cubic_curve_by((1, 1, 2.2, 1.8, 3.5, 2.4)) // c
+                .cubic_curve_by((1.3, 0.6, 2.7, 0.8, 4.2, 0.8)) // c
+                .cubic_curve_by((1.4, 0, 2.8, -0.3, 4.2, -0.8)) // c
+                .cubic_curve_by((1.3, -0.6, 2.5, -1.4, 3.5, -2.4)) // c
+                .cubic_curve_by((1, -1, 1.8, -2.2, 2.4, -3.6)) // c
+                .cubic_curve_by((0.8, -1.9, 2, -3.6, 3.4, -5.1)) // c
+                .cubic_curve_by((1.5, -1.4, 3.2, -2.6, 5.1, -3.4)) // c
+                .cubic_curve_to((45, 0.4, 47, 0, 49.1, 0)) //  C
+                .vertical_line_by(4.7) // v
+                .cubic_curve_by((-1.4, 0, -2.8, 0.3, -4.2, 0.8)) // c
+                .cubic_curve_by((-1.3, 0.6, -2.5, 1.3, -3.5, 2.3)) // c
+                .cubic_curve_by((-1, 1, -1.8, 2.2, -2.4, 3.6)) // c
+                .cubic_curve_by((-0.8, 1.9, -2, 3.7, -3.4, 5.1)) // c
+                .cubic_curve_by((-0.9, 0.8, -1.8, 1.6, -2.8, 2.2)) // c
+                .cubic_curve_by((1, 0.6, 2, 1.4, 2.8, 2.2)) // c
+                .cubic_curve_by((3, 2.9, 4.6, 6.9, 4.6, 11.1)) // c
+                .cubic_curve_by((0, 2, -0.4, 4.1, -1.2, 5.9)) // c
+                .cubic_curve_by((-0.8, 1.9, -2, 3.6, -3.4, 5.1)) // c
+                .cubic_curve_by((-1.5, 1.4, -3.2, 2.6, -5.1, 3.4)) // c
+                .cubic_curve_by((-1.9, 0.8, -3.9, 1.2, -5.9, 1.2)) // c
+                .cubic_curve_by((-2, 0, -4.1, -0.3, -5.9, -1.2)) // c
+                .cubic_curve_by((-1.9, -0.8, -3.6, -2, -5.1, -3.4)) // c
+                .cubic_curve_by((-1.5, -1.5, -2.6, -3.2, -3.4, -5.1)) // c
+                .cubic_curve_by((-0.8, -1.9, -1.2, -3.9, -1.1, -5.9)) // c
+                .cubic_curve_by((0, -2.1, 0.4, -4.1, 1.1, -6)) // c
+                .cubic_curve_by((0.8, -1.9, 1.9, -3.7, 3.4, -5.1)) // c
+                .cubic_curve_by((0.9, -0.8, 1.8, -1.6, 2.9, -2.2)) // c
+                .cubic_curve_by((-1, -0.6, -2, -1.4, -2.9, -2.2)) //c
+                .cubic_curve_to((12.1, 15.1, 10.9, 13.3, 10.1, 11.4)) // C
+                .move_to((28.7, 21.9)) // M
+                .cubic_curve_by((-2.7, -1.1, -5.7, -1.1, -8.3, 0)) // c
+                .cubic_curve_by((-1.3, 0.6, -2.5, 1.4, -3.5, 2.4)) // c
+                .cubic_curve_by((-1, 1, -1.8, 2.2, -2.4, 3.6)) // c
+                .cubic_curve_by((-0.6, 1.3, -0.8, 2.8, -0.8, 4.2)) // c
+                .cubic_curve_by((0, 1.4, 0.3, 2.8, 0.8, 4.2)) // c
+                .cubic_curve_by((0.6, 1.3, 1.4, 2.6, 2.4, 3.6)) // c
+                .cubic_curve_by((1, 1, 2.2, 1.8, 3.5, 2.4)) // c
+                .cubic_curve_by((2.7, 1.1, 5.7, 1.1, 8.3, 0)) // c
+                .cubic_curve_by((1.3, -0.6, 2.5, -1.4, 3.5, -2.4)) // c
+                .cubic_curve_by((1, -1, 1.8, -2.2, 2.4, -3.6)) // c
+                .cubic_curve_by((0.5, -1.3, 0.8, -2.7, 0.8, -4.2)) // c
+                .cubic_curve_by((0, -1.5, -0.3, -2.9, -0.8, -4.3)) // c
+                .cubic_curve_by((-0.6, -1.3, -1.4, -2.5, -2.4, -3.6)) // c
+                .cubic_curve_to((31.2, 23.3, 30, 22.5, 28.7, 21.9)); // C
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
         },

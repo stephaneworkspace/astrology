@@ -91,6 +91,10 @@ pub fn chart_html(
                     Aries
                     {}
                     -->
+                    <!--
+                    Taurus
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -114,7 +118,8 @@ pub fn chart_html(
         draw_bodie(Bodies::Pluto),
         draw_bodie(Bodies::TrueNode),
         draw_bodie(Bodies::Chiron),
-        draw_sign(Signs::Aries)
+        draw_sign(Signs::Aries),
+        draw_sign(Signs::Taurus)
     );
 
     if path_and_file_export != "" {
