@@ -117,6 +117,40 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Gemini => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((38.2, 42.3)) // M
+                .cubic_curve_by((3.5, 0.5, 6.9, 1.1, 10.2, 2.0)) // c
+                .vertical_line_by(4.7) // v
+                .cubic_curve_by((-7.4, -1.9, -15.1, -2.8, -23.3, -2.8))
+                .cubic_curve_by((-8.2, 0.0, -15.9, 0.9, -23.3, 2.8))
+                .vertical_line_by(-4.7) // v
+                .cubic_curve_by((3.3, -0.8, 6.7, -1.5, 10.2, -2.0)) // c
+                .vertical_line_to(7.2) // V
+                .cubic_curve_to((8.5, 6.7, 5.1, 6.0, 1.8, 5.2)) // C
+                .vertical_line_to(0.5) // V
+                .cubic_curve_to((9.2, 2.4, 17.0, 3.3, 25.1, 3.3)) // C
+                .cubic_curve_by((8.2, 0.0, 15.9, -0.9, 23.3, -2.8)) // c
+                .vertical_line_by(4.7) // v
+                .cubic_curve_by((-3.3, 0.8, -6.7, 1.5, -10.2, 2.0)) // c
+                .vertical_line_to(42.3) // V
+                .move_to((33.6, 7.7)) // M
+                .cubic_curve_to((30.8, 7.9, 28.0, 8.0, 25.1, 8.0)) // C
+                .cubic_curve_by((-2.9, 0.0, -5.7, -0.1, -8.4, -0.3)) // c
+                .vertical_line_by(34.2) // v
+                .cubic_curve_by((2.8, -0.2, 5.6, -0.3, 8.4, -0.3)) // c
+                .cubic_curve_by((2.9, 0.0, 5.7, 0.1, 8.4, 0.3)) // c
+                .vertical_line_to(7.7); // V
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));

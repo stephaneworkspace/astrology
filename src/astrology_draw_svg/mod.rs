@@ -95,6 +95,10 @@ pub fn chart_html(
                     Taurus
                     {}
                     -->
+                    <!--
+                    Gemini
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -119,7 +123,8 @@ pub fn chart_html(
         draw_bodie(Bodies::TrueNode),
         draw_bodie(Bodies::Chiron),
         draw_sign(Signs::Aries),
-        draw_sign(Signs::Taurus)
+        draw_sign(Signs::Taurus),
+        draw_sign(Signs::Gemini)
     );
 
     if path_and_file_export != "" {
