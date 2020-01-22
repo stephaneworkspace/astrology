@@ -1,6 +1,6 @@
 [package]
 name = "astrology"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Stéphane Bressani <s.bressani@bluewin.ch>"]
 edition = "2018"
 build = "build.rs"
