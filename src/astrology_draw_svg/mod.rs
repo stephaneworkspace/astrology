@@ -99,6 +99,10 @@ pub fn chart_html(
                     Gemini
                     {}
                     -->
+                    <!--
+                    Cancer
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -124,7 +128,8 @@ pub fn chart_html(
         draw_bodie(Bodies::Chiron),
         draw_sign(Signs::Aries),
         draw_sign(Signs::Taurus),
-        draw_sign(Signs::Gemini)
+        draw_sign(Signs::Gemini),
+        draw_sign(Signs::Cancer)
     );
 
     if path_and_file_export != "" {

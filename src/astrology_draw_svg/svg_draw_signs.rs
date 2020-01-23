@@ -151,6 +151,96 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Cancer => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((2.5, 32.2)) // M
+                .cubic_curve_by((1.9, 1.2, 3.7, 2.2, 5.5, 2.9)) // c
+                .cubic_curve_by((4.5, 1.9, 9.4, 2.9, 14.8, 2.9)) // c
+                .cubic_curve_by((3.4, 0.0, 6.7, -0.4, 9.7, -1.2)) // c
+                .cubic_curve_by((-0.3, -0.2, -0.5, -0.5, -0.8, -0.7)) // c
+                .cubic_curve_by((-0.9, -1.0, -1.6, -2.0, -2.1, -3.1)) // c
+                .cubic_curve_to((29.3, 32.0, 29.0, 30.8, 29.0, 29.6)) // C
+                .cubic_curve_by((0.0, -1.2, 0.2, -2.4, 0.7, -3.6)) // c
+                .cubic_curve_by((0.5, -1.2, 1.2, -2.2, 2.1, -3.1)) // c
+                .cubic_curve_by((1.0, -0.9, 2.0, -1.6, 3.0, -2.1)) // c
+                .cubic_curve_by((1.1, -0.5, 2.3, -0.7, 3.6, -0.7)) // c
+                .cubic_curve_by((1.4, 0.0, 2.5, 0.2, 3.6, 0.7)) // c
+                .cubic_curve_by((1.2, 0.5, 2.2, 1.2, 3.0, 2.1)) // c
+                .cubic_curve_by((0.9, 1.0, 1.6, 2.0, 2.1, 3.1)) // c
+                .cubic_curve_by((0.5, 1.1, 0.7, 2.3, 0.7, 3.6)) // c
+                .cubic_curve_by((0.0, 1.3, -0.2, 2.4, -0.7, 3.6)) // c
+                .cubic_curve_by((-0.5, 1.3, -1.3, 2.3, -2.4, 3.2)) // c
+                .cubic_curve_by((-1.5, 1.3, -3.3, 2.3, -5.2, 3.1)) // c
+                .cubic_curve_by((-5.1, 2.2, -10.6, 3.3, -16.6, 3.2)) // c
+                .cubic_curve_by((-6.1, 0.0, -11.7, -1.1, -16.6, -3.2)) // c
+                .cubic_curve_by((-1.3, -0.6, -2.5, -1.2, -3.7, -1.8)) // c
+                .vertical_line_to(32.2) // V
+                .move_to((36.6, 33.9)) // M
+                .cubic_curve_by((0.5, 0.2, 1.1, 0.3, 1.8, 0.3)) // c
+                .cubic_curve_by((0.6, 0.0, 1.2, -0.1, 1.8, -0.3)) // c
+                .cubic_curve_by((0.6, -0.2, 1.1, -0.6, 1.5, -1.0)) // c
+                .cubic_curve_by((0.4, -0.4, 0.8, -0.9, 1.0, -1.5)) // c
+                .cubic_curve_by((0.2, -0.6, 0.3, -1.2, 0.3, -1.8)) // c
+                .cubic_curve_by((0.0, -0.6, -0.1, -1.2, -0.3, -1.8)) // c
+                .cubic_curve_by((-0.2, -0.5, -0.6, -1.1, -1.0, -1.5)) // c
+                .cubic_curve_by((-0.4, -0.4, -0.9, -0.7, -1.5, -1.0)) // c
+                .cubic_curve_by((-0.5, -0.2, -1.1, -0.3, -1.8, -0.3)) // c
+                .cubic_curve_by((-0.6, 0.0, -1.2, 0.1, -1.8, 0.3)) // c
+                .cubic_curve_by((-0.6, 0.3, -1.1, 0.6, -1.5, 1.0)) // c
+                .cubic_curve_by((-0.4, 0.4, -0.8, 0.9, -1.0, 1.5)) // c
+                .cubic_curve_by((-0.2, 0.6, -0.3, 1.2, -0.3, 1.8)) // c
+                .cubic_curve_by((0.0, 0.6, 0.1, 1.3, 0.3, 1.8)) // c
+                .cubic_curve_by((0.2, 0.5, 0.6, 1.1, 1.0, 1.5)) // c
+                .cubic_curve_to((35.5, 33.3, 36.0, 33.6, 36.6, 33.9)) // C
+                .move_to((47.7, 17.3)) // M
+                .cubic_curve_by((-1.9, -1.2, -3.7, -2.2, -5.5, -2.9)) // c
+                .cubic_curve_by((-4.5, -1.9, -9.4, -2.9, -14.8, -2.9)) // c
+                .cubic_curve_by((-3.4, 0.0, -6.7, 0.4, -9.7, 1.2)) // c
+                .cubic_curve_by((0.3, 0.2, 0.5, 0.5, 0.8, 0.7)) // c
+                .cubic_curve_by((0.9, 1.0, 1.6, 2.0, 2.1, 3.1)) // c
+                .cubic_curve_by((0.5, 1.1, 0.7, 2.3, 0.7, 3.6)) // c
+                .cubic_curve_by((0.0, 1.3, -0.2, 2.4, -0.7, 3.6)) // c
+                .cubic_curve_by((-0.5, 1.2, -1.2, 2.2, -2.1, 3.1)) // c
+                .cubic_curve_by((-1.0, 0.9, -2.0, 1.6, -3.0, 2.1)) // c
+                .cubic_curve_by((-1.1, 0.5, -2.3, 0.7, -3.6, 0.7)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, -0.2, -3.6, -0.7)) // c
+                .cubic_curve_by((-1.2, -0.5, -2.2, -1.2, -3.0, -2.1)) // c
+                .cubic_curve_by((-0.9, -1.0, -1.6, -2.0, -2.1, -3.1)) // c
+                .cubic_curve_by((-0.5, -1.1, -0.7, -2.3, -0.7, -3.6)) // c
+                .cubic_curve_by((0.0, -1.2, 0.2, -2.4, 0.7, -3.6)) // c
+                .cubic_curve_by((0.5, -1.2, 1.3, -2.3, 2.4, -3.2)) // c
+                .cubic_curve_by((1.5, -1.2, 3.3, -2.3, 5.2, -3.1)) // c
+                .cubic_curve_by((5.1, -2.2, 10.6, -3.2, 16.6, -3.2)) // c
+                .cubic_curve_by((6.1, 0.0, 11.7, 1.1, 16.6, 3.2)) // c
+                .cubic_curve_by((1.3, 0.6, 2.5, 1.2, 3.7, 1.8)) // c
+                .vertical_line_to(17.3) // V
+                .move_to((13.6, 15.5)) // M
+                .cubic_curve_by((-0.5, -0.2, -1.1, -0.3, -1.8, -0.3)) // c
+                .cubic_curve_by((-0.6, 0.0, -1.2, 0.1, -1.8, 0.3)) // c
+                .cubic_curve_by((-0.6, 0.3, -1.1, 0.6, -1.5, 1.0)) // c
+                .cubic_curve_by((-0.4, 0.4, -0.8, 0.9, -1.0, 1.5)) // c
+                .cubic_curve_by((-0.2, 0.6, -0.3, 1.2, -0.3, 1.8)) // c
+                .cubic_curve_by((0.0, 0.6, 0.1, 1.2, 0.3, 1.8)) // c
+                .cubic_curve_by((0.2, 0.5, 0.6, 1.1, 1.0, 1.5)) // c
+                .cubic_curve_by((0.4, 0.4, 0.9, 0.7, 1.5, 1.0)) // c
+                .cubic_curve_by((0.5, 0.2, 1.1, 0.3, 1.8, 0.3)) // c
+                .cubic_curve_by((0.6, 0.0, 1.2, -0.1, 1.8, -0.3)) // c
+                .cubic_curve_by((0.6, -0.2, 1.1, -0.6, 1.5, -1.0)) // c
+                .cubic_curve_by((0.4, -0.4, 0.8, -0.9, 1.0, -1.5)) // c
+                .cubic_curve_by((0.2, -0.6, 0.3, -1.2, 0.3, -1.8)) // c
+                .cubic_curve_by((0.0, -0.6, -0.1, -1.2, -0.3, -1.8)) // c
+                .cubic_curve_by((-0.2, -0.5, -0.6, -1.1, -1.0, -1.5)) // c
+                .cubic_curve_to((14.8, 16.2, 14.3, 15.8, 13.6, 15.5)); // C
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
