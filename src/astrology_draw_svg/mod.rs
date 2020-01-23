@@ -103,6 +103,10 @@ pub fn chart_html(
                     Cancer
                     {}
                     -->
+                    <!--
+                    Leo
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -129,7 +133,8 @@ pub fn chart_html(
         draw_sign(Signs::Aries),
         draw_sign(Signs::Taurus),
         draw_sign(Signs::Gemini),
-        draw_sign(Signs::Cancer)
+        draw_sign(Signs::Cancer),
+        draw_sign(Signs::Leo)
     );
 
     if path_and_file_export != "" {
