@@ -416,6 +416,64 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Scorpio => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((40.1, 46.6)) // M
+                .cubic_curve_by((-1.3, 0.0, -2.4, -0.2, -3.2, -0.5)) // c
+                .cubic_curve_by((-0.9, -0.4, -1.7, -0.9, -2.3, -1.6)) // c
+                .cubic_curve_by((-0.7, -0.7, -1.2, -1.5, -1.5, -2.3)) // c
+                .cubic_curve_by((-0.3, -0.9, -0.5, -1.9, -0.5, -3)) // c
+                .vertical_line_to(15.5) // V
+                .cubic_curve_by((0.0, -3.1, -0.2, -5.4, -0.5, -6.9)) // c
+                .cubic_curve_by((-0.5, -2.4, -1.2, -3.6, -2.0, -3.6)) // c
+                .cubic_curve_by((-0.8, 0.0, -2.0, 1.5, -3.4, 4.6)) // c
+                .cubic_curve_by((-1.1, 2.4, -1.7, 5.0, -1.7, 7.8)) // c
+                .vertical_line_by(22.0) // V
+                .horizontal_line_to(21.0) // H
+                .vertical_line_to(15.5) // V
+                .cubic_curve_by((0.0, -3.0, -0.2, -5.4, -0.5, -6.9)) // c
+                .cubic_curve_by((-0.5, -2.4, -1.2, -3.6, -2.0, -3.6)) // c
+                .cubic_curve_by((-0.8, 0.0, -2.0, 1.5, -3.4, 4.6)) // c
+                .cubic_curve_by((-1.1, 2.4, -1.7, 5.0, -1.7, 7.8)) // c
+                .vertical_line_by(22.0) // v
+                .horizontal_line_to(9.5) // H
+                .vertical_line_to(15.5) // V
+                .cubic_curve_by((0.0, -3.6, -0.5, -6.8, -1.4, -9.6)) // c
+                .cubic_curve_to((7.5, 4.3, 6.6, 2.7, 5.4, 1.0)) // C
+                .horizontal_line_by(3.9) // h
+                .cubic_curve_by((0.7, 0.7, 1.3, 1.5, 1.8, 2.5)) // c
+                .cubic_curve_by((0.6, 1.1, 1.0, 2.4, 1.4, 3.8)) // c
+                .cubic_curve_by((0.5, -1.5, 1.2, -2.9, 2.1, -4.0)) // c
+                .cubic_curve_to((16.2, 1.1, 17.7, 0.0, 18.7, 0.0)) // C
+                .cubic_curve_by((1.2, 0.0, 2.5, 1.2, 3.9, 3.5)) // c
+                .cubic_curve_by((0.5, 0.9, 1.0, 2.2, 1.4, 3.8)) // c
+                .cubic_curve_by((0.5, -1.5, 1.2, -2.9, 2.1, -4.0)) // c
+                .cubic_curve_to((27.8, 1.1, 29.3, 0.0, 30.5, 0.0)) // C
+                .cubic_curve_by((1.2, 0.0, 2.5, 1.2, 3.9, 3.5)) // c
+                .cubic_curve_by((0.7, 1.2, 1.2, 2.5, 1.4, 3.8)) // c
+                .cubic_curve_by((0.3, 2.4, 0.5, 4.5, 0.5, 6.2)) // c
+                .vertical_line_by(25.8) // v
+                // After that line the -> of Scprpio
+                .cubic_curve_by((0.0, 0.7, 0.1, 1.1, 0.2, 1.5)) // c
+                .cubic_curve_by((0.2, 0.4, 0.4, 0.8, 0.7, 1.1)) // c
+                .cubic_curve_by((0.3, 0.3, 0.6, 0.5, 1.0, 0.7)) // c
+                .cubic_curve_by((0.4, 0.2, 1.0, 0.3, 1.7, 0.3)) // c
+                .horizontal_line_by(1.5) // h
+                .vertical_line_by(-3.4) // v
+                .line_by((5.5, 5.3)) // l
+                .line_to((41.5, 50.0)) // L
+                .vertical_line_by(-3.4) // v
+                .horizontal_line_to(40.1); // H
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
