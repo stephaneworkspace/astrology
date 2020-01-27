@@ -364,6 +364,58 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Libra => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((19.7, 31.9)) // M
+                .horizontal_line_to(1.8) // H
+                .vertical_line_by(-4.7) // v
+                .horizontal_line_by(10.8) // h
+                .cubic_curve_by((-0.8, -1.0, -1.4, -2.0, -1.9, -3.1)) // c
+                .cubic_curve_by((-0.8, -1.8, -1.2, -3.6, -1.2, -5.6)) // c
+                .cubic_curve_by((0.0, -2.0, 0.4, -3.9, 1.2, -5.7)) // c
+                .cubic_curve_by((0.8, -1.8, 2.0, -3.4, 3.4, -4.8)) // c
+                .cubic_curve_by((1.5, -1.4, 3.2, -2.5, 5.1, -3.2)) // c
+                .cubic_curve_to((21.0, 3.9, 23.0, 3.5, 25.1, 3.5)) // C
+                .cubic_curve_by((2.2, 0.0, 4.2, 0.4, 5.9, 1.1)) // c
+                .cubic_curve_by((2.0, 0.9, 3.7, 1.9, 5.1, 3.2)) // c
+                .cubic_curve_by((1.5, 1.4, 2.6, 3.0, 3.4, 4.8)) // c
+                .cubic_curve_by((0.8, 1.8, 1.2, 3.7, 1.2, 5.7)) // c
+                .cubic_curve_by((0.0, 2.0, -0.4, 3.9, -1.2, 5.6)) // c
+                .cubic_curve_by((-0.5, 1.1, -1.1, 2.2, -1.9, 3.1)) // c
+                .horizontal_line_by(10.8) // h
+                .vertical_line_by(4.7) // v
+                .horizontal_line_to(30.6) // H
+                .vertical_line_by(-4.7) // v
+                .cubic_curve_by((0.8, -0.4, 1.5, -1.0, 2.3, -1.6)) // c
+                .cubic_curve_by((1.0, -0.9, 1.8, -2.0, 2.4, -3.3)) // c
+                .cubic_curve_by((0.5, -1.2, 0.8, -2.5, 0.8, -3.9)) // c
+                .cubic_curve_by((0.0, -1.4, -0.3, -2.7, -0.8, -3.9)) // c
+                .cubic_curve_by((-0.6, -1.2, -1.4, -2.3, -2.4, -3.3)) // c
+                .cubic_curve_by((-1.0, -0.9, -2.2, -1.6, -3.5, -2.2)) // c
+                .cubic_curve_by((-1.2, -0.5, -2.6, -0.7, -4.2, -0.8)) // c
+                .cubic_curve_by((-1.5, 0.0, -2.9, 0.3, -4.2, 0.8)) // c
+                .cubic_curve_by((-1.3, 0.5, -2.5, 1.3, -3.5, 2.2)) // c
+                .cubic_curve_by((-1.0, 1.0, -1.8, 2.1, -2.4, 3.3)) // c
+                .cubic_curve_by((-0.5, 1.2, -0.8, 2.5, -0.8, 3.9)) // c
+                .cubic_curve_by((0.0, 1.4, 0.3, 2.6, 0.8, 3.9)) // c
+                .cubic_curve_by((0.6, 1.2, 1.4, 2.3, 2.4, 3.3)) // c
+                .cubic_curve_by((0.6, 0.6, 1.4, 1.1, 2.2, 1.6)) // c
+                .vertical_line_to(31.9) // v
+                .move_to((1.8, 45.9)) // M
+                .vertical_line_by(-4.7) // v
+                .horizontal_line_by(46.6) // v
+                .vertical_line_by(4.7) // v
+                .horizontal_line_to(1.8); // H
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));

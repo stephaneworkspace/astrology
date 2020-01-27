@@ -111,6 +111,10 @@ pub fn chart_html(
                     Virgo
                     {}
                     -->
+                    <!--
+                    Libra
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -139,7 +143,8 @@ pub fn chart_html(
         draw_sign(Signs::Gemini),
         draw_sign(Signs::Cancer),
         draw_sign(Signs::Leo),
-        draw_sign(Signs::Virgo)
+        draw_sign(Signs::Virgo),
+        draw_sign(Signs::Libra)
     );
 
     if path_and_file_export != "" {
