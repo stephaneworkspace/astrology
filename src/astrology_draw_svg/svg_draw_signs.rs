@@ -474,6 +474,36 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Sagittarius => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((44.1, 10.0)) // M
+                .line_to((22.7, 31.4)) // L
+                .line_by((10.8, 10.8)) // l
+                .line_by((-4.2, 4.2)) // l
+                .line_to((18.4, 35.7)) // L
+                .line_to((4.4, 49.7)) // L
+                .line_by((-4.2, -4.2)) // l
+                .line_by((14.1, -14.1)) // l
+                .line_to((3.4, 20.7)) // L
+                .line_by((4.2, -4.2)) // l
+                .line_by((10.8, 10.8)) // l
+                .line_to((40.0, 5.7)) // L
+                .horizontal_line_to(23.6) // H
+                .vertical_line_by(-6.0) // v
+                .horizontal_line_by(26.5) // h
+                .vertical_line_by(26.5) // v
+                .horizontal_line_by(-6.0) // h
+                .vertical_line_to(10.0); // V
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
