@@ -504,6 +504,25 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Capricorn => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((8.0, 1.5)) // M
+                .horizontal_line_by(33.0) // h
+                .cubic_curve_by((-40.0, 7.0, -35.0, 47.0, -15.5, 47.0)) // c
+                .cubic_curve_by((8.8, 0.0, 16.0, -7.2, 16.0, -16.0)) // c
+                .smooth_cubic_curve_by((-7.2, -16.0, -16.0, -16.0)) // s
+                .smooth_cubic_curve_by((-16.0, 7.2, -16.0, 16.0)) // s
+                .cubic_curve_by((0.0, 3.3, 0.3, 8.3, 1.0, 15.0)); // c
+            let path = Path::new()
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 3)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));

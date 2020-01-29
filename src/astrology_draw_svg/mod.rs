@@ -123,6 +123,10 @@ pub fn chart_html(
                     Sagittarius
                     {}
                     -->
+                    <!--
+                    Capricorn
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -154,7 +158,8 @@ pub fn chart_html(
         draw_sign(Signs::Virgo),
         draw_sign(Signs::Libra),
         draw_sign(Signs::Scorpio),
-        draw_sign(Signs::Sagittarius)
+        draw_sign(Signs::Sagittarius),
+        draw_sign(Signs::Capricorn)
     );
 
     if path_and_file_export != "" {

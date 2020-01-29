@@ -23,32 +23,35 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.10
+* Add Capricorn svg
+
 0.1.9
-Add Sagittarus svg
+* Add Sagittarus svg
 
 0.1.8
-Add Scorpio svg
+* Add Scorpio svg
 
 0.1.7
-Add Libra svg
+* Add Libra svg
 
 0.1.6
-Add Virgo svg
+* Add Virgo svg
 
 0.1.5
-Add Leo svg
+* Add Leo svg
 
 0.1.4
-Add Cancer svg
+* Add Cancer svg
 
 0.1.3
-Add Gemini svg
+* Add Gemini svg
 
 0.1.2
-Add Taurus svg
+* Add Taurus svg
 
 0.1.1
-Add Aries svg
+* Add Aries svg
 
 0.1.0
-Simple swiss ephemeris call based on version 2.8 of swiss ephemeris
+* Simple swiss ephemeris call based on version 2.8 of swiss ephemeris
