@@ -523,6 +523,48 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Signs::Aquarius => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((17.0, 21.0)) // M
+                .line_by((-3.6, -6.3)) // l
+                .line_to((2.5, 21.0)) // L
+                .line_to((0.1, 17.0)) // L
+                .line_by((15.0, -8.6)) // L
+                .line_by((3.6, 6.3)) // l
+                .line_by((10.9, -6.3)) // l
+                .line_by((3.6, 6.3)) // l
+                .line_by((10.9, -6.3)) // l
+                .line_by((6.0, 10.3)) // l
+                .line_to((46.0, 21.0)) // L
+                .line_by((-3.6, -6.3)) // l
+                .line_to((31.5, 21.0)) // L
+                .line_by((-3.6, -6.3)) // l
+                .line_to((17.0, 21.0)) // L
+                .move_to((17.0, 41.1)) // M
+                .line_by((-3.6, -6.3)) // l
+                .line_to((2.5, 41.1)) // L
+                .line_by((-2.4, -4.1)) // l
+                .line_by((15.0, -8.6)) // l
+                .line_by((3.6, 6.3)) // l
+                .line_by((10.9, -6.3)) // l
+                .line_by((3.6, 6.3)) // l
+                .line_by((10.9, -6.3)) // l
+                .line_by((6.0, 10.3)) // l
+                .line_to((46.0, 41.1)) // L
+                .line_by((-3.6, -6.3)) // l
+                .line_by((-10.9, 6.3)) // l
+                .line_by((-3.6, -6.3)) // l
+                .line_to((17.0, 41.1)); // L
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         // Center to 50x50 and recopy (for other sign)
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
