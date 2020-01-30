@@ -565,9 +565,46 @@ pub fn draw_sign(sign: Signs) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
-        // Center to 50x50 and recopy (for other sign)
-        _ => {
-            document = Document::new().set("viewBox", (0, 0, 50, 50));
+        Signs::Pisces => {
+            size = (50.0, 50.0);
+            let data = Data::new()
+                .move_to((30.2, 27.5)) // M
+                .horizontal_line_to(20.1) // H
+                .cubic_curve_by((-0.3, 4.4, -1.1, 8.5, -2.7, 12.4)) // c
+                .cubic_curve_by((-1.4, 3.5, -3.4, 6.9, -6.0, 10.1)) // c
+                .horizontal_line_to(4.7) // H
+                .cubic_curve_by((3.9, -4.0, 6.7, -8.0, 8.2, -12.1)) // c
+                .cubic_curve_by((1.3, -3.3, 2.0, -6.8, 2.3, -10.4)) // c
+                .horizontal_line_to(5.7) // H
+                .vertical_line_by(-5.0) // v
+                .horizontal_line_by(9.5) // h
+                .cubic_curve_by((-0.2, -3.6, -1.0, -7.1, -2.3, -10.4)) // c
+                .cubic_curve_to((11.4, 8.0, 8.6, 4.0, 4.7, 0.0)) // C
+                .horizontal_line_by(6.7) // h
+                .cubic_curve_by((2.6, 3.2, 4.6, 6.6, 6.0, 10.1)) // c
+                .cubic_curve_by((1.5, 3.8, 2.4, 7.9, 2.7, 12.4)) // c
+                .horizontal_line_by(10.1) // h
+                .cubic_curve_by((0.2, -4.4, 1.1, -8.5, 2.7, -12.4)) // c
+                .cubic_curve_by((1.4, -3.5, 3.4, -6.9, 6.0, -10.1)) // c
+                .horizontal_line_by(6.7) // h
+                .cubic_curve_by((-3.9, 4.0, -6.6, 8.0, -8.2, 12.1)) // c
+                .cubic_curve_by((-1.3, 3.3, -2.0, 6.8, -2.3, 10.4)) // c
+                .horizontal_line_by(9.2) // h
+                .vertical_line_by(5.0) // v
+                .horizontal_line_to(35.0) // H
+                .cubic_curve_by((0.2, 3.6, 1.0, 7.1, 2.3, 10.4)) // c
+                .cubic_curve_to((38.9, 42.0, 41.6, 46.0, 45.5, 50.0)) // C
+                .horizontal_line_by(-6.7) // h
+                .cubic_curve_by((-2.6, -3.2, -4.7, -6.6, -6.0, -10.1)) // c
+                .cubic_curve_to((31.3, 36.0, 30.4, 31.9, 30.2, 27.5)); // C
+            let path = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
         },
     }
     document

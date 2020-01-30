@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.12
+* Add Pisces svg
+
 0.1.11
 * Add Aquarius svg
 
