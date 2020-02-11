@@ -157,6 +157,10 @@ pub fn chart_html(
                     0°
                     {}
                     -->
+                    <!--
+                    1°
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -193,6 +197,7 @@ pub fn chart_html(
         draw_sign(Signs::Aquarius),
         draw_sign(Signs::Pisces),
         draw_degre(0),
+        draw_degre(1),
     );
 
     if path_and_file_export != "" {
