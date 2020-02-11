@@ -23,6 +23,10 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.14
+* Add file for degres ° and minutes '
+* Add 0° svg
+
 0.1.13
 * Change license to Creative Commons
 
