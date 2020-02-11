@@ -22,9 +22,11 @@ use svg::node::element::path::Number;
 use svg::node::element::{Circle, Path};
 use svg::Document;
 pub mod svg_draw_bodies;
+pub mod svg_draw_numbers;
 pub mod svg_draw_signs;
 use base64::encode;
 use svg_draw_bodies::draw_bodie;
+use svg_draw_numbers::draw_degre;
 use svg_draw_signs::draw_sign;
 //use strum::{AsStaticRef, IntoEnumIterator};
 use std::fs::File;
@@ -151,6 +153,10 @@ pub fn chart_html(
                     Pisces
                     {}
                     -->
+                    <!--
+                    0°
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -185,7 +191,8 @@ pub fn chart_html(
         draw_sign(Signs::Sagittarius),
         draw_sign(Signs::Capricorn),
         draw_sign(Signs::Aquarius),
-        draw_sign(Signs::Pisces)
+        draw_sign(Signs::Pisces),
+        draw_degre(0),
     );
 
     if path_and_file_export != "" {
