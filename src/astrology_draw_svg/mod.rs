@@ -173,6 +173,10 @@ pub fn chart_html(
                     4°
                     {}
                     -->
+                    <!--
+                    5°
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -212,7 +216,8 @@ pub fn chart_html(
         draw_degre(1),
         draw_degre(2),
         draw_degre(3),
-        draw_degre(4)
+        draw_degre(4),
+        draw_degre(5)
     );
 
     if path_and_file_export != "" {
