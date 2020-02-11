@@ -23,6 +23,10 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.16
+* Add 2° svg
+* Add 3° svg
+
 0.1.15
 * Add 1° svg
 
