@@ -234,6 +234,50 @@ pub fn chart_html(
                     19°
                     {}
                     -->
+                    <!--
+                    20°
+                    {}
+                    -->
+                    <!--
+                    21°
+                    {}
+                    -->
+                    <!--
+                    22°
+                    {}
+                    -->
+                    <!--
+                    23°
+                    {}
+                    -->
+                    <!--
+                    24°
+                    {}
+                    -->
+                    <!--
+                    25°
+                    {}
+                    -->
+                    <!--
+                    26°
+                    {}
+                    -->
+                    <!--
+                    27°
+                    {}
+                    -->
+                    <!--
+                    28°
+                    {}
+                    -->
+                    <!--
+                    29°
+                    {}
+                    -->
+                    <!--
+                    30°
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -288,7 +332,18 @@ pub fn chart_html(
         draw_degre(16),
         draw_degre(17),
         draw_degre(18),
-        draw_degre(19)
+        draw_degre(19),
+        draw_degre(20),
+        draw_degre(21),
+        draw_degre(22),
+        draw_degre(23),
+        draw_degre(24),
+        draw_degre(25),
+        draw_degre(26),
+        draw_degre(27),
+        draw_degre(28),
+        draw_degre(29),
+        draw_degre(30)
     );
 
     if path_and_file_export != "" {
