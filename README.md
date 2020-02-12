@@ -27,6 +27,7 @@ pub extern "C" fn sweversion() -> *const c_char {
 * Add 6° svg
 * Add 7° svg
 * Add 8° svg
+* Add 9° svg
 
 0.1.16
 * Add 2° svg
