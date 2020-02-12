@@ -23,8 +23,12 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.20
+* Add 13° svg
+
 0.1.19
-* Update library swissephem in Cargo.toml
+* Update library swissephem in Cargo.toml (not OK, see :
+  https://stackoverflow.com/questions/60188673/rust-ffi-wasm-yew-cargo-web-start-fatal-error-math-h-file-not-found)
 
 0.1.18
 * Trait for yew export for this project https://github.com/stephaneworkspace/yewastrology
