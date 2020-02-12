@@ -25,6 +25,7 @@ pub extern "C" fn sweversion() -> *const c_char {
 # Version
 0.1.18
 * Trait for yew export for this project https://github.com/stephaneworkspace/yewastrology
+* Only Circle chart and Bodies, without x and y, just svg for yew export
 
 0.1.17
 * Add 6° svg

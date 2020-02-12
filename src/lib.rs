@@ -45,7 +45,7 @@ use std::path::PathBuf;
 pub mod astrology_draw_svg;
 pub use self::astrology_draw_svg::chart_html as export_chart_html;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Data {
     year: i32,
     month: i32,
@@ -74,30 +74,40 @@ pub extern "C" fn sweversion() -> *const c_char {
     CString::new(handler_swe02::version()).unwrap().into_raw()
 }
 
+#[derive(Debug, Clone)]
 pub enum YewAction {
     Chart,
+    Bodies(Bodies),
 }
 
 // Working Storage Struct
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct WorkingStorageYew {
     pub data: Data,
+    pub julday: f64,
+    pub object: Vec<Object>,
+    pub house: Vec<House>,
+    pub max_size: i32,
 }
 
 // Interface yew
 pub trait YewAstro {
     fn yew_draw_chart(&self, action: YewAction) -> (String, i32, i32);
+    fn yew_debug(&self);
 }
 
 // Constructor yew
 impl WorkingStorageYew {
-    pub fn new(data_str: &str, ephem_path: &str) -> WorkingStorageYew {
+    pub fn new(
+        data_str: &str,
+        ephem_path: &str,
+        max_size: i32,
+    ) -> WorkingStorageYew {
         // Path of ephem file
         handler_swe02::set_ephe_path(&ephem_path);
 
         // Read data
         let data: Data = serde_json::from_str(&data_str).unwrap();
-        println!("Data: {:?}", data);
 
         // Julian day
         let julday: f64 = handler_swe08::julday(
@@ -107,88 +117,82 @@ impl WorkingStorageYew {
             data.hourf64,
             Calandar::Gregorian,
         );
-        println!("Get julday: {:?}", julday);
-        /*
-                // Bodies
-                let mut object: Vec<Object> = Vec::new();
-                let mut calc: handler_swe03::CalcUtResult;
-                for bodies in Bodies::iter() {
-                    if bodies.clone().object_type() == ObjectType::PlanetOrStar {
-                        calc = handler_swe03::calc_ut(
-                            julday,
-                            bodies.clone(),
-                            OptionalFlag::Speed as i32,
-                        );
-                        object.push(Object::new(
-                            bodies.clone().as_static(),
-                            bodies.clone().object_type(),
-                            calc.longitude,
-                            calc.latitude,
-                        ));
-                    }
-                }
 
-                for o in object {
-                    println!("{:?}", o);
-                }
-
-                let pheno_ut: handler_swe07::PhenoUtResult = handler_swe07::pheno_ut(
+        // Bodies
+        let mut object: Vec<Object> = Vec::new();
+        let mut calc: handler_swe03::CalcUtResult;
+        for bodies in Bodies::iter() {
+            if bodies.clone().object_type() == ObjectType::PlanetOrStar {
+                calc = handler_swe03::calc_ut(
                     julday,
-                    Bodies::Sun,
+                    bodies.clone(),
                     OptionalFlag::Speed as i32,
                 );
-                println!("PhenoUt: {:?}", pheno_ut);
+                object.push(Object::new(
+                    bodies.clone().as_static(),
+                    bodies.clone().object_type(),
+                    calc.longitude,
+                    calc.latitude,
+                ));
+            }
+        }
 
-                // let hsys = HouseSystem::Placidus;
-                let name = handler_swe14::house_name('P');
-                println!("Hsys: {}", name);
+        let pheno_ut: handler_swe07::PhenoUtResult = handler_swe07::pheno_ut(
+            julday,
+            Bodies::Sun,
+            OptionalFlag::Speed as i32,
+        );
+        println!("For debug -> PhenoUt: {:?}", pheno_ut);
 
-                let utc_time_zone: handler_swe08::UtcTimeZoneResult =
-                    handler_swe08::utc_time_zone(
-                        data.year, data.month, data.day, data.hour, data.min, data.sec, 2.0,
-                    );
-                println!("utc_time_zone: {:?}", utc_time_zone);
+        // let hsys = HouseSystem::Placidus;
+        let name = handler_swe14::house_name('P');
+        println!("For debug -> Hsys: {}", name);
 
-                let utc_to_jd: handler_swe08::UtcToJdResult = handler_swe08::utc_to_jd(
-                    utc_time_zone.year[0],
-                    utc_time_zone.month[0],
-                    utc_time_zone.day[0],
-                    utc_time_zone.hour[0],
-                    utc_time_zone.min[0],
-                    utc_time_zone.sec[0],
-                    /*utc_time_zone.year[1],
-                    utc_time_zone.month[1],
-                    utc_time_zone.day[1],
-                    utc_time_zone.hour[1],
-                    utc_time_zone.min[1],
-                    utc_time_zone.sec[1],*/
-                    Calandar::Gregorian,
-                );
-                println!("utc_to_jd: {:?}", utc_to_jd);
+        let utc_time_zone: handler_swe08::UtcTimeZoneResult =
+            handler_swe08::utc_time_zone(
+                data.year, data.month, data.day, data.hour, data.min, data.sec,
+                2.0,
+            );
+        println!("For debug -> utc_time_zone: {:?}", utc_time_zone);
 
-                // To do struct for frontend (for draw canvas/svg)
-                let result =
-                    handler_swe14::houses(utc_to_jd.julian_day_ut, data.lat, data.lng, 'P');
-                //println!("House object: {:?}", result);
-                let mut house: Vec<House> = Vec::new();
-                for (i, res) in result.clone().cusps.iter().enumerate() {
-                    if i > 0 {
-                        house.push(House::new(i as i32, res.clone()));
-                        if i + 1 > 12 {
-                            break;
-                        }
-                    }
+        let utc_to_jd: handler_swe08::UtcToJdResult = handler_swe08::utc_to_jd(
+            utc_time_zone.year[0],
+            utc_time_zone.month[0],
+            utc_time_zone.day[0],
+            utc_time_zone.hour[0],
+            utc_time_zone.min[0],
+            utc_time_zone.sec[0],
+            Calandar::Gregorian,
+        );
+        println!("For debug -> utc_to_jd: {:?}", utc_to_jd);
+
+        // To do struct for frontend (for draw canvas/svg)
+        let result = handler_swe14::houses(
+            utc_to_jd.julian_day_ut,
+            data.lat,
+            data.lng,
+            'P',
+        );
+        println!("For debug -> House object: {:?}", result);
+        let mut house: Vec<House> = Vec::new();
+        for (i, res) in result.clone().cusps.iter().enumerate() {
+            if i > 0 {
+                house.push(House::new(i as i32, res.clone()));
+                if i + 1 > 12 {
+                    break;
                 }
+            }
+        }
+        println!("For debug -> House: {:?}", result.clone());
 
-                for h in house {
-                    println!("{:?}", h);
-                }
-                println!("House: {:?}", result.clone());
-
-                astrology_draw_svg::chart(max_size, path);
-                handler_swe02::close();
-        */
-        WorkingStorageYew { data: data }
+        handler_swe02::close();
+        WorkingStorageYew {
+            data: data,
+            julday: julday,
+            object: object.clone(),
+            house: house.clone(),
+            max_size: max_size,
+        }
     }
 }
 
@@ -197,8 +201,29 @@ impl WorkingStorageYew {
 impl YewAstro for WorkingStorageYew {
     // The return is (SvgBase64, x, y)
     fn yew_draw_chart(&self, action: YewAction) -> (String, i32, i32) {
+        let a = action.clone();
         match action {
-            YewAction::Chart => ("ok".to_string(), 1, 1),
+            YewAction::Chart => {
+                // todo : self.max_size into object
+                let el = astrology_draw_svg::yew_chart(self.max_size as f32, a);
+                (el, 1, 1)
+            },
+            YewAction::Bodies(_b) => {
+                // todo : self.max_size into object
+                let el = astrology_draw_svg::yew_chart(self.max_size as f32, a);
+                (el, 1, 1)
+            },
+        }
+    }
+    fn yew_debug(&self) {
+        println!("Data: {:?}", self.data);
+        println!("Get julday: {:?}", self.julday);
+        println!("Objects:");
+        for o in self.object.clone() {
+            println!("{:?}", o);
+        }
+        for h in self.house.clone() {
+            println!("{:?}", h);
         }
     }
 }

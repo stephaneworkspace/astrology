@@ -34,6 +34,7 @@ use std::io::prelude::*;
 //use strum::AsStaticRef;
 pub mod html_draw;
 pub mod svg_draw;
+use crate::YewAction;
 use svg_draw::*;
 /// Create a html file with the natal chart
 pub fn chart_html(
@@ -260,6 +261,61 @@ pub fn chart_html(
     }
     //println!("{}", document.clone().to_string());
     Ok(())
+}
+/// Create a html file with the natal chart
+pub fn yew_chart(max_size: Number, action: YewAction) -> String {
+    // Object calc draw for calcul in svg x,y width, height
+    let ws = svg_draw::WorkingStorage::new(max_size);
+    let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
+
+    /*html_draw::HTML_HEAD,
+        ws.max_size.clone(),
+        ws.max_size.clone(),
+        encode(&ws_draw.draw_base().to_string()),
+        ws_draw.draw_base(),
+        draw_bodie(Bodies::Sun),
+        draw_bodie(Bodies::Moon),
+        draw_bodie(Bodies::Mercury),
+        draw_bodie(Bodies::Venus),
+        draw_bodie(Bodies::Mars),
+        draw_bodie(Bodies::Jupiter),
+        draw_bodie(Bodies::Saturn),
+        draw_bodie(Bodies::Uranus),
+        draw_bodie(Bodies::Neptune),
+        draw_bodie(Bodies::Pluto),
+        draw_bodie(Bodies::TrueNode),
+        draw_bodie(Bodies::Chiron),
+        draw_sign(Signs::Aries),
+        draw_sign(Signs::Taurus),
+        draw_sign(Signs::Gemini),
+        draw_sign(Signs::Cancer),
+        draw_sign(Signs::Leo),
+        draw_sign(Signs::Virgo),
+        draw_sign(Signs::Libra),
+        draw_sign(Signs::Scorpio),
+        draw_sign(Signs::Sagittarius),
+        draw_sign(Signs::Capricorn),
+        draw_sign(Signs::Aquarius),
+        draw_sign(Signs::Pisces),
+        draw_degre(0),
+        draw_degre(1),
+        draw_degre(2),
+        draw_degre(3),
+        draw_degre(4),
+        draw_degre(5),
+        draw_degre(6),
+        draw_degre(7),
+        draw_degre(8),
+        draw_degre(9),
+        draw_degre(10),
+        draw_degre(11),
+        draw_degre(12)
+    );
+    */
+    match action {
+        YewAction::Chart => ws_draw.draw_base().to_string(),
+        YewAction::Bodies(b) => draw_bodie(b).to_string(),
+    }
 }
 
 /// Actualy create one svg with path, but in future export a Vec<SomeStruct>
