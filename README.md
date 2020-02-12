@@ -27,6 +27,7 @@ pub extern "C" fn sweversion() -> *const c_char {
 * Add 13° svg
 * Add 14° svg
 * Add 15° svg
+* Add 16° svg
 
 0.1.19
 * Update library swissephem in Cargo.toml (not OK, see :
