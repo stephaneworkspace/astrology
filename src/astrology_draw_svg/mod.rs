@@ -222,6 +222,18 @@ pub fn chart_html(
                     16°
                     {}
                     -->
+                    <!--
+                    17°
+                    {}
+                    -->
+                    <!--
+                    18°
+                    {}
+                    -->
+                    <!--
+                    19°
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -273,7 +285,10 @@ pub fn chart_html(
         draw_degre(13),
         draw_degre(14),
         draw_degre(15),
-        draw_degre(16)
+        draw_degre(16),
+        draw_degre(17),
+        draw_degre(18),
+        draw_degre(19)
     );
 
     if path_and_file_export != "" {
