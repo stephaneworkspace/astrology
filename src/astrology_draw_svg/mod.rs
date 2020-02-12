@@ -193,6 +193,10 @@ pub fn chart_html(
                     9°
                     {}
                     -->
+                    <!--
+                    10°
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -237,7 +241,8 @@ pub fn chart_html(
         draw_degre(6),
         draw_degre(7),
         draw_degre(8),
-        draw_degre(9)
+        draw_degre(9),
+        draw_degre(10),
     );
 
     if path_and_file_export != "" {
