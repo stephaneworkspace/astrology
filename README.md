@@ -21,6 +21,9 @@ pub extern "C" fn sweversion() -> *const c_char {
     CString::new(handler_swe02::version()).unwrap().into_raw()
 }
 ```
+0.1.22
+* Update library libswe-sys c 0.1.4 -> 0.1.5 (add math.h for compile wasm in
+  yew)
 
 # Version
 0.1.21
