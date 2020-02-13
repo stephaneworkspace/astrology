@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.24
+* Forgot update library libswe-sys 0.1.5 -> 0.1.6
+
 0.1.23
 * Update library libswe-sys c 0.1.5 -> 0.1.6 (add standard lib path for compile
   wasm in yew)

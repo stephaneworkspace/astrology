@@ -1,6 +1,6 @@
 [package]
 name = "astrology"
-version = "0.1.23"
+version = "0.1.24"
 authors = ["Stéphane <s.bressani@bluewin.ch>"]
 edition = "2018"
 build = "build.rs"
@@ -16,7 +16,7 @@ crate-type = ["lib", "staticlib"]
 
 [dependencies]
 ferris-says = "0.1"
-libswe-sys = "0.1.5"
+libswe-sys = "0.1.6"
 serde = { version = "1.0.102", features = ["derive"] }
 serde_json = "1.0.41"
 serde_derive = "1.0.102"
