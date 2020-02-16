@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.27
+* Update library libswe-sys to 0.1.11
+
 0.1.26
 * Update library libswe-sys 0.1.7 -> 0.1.9
 
