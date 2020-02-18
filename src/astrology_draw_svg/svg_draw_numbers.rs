@@ -1925,3 +1925,52 @@ pub fn draw_degre(degre: i16) -> Document {
     }
     document
 }
+
+pub fn draw_minute(minute: i16) -> Document {
+    let size: (Number, Number);
+    let document: Document;
+    match minute {
+        0 => {
+            size = (50.0, 50.0);
+            let data1 = Data::new()
+                .move_to((30.9, 26.4)) // M
+                .cubic_curve_by((0.0, 8.5, -3.2, 13.3, -8.7, 13.3)) // c
+                .cubic_curve_by((-4.9, 0.0, -8.2, -4.6, -8.3, -12.9)) // c
+                .cubic_curve_by((0.0, -8.4, 3.6, -13.1, 8.7, -13.1)) // c
+                .cubic_curve_to((27.9, 13.7, 30.9, 18.4, 30.9, 26.4)) // C
+                .close() //z
+                .move_to((17.2, 26.8)) // M
+                .cubic_curve_by((0.0, 6.5, 2.0, 10.2, 5.1, 10.2)) // c
+                .cubic_curve_by((3.5, 0.0, 5.1, -4.1, 5.1, -10.5)) // c
+                .cubic_curve_by((0.0, -6.2, -1.6, -10.2, -5.1, -10.2)) // c
+                .cubic_curve_to((19.4, 16.3, 17.2, 19.9, 17.2, 26.8)) // C
+                .close(); // z
+            let data2 = Data::new()
+                .move_to((39.4, 12.7)) // M
+                .cubic_curve_by((-0.9, 3.2, -2.5, 7.4, -3.6, 9.2)) // c
+                .line_by((-2.2, 0.3)) // l
+                .cubic_curve_by((0.8, -2.3, 1.9, -6.3, 2.3, -9.1)) // c
+                .line_to((39.4, 12.7)) // L
+                .close(); // z
+            let path1 = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data1);
+            let path2 = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data2);
+            let group = Group::new().add(path1).add(path2);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(group);
+        },
+        _ => {
+            size = (50.0, 50.0);
+            document = Document::new().set("viewBox", (0, 0, size.0, size.1));
+        },
+    }
+    document
+}

@@ -26,7 +26,7 @@ pub mod svg_draw_numbers;
 pub mod svg_draw_signs;
 use base64::encode;
 use svg_draw_bodies::draw_bodie;
-use svg_draw_numbers::draw_degre;
+use svg_draw_numbers::{draw_degre, draw_minute};
 use svg_draw_signs::draw_sign;
 //use strum::{AsStaticRef, IntoEnumIterator};
 use std::fs::File;
@@ -278,6 +278,10 @@ pub fn chart_html(
                     30°
                     {}
                     -->
+                    <!--
+                    0'
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -343,7 +347,8 @@ pub fn chart_html(
         draw_degre(27),
         draw_degre(28),
         draw_degre(29),
-        draw_degre(30)
+        draw_degre(30),
+        draw_minute(0)
     );
 
     if path_and_file_export != "" {
