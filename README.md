@@ -23,6 +23,18 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.29
+* Add 0' svg
+* Add 1' svg
+* Add 2' svg
+* Add 3' svg
+* Add 4' svg
+* Add 5' svg
+* Add 6' svg
+* Add 7' svg
+* Add 8' svg
+* Add 9' svg
+
 0.1.28
 * Update library libswe-sy to 0.1.13
 
