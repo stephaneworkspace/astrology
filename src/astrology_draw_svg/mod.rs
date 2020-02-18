@@ -282,6 +282,42 @@ pub fn chart_html(
                     0'
                     {}
                     -->
+                    <!--
+                    1'
+                    {}
+                    -->
+                    <!--
+                    2'
+                    {}
+                    -->
+                    <!--
+                    3'
+                    {}
+                    -->
+                    <!--
+                    4'
+                    {}
+                    -->
+                    <!--
+                    5'
+                    {}
+                    -->
+                    <!--
+                    6'
+                    {}
+                    -->
+                    <!--
+                    7'
+                    {}
+                    -->
+                    <!--
+                    8'
+                    {}
+                    -->
+                    <!--
+                    9'
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -348,7 +384,16 @@ pub fn chart_html(
         draw_degre(28),
         draw_degre(29),
         draw_degre(30),
-        draw_minute(0)
+        draw_minute(0),
+        draw_minute(1),
+        draw_minute(2),
+        draw_minute(3),
+        draw_minute(4),
+        draw_minute(5),
+        draw_minute(6),
+        draw_minute(7),
+        draw_minute(8),
+        draw_minute(9)
     );
 
     if path_and_file_export != "" {
