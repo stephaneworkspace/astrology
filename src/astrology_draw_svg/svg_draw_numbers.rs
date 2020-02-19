@@ -4963,27 +4963,22 @@ pub fn draw_minute(minute: i16) -> Document {
         50 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((39.8, 27.4)) // M
@@ -5028,27 +5023,22 @@ pub fn draw_minute(minute: i16) -> Document {
         51 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((30.5, 18.3)) // M
@@ -5091,27 +5081,22 @@ pub fn draw_minute(minute: i16) -> Document {
         52 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((23.1, 40.2)) // M
@@ -5160,27 +5145,22 @@ pub fn draw_minute(minute: i16) -> Document {
         53 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((23.9, 36.3)) // M
@@ -5233,27 +5213,22 @@ pub fn draw_minute(minute: i16) -> Document {
         54 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((33.6, 40.2)) // M
@@ -5308,27 +5283,22 @@ pub fn draw_minute(minute: i16) -> Document {
         55 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((38.1, 17.9)) // M
@@ -5378,27 +5348,22 @@ pub fn draw_minute(minute: i16) -> Document {
         56 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((37.4, 17.5)) // M
@@ -5451,27 +5416,22 @@ pub fn draw_minute(minute: i16) -> Document {
         57 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((39.4, 15.1)) // M
@@ -5514,27 +5474,22 @@ pub fn draw_minute(minute: i16) -> Document {
         58 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((13.8, 40.2)) // M
-                .vertical_line_by(-6.8) // v
-                .horizontal_line_to(2.1) // H
-                .vertical_line_by(-2.2) // v
-                .line_by((11.2, -16.0)) // l
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(15.6) // v
-                .horizontal_line_by(3.5) // h
-                .vertical_line_by(2.7) // v
-                .horizontal_line_to(17.0) // H
-                .vertical_line_by(6.8) // v
-                .horizontal_line_to(13.8) // H
-                .close() // z
-                .move_to((13.8, 30.7)) // M
-                .vertical_line_by(-8.4) // v
-                .cubic_curve_by((0.0, -1.3, 0.0, -2.6, 0.1, -3.9)) // c
-                .horizontal_line_by(-0.1) // h
-                .cubic_curve_by((-0.8, 1.5, -1.4, 2.6, -2.1, 3.7)) // c
-                .line_by((-6.1, 8.5)) // l
-                .vertical_line_by(0.1) // v
-                .horizontal_line_to(13.8) // H
+                .move_to((18.3, 17.9)) // M
+                .horizontal_line_to(8.7) // H
+                .line_by((-1.0, 6.5)) // l
+                .cubic_curve_by((0.6, -0.1, 1.1, -0.2, 2.0, -0.2)) // c
+                .cubic_curve_by((1.9, 0.0, 3.9, 0.4, 5.4, 1.4)) // c
+                .cubic_curve_by((2.0, 1.1, 3.6, 3.3, 3.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.9, -3.9, 8.6, -9.4, 8.6)) // c
+                .cubic_curve_by((-2.7, 0.0, -5.1, -0.8, -6.3, -1.5)) // c
+                .line_to((4.0, 36.5)) // L
+                .cubic_curve_by((1.0, 0.6, 3.1, 1.4, 5.4, 1.4)) // c
+                .cubic_curve_by((3.2, 0.0, 6.0, -2.1, 6.0, -5.4)) // c
+                .cubic_curve_by((0.0, -3.2, -2.2, -5.6, -7.2, -5.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -2.5, 0.2, -3.5, 0.3)) // c
+                .line_by((1.6, -12.1)) // l
+                .horizontal_line_by(12.0) // h
+                .vertical_line_to(17.9) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((22.8, 33.8)) // M
