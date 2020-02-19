@@ -4153,21 +4153,25 @@ pub fn draw_minute(minute: i16) -> Document {
         39 => {
             size = (50.0, 50.0);
             let data1 = Data::new()
-                .move_to((3.3, 40.2)) // M
-                .vertical_line_by(-2.1) // v
-                .line_by((2.7, -2.6)) // l
-                .cubic_curve_by((6.4, -6.1, 9.3, -9.3, 9.4, -13.1)) // c
-                .cubic_curve_by((0.0, -2.5, -1.2, -4.9, -5.0, -4.9)) // c
-                .cubic_curve_by((-2.3, 0.0, -4.2, 1.2, -5.3, 2.1)) // c
-                .line_by((-1.1, -2.4)) // l
-                .cubic_curve_by((1.7, -1.5, 4.2, -2.6, 7.1, -2.6)) // c
-                .cubic_curve_by((5.4, 0.0, 7.7, 3.7, 7.7, 7.3)) // c
-                .cubic_curve_by((0.0, 4.6, -3.4, 8.4, -8.7, 13.5)) // c
-                .line_by((-2.0, 1.9)) // l
+                .move_to((4.1, 36.3)) // M
+                .cubic_curve_by((1.0, 0.6, 3.2, 1.6, 5.6, 1.6)) // c
+                .cubic_curve_by((4.4, 0.0, 5.7, -2.8, 5.7, -4.9)) // c
+                .cubic_curve_by((0.0, -3.5, -3.2, -5.0, -6.5, -5.0)) // c
+                .horizontal_line_to(6.9) // H
+                .vertical_line_by(-2.5) // v
+                .horizontal_line_by(1.9) // h
+                .cubic_curve_by((2.5, 0.0, 5.6, -1.3, 5.6, -4.2)) // c
+                .cubic_curve_by((0.0, -2.0, -1.3, -3.8, -4.4, -3.8)) // c
+                .cubic_curve_by((-2.0, 0.0, -3.9, 0.9, -5.0, 1.7)) // c
+                .line_by((-0.9, -2.5)) // l
+                .cubic_curve_by((1.3, -1.0, 3.9, -1.9, 6.6, -1.9)) // c
+                .cubic_curve_by((4.9, 0.0, 7.2, 2.9, 7.2, 6.0)) // c
+                .cubic_curve_by((0.0, 2.6, -1.5, 4.8, -4.6, 5.9)) // c
                 .vertical_line_by(0.1) // v
-                .horizontal_line_by(11.3) // h
-                .vertical_line_by(2.8) // v
-                .horizontal_line_to(3.3) // H
+                .cubic_curve_by((3.1, 0.6, 5.6, 2.9, 5.6, 6.5)) // c
+                .cubic_curve_by((0.0, 4.0, -3.1, 7.5, -9.2, 7.5)) // c
+                .cubic_curve_by((-2.8, 0.0, -5.3, -0.9, -6.5, -1.7)) // c
+                .line_to((4.1, 36.3)) // L
                 .close(); // z
             let data2 = Data::new()
                 .move_to((25.1, 37.8)) // M
