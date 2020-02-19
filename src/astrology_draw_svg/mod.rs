@@ -398,6 +398,46 @@ pub fn chart_html(
                     29'
                     {}
                     -->
+                    <!--
+                    30'
+                    {}
+                    -->
+                    <!--
+                    31'
+                    {}
+                    -->
+                    <!--
+                    32'
+                    {}
+                    -->
+                    <!--
+                    33'
+                    {}
+                    -->
+                    <!--
+                    34'
+                    {}
+                    -->
+                    <!--
+                    35'
+                    {}
+                    -->
+                    <!--
+                    36'
+                    {}
+                    -->
+                    <!--
+                    37'
+                    {}
+                    -->
+                    <!--
+                    38'
+                    {}
+                    -->
+                    <!--
+                    39'
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -493,7 +533,17 @@ pub fn chart_html(
         draw_minute(26),
         draw_minute(27),
         draw_minute(28),
-        draw_minute(29)
+        draw_minute(29),
+        draw_minute(30),
+        draw_minute(31),
+        draw_minute(32),
+        draw_minute(33),
+        draw_minute(34),
+        draw_minute(35),
+        draw_minute(36),
+        draw_minute(37),
+        draw_minute(38),
+        draw_minute(39)
     );
 
     if path_and_file_export != "" {

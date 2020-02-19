@@ -44,6 +44,36 @@ pub extern "C" fn sweversion() -> *const c_char {
 * Add 27' svg
 * Add 28' svg
 * Add 29' svg
+* Add 30' svg
+* Add 31' svg
+* Add 32' svg
+* Add 33' svg
+* Add 34' svg
+* Add 35' svg
+* Add 36' svg
+* Add 37' svg
+* Add 38' svg
+* Add 39' svg
+* Add 40' svg
+* Add 41' svg
+* Add 42' svg
+* Add 43' svg
+* Add 44' svg
+* Add 45' svg
+* Add 46' svg
+* Add 47' svg
+* Add 48' svg
+* Add 49' svg
+* Add 50' svg
+* Add 51' svg
+* Add 52' svg
+* Add 53' svg
+* Add 54' svg
+* Add 55' svg
+* Add 56' svg
+* Add 57' svg
+* Add 58' svg
+* Add 59' svg
 
 0.1.29
 * Add 0' svg
