@@ -2405,6 +2405,57 @@ pub fn draw_minute(minute: i16) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
         },
+        11 => {
+            size = (50.0, 50.0);
+            let data1 = Data::new()
+                .move_to((10.6, 18.3)) // M
+                .line_to((10.6, 18.3)) // L
+                .line_by((-4.4, 2.4)) // l
+                .line_to((5.5, 18.0)) // L
+                .line_by((5.5, -2.9)) // l
+                .horizontal_line_by(2.9) // h
+                .vertical_line_by(25.1) // v
+                .horizontal_line_by(-3.3) // h
+                .vertical_line_to(18.3) // V
+                .close(); // z
+            let data2 = Data::new()
+                .move_to((30.5, 18.3)) // M
+                .line_to((30.5, 18.3)) // L
+                .line_to((26.0, 20.6)) // L
+                .line_to((25.4, 18.0)) // L
+                .line_by((5.5, -2.9)) // l
+                .horizontal_line_by(2.9) //
+                .vertical_line_by(25.1) // v
+                .horizontal_line_by(-3.3) // h
+                .vertical_line_to(18.3) // V
+                .close(); // z
+            let data3 = Data::new()
+                .move_to((48.3, 13.7)) // M
+                .cubic_curve_by((-0.9, 3.2, -2.6, 7.4, -3.6, 9.2)) // c
+                .line_by((-2.2, 0.3)) // l
+                .cubic_curve_by((0.9, -2.3, 1.9, -6.3, 2.3, -9.1)) // c
+                .line_to((48.3, 13.7)) // L
+                .close(); // z
+            let path1 = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data1);
+            let path2 = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data2);
+            let path3 = Path::new()
+                .set("fill", "black")
+                .set("stroke", "black")
+                .set("stroke-width", 0)
+                .set("d", data3);
+            let group = Group::new().add(path1).add(path2).add(path3);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(group);
+        },
         _ => {
             size = (50.0, 50.0);
             document = Document::new().set("viewBox", (0, 0, size.0, size.1));
