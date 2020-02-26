@@ -14,8 +14,11 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
+extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
+use libswe_sys::sweconst::Signs;
+use strum::IntoEnumIterator; // Enum for loop
 use svg::node::element::path::Number;
 use svg::node::element::Circle;
 use svg::Document;
@@ -33,6 +36,13 @@ const CIRCLE_SIZE: [(bool, Number); 7] = [
     (false, 87.0), // 5
     (false, 94.0), // 6
 ];
+
+// Working Storage - Enums
+// #[derive(Debug, Clone, PartialEq, Display)]
+pub enum LargerDrawLine {
+    Small,
+    Large,
+}
 
 // Working Storage - Struct
 #[derive(Debug, Clone)]
@@ -95,6 +105,26 @@ impl Draw for WorkingStorageDraw {
                 );
             }
         }
+
+        // Draw zodiac simple with begin at Aries 0°0'0"
+        // https://github.com/stephaneworkspace/astrologie/blob/master/lib/draw_astro.dart
+        let mut larger_draw_line = LargerDrawLine::Small;
+        for i in Signs::iter() {
+            // 0°
+            // To do
+            // 1° to 29°
+            for j in 1..15 {
+                if j == 5 || j == 10 || j == 15 {
+                    larger_draw_line = LargerDrawLine::Large;
+                } else {
+                    larger_draw_line = LargerDrawLine::Small;
+                }
+            }
+        }
+        //for i in 1..12 {}
+
+        // pub enum LargerDrawLine {
+
         let document = Document::new()
             //.set("baseProfile", "full")
             //.set("version", "1.1")
