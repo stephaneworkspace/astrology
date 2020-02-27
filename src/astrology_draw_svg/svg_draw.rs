@@ -30,6 +30,9 @@ use svg::Document;
 // circle 360°
 const CIRCLE: Number = 360.0;
 
+const LARGER_DRAW_LINE_RULES_SMALL: Number = 0.1;
+const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
+
 // tuple (visible/value)
 const CIRCLE_SIZE: [(bool, Number); 7] = [
     (true, 35.0),  // 0
@@ -75,6 +78,10 @@ pub trait Draw {
 pub trait CalcDraw {
     fn get_radius_total(&self) -> Number;
     fn get_radius_circle(&self, occurs: usize) -> (Number, bool);
+    fn get_radius_rules_inside_circle(
+        &self,
+        larger_draw_line: LargerDrawLine,
+    ) -> Number;
     fn get_center_equal(&self, max_size: Number) -> Offset;
     fn get_center(&self) -> Offset;
     fn get_line_trigo(
@@ -126,13 +133,13 @@ impl Draw for WorkingStorageDraw {
 
         // Draw zodiac simple with begin at Aries 0°0'0"
         // https://github.com/stephaneworkspace/astrologie/blob/master/lib/draw_astro.dart
-        let mut larger_draw_line = LargerDrawLine::Small;
+        let mut larger_draw_line;
         let mut line_degre = Vec::new();
         for i in Signs::iter() {
-            let mut sign = i as i32;
+            let sign = i as i32;
             // 0°
             // temporary Aries 0°0'0"
-            let pos = (sign as f32 - 1.0) * 30.0;
+            let mut pos = (sign as f32 - 1.0) * 30.0;
             // let pos = sign_pos_circle;
             let a_xy: [Offset; 2] = self.ws.get_line_trigo(
                 pos,
@@ -144,7 +151,9 @@ impl Draw for WorkingStorageDraw {
                     .set("x1", a_xy[0].x)
                     .set("x2", a_xy[0].y)
                     .set("y1", a_xy[1].x)
-                    .set("y2", a_xy[1].y),
+                    .set("y2", a_xy[1].y)
+                    .set("stroke", "black")
+                    .set("stroke-width", 1),
             );
             // 1° to 29°
             for j in 1..15 {
@@ -153,6 +162,27 @@ impl Draw for WorkingStorageDraw {
                 } else {
                     larger_draw_line = LargerDrawLine::Small;
                 }
+                // temporary Aries 0°0'0"
+                pos = ((sign as f32 - 1.0) * 30.0) + (j as f32 * 2.0);
+                // to do
+                // pos = sign_pos_circle + (j as f32 * 2.0);
+                if pos > 360.0 {
+                    pos = pos - 360.0;
+                }
+                let a_xy: [Offset; 2] = self.ws.get_line_trigo(
+                    pos,
+                    self.ws.get_radius_circle(1).0,
+                    self.ws.get_radius_rules_inside_circle(larger_draw_line),
+                );
+                line_degre.push(
+                    Line::new()
+                        .set("x1", a_xy[0].x)
+                        .set("x2", a_xy[0].y)
+                        .set("y1", a_xy[1].x)
+                        .set("y2", a_xy[1].y)
+                        .set("stroke", "black")
+                        .set("stroke-width", 1),
+                );
             }
         }
         //for i in 1..12 {}
@@ -187,6 +217,16 @@ impl CalcDraw for WorkingStorage {
             (self.get_radius_total() * CIRCLE_SIZE[occurs].1) / 100.0,
             CIRCLE_SIZE[occurs].0,
         )
+    }
+
+    fn get_radius_rules_inside_circle(
+        &self,
+        larger_draw_line: LargerDrawLine,
+    ) -> Number {
+        match larger_draw_line {
+            LargerDrawLine::Small => 1.0 + LARGER_DRAW_LINE_RULES_SMALL,
+            LargerDrawLine::Large => 1.0 + LARGER_DRAW_LINE_RULES_LARGE,
+        }
     }
 
     fn get_center_equal(&self, max_size: Number) -> Offset {
