@@ -17,10 +17,10 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::{House, Signs};
+use libswe_sys::sweconst::House; // , Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
-use strum::IntoEnumIterator; // Enum for loop
+// use strum::IntoEnumIterator; // Enum for loop
 use svg::node::element::path::Number;
 use svg::node::element::{Circle, Group, Line};
 use svg::Document;
@@ -151,7 +151,9 @@ impl Draw for WorkingStorageDraw {
         // https://github.com/stephaneworkspace/astrologie/blob/master/lib/draw_astro.dart
         let mut larger_draw_line;
         let mut line_degre = Vec::new();
-        for i in Signs::iter() {
+        // For all 12 zodiac signs
+        for i in 0..12 {
+            // Signs::iter() { // for loop like 0..12
             let sign = i as i32;
             // 0°
             // temporary Aries 0°0'0"

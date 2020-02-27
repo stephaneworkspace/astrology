@@ -23,6 +23,10 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.32
+* Add rules for all 12 zodiac signs with examples/data.json values for
+  examples/html_chart.rs
+
 0.1.31
 * Add rules for zodiac without using libswe_sys, just compute with Aries =
   0°0'0""
