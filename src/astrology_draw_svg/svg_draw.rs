@@ -188,6 +188,9 @@ impl Draw for WorkingStorageDraw {
         //for i in 1..12 {}
 
         // pub enum LargerDrawLine {
+        for (l, i) in (&line_degre).iter().enumerate() {
+            println!("{:3}{}", i, l.to_string());
+        }
 
         let document = Document::new()
             //.set("baseProfile", "full")
@@ -199,7 +202,25 @@ impl Draw for WorkingStorageDraw {
             )
             .add(circle[0].clone())
             .add(circle[1].clone())
-            .add(circle[2].clone());
+            .add(circle[2].clone())
+            .add(line_degre[0].clone())
+            .add(line_degre[1].clone())
+            .add(line_degre[2].clone())
+            .add(line_degre[3].clone())
+            .add(line_degre[4].clone())
+            .add(line_degre[5].clone())
+            .add(line_degre[6].clone())
+            .add(line_degre[7].clone())
+            .add(line_degre[8].clone())
+            .add(line_degre[9].clone())
+            .add(line_degre[10].clone())
+            .add(line_degre[11].clone())
+            .add(line_degre[12].clone())
+            .add(line_degre[13].clone())
+            .add(line_degre[14].clone())
+            .add(line_degre[15].clone());
+        // .add(line_degre[100].clone())
+        // .add(line_degre[179].clone());
         document
     }
 }
