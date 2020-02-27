@@ -155,7 +155,11 @@ impl Draw for WorkingStorageDraw {
             let sign = i as i32;
             // 0°
             // temporary Aries 0°0'0"
-            let mut pos = (sign as f32 - 1.0) * 30.0;
+            let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
+            let mut pos = (sign as f32 - 1.0) * 30.0 + &off_pos_asc;
+            if pos > 360.0 {
+                pos = pos - 360.0;
+            }
             // let pos = sign_pos_circle;
             let a_xy: [Offset; 2] = self.ws.get_line_trigo(
                 pos,
@@ -179,7 +183,9 @@ impl Draw for WorkingStorageDraw {
                     larger_draw_line = LargerDrawLine::Small;
                 }
                 // temporary Aries 0°0'0"
-                pos = ((sign as f32 - 1.0) * 30.0) + (j as f32 * 2.0);
+                pos = ((sign as f32 - 1.0) * 30.0)
+                    + (j as f32 * 2.0)
+                    + &off_pos_asc;
                 // to do
                 // pos = sign_pos_circle + (j as f32 * 2.0);
                 if pos > 360.0 {
