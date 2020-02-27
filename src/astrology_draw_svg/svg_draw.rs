@@ -34,14 +34,14 @@ const LARGER_DRAW_LINE_RULES_SMALL: Number = 0.1;
 const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 
 // tuple (visible/value)
-const CIRCLE_SIZE: [(bool, Number); 7] = [
-    (true, 35.0),  // 0
-    (true, 62.0),  // 1
-    (true, 67.0),  // 2
-    (false, 75.0), // 3
-    (false, 80.0), // 4
-    (false, 87.0), // 5
-    (false, 94.0), // 6
+const CIRCLE_SIZE: [(Number, bool); 7] = [
+    (35.0, true),  // 0
+    (62.0, true),  // 1
+    (67.0, true),  // 2
+    (75.0, false), // 3
+    (80.0, false), // 4
+    (87.0, false), // 5
+    (94.0, false), // 6
 ];
 
 // Working Storage - Enums
@@ -118,7 +118,9 @@ impl Draw for WorkingStorageDraw {
 
         let mut circle = Vec::new();
         for (i, ele) in CIRCLE_SIZE.iter().enumerate() {
-            if ele.0 {
+            // ele.0 = size
+            // ele.1 = bool if printed
+            if ele.1 {
                 circle.push(
                     Circle::new()
                         .set("fill", "none")
@@ -185,11 +187,10 @@ impl Draw for WorkingStorageDraw {
                 );
             }
         }
-        //for i in 1..12 {}
 
         // Debug
         // for (l, i) in (&line_degre).iter().enumerate() {
-        //    println!("{}", i, l.to_string());
+        //    println!("{}{}", i, l.to_string());
         // }
 
         let mut group_degre: Group = Group::new();
@@ -209,13 +210,6 @@ impl Draw for WorkingStorageDraw {
             .add(circle[1].clone())
             .add(circle[2].clone())
             .add(group_degre);
-        /*  .add(line_degre[12].clone())
-            .add(line_degre[13].clone())
-            .add(line_degre[14].clone())
-            .add(line_degre[15].clone());
-        */
-        // .add(line_degre[100].clone())
-        // .add(line_degre[179].clone());
         document
     }
 }
@@ -230,8 +224,8 @@ impl CalcDraw for WorkingStorage {
             panic!("Out of range in circle occurs: {}", occurs);
         }
         (
-            (self.get_radius_total() * CIRCLE_SIZE[occurs].1) / 100.0,
-            CIRCLE_SIZE[occurs].0,
+            (self.get_radius_total() * CIRCLE_SIZE[occurs].0) / 100.0,
+            CIRCLE_SIZE[occurs].1,
         )
     }
 
@@ -239,10 +233,14 @@ impl CalcDraw for WorkingStorage {
         &self,
         larger_draw_line: LargerDrawLine,
     ) -> Number {
-        match larger_draw_line {
+        let size = match larger_draw_line {
             LargerDrawLine::Small => 1.0 + LARGER_DRAW_LINE_RULES_SMALL,
             LargerDrawLine::Large => 1.0 + LARGER_DRAW_LINE_RULES_LARGE,
-        }
+        };
+        self.get_radius_total()
+            * (((CIRCLE_SIZE[1].0 - CIRCLE_SIZE[0].0) / size)
+                + CIRCLE_SIZE[0].0)
+            / 100.0
     }
 
     fn get_center_equal(&self, max_size: Number) -> Offset {
