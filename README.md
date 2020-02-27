@@ -26,6 +26,7 @@ pub extern "C" fn sweversion() -> *const c_char {
 0.1.32
 * Add rules for all 12 zodiac signs with examples/data.json values for
   examples/html_chart.rs
+* Some tests code for c -> rust -> c are temporary deleted
 
 0.1.31
 * Add rules for zodiac without using libswe_sys, just compute with Aries =
