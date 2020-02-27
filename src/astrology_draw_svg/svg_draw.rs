@@ -21,7 +21,7 @@ use libswe_sys::sweconst::Signs;
 use std::f32;
 use strum::IntoEnumIterator; // Enum for loop
 use svg::node::element::path::Number;
-use svg::node::element::{Circle, Line};
+use svg::node::element::{Circle, Group, Line};
 use svg::Document;
 
 // Working Storage - CONST
@@ -149,8 +149,8 @@ impl Draw for WorkingStorageDraw {
             line_degre.push(
                 Line::new()
                     .set("x1", a_xy[0].x)
-                    .set("x2", a_xy[0].y)
-                    .set("y1", a_xy[1].x)
+                    .set("y1", a_xy[0].y)
+                    .set("x2", a_xy[1].x)
                     .set("y2", a_xy[1].y)
                     .set("stroke", "black")
                     .set("stroke-width", 1),
@@ -177,8 +177,8 @@ impl Draw for WorkingStorageDraw {
                 line_degre.push(
                     Line::new()
                         .set("x1", a_xy[0].x)
-                        .set("x2", a_xy[0].y)
-                        .set("y1", a_xy[1].x)
+                        .set("y1", a_xy[0].y)
+                        .set("x2", a_xy[1].x)
                         .set("y2", a_xy[1].y)
                         .set("stroke", "black")
                         .set("stroke-width", 1),
@@ -187,9 +187,14 @@ impl Draw for WorkingStorageDraw {
         }
         //for i in 1..12 {}
 
-        // pub enum LargerDrawLine {
-        for (l, i) in (&line_degre).iter().enumerate() {
-            println!("{:3}{}", i, l.to_string());
+        // Debug
+        // for (l, i) in (&line_degre).iter().enumerate() {
+        //    println!("{}", i, l.to_string());
+        // }
+
+        let mut group_degre: Group = Group::new();
+        for i in 0..line_degre.len() {
+            group_degre = group_degre.add(line_degre[i].clone());
         }
 
         let document = Document::new()
@@ -203,22 +208,12 @@ impl Draw for WorkingStorageDraw {
             .add(circle[0].clone())
             .add(circle[1].clone())
             .add(circle[2].clone())
-            .add(line_degre[0].clone())
-            .add(line_degre[1].clone())
-            .add(line_degre[2].clone())
-            .add(line_degre[3].clone())
-            .add(line_degre[4].clone())
-            .add(line_degre[5].clone())
-            .add(line_degre[6].clone())
-            .add(line_degre[7].clone())
-            .add(line_degre[8].clone())
-            .add(line_degre[9].clone())
-            .add(line_degre[10].clone())
-            .add(line_degre[11].clone())
-            .add(line_degre[12].clone())
+            .add(group_degre);
+        /*  .add(line_degre[12].clone())
             .add(line_degre[13].clone())
             .add(line_degre[14].clone())
             .add(line_degre[15].clone());
+        */
         // .add(line_degre[100].clone())
         // .add(line_degre[179].clone());
         document
