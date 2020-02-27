@@ -21,29 +21,22 @@ extern crate strum;
 //#[macro_use]
 extern crate strum_macros;
 
-use strum::{AsStaticRef, IntoEnumIterator};
+// use strum::{AsStaticRef, IntoEnumIterator};
 extern crate ferris_says;
-use libswe_sys::sweconst::{
-    Bodies, Calandar, House, Object, ObjectType, OptionalFlag,
-};
-use libswe_sys::swerust::{
-    handler_swe02,
-    handler_swe03,
-    handler_swe07,
-    handler_swe08,
-    handler_swe14,
-    //    handler_swe14::HousesResult,
-};
+use libswe_sys::sweconst::Bodies; //, Calandar, House, Object, ObjectType, OptionalFlag,
+use libswe_sys::swerust::handler_swe02;
 use serde::Deserialize;
-use std::env;
+// use std::env;
 use std::ffi::CString;
-use std::fs::File;
-use std::io::Read;
+// use std::fs::File;
+// use std::io::Read;
 use std::io::{stdout, BufWriter};
-use std::os::raw::{c_char, c_double};
-use std::path::PathBuf;
+use std::os::raw::c_char;
+// , c_double};
+// use std::path::PathBuf;
 pub mod astrology_draw_svg;
 pub use self::astrology_draw_svg::chart_html as export_chart_html;
+pub use self::astrology_draw_svg::DataChartNatal;
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Data {
@@ -79,7 +72,7 @@ pub enum YewAction {
     Chart,
     Bodies(Bodies),
 }
-
+/*
 // Working Storage Struct
 #[derive(Debug, Clone)]
 pub struct WorkingStorageYew {
@@ -227,8 +220,9 @@ impl YewAstro for WorkingStorageYew {
         }
     }
 }
-
+*/
 // C -> Rust -> C
+/*
 #[no_mangle]
 pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
     CString::new(astrology_draw_svg::chart(max_size as f32, ""))
@@ -338,7 +332,7 @@ pub fn intern_svg(max_size: f32, path: &str) {
     astrology_draw_svg::chart(max_size, path);
     handler_swe02::close();
 }
-
+*/
 /// Unit test
 #[cfg(test)]
 mod tests {

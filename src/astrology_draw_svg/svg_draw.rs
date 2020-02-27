@@ -17,7 +17,8 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::Signs;
+use libswe_sys::sweconst::{House, Signs};
+use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 use strum::IntoEnumIterator; // Enum for loop
 use svg::node::element::path::Number;
@@ -55,6 +56,7 @@ pub enum LargerDrawLine {
 #[derive(Debug, Clone)]
 pub struct WorkingStorage {
     pub max_size: Number,
+    pub house: Vec<House>,
 }
 
 #[derive(Debug, Clone)]
@@ -95,8 +97,20 @@ pub trait CalcDraw {
 // Methods - Constructors
 
 impl WorkingStorage {
-    pub fn new(max_size: Number) -> WorkingStorage {
-        WorkingStorage { max_size: max_size }
+    pub fn new(max_size: Number, house: HousesResult) -> WorkingStorage {
+        let mut h: Vec<House> = Vec::new();
+        for (i, res) in house.clone().cusps.iter().enumerate() {
+            if i > 0 {
+                h.push(House::new(i as i32, res.clone()));
+                if i + 1 > 12 {
+                    break;
+                }
+            }
+        }
+        WorkingStorage {
+            max_size: max_size,
+            house: h,
+        }
     }
 }
 
