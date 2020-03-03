@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.33
+* Add pointer to all houses in svg chart
+
 0.1.32
 * Add rules for all 12 zodiac signs with examples/data.json values for
   examples/html_chart.rs

@@ -21,8 +21,8 @@ use libswe_sys::sweconst::House; // , Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
-use svg::node::element::path::Number;
-use svg::node::element::{Circle, Group, Line};
+use svg::node::element::path::{Data, Number};
+use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
 
 // Working Storage - CONST
@@ -84,6 +84,9 @@ pub trait CalcDraw {
         &self,
         larger_draw_line: LargerDrawLine,
     ) -> Number;
+    fn get_radius_rules_inside_circle_house_for_pointer_bottom(&self)
+        -> Number;
+    fn get_radius_rules_inside_circle_house_for_pointer_top(&self) -> Number;
     fn get_center_equal(&self, max_size: Number) -> Offset;
     fn get_center(&self) -> Offset;
     fn get_line_trigo(
@@ -157,7 +160,10 @@ impl Draw for WorkingStorageDraw {
         // Draw zodiac simple with begin at Aries 0°0'0"
         // https://github.com/stephaneworkspace/astrologie/blob/master/lib/draw_astro.dart
         let mut larger_draw_line;
+
+        // Draw rules and sign separation
         let mut line_degre = Vec::new();
+
         // For all 12 zodiac signs
         for i in 0..12 {
             // Signs::iter() { // for loop like 0..12
@@ -200,17 +206,17 @@ impl Draw for WorkingStorageDraw {
                 if pos > 360.0 {
                     pos = pos - 360.0;
                 }
-                let a_xy: [Offset; 2] = self.ws.get_line_trigo(
+                let a_xy_line: [Offset; 2] = self.ws.get_line_trigo(
                     pos,
                     self.ws.get_radius_circle(1).0,
                     self.ws.get_radius_rules_inside_circle(larger_draw_line),
                 );
                 line_degre.push(
                     Line::new()
-                        .set("x1", a_xy[0].x)
-                        .set("y1", a_xy[0].y)
-                        .set("x2", a_xy[1].x)
-                        .set("y2", a_xy[1].y)
+                        .set("x1", a_xy_line[0].x)
+                        .set("y1", a_xy_line[0].y)
+                        .set("x2", a_xy_line[1].x)
+                        .set("y2", a_xy_line[1].y)
                         .set("stroke", "black")
                         .set("stroke-width", 1),
                 );
@@ -227,6 +233,68 @@ impl Draw for WorkingStorageDraw {
             group_degre = group_degre.add(line_degre[i].clone());
         }
 
+        // Draw house separation with pointer -> (path triangle draw in svg)
+        let mut line_house = Vec::new();
+        let mut triangle_house = Vec::new();
+        // For all 12 house delimiter
+        for i in 0..12 {
+            let house_pos: f32 = self.ws.house[i].longitude as f32;
+            let angular_pointer = 1.0; // Todo angular pointer varying
+                                       // iphone/ipad, need to be a CONST
+            let a_xy_tria: [Offset; 3] = self.ws.get_triangle_path(
+                house_pos,
+                angular_pointer,
+                self.ws
+                    .get_radius_rules_inside_circle_house_for_pointer_bottom(),
+                self.ws
+                    .get_radius_rules_inside_circle_house_for_pointer_top(),
+            );
+            let a_xy_line: [Offset; 2] = self.ws.get_line_trigo(
+                house_pos,
+                self.ws.get_radius_circle(2).0,
+                self.ws.get_radius_circle(1).0,
+            );
+
+            // Todo
+            /*
+            let mut sw_pointer = false;
+            if AC/IC/DESC/MC sw_pointer = false else sw_pointer = true
+                and then push after only if true
+            */
+            line_house.push(
+                Line::new()
+                    .set("x1", a_xy_line[0].x)
+                    .set("y1", a_xy_line[0].y)
+                    .set("x2", a_xy_line[1].x)
+                    .set("y2", a_xy_line[1].y)
+                    .set("stroke", "black")
+                    .set("stroke-width", 1),
+            );
+
+            triangle_house.push(
+                Path::new()
+                    .set("fill", "black")
+                    .set("stroke", "black")
+                    .set("stroke-width", 1)
+                    .set(
+                        "d",
+                        Data::new()
+                            .move_to((a_xy_tria[2].x, a_xy_tria[2].y)) // M
+                            .line_to((a_xy_tria[0].x, a_xy_tria[0].y)) // L
+                            .line_to((a_xy_tria[1].x, a_xy_tria[1].y)) // L
+                            .close(), // z
+                    ),
+            );
+        }
+
+        let mut group_house: Group = Group::new();
+        for i in 0..line_house.len() {
+            group_house = group_house.add(line_house[i].clone());
+        }
+        for i in 0..triangle_house.len() {
+            group_house = group_house.add(triangle_house[i].clone());
+        }
+
         let document = Document::new()
             //.set("baseProfile", "full")
             //.set("version", "1.1")
@@ -238,7 +306,8 @@ impl Draw for WorkingStorageDraw {
             .add(circle[0].clone())
             .add(circle[1].clone())
             .add(circle[2].clone())
-            .add(group_degre);
+            .add(group_degre)
+            .add(group_house);
         document
     }
 }
@@ -269,6 +338,33 @@ impl CalcDraw for WorkingStorage {
         self.get_radius_total()
             * (((CIRCLE_SIZE[1].0 - CIRCLE_SIZE[0].0) / size)
                 + CIRCLE_SIZE[0].0)
+            / 100.0
+    }
+
+    /// Find position bottom of pointer
+    ///     ..
+    ///    /  \
+    ///     ||
+    ///     ||
+    ///    HERE
+    fn get_radius_rules_inside_circle_house_for_pointer_bottom(
+        &self,
+    ) -> Number {
+        let div_trait_pointer = 1.5; // Todo CONST varying iphone/ipad
+        (self.get_radius_total()
+            * (((CIRCLE_SIZE[2].0 - CIRCLE_SIZE[1].0) / div_trait_pointer)
+                - CIRCLE_SIZE[2].0))
+            / 100.0
+    }
+
+    /// Top of pointer
+    ///     HERE
+    ///     /  \
+    ///      ||
+    ///      ||
+    fn get_radius_rules_inside_circle_house_for_pointer_top(&self) -> Number {
+        (self.get_radius_total()
+            * ((CIRCLE_SIZE[2].0 - CIRCLE_SIZE[1].0) - CIRCLE_SIZE[2].0))
             / 100.0
     }
 
@@ -322,7 +418,7 @@ impl CalcDraw for WorkingStorage {
         if angular1 > 360.0 {
             angular1 = angular1 - 360.0;
         }
-        let mut angular2 = angular as f32 - angular_pointer as f32;
+        let mut angular2 = angular as f32 + angular_pointer as f32;
         if angular2 > 360.0 {
             angular2 = angular2 - 360.0;
         }
