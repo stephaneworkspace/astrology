@@ -92,6 +92,13 @@ pub trait CalcDraw {
         radius_circle_begin: Number,
         radius_circle_end: Number,
     ) -> [Offset; 2];
+    fn get_triangle_path(
+        &self,
+        angular: Number,
+        angular_pointer: Number,
+        radius_circle_begin: Number,
+        radius_circle_end: Number,
+    ) -> [Offset; 3];
 }
 
 // Methods - Constructors
@@ -303,5 +310,50 @@ impl CalcDraw for WorkingStorage {
                 * -1.0
                 * radius_circle_end as f32;
         [Offset { x: dx1, y: dx2 }, Offset { x: dy1, y: dy2 }]
+    }
+    fn get_triangle_path(
+        &self,
+        angular: Number,
+        angular_pointer: Number,
+        radius_circle_begin: Number,
+        radius_circle_end: Number,
+    ) -> [Offset; 3] {
+        let mut angular1 = angular as f32 - angular_pointer as f32;
+        if angular1 > 360.0 {
+            angular1 = angular1 - 360.0;
+        }
+        let mut angular2 = angular as f32 - angular_pointer as f32;
+        if angular2 > 360.0 {
+            angular2 = angular2 - 360.0;
+        }
+        let dx1: Number = self.get_center().x
+            + (angular1 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
+                * -1.0
+                * radius_circle_begin as f32;
+        let dy1: Number = self.get_center().y
+            + (angular1 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
+                * -1.0
+                * radius_circle_begin as f32;
+        let dx2: Number = self.get_center().x
+            + (angular2 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
+                * -1.0
+                * radius_circle_begin as f32;
+        let dy2: Number = self.get_center().y
+            + (angular2 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
+                * -1.0
+                * radius_circle_begin as f32;
+        let dx3: Number = self.get_center().x
+            + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
+                * -1.0
+                * radius_circle_end as f32;
+        let dy3: Number = self.get_center().y
+            + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
+                * -1.0
+                * radius_circle_end as f32;
+        [
+            Offset { x: dx1, y: dy1 },
+            Offset { x: dx2, y: dy2 },
+            Offset { x: dx3, y: dy3 },
+        ]
     }
 }
