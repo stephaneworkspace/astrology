@@ -17,7 +17,7 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::House; // , Signs};
+use libswe_sys::sweconst::{Angle, House}; // , Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
@@ -111,7 +111,16 @@ impl WorkingStorage {
         let mut h: Vec<House> = Vec::new();
         for (i, res) in house.clone().cusps.iter().enumerate() {
             if i > 0 {
-                h.push(House::new(i as i32, res.clone()));
+                // angle
+                let angle;
+                angle = match i - 1 {
+                    1 => Angle::Asc,
+                    4 => Angle::Fc,
+                    7 => Angle::Desc,
+                    10 => Angle::Mc,
+                    _ => Angle::Nothing,
+                };
+                h.push(House::new(i as i32, res.clone(), angle));
                 if i + 1 > 12 {
                     break;
                 }
@@ -241,36 +250,40 @@ impl Draw for WorkingStorageDraw {
             let house_pos: f32 = self.ws.house[i].longitude as f32;
             let angular_pointer = 1.0; // Todo angular pointer varying
                                        // iphone/ipad, need to be a CONST
-            let a_xy_tria: [Offset; 3] = self.ws.get_triangle_path(
-                house_pos,
-                angular_pointer,
-                self.ws
-                    .get_radius_rules_inside_circle_house_for_pointer_bottom(),
-                self.ws
-                    .get_radius_rules_inside_circle_house_for_pointer_top(),
-            );
-            let a_xy_line: [Offset; 2] = self.ws.get_line_trigo(
-                house_pos,
-                self.ws.get_radius_circle(2).0,
-                self.ws.get_radius_circle(1).0,
-            );
-
-            // Todo
-            /*
-            let mut sw_pointer = false;
-            if AC/IC/DESC/MC sw_pointer = false else sw_pointer = true
-                and then push after only if true
-            */
-            line_house.push(
-                Line::new()
-                    .set("x1", a_xy_line[0].x)
-                    .set("y1", a_xy_line[0].y)
-                    .set("x2", a_xy_line[1].x)
-                    .set("y2", a_xy_line[1].y)
-                    .set("stroke", "black")
-                    .set("stroke-width", 1),
-            );
-
+            let a_xy_tria: [Offset; 3];
+            let a_xy_line: [Offset; 2];
+            if self.ws.house[i].angle == Angle::Nothing {
+                a_xy_tria = self.ws.get_triangle_path(
+                  house_pos,
+                  angular_pointer,
+                  self.ws
+                      .get_radius_rules_inside_circle_house_for_pointer_bottom(),
+                  self.ws
+                      .get_radius_rules_inside_circle_house_for_pointer_top(),
+              );
+                // Line for small pointer (only if angle is Angle::Nothing)
+                a_xy_line = self.ws.get_line_trigo(
+                    house_pos,
+                    self.ws.get_radius_circle(2).0,
+                    self.ws.get_radius_circle(1).0,
+                );
+                line_house.push(
+                    Line::new()
+                        .set("x1", a_xy_line[0].x)
+                        .set("y1", a_xy_line[0].y)
+                        .set("x2", a_xy_line[1].x)
+                        .set("y2", a_xy_line[1].y)
+                        .set("stroke", "black")
+                        .set("stroke-width", 1),
+                );
+            } else {
+                a_xy_tria = self.ws.get_triangle_path(
+                    house_pos,
+                    angular_pointer,
+                    self.ws.get_radius_circle(2).0,
+                    self.ws.get_radius_circle(1).0,
+                );
+            }
             triangle_house.push(
                 Path::new()
                     .set("fill", "black")
