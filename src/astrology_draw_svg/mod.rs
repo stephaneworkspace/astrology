@@ -28,10 +28,12 @@ use svg::node::element::path::Number;
 use svg::node::element::Path;
 use svg::Document;
 pub mod svg_draw_bodies;
+pub mod svg_draw_house;
 pub mod svg_draw_numbers;
 pub mod svg_draw_signs;
 use base64::encode;
 use svg_draw_bodies::draw_bodie;
+use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
 use svg_draw_signs::draw_sign;
 //use strum::{AsStaticRef, IntoEnumIterator};
@@ -579,6 +581,54 @@ pub fn chart_html(
                     59'
                     {}
                     -->
+                    <!--
+                    House 1
+                    {}
+                    -->
+                    <!--
+                    House 2
+                    {}
+                    -->
+                    <!--
+                    House 3
+                    {}
+                    -->
+                    <!--
+                    House 4
+                    {}
+                    -->
+                    <!--
+                    House 5
+                    {}
+                    -->
+                    <!--
+                    House 6
+                    {}
+                    -->
+                    <!--
+                    House 7
+                    {}
+                    -->
+                    <!--
+                    House 8
+                    {}
+                    -->
+                    <!--
+                    House 9
+                    {}
+                    -->
+                    <!--
+                    House 10
+                    {}
+                    -->
+                    <!--
+                    House 11
+                    {}
+                    -->
+                    <!--
+                    House 12
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -704,7 +754,19 @@ pub fn chart_html(
         draw_minute(56),
         draw_minute(57),
         draw_minute(58),
-        draw_minute(59)
+        draw_minute(59),
+        draw_house(1),
+        draw_house(2),
+        draw_house(3),
+        draw_house(4),
+        draw_house(5),
+        draw_house(6),
+        draw_house(7),
+        draw_house(8),
+        draw_house(9),
+        draw_house(10),
+        draw_house(11),
+        draw_house(12),
     );
 
     if path_and_file_export != "" {

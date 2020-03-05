@@ -23,6 +23,20 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.35
+* Add house 1 svg
+* Add house 2 svg
+* Add house 3 svg
+* Add house 4 svg
+* Add house 5 svg
+* Add house 6 svg
+* Add house 7 svg
+* Add house 8 svg
+* Add house 9 svg
+* Add house 10 svg
+* Add house 11 svg
+* Add house 12 svg
+
 0.1.34
 * Add angle pointer in svg chart
 
