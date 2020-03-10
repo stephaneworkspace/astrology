@@ -36,7 +36,8 @@ use std::os::raw::c_char;
 // use std::path::PathBuf;
 pub mod astrology_draw_svg;
 pub use self::astrology_draw_svg::chart_html as export_chart_html;
-pub use self::astrology_draw_svg::DataChartNatal;
+pub use self::astrology_draw_svg::{DataChartNatal, DataChartNatalC};
+pub use std::os::raw::{c_double, c_int};
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Data {
@@ -222,14 +223,26 @@ impl YewAstro for WorkingStorageYew {
 }
 */
 // C -> Rust -> C
-/*
+// This is the first try
+// then I return an Array of const* pointer
 #[no_mangle]
 pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
-    CString::new(astrology_draw_svg::chart(max_size as f32, ""))
+    let data = DataChartNatalC {
+        year: 2000,
+        month: 01,
+        day: 01,
+        hourf32: 0.0,
+        hour: 0,
+        min: 0,
+        sec: 0.0,
+        lat: 0.0,
+        lng: 0.0,
+    };
+    CString::new(astrology_draw_svg::chart(max_size as f32, data))
         .unwrap()
         .into_raw()
 }
-
+/*
 pub fn intern_svg(max_size: f32, path: &str) {
     let ephe_path: &str = "/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/sweph/";
     handler_swe02::set_ephe_path(&ephe_path);

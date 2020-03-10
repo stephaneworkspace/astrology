@@ -42,6 +42,7 @@ use std::io::prelude::*;
 //use strum::AsStaticRef;
 pub mod html_draw;
 pub mod svg_draw;
+use std::os::raw::{c_double, c_int};
 use svg_draw::*;
 
 #[derive(Debug, Deserialize)]
@@ -55,6 +56,68 @@ pub struct DataChartNatal {
     pub sec: f32,
     pub lat: f32,
     pub lng: f32,
+}
+
+pub struct DataChartNatalC {
+    pub year: c_int,
+    pub month: c_int,
+    pub day: c_int,
+    pub hourf32: c_double,
+    pub hour: c_int,
+    pub min: c_int,
+    pub sec: c_double,
+    pub lat: c_double,
+    pub lng: c_double,
+}
+
+/// Create a chart for C export
+/// Without path like chart_html for now
+pub fn chart(max_size: Number, data: DataChartNatalC) -> String {
+    // Natal chart
+    println!("Version swephem: {}", swerust::handler_swe02::version());
+    /*let swe02_path: &str =
+        "/Users/stephanebressani/Code/Rust/libswe-sys/src/swisseph/sweph/";
+    swerust::handler_swe02::set_ephe_path(&swe02_path);*/
+    println!("{}", data.year);
+    println!(
+        "Library path (Todo): {}",
+        swerust::handler_swe02::get_library_path()
+    );
+    // House natal chart
+    println!("Hsys: {}", swerust::handler_swe14::house_name('P')); // Placidus
+    let utc_time_zone: swerust::handler_swe08::UtcTimeZoneResult =
+        swerust::handler_swe08::utc_time_zone(
+            data.year,
+            data.month,
+            data.day,
+            data.hour,
+            data.min,
+            data.sec as f64, // need to change libswe_sys f64 -> f32
+            2.0,
+        ); // 2.0 = Timezone -> to compute
+    println!("UtcTimeZone: {:?}", utc_time_zone);
+    let utc_to_jd: swerust::handler_swe08::UtcToJdResult =
+        swerust::handler_swe08::utc_to_jd(
+            utc_time_zone.year[0],
+            utc_time_zone.month[0],
+            utc_time_zone.day[0],
+            utc_time_zone.hour[0],
+            utc_time_zone.min[0],
+            utc_time_zone.sec[0],
+            Calandar::Gregorian,
+        );
+    println!("GregorianTimeZone: {:?}", utc_to_jd);
+    let house_result = swerust::handler_swe14::houses(
+        utc_to_jd.julian_day_ut,
+        data.lat as f64, // Todo in libswe_sys f64 -> f32
+        data.lng as f64, // Todo in libswe_sys f64 -> f32
+        'P',             // Placidus
+    );
+
+    // Object calc draw for calcul in svg x,y width, height
+    let ws = svg_draw::WorkingStorage::new(max_size, house_result);
+    let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
+    encode(&ws_draw.draw_base().to_string())
 }
 
 /// Create a html file with the natal chart

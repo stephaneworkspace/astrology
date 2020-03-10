@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.36
+* Simple function in c-rust-c with the chart in svg into "ptr const string" 
+
 0.1.35
 * Add house 1 svg
 * Add house 2 svg
