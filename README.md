@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.37
+* Fix one error in c -> rust -> c for draw svg
+
 0.1.36
 * Simple function in c-rust-c with the chart in svg into "ptr const string" 
 
