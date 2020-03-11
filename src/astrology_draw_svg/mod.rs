@@ -117,7 +117,7 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> String {
     // Object calc draw for calcul in svg x,y width, height
     let ws = svg_draw::WorkingStorage::new(max_size, house_result);
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
-    encode(&ws_draw.draw_base().to_string())
+    &ws_draw.draw_base().to_string()
 }
 
 /// Create a html file with the natal chart
