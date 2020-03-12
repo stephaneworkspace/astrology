@@ -31,13 +31,14 @@ use std::ffi::CString;
 // use std::fs::File;
 // use std::io::Read;
 use std::io::{stdout, BufWriter};
-use std::os::raw::c_char;
 // , c_double};
 // use std::path::PathBuf;
 pub mod astrology_draw_svg;
 pub use self::astrology_draw_svg::chart_html as export_chart_html;
 pub use self::astrology_draw_svg::{DataChartNatal, DataChartNatalC};
-pub use std::os::raw::{c_double, c_int};
+pub use std::os::raw::{c_char, c_double, c_int};
+extern crate libc;
+pub use libc::size_t;
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Data {
@@ -66,6 +67,58 @@ pub extern "C" fn intro() {
 pub extern "C" fn sweversion() -> *const c_char {
     //CString::new(get_version()).unwrap().into_raw()
     CString::new(handler_swe02::version()).unwrap().into_raw()
+}
+
+// C -> Rust -> C
+// This is the first try
+#[repr(C)]
+struct DynArray {
+    array: *mut CharTest,
+    length: size_t,
+}
+
+#[reprt(C)]
+struct CharTest {
+    char_test: *const c_char,
+}
+
+#[no_mangle] // *const c_char
+pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
+    let data = DataChartNatalC {
+        year: 2000,
+        month: 01,
+        day: 01,
+        hourf32: 0.0,
+        hour: 0,
+        min: 0,
+        sec: 0.0,
+        lat: 0.0,
+        lng: 0.0,
+    };
+    let mut v: Vec<CharTest>;
+    v.push(CharTest {
+        char_test: CString::new(astrology_draw_svg::chart(
+            max_size as f32,
+            data,
+        ))
+        .unwrap()
+        .into_raw(),
+    });
+    v.push(CharTest {
+        char_test: CString::new("test").unwrap().into_raw(),
+    });
+
+    /*v.push(CharTest { char_test = CString::new(astrology_draw_svg::chart(max_size as f32, data))
+        .unwrap()
+        .into_raw()
+    });*/
+    //arr[1] = CString::new("Test").unwrap().into_raw();
+    let result = DynArray {
+        array: v.as_mut_ptr(),
+        length: v.len() as _,
+    };
+    std::mem::forget(v);
+    result
 }
 
 #[derive(Debug, Clone)]
@@ -222,30 +275,6 @@ impl YewAstro for WorkingStorageYew {
     }
 }
 */
-// C -> Rust -> C
-// This is the first try
-// then I return an Array of const* pointer
-#[no_mangle] // const
-pub extern "C" fn simple_svg(max_size: c_double) -> [*mut c_char; 2] {
-    let data = DataChartNatalC {
-        year: 2000,
-        month: 01,
-        day: 01,
-        hourf32: 0.0,
-        hour: 0,
-        min: 0,
-        sec: 0.0,
-        lat: 0.0,
-        lng: 0.0,
-    };
-    let mut arr: [*mut c_char; 2] =
-        { unsafe { std::mem::MaybeUninit::uninit().assume_init() } };
-    arr[0] = CString::new(astrology_draw_svg::chart(max_size as f32, data))
-        .unwrap()
-        .into_raw();
-    arr[1] = CString::new("Test").unwrap().into_raw();
-    arr
-}
 /*
 pub fn intern_svg(max_size: f32, path: &str) {
     let ephe_path: &str = "/Users/stephanebressani/Code/Rust/astro_compute_swisseph/lib/libswe-sys/src/swisseph/sweph/";
