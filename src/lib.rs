@@ -101,7 +101,8 @@ pub struct ObjectCanvas {
 }
 
 #[no_mangle] // *const c_char
-pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
+pub extern "C" fn simple_svg(max_size: c_double) -> ObjectSvg {
+    // DynArray {
     let data = DataChartNatalC {
         year: 2000,
         month: 01,
@@ -113,44 +114,49 @@ pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
         lat: 0.0,
         lng: 0.0,
     };
-    let mut v: Vec<ObjectSvg> = Vec::new();
+    // let mut v: Vec<ObjectSvg> = Vec::new();
+    let v_json_array: ObjectSvg;
     let data = astrology_draw_svg::chart(max_size as f32, data);
-    //let data = CString::new(astrology_draw_svg::chart(max_size as f32, data))
-    //    .unwrap()
-    //    .into_raw();
-    for d in data {
-        /*
-        let object_type = match d.object_type {
-            DataObjectType::Chart => ObjectType::Chart,
-            DataObjectType::Zodiac => ObjectType::Zodiac,
-            DataObjectType::House => ObjectType::House,
-        };
-        let object_canvas = ObjectCanvas {
-            size_x: d.object_canvas.size_x as f64,
-            size_y: d.object_canvas.size_y as f64,
-            pos_x: d.object_canvas.pos_x as f64,
-            pos_y: d.object_canvas.pos_y as f64,
-        };
-        let object_svg = ObjectSvg {
-            svg: CString::new(d.svg).unwrap().into_raw(),
-            object_type: object_type,
-            object_canvas: object_canvas,
-        };
-        v.push(object_svg);
-        */
-        let object_svg = ObjectSvg {
-            json: CString::new(serde_json::to_string(&d).unwrap())
-                .unwrap()
-                .into_raw(),
-        };
-        v.push(object_svg);
-    }
-    let result = DynArray {
+    // for d in data {
+    /*
+    let object_type = match d.object_type {
+        DataObjectType::Chart => ObjectType::Chart,
+        DataObjectType::Zodiac => ObjectType::Zodiac,
+        DataObjectType::House => ObjectType::House,
+    };
+    let object_canvas = ObjectCanvas {
+        size_x: d.object_canvas.size_x as f64,
+        size_y: d.object_canvas.size_y as f64,
+        pos_x: d.object_canvas.pos_x as f64,
+        pos_y: d.object_canvas.pos_y as f64,
+    };
+    let object_svg = ObjectSvg {
+        svg: CString::new(d.svg).unwrap().into_raw(),
+        object_type: object_type,
+        object_canvas: object_canvas,
+    };
+    v.push(object_svg);
+    */
+    //    let object_svg = ObjectSvg {
+    //        json: CString::new(serde_json::to_string(&d).unwrap())
+    //           .unwrap()
+    //           .into_raw(),
+    //   };
+    //   v.push(object_svg);
+    // }
+    v_json_array = ObjectSvg {
+        json: CString::new(serde_json::to_string(&data).unwrap())
+            .unwrap()
+            .into_raw(),
+    };
+    v_json_array
+    /*let result = DynArray {
         array: v.as_mut_ptr(),
         length: v.len() as _,
     };
     std::mem::forget(v);
-    result
+
+    result*/
 }
 
 #[derive(Debug, Clone)]
