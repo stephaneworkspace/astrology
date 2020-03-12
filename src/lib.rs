@@ -77,7 +77,7 @@ struct DynArray {
     length: size_t,
 }
 
-#[reprt(C)]
+#[repr(C)]
 struct CharTest {
     char_test: *const c_char,
 }
