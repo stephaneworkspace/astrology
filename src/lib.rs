@@ -72,13 +72,13 @@ pub extern "C" fn sweversion() -> *const c_char {
 // C -> Rust -> C
 // This is the first try
 #[repr(C)]
-struct DynArray {
+pub struct DynArray {
     array: *mut CharTest,
     length: size_t,
 }
 
 #[repr(C)]
-struct CharTest {
+pub struct CharTest {
     char_test: *const c_char,
 }
 
