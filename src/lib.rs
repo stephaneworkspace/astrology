@@ -95,7 +95,7 @@ pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
         lat: 0.0,
         lng: 0.0,
     };
-    let mut v: Vec<CharTest>;
+    let mut v: Vec<CharTest> = Vec::new();
     v.push(CharTest {
         char_test: CString::new(astrology_draw_svg::chart(
             max_size as f32,
