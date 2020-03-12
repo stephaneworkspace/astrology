@@ -225,8 +225,8 @@ impl YewAstro for WorkingStorageYew {
 // C -> Rust -> C
 // This is the first try
 // then I return an Array of const* pointer
-#[no_mangle]
-pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
+#[no_mangle] // const
+pub extern "C" fn simple_svg(max_size: c_double) -> [*const c_char; 2] {
     let data = DataChartNatalC {
         year: 2000,
         month: 01,
@@ -238,9 +238,13 @@ pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
         lat: 0.0,
         lng: 0.0,
     };
-    CString::new(astrology_draw_svg::chart(max_size as f32, data))
+    let mut arr: [*const c_char; 2] =
+        { unsafe { std::mem::MaybeUninit::uninit().assume_init() } };
+    arr[0] = CString::new(astrology_draw_svg::chart(max_size as f32, data))
         .unwrap()
-        .into_raw()
+        .into_raw();
+    arr[1] = CString::new("Test").unwrap().into_raw();
+    arr
 }
 /*
 pub fn intern_svg(max_size: f32, path: &str) {
