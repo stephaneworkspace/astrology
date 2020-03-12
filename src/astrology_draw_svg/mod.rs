@@ -70,9 +70,29 @@ pub struct DataChartNatalC {
     pub lng: c_double,
 }
 
+/// Put the struct/enum in const file in future
+pub struct DataObjectSvg {
+    pub svg: String,
+    pub object_type: DataObjectType,
+    pub object_canvas: DataObjectCanvas,
+}
+
+pub enum DataObjectType {
+    Chart,
+    House,
+    Zodiac,
+}
+
+pub struct DataObjectCanvas {
+    pub size_x: f32,
+    pub size_y: f32,
+    pub pos_x: f32,
+    pub pos_y: f32,
+}
+
 /// Create a chart for C export
 /// Without path like chart_html for now
-pub fn chart(max_size: Number, data: DataChartNatalC) -> String {
+pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     // Natal chart
     println!("Version swephem: {}", swerust::handler_swe02::version());
     /*let swe02_path: &str =
@@ -117,7 +137,46 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> String {
     // Object calc draw for calcul in svg x,y width, height
     let ws = svg_draw::WorkingStorage::new(max_size, house_result);
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
-    ws_draw.draw_base().to_string()
+
+    let mut res: Vec<DataObjectSvg> = Vec::new();
+    // Chart
+    res.push(DataObjectSvg {
+        svg: ws_draw.draw_base().to_string(),
+        object_type: DataObjectType::Chart,
+        object_canvas: DataObjectCanvas {
+            size_x: max_size as f32,
+            size_y: max_size as f32,
+            pos_x: 0.0,
+            pos_y: 0.0,
+        },
+    });
+    // Zodiac
+    res.push(DataObjectSvg {
+        svg: draw_sign(Signs::Aries).to_string(),
+        object_type: DataObjectType::Zodiac,
+        object_canvas: DataObjectCanvas {
+            size_x: 100.0,
+            size_y: 100.0,
+            pos_x: 100.0,
+            pos_y: 100.0,
+        },
+    });
+    /*
+        draw_sign(Signs::Aries),
+        draw_sign(Signs::Taurus),
+        draw_sign(Signs::Gemini),
+        draw_sign(Signs::Cancer),
+        draw_sign(Signs::Leo),
+        draw_sign(Signs::Virgo),
+        draw_sign(Signs::Libra),
+        draw_sign(Signs::Scorpio),
+        draw_sign(Signs::Sagittarius),
+        draw_sign(Signs::Capricorn),
+        draw_sign(Signs::Aquarius),
+        draw_sign(Signs::Pisces),
+    */
+    res
+    //ws_draw.draw_base().to_string()
 }
 
 /// Create a html file with the natal chart

@@ -38,6 +38,9 @@ pub use self::astrology_draw_svg::chart_html as export_chart_html;
 pub use self::astrology_draw_svg::{DataChartNatal, DataChartNatalC};
 pub use std::os::raw::{c_char, c_double, c_int};
 extern crate libc;
+pub use self::astrology_draw_svg::{
+    DataObjectCanvas, DataObjectSvg, DataObjectType,
+};
 pub use libc::size_t;
 
 #[derive(Deserialize, Debug, Clone)]
@@ -73,13 +76,30 @@ pub extern "C" fn sweversion() -> *const c_char {
 // This is the first try
 #[repr(C)]
 pub struct DynArray {
-    array: *mut CharTest,
+    array: *mut ObjectSvg,
     length: size_t,
 }
 
 #[repr(C)]
-pub struct CharTest {
-    char_test: *const c_char,
+pub struct ObjectSvg {
+    svg: *const c_char,
+    object_type: ObjectType,
+    object_canvas: ObjectCanvas,
+}
+
+#[repr(C)]
+pub enum ObjectType {
+    Chart,
+    House,
+    Zodiac,
+}
+
+#[repr(C)]
+pub struct ObjectCanvas {
+    size_x: c_double,
+    size_y: c_double,
+    pos_x: c_double,
+    pos_y: c_double,
 }
 
 #[no_mangle] // *const c_char
@@ -95,24 +115,30 @@ pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
         lat: 0.0,
         lng: 0.0,
     };
-    let mut v: Vec<CharTest> = Vec::new();
-    v.push(CharTest {
-        char_test: CString::new(astrology_draw_svg::chart(
-            max_size as f32,
-            data,
-        ))
-        .unwrap()
-        .into_raw(),
-    });
-    v.push(CharTest {
-        char_test: CString::new("test").unwrap().into_raw(),
-    });
-
-    /*v.push(CharTest { char_test = CString::new(astrology_draw_svg::chart(max_size as f32, data))
-        .unwrap()
-        .into_raw()
-    });*/
-    //arr[1] = CString::new("Test").unwrap().into_raw();
+    let mut v: Vec<ObjectSvg> = Vec::new();
+    let data = astrology_draw_svg::chart(max_size as f32, data);
+    //let data = CString::new(astrology_draw_svg::chart(max_size as f32, data))
+    //    .unwrap()
+    //    .into_raw();
+    for d in data {
+        let object_type = match d.object_type {
+            DataObjectType::Chart => ObjectType::Chart,
+            DataObjectType::Zodiac => ObjectType::Zodiac,
+            DataObjectType::House => ObjectType::House,
+        };
+        let object_canvas = ObjectCanvas {
+            size_x: d.object_canvas.size_x as f64,
+            size_y: d.object_canvas.size_y as f64,
+            pos_x: d.object_canvas.pos_x as f64,
+            pos_y: d.object_canvas.pos_y as f64,
+        };
+        let object_svg = ObjectSvg {
+            svg: CString::new(d.svg).unwrap().into_raw(),
+            object_type: object_type,
+            object_canvas: object_canvas,
+        };
+        v.push(object_svg);
+    }
     let result = DynArray {
         array: v.as_mut_ptr(),
         length: v.len() as _,

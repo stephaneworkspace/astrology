@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.38
+* New interface c -> rust -> c with a pointer array
+
 0.1.37
 * Fix one error in c -> rust -> c for draw svg
 
