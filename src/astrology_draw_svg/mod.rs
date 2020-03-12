@@ -42,6 +42,7 @@ use std::io::prelude::*;
 //use strum::AsStaticRef;
 pub mod html_draw;
 pub mod svg_draw;
+use serde::Serialize;
 use std::os::raw::{c_double, c_int};
 use svg_draw::*;
 
@@ -71,18 +72,21 @@ pub struct DataChartNatalC {
 }
 
 /// Put the struct/enum in const file in future
+#[derive(Serialize, Deserialize, Debug)]
 pub struct DataObjectSvg {
     pub svg: String,
     pub object_type: DataObjectType,
     pub object_canvas: DataObjectCanvas,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
 pub enum DataObjectType {
     Chart,
     House,
     Zodiac,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct DataObjectCanvas {
     pub size_x: f32,
     pub size_y: f32,

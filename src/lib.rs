@@ -82,9 +82,7 @@ pub struct DynArray {
 
 #[repr(C)]
 pub struct ObjectSvg {
-    svg: *const c_char,
-    object_type: ObjectType,
-    object_canvas: ObjectCanvas,
+    json: *const c_char,
 }
 
 #[repr(C)]
@@ -121,6 +119,7 @@ pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
     //    .unwrap()
     //    .into_raw();
     for d in data {
+        /*
         let object_type = match d.object_type {
             DataObjectType::Chart => ObjectType::Chart,
             DataObjectType::Zodiac => ObjectType::Zodiac,
@@ -136,6 +135,13 @@ pub extern "C" fn simple_svg(max_size: c_double) -> DynArray {
             svg: CString::new(d.svg).unwrap().into_raw(),
             object_type: object_type,
             object_canvas: object_canvas,
+        };
+        v.push(object_svg);
+        */
+        let object_svg = ObjectSvg {
+            json: CString::new(serde_json::to_string(&d).unwrap())
+                .unwrap()
+                .into_raw(),
         };
         v.push(object_svg);
     }
