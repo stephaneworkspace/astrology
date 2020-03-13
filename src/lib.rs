@@ -38,9 +38,7 @@ pub use self::astrology_draw_svg::chart_html as export_chart_html;
 pub use self::astrology_draw_svg::{DataChartNatal, DataChartNatalC};
 pub use std::os::raw::{c_char, c_double, c_int};
 extern crate libc;
-pub use self::astrology_draw_svg::{
-    DataObjectCanvas, DataObjectSvg, DataObjectType,
-};
+pub use self::astrology_draw_svg::{DataObjectSvg, DataObjectType};
 pub use libc::size_t;
 
 #[derive(Deserialize, Debug, Clone)]
