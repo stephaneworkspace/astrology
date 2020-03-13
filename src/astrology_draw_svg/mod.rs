@@ -44,6 +44,7 @@ pub mod html_draw;
 pub mod svg_draw;
 use serde::Serialize;
 use std::os::raw::{c_double, c_int};
+use strum::IntoEnumIterator;
 use svg_draw::*;
 
 #[derive(Debug, Deserialize)]
@@ -138,6 +139,7 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
 
     let mut res: Vec<DataObjectSvg> = Vec::new();
+
     // Chart
     res.push(DataObjectSvg {
         svg: ws_draw.draw_base().to_string(),
@@ -147,31 +149,20 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         pos_x: 0.0,
         pos_y: 0.0,
     });
+
     // Zodiac
-    res.push(DataObjectSvg {
-        svg: draw_sign(Signs::Aries).to_string(),
-        object_type: DataObjectType::Zodiac,
-        size_x: 100.0,
-        size_y: 100.0,
-        pos_x: 100.0,
-        pos_y: 100.0,
-    });
-    /*
-        draw_sign(Signs::Aries),
-        draw_sign(Signs::Taurus),
-        draw_sign(Signs::Gemini),
-        draw_sign(Signs::Cancer),
-        draw_sign(Signs::Leo),
-        draw_sign(Signs::Virgo),
-        draw_sign(Signs::Libra),
-        draw_sign(Signs::Scorpio),
-        draw_sign(Signs::Sagittarius),
-        draw_sign(Signs::Capricorn),
-        draw_sign(Signs::Aquarius),
-        draw_sign(Signs::Pisces),
-    */
+    for sign in Signs::iter() {
+        res.push(DataObjectSvg {
+            svg: draw_sign(sign).to_string(),
+            object_type: DataObjectType::Zodiac,
+            size_x: 100.0,
+            size_y: 100.0,
+            pos_x: 100.0,
+            pos_y: 100.0,
+        });
+    }
+
     res
-    //ws_draw.draw_base().to_string()
 }
 
 /// Create a html file with the natal chart
