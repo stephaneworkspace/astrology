@@ -76,7 +76,10 @@ pub struct DataChartNatalC {
 pub struct DataObjectSvg {
     pub svg: String,
     pub object_type: DataObjectType,
-    pub object_canvas: DataObjectCanvas,
+    pub size_x: f32,
+    pub size_y: f32,
+    pub pos_x: f32,
+    pub pos_y: f32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -84,14 +87,6 @@ pub enum DataObjectType {
     Chart,
     House,
     Zodiac,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct DataObjectCanvas {
-    pub size_x: f32,
-    pub size_y: f32,
-    pub pos_x: f32,
-    pub pos_y: f32,
 }
 
 /// Create a chart for C export
@@ -147,23 +142,19 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     res.push(DataObjectSvg {
         svg: ws_draw.draw_base().to_string(),
         object_type: DataObjectType::Chart,
-        object_canvas: DataObjectCanvas {
-            size_x: max_size as f32,
-            size_y: max_size as f32,
-            pos_x: 0.0,
-            pos_y: 0.0,
-        },
+        size_x: max_size as f32,
+        size_y: max_size as f32,
+        pos_x: 0.0,
+        pos_y: 0.0,
     });
     // Zodiac
     res.push(DataObjectSvg {
         svg: draw_sign(Signs::Aries).to_string(),
         object_type: DataObjectType::Zodiac,
-        object_canvas: DataObjectCanvas {
-            size_x: 100.0,
-            size_y: 100.0,
-            pos_x: 100.0,
-            pos_y: 100.0,
-        },
+        size_x: 100.0,
+        size_y: 100.0,
+        pos_x: 100.0,
+        pos_y: 100.0,
     });
     /*
         draw_sign(Signs::Aries),
