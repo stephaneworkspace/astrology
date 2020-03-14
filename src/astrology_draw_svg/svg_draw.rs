@@ -359,11 +359,16 @@ impl Draw for WorkingStorageDraw {
         */
         
         let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
-        let mut degre15 =
+        let mut pos =
             0.0 + ((sign.clone() as u64) as f32 * 30.0) + &off_pos_asc;
-        if degre15 > 360.0 {
-            degre15 = degre15 - 360.0;
+        if pos > 360.0 {
+            pos = pos - 360.0;
         }
+        pos = pos + 15.0;
+        if pos > 360.0 {
+            pos = pos - 360.0;
+        }
+        let degre15 = pos;
         let offset: Offset = self.ws.get_center_zodiac(
             zodiac_size,
             self.ws
