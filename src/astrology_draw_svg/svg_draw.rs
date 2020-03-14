@@ -98,14 +98,17 @@ pub trait CalcDraw {
     fn get_radius_rules_inside_circle_house_for_pointer_bottom(&self)
         -> Number;
     fn get_radius_rules_inside_circle_house_for_pointer_top(&self) -> Number;
+    fn get_radius_circle_zodiac(&self) -> Number;
     fn get_center_equal(&self, max_size: Number) -> Offset;
     fn get_center(&self) -> Offset;
+    fn get_center_zodiac(&self, size_zodiac: Number, offset: Offset) -> Offset;
     fn get_line_trigo(
         &self,
         angular: Number,
         radius_circle_begin: Number,
         radius_circle_end: Number,
     ) -> [Offset; 2];
+    fn get_pos_trigo(&self, angular: Number, radius_circle: Number) -> Offset;
     fn get_triangle_path(
         &self,
         angular: Number,
@@ -341,14 +344,38 @@ impl Draw for WorkingStorageDraw {
         let zodiac_ratio: Number = 10.0; // To do a const
         let zodiac_size =
             (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * self.ws.max_size) / 100.0;
-
+        /*
+            // Signs::iter() { // for loop like 0..12
+            let sign = i as i32;
+            // 0°
+            // temporary Aries 0°0'0"
+            let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
+            let mut pos = (sign as f32 - 1.0) * 30.0 + &off_pos_asc;
+            if pos > 360.0 {
+                pos = pos - 360.0;
+            }
+            // let pos = sign_pos_circle;
+            let a_xy: [Offset; 2] = self.ws.get_line_trigo(
+        */
+        
+        let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
+        let mut degre15 =
+            15.0 + ((sign.clone() as u64) as f32 * 30.0) + &off_pos_asc;
+        if degre15 > 360.0 {
+            degre15 = degre15 - 360.0;
+        }
+        let offset: Offset = self.ws.get_center_zodiac(
+            zodiac_size,
+            self.ws
+                .get_pos_trigo(degre15, self.ws.get_radius_circle_zodiac()),
+        );
         let svg = svg_draw_zodiac(sign);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: zodiac_size,
             size_y: zodiac_size,
-            pos_x: 100.0,
-            pos_y: 100.0,
+            pos_x: offset.x,
+            pos_y: offset.y,
         };
         svg_object
     }
@@ -410,6 +437,14 @@ impl CalcDraw for WorkingStorage {
             / 100.0
     }
 
+    fn get_radius_circle_zodiac(&self) -> Number {
+        let div_trait_big = 0.2;
+        (self.get_radius_total()
+            * ((CIRCLE_SIZE[1].0 - CIRCLE_SIZE[0].0) / (2.0 / div_trait_big))
+            + CIRCLE_SIZE[0].0)
+            / 100.0
+    }
+
     fn get_center_equal(&self, max_size: Number) -> Offset {
         let result = max_size / 2.0;
         Offset {
@@ -422,6 +457,13 @@ impl CalcDraw for WorkingStorage {
         Offset {
             x: self.get_radius_total(),
             y: self.get_radius_total(),
+        }
+    }
+
+    fn get_center_zodiac(&self, size_zodiac: Number, offset: Offset) -> Offset {
+        Offset {
+            x: offset.x - (size_zodiac / 2.0),
+            y: offset.y - (size_zodiac / 2.0),
         }
     }
 
@@ -449,6 +491,7 @@ impl CalcDraw for WorkingStorage {
                 * radius_circle_end as f32;
         [Offset { x: dx1, y: dx2 }, Offset { x: dy1, y: dy2 }]
     }
+
     fn get_triangle_path(
         &self,
         angular: Number,
@@ -493,5 +536,19 @@ impl CalcDraw for WorkingStorage {
             Offset { x: dx2, y: dy2 },
             Offset { x: dx3, y: dy3 },
         ]
+    }
+
+    fn get_pos_trigo(&self, angular: Number, radius_circle: Number) -> Offset {
+        Offset {
+            x: self.get_center().x
+                + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI)
+                    .cos()
+                    * -1.0
+                    * radius_circle as f32,
+            y: self.get_center().y
+                + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI)
+                    .sin()
+                    * radius_circle as f32,
+        }
     }
 }
