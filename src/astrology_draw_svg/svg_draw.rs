@@ -359,19 +359,15 @@ impl Draw for WorkingStorageDraw {
         */
         
         let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
-        let mut pos = ((sign.clone() as u64 - 1) as f32 * 30.0) + &off_pos_asc;
+        let mut pos =
+            ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
         if pos > 360.0 {
             pos = pos - 360.0;
         }
-        pos = pos + 15.0;
-        if pos > 360.0 {
-            pos = pos - 360.0;
-        }
-        let degre15 = pos;
         let offset: Offset = self.ws.get_center_zodiac(
             zodiac_size,
             self.ws
-                .get_pos_trigo(degre15, self.ws.get_radius_circle_zodiac()),
+                .get_pos_trigo(pos, self.ws.get_radius_circle_zodiac()),
         );
         let svg = svg_draw_zodiac(sign);
         let svg_object: SvgObject = SvgObject {
@@ -552,6 +548,7 @@ impl CalcDraw for WorkingStorage {
             y: self.get_center().y
                 + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI)
                     .sin()
+                    * -1.0
                     * radius_circle as f32,
         }
     }
