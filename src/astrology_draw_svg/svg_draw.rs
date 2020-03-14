@@ -22,6 +22,7 @@ use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
+use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
@@ -335,11 +336,17 @@ impl Draw for WorkingStorageDraw {
     }
 
     fn draw_zodiac(&self, sign: Signs) -> SvgObject {
+        // x = left-right
+        // y = top-bottom
+        let zodiac_ratio: Number = 10.0; // To do a const
+        let zodiac_size =
+            (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * self.ws.max_size) / 100.0;
+
         let svg = svg_draw_zodiac(sign);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
-            size_x: 100.0,
-            size_y: 100.0,
+            size_x: zodiac_size,
+            size_y: zodiac_size,
             pos_x: 100.0,
             pos_y: 100.0,
         };

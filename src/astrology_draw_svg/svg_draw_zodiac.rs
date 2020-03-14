@@ -19,6 +19,7 @@ pub use libswe_sys::sweconst::Signs;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::Path;
 pub use svg::Document;
+pub const ZODIAC_SIZE: Number = 50.0;
 
 pub fn draw_zodiac(sign: Signs) -> Document {
     let size: (Number, Number);

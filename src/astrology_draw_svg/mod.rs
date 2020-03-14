@@ -34,7 +34,7 @@ pub mod svg_draw_zodiac;
 use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
-use svg_draw_bodies::{draw_bodie, ZODIAC_SIZE};
+use svg_draw_bodies::draw_bodie;
 use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
 //use strum::AsStaticRef;
@@ -149,22 +149,16 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     });
 
     // Zodiac
-    // x = left-right
-    // y = top-bottom
-    let zodiac_ratio: Number = 10.0; // To do a const
-    let zodiac_size =
-        (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * max_size) / 100.0;
-    let mut i: Number = 0.0;
     for sign in Signs::iter() {
+        let draw = ws_draw.draw_zodiac(sign);
         res.push(DataObjectSvg {
-            svg: "draw_sign(sign)".to_string(),
+            svg: draw.svg,
             object_type: DataObjectType::Zodiac,
-            size_x: zodiac_size as f32,
-            size_y: zodiac_size as f32,
-            pos_x: i as f32,
-            pos_y: 100.0,
+            size_x: draw.size_x as f32,
+            size_y: draw.size_y as f32,
+            pos_x: draw.pos_x as f32,
+            pos_y: draw.pos_y as f32,
         });
-        i += 20.0;
     }
 
     res
