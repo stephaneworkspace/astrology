@@ -17,14 +17,14 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::{Angle, House}; // , Signs};
+use libswe_sys::sweconst::{Angle, House, Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
+use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
-
 // Working Storage - CONST
 
 // Const size in %
@@ -71,10 +71,20 @@ pub struct Offset {
     pub y: Number,
 }
 
+#[derive(Debug, Clone)]
+pub struct SvgObject {
+    pub svg: String,
+    pub size_x: Number,
+    pub size_y: Number,
+    pub pos_x: Number,
+    pub pos_y: Number,
+}
+
 // Interfaces
 
 pub trait Draw {
     fn draw_base(&self) -> Document;
+    fn draw_zodiac(&self, sign: Signs) -> SvgObject;
 }
 
 pub trait CalcDraw {
@@ -322,6 +332,18 @@ impl Draw for WorkingStorageDraw {
             .add(group_degre)
             .add(group_house);
         document
+    }
+
+    fn draw_zodiac(&self, sign: Signs) -> SvgObject {
+        let svg = svg_draw_zodiac(sign);
+        let svg_object: SvgObject = SvgObject {
+            svg: svg.to_string(),
+            size_x: 100.0,
+            size_y: 100.0,
+            pos_x: 100.0,
+            pos_y: 100.0,
+        };
+        svg_object
     }
 }
 

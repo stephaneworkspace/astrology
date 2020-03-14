@@ -30,15 +30,13 @@ use svg::Document;
 pub mod svg_draw_bodies;
 pub mod svg_draw_house;
 pub mod svg_draw_numbers;
-pub mod svg_draw_signs;
+pub mod svg_draw_zodiac;
 use base64::encode;
+use std::fs::File;
+use std::io::prelude::*;
 use svg_draw_bodies::{draw_bodie, ZODIAC_SIZE};
 use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
-use svg_draw_signs::draw_sign;
-//use strum::{AsStaticRef, IntoEnumIterator};
-use std::fs::File;
-use std::io::prelude::*;
 //use strum::AsStaticRef;
 pub mod html_draw;
 pub mod svg_draw;
@@ -151,13 +149,15 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     });
 
     // Zodiac
+    // x = left-right
+    // y = top-bottom
     let zodiac_ratio: Number = 10.0; // To do a const
     let zodiac_size =
         (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * max_size) / 100.0;
     let mut i: Number = 0.0;
     for sign in Signs::iter() {
         res.push(DataObjectSvg {
-            svg: draw_sign(sign).to_string(),
+            svg: "draw_sign(sign)".to_string(),
             object_type: DataObjectType::Zodiac,
             size_x: zodiac_size as f32,
             size_y: zodiac_size as f32,
@@ -765,18 +765,18 @@ pub fn chart_html(
         draw_bodie(Bodies::Pluto),
         draw_bodie(Bodies::TrueNode),
         draw_bodie(Bodies::Chiron),
-        draw_sign(Signs::Aries),
-        draw_sign(Signs::Taurus),
-        draw_sign(Signs::Gemini),
-        draw_sign(Signs::Cancer),
-        draw_sign(Signs::Leo),
-        draw_sign(Signs::Virgo),
-        draw_sign(Signs::Libra),
-        draw_sign(Signs::Scorpio),
-        draw_sign(Signs::Sagittarius),
-        draw_sign(Signs::Capricorn),
-        draw_sign(Signs::Aquarius),
-        draw_sign(Signs::Pisces),
+        "draw_sign(Signs::Aries)".to_string(),
+        "draw_sign(Signs::Taurus)".to_string(),
+        "draw_sign(Signs::Gemini)".to_string(),
+        "draw_sign(Signs::Cancer)".to_string(),
+        "draw_sign(Signs::Leo)".to_string(),
+        "draw_sign(Signs::Virgo)".to_string(),
+        "draw_sign(Signs::Libra)".to_string(),
+        "draw_sign(Signs::Scorpio)".to_string(),
+        "draw_sign(Signs::Sagittarius)".to_string(),
+        "draw_sign(Signs::Capricorn)".to_string(),
+        "draw_sign(Signs::Aquarius)".to_string(),
+        "draw_sign(Signs::Pisces)".to_string(),
         draw_degre(0),
         draw_degre(1),
         draw_degre(2),

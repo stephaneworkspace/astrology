@@ -15,12 +15,12 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-use libswe_sys::sweconst::Signs;
+pub use libswe_sys::sweconst::Signs;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::Path;
-use svg::Document;
+pub use svg::Document;
 
-pub fn draw_sign(sign: Signs) -> Document {
+pub fn draw_zodiac(sign: Signs) -> Document {
     let size: (Number, Number);
     let document: Document;
     match sign {
