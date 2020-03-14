@@ -360,7 +360,7 @@ impl Draw for WorkingStorageDraw {
         
         let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
         let mut degre15 =
-            15.0 + ((sign.clone() as u64) as f32 * 30.0) + &off_pos_asc;
+            0.0 + ((sign.clone() as u64) as f32 * 30.0) + &off_pos_asc;
         if degre15 > 360.0 {
             degre15 = degre15 - 360.0;
         }
