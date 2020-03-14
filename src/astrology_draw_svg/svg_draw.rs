@@ -440,8 +440,8 @@ impl CalcDraw for WorkingStorage {
     fn get_radius_circle_zodiac(&self) -> Number {
         let div_trait_big = 0.2;
         (self.get_radius_total()
-            * ((CIRCLE_SIZE[1].0 - CIRCLE_SIZE[0].0) / (2.0 / div_trait_big))
-            + CIRCLE_SIZE[0].0)
+            * (((CIRCLE_SIZE[1].0 - CIRCLE_SIZE[0].0) / (2.0 / div_trait_big))
+                + CIRCLE_SIZE[0].0))
             / 100.0
     }
 
