@@ -20,6 +20,7 @@ use libswe_sys::sweconst::Bodies;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
+pub const BODIE_SIZE: Number = 50.0;
 
 pub fn draw_bodie(bodie: Bodies) -> Document {
     let size: (Number, Number);

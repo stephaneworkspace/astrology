@@ -17,10 +17,12 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::{Angle, House, Signs};
+use libswe_sys::sweconst::{Angle, Bodies, House, Object, Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
+use crate::astrology_draw_svg::svg_draw_bodies::draw_bodie as svg_draw_bodie;
+use crate::astrology_draw_svg::svg_draw_bodies::BODIE_SIZE;
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
 use svg::node::element::path::{Data, Number};
@@ -58,6 +60,7 @@ pub enum LargerDrawLine {
 pub struct WorkingStorage {
     pub max_size: Number,
     pub house: Vec<House>,
+    pub object: Vec<Object>,
 }
 
 #[derive(Debug, Clone)]
@@ -81,11 +84,31 @@ pub struct SvgObject {
     pub pos_y: Number,
 }
 
+#[derive(Debug, Clone)]
+pub struct SvgObjectBodie {
+    pub svg: String,
+    pub size_x: Number,
+    pub size_y: Number,
+    pub pos_x: Number,
+    pub pos_y: Number,
+    pub deg_svg: String,
+    pub deg_size_x: Number,
+    pub deg_size_y: Number,
+    pub deg_pos_x: Number,
+    pub deg_pos_y: Number,
+    pub min_svg: String,
+    pub min_size_x: Number,
+    pub min_size_y: Number,
+    pub min_pos_x: Number,
+    pub min_pos_y: Number,
+}
+
 // Interfaces
 
 pub trait Draw {
     fn draw_base(&self) -> Document;
     fn draw_zodiac(&self, sign: Signs) -> SvgObject;
+    fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie;
 }
 
 pub trait CalcDraw {
@@ -121,7 +144,11 @@ pub trait CalcDraw {
 // Methods - Constructors
 
 impl WorkingStorage {
-    pub fn new(max_size: Number, house: HousesResult) -> WorkingStorage {
+    pub fn new(
+        max_size: Number,
+        house: HousesResult,
+        object: Vec<Object>,
+    ) -> WorkingStorage {
         let mut h: Vec<House> = Vec::new();
         for (i, res) in house.clone().cusps.iter().enumerate() {
             if i > 0 {
@@ -143,6 +170,7 @@ impl WorkingStorage {
         WorkingStorage {
             max_size: max_size,
             house: h,
+            object: object,
         }
     }
 }
@@ -344,20 +372,7 @@ impl Draw for WorkingStorageDraw {
         let zodiac_ratio: Number = 10.0; // To do a const
         let zodiac_size =
             (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * self.ws.max_size) / 100.0;
-        /*
-            // Signs::iter() { // for loop like 0..12
-            let sign = i as i32;
-            // 0°
-            // temporary Aries 0°0'0"
-            let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
-            let mut pos = (sign as f32 - 1.0) * 30.0 + &off_pos_asc;
-            if pos > 360.0 {
-                pos = pos - 360.0;
-            }
-            // let pos = sign_pos_circle;
-            let a_xy: [Offset; 2] = self.ws.get_line_trigo(
-        */
-        
+
         let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
         let mut pos =
             ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
@@ -378,6 +393,31 @@ impl Draw for WorkingStorageDraw {
             pos_y: offset.y,
         };
         svg_object
+    }
+
+    fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie {
+        let planet_ratio: Number = 10.0; // To do a const
+        let planet_size =
+            (((BODIE_SIZE * planet_ratio) / 100.0) * self.ws.max_size) / 100.0;
+        let svg = svg_draw_bodie(bodie);
+        let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
+            svg: svg.to_string(),
+            size_x: planet_size,
+            size_y: planet_size,
+            pos_x: 100.0,
+            pos_y: 100.0,
+            deg_svg: "".to_string(),
+            deg_size_x: 100.0,
+            deg_size_y: 100.0,
+            deg_pos_x: 100.0,
+            deg_pos_y: 100.0,
+            min_svg: "".to_string(),
+            min_size_x: 100.0,
+            min_size_y: 100.0,
+            min_pos_x: 100.0,
+            min_pos_y: 100.0,
+        };
+        svg_object_bodie
     }
 }
 

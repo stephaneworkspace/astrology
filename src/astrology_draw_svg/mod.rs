@@ -20,7 +20,9 @@ extern crate serde;
 // extern crate serde_derive; // Deserialize
 // extern crate serde_json; // Deserialize
 extern crate strum;
-use libswe_sys::sweconst::{Bodies, Calandar, Signs};
+use libswe_sys::sweconst::{
+    Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
+};
 use libswe_sys::swerust;
 use serde::Deserialize;
 use svg::node::element::path::Data;
@@ -34,10 +36,10 @@ pub mod svg_draw_zodiac;
 use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
+use strum::AsStaticRef;
 use svg_draw_bodies::draw_bodie;
 use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
-//use strum::AsStaticRef;
 pub mod html_draw;
 pub mod svg_draw;
 use serde::Serialize;
@@ -86,6 +88,7 @@ pub enum DataObjectType {
     Chart,
     House,
     Zodiac,
+    Planet,
 }
 
 /// Create a chart for C export
@@ -132,8 +135,35 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         'P',             // Placidus
     );
 
+    /*
+    pub struct Object {
+        pub object_name: String,
+        pub object_type: ObjectType,
+        pub longitude: f64,
+        pub latitude: f64,
+        pub split: SplitDegResult,
+    }
+    i*/
+    let mut object: Vec<Object> = Vec::new();
+    let mut calc: swerust::handler_swe03::CalcUtResult;
+    for bodies in Bodies::iter() {
+        if bodies.clone().object_type() == ObjectType::PlanetOrStar {
+            calc = swerust::handler_swe03::calc_ut(
+                utc_to_jd.julian_day_ut, // debug julianday in orginal file
+                bodies.clone(),
+                OptionalFlag::Speed as i32,
+            );
+            object.push(Object::new(
+                bodies.clone().as_static(),
+                bodies.clone().object_type(),
+                calc.longitude,
+                calc.latitude,
+            ));
+        }
+    }
+
     // Object calc draw for calcul in svg x,y width, height
-    let ws = svg_draw::WorkingStorage::new(max_size, house_result);
+    let ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
 
     let mut res: Vec<DataObjectSvg> = Vec::new();
@@ -161,6 +191,124 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         });
     }
 
+    // Planet -> Sun
+    let mut draw = ws_draw.draw_bodie(Bodies::Sun);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Moon);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Moon);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Mercury);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Venus);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Mars);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Jupiter);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Saturn);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Uranus);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Neptune);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Pluto);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::TrueNode);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
+    draw = ws_draw.draw_bodie(Bodies::Chiron);
+    res.push(DataObjectSvg {
+        svg: draw.svg,
+        object_type: DataObjectType::Planet,
+        size_x: draw.size_x as f32,
+        size_y: draw.size_y as f32,
+        pos_x: draw.pos_x as f32,
+        pos_y: draw.pos_y as f32,
+    });
     res
 }
 
@@ -213,9 +361,9 @@ pub fn chart_html(
         data.lng as f64, // Todo in libswe_sys f64 -> f32
         'P',             // Placidus
     );
-
+    let object: Vec<Object> = Vec::new();
     // Object calc draw for calcul in svg x,y width, height
-    let ws = svg_draw::WorkingStorage::new(max_size, house_result);
+    let ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
     let document = format!(
         r#"
