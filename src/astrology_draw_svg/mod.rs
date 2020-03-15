@@ -191,6 +191,11 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
             pos_y: draw.pos_y as f32,
         });
     }
+    /*
+    for b in Bodies::iter() {
+        if PartialEq
+    }
+    */
 
     // Planet -> Sun
     let mut draw = ws_draw.draw_bodie(Bodies::Sun);
