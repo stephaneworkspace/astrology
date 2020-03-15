@@ -400,6 +400,11 @@ impl Draw for WorkingStorageDraw {
         let planet_size =
             (((BODIE_SIZE * planet_ratio) / 100.0) * self.ws.max_size) / 100.0;
         let svg = svg_draw_bodie(bodie);
+        for b in self.ws.object {
+            if b.object_enum == bodie {
+                println!("ok");
+            }
+        }
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg.to_string(),
             size_x: planet_size,
