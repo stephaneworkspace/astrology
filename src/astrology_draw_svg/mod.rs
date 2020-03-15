@@ -135,15 +135,6 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         'P',             // Placidus
     );
 
-    /*
-    pub struct Object {
-        pub object_name: String,
-        pub object_type: ObjectType,
-        pub longitude: f64,
-        pub latitude: f64,
-        pub split: SplitDegResult,
-    }
-    i*/
     let mut object: Vec<Object> = Vec::new();
     let mut calc: swerust::handler_swe03::CalcUtResult;
     for bodies in Bodies::iter() {
