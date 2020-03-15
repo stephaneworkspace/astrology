@@ -191,130 +191,33 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
             pos_y: draw.pos_y as f32,
         });
     }
-    /*
-    for b in Bodies::iter() {
-        if PartialEq
-    }
-    */
 
-    // Planet -> Sun
-    let mut draw = ws_draw.draw_bodie(Bodies::Sun);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Moon);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Moon);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Mercury);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Venus);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Mars);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Jupiter);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Saturn);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Uranus);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Neptune);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Pluto);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::TrueNode);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
-    draw = ws_draw.draw_bodie(Bodies::Chiron);
-    res.push(DataObjectSvg {
-        svg: draw.svg,
-        object_type: DataObjectType::Planet,
-        size_x: draw.size_x as f32,
-        size_y: draw.size_y as f32,
-        pos_x: draw.pos_x as f32,
-        pos_y: draw.pos_y as f32,
-    });
+    for b in Bodies::iter() {
+        if b == Bodies::Sun
+            || b == Bodies::Moon
+            || b == Bodies::Mars
+            || b == Bodies::Mercury
+            || b == Bodies::Venus
+            || b == Bodies::Jupiter
+            || b == Bodies::Saturn
+            || b == Bodies::Uranus
+            || b == Bodies::Neptune
+            || b == Bodies::Pluto
+            || b == Bodies::TrueNode
+            || b == Bodies::Chiron
+        {
+            let draw = ws_draw.draw_bodie(b);
+            res.push(DataObjectSvg {
+                svg: draw.svg,
+                object_type: DataObjectType::Planet,
+                size_x: draw.size_x as f32,
+                size_y: draw.size_y as f32,
+                pos_x: draw.pos_x as f32,
+                pos_y: draw.pos_y as f32,
+            });
+        }
+    }
+
     res
 }
 
