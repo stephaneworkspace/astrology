@@ -225,7 +225,7 @@ impl Draw for WorkingStorageDraw {
             // 0°
             // temporary Aries 0°0'0"
             let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
-            let mut pos = (sign as f32 - 1.0) * 30.0 + &off_pos_asc;
+            let mut pos = (sign as f32 - 0.0) * 30.0 + &off_pos_asc;
             if pos > 360.0 {
                 pos = pos - 360.0;
             }
@@ -252,7 +252,7 @@ impl Draw for WorkingStorageDraw {
                     larger_draw_line = LargerDrawLine::Small;
                 }
                 // temporary Aries 0°0'0"
-                pos = ((sign as f32 - 1.0) * 30.0)
+                pos = ((sign as f32 - 0.0) * 30.0)
                     + (j as f32 * 2.0)
                     + &off_pos_asc;
                 // to do
