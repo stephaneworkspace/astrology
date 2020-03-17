@@ -379,8 +379,16 @@ impl Draw for WorkingStorageDraw {
         let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
         let mut pos =
             ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
-        if pos > 360.0 {
-            pos = pos - 360.0;
+        let mut done = false;
+        while !done {
+            if pos > 360.0 {
+                pos = pos - 360.0;
+            }
+            if pos > 360.0 {
+                //
+            } else {
+                done = true
+            }
         }
         let offset: Offset = self.ws.get_center_item(
             zodiac_size,
@@ -422,8 +430,16 @@ impl Draw for WorkingStorageDraw {
                 break;
             }
         }
-        if pos > 360.0 {
-            pos = pos - 360.0;
+        let mut done = false;
+        while !done {
+            if pos > 360.0 {
+                pos = pos - 360.0;
+            }
+            if pos > 360.0 {
+                //
+            } else {
+                done = true
+            }
         }
         let offset_planet: Offset = self.ws.get_center_item(
             planet_size,
