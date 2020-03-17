@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.40
+* Change interface for c -> rust -> c with chart data in params
+
 0.1.39
 * Add planets svg to chart
 
