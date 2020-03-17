@@ -158,10 +158,10 @@ impl WorkingStorage {
                 // angle
                 let angle;
                 angle = match i - 1 {
-                    1 => Angle::Asc,
-                    4 => Angle::Fc,
-                    7 => Angle::Desc,
-                    10 => Angle::Mc,
+                    0 => Angle::Asc,
+                    3 => Angle::Fc,
+                    6 => Angle::Desc,
+                    9 => Angle::Mc,
                     _ => Angle::Nothing,
                 };
                 h.push(House::new(i as i32, res.clone(), angle));
@@ -228,13 +228,13 @@ impl Draw for WorkingStorageDraw {
             let mut pos = sign as f32 * 30.0 + &off_pos_asc;
             let mut done = false;
             while !done {
-                if pos > 360.0 {
+                if pos >= 360.0 {
                     pos = pos - 360.0;
                 }
-                if pos > 360.0 {
+                if pos >= 360.0 {
                     //
                 } else {
-                    done = true
+                    done = true;
                 }
             }
             // let pos = sign_pos_circle;
@@ -262,13 +262,13 @@ impl Draw for WorkingStorageDraw {
                 pos = (sign as f32 * 30.0) + (j as f32 * 2.0) + &off_pos_asc;
                 done = false;
                 while !done {
-                    if pos > 360.0 {
+                    if pos >= 360.0 {
                         pos = pos - 360.0;
                     }
-                    if pos > 360.0 {
+                    if pos >= 360.0 {
                         //
                     } else {
-                        done = true
+                        done = true;
                     }
                 }
                 let a_xy_line: [Offset; 2] = self.ws.get_line_trigo(
@@ -303,7 +303,20 @@ impl Draw for WorkingStorageDraw {
         let mut triangle_house = Vec::new();
         // For all 12 house delimiter
         for i in 0..12 {
-            let house_pos: f32 = self.ws.house[i].longitude as f32;
+            let offset_house: f32 = 360.0 - self.ws.house[0].longitude as f32;
+            let mut house_pos: f32 =
+                offset_house + self.ws.house[i].longitude as f32;
+            let mut done = false;
+            while !done {
+                if house_pos >= 360.0 {
+                    house_pos = house_pos - 360.0;
+                }
+                if house_pos >= 360.0 {
+                    //
+                } else {
+                    done = true;
+                }
+            }
             let angular_pointer = 1.0; // Todo angular pointer varying
                                        // iphone/ipad, need to be a CONST
             let a_xy_tria: [Offset; 3];
@@ -392,13 +405,13 @@ impl Draw for WorkingStorageDraw {
             ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
         let mut done = false;
         while !done {
-            if pos > 360.0 {
+            if pos >= 360.0 {
                 pos = pos - 360.0;
             }
-            if pos > 360.0 {
+            if pos >= 360.0 {
                 //
             } else {
-                done = true
+                done = true;
             }
         }
         let offset: Offset = self.ws.get_center_item(
@@ -443,13 +456,13 @@ impl Draw for WorkingStorageDraw {
         }
         let mut done = false;
         while !done {
-            if pos > 360.0 {
+            if pos >= 360.0 {
                 pos = pos - 360.0;
             }
-            if pos > 360.0 {
+            if pos >= 360.0 {
                 //
             } else {
-                done = true
+                done = true;
             }
         }
         let offset_planet: Offset = self.ws.get_center_item(
@@ -602,12 +615,28 @@ impl CalcDraw for WorkingStorage {
         radius_circle_end: Number,
     ) -> [Offset; 3] {
         let mut angular1 = angular as f32 - angular_pointer as f32;
-        if angular1 > 360.0 {
-            angular1 = angular1 - 360.0;
+        let mut done = false;
+        while !done {
+            if angular1 >= 360.0 {
+                angular1 = angular - 360.0;
+            }
+            if angular >= 360.0 {
+                //
+            } else {
+                done = true;
+            }
         }
         let mut angular2 = angular as f32 + angular_pointer as f32;
-        if angular2 > 360.0 {
-            angular2 = angular2 - 360.0;
+        done = false;
+        while !done {
+            if angular2 >= 360.0 {
+                angular2 = angular - 360.0;
+            }
+            if angular >= 360.0 {
+                //
+            } else {
+                done = true;
+            }
         }
         let dx1: Number = self.get_center().x
             + (angular1 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
