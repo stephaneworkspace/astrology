@@ -402,10 +402,10 @@ impl Draw for WorkingStorageDraw {
         let planet_ratio: Number = 10.0; // To do a const
         let planet_size =
             (((BODIE_SIZE * planet_ratio) / 100.0) * self.ws.max_size) / 100.0;
-        let deg_ratio: Number = 5.0; // To do a const
+        let deg_ratio: Number = 9.0; // To do a const
         let deg_size =
             (((DEG_SIZE * deg_ratio) / 100.0) * self.ws.max_size) / 100.0;
-        let min_ratio: Number = 2.0; // To do a const
+        let min_ratio: Number = 8.0; // To do a const
         let min_size =
             (((MIN_SIZE * min_ratio) / 100.0) * self.ws.max_size) / 100.0;
 
