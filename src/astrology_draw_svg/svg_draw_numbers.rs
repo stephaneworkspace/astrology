@@ -18,6 +18,8 @@ extern crate strum;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
+pub const DEG_SIZE: Number = 50.0;
+pub const MIN_SIZE: Number = 50.0;
 
 pub fn draw_degre(degre: i16) -> Document {
     let size: (Number, Number);

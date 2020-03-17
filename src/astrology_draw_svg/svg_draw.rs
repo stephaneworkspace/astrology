@@ -23,6 +23,9 @@ use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
 use crate::astrology_draw_svg::svg_draw_bodies::draw_bodie as svg_draw_bodie;
 use crate::astrology_draw_svg::svg_draw_bodies::BODIE_SIZE;
+use crate::astrology_draw_svg::svg_draw_numbers::draw_degre as svg_draw_degre;
+use crate::astrology_draw_svg::svg_draw_numbers::draw_minute as svg_draw_minute;
+use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
 use svg::node::element::path::{Data, Number};
@@ -399,38 +402,57 @@ impl Draw for WorkingStorageDraw {
         let planet_ratio: Number = 10.0; // To do a const
         let planet_size =
             (((BODIE_SIZE * planet_ratio) / 100.0) * self.ws.max_size) / 100.0;
-        let svg = svg_draw_bodie(bodie.clone());
+        let deg_ratio: Number = 10.0; // To do a const
+        let deg_size =
+            (((DEG_SIZE * deg_ratio) / 100.0) * self.ws.max_size) / 100.0;
+        let min_ratio: Number = 10.0; // To do a const
+        let min_size =
+            (((MIN_SIZE * deg_ratio) / 100.0) * self.ws.max_size) / 100.0;
+
+        let svg_planet = svg_draw_bodie(bodie.clone());
+        let mut svg_deg = svg_draw_degre(0);
+        let mut svg_min = svg_draw_minute(0);
         let mut pos: Number = 0.0;
 
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
                 pos = b.longitude as f32;
+                svg_deg = svg_draw_degre(b.split.deg as i16);
+                svg_min = svg_draw_minute(b.split.min as i16);
                 break;
             }
         }
         if pos > 360.0 {
             pos = pos - 360.0;
         }
-        let offset: Offset = self.ws.get_center_item(
+        let offset_planet: Offset = self.ws.get_center_item(
             planet_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
         );
+        let offset_deg: Offset = self.ws.get_center_item(
+            deg_size,
+            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(5).0),
+        );
+        let offset_min: Offset = self.ws.get_center_item(
+            min_size,
+            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
+        );
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
-            svg: svg.to_string(),
+            svg: svg_planet.to_string(),
             size_x: planet_size,
             size_y: planet_size,
-            pos_x: offset.x,
-            pos_y: offset.y,
-            deg_svg: "".to_string(),
-            deg_size_x: 100.0,
-            deg_size_y: 100.0,
-            deg_pos_x: 100.0,
-            deg_pos_y: 100.0,
-            min_svg: "".to_string(),
-            min_size_x: 100.0,
-            min_size_y: 100.0,
-            min_pos_x: 100.0,
-            min_pos_y: 100.0,
+            pos_x: offset_planet.x,
+            pos_y: offset_planet.y,
+            deg_svg: svg_deg.to_string(),
+            deg_size_x: deg_size,
+            deg_size_y: deg_size,
+            deg_pos_x: offset_deg.x,
+            deg_pos_y: offset_deg.y,
+            min_svg: svg_min.to_string(),
+            min_size_x: min_size,
+            min_size_y: min_size,
+            min_pos_x: offset_min.x,
+            min_pos_y: offset_min.y,
         };
         svg_object_bodie
     }
