@@ -224,7 +224,7 @@ impl Draw for WorkingStorageDraw {
             let sign = i as i32;
             // 0°
             // temporary Aries 0°0'0"
-            let off_pos_asc: f32 = 0.0; // self.ws.house[0].longitude as f32;
+            let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
             let mut pos = (sign as f32 - 1.0) * 30.0 + &off_pos_asc;
             if pos > 360.0 {
                 pos = pos - 360.0;
@@ -376,7 +376,7 @@ impl Draw for WorkingStorageDraw {
         let zodiac_size =
             (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * self.ws.max_size) / 100.0;
 
-        let off_pos_asc: f32 = 0.0; // self.ws.house[1].longitude as f32;
+        let off_pos_asc: f32 = self.ws.house[1].longitude as f32;
         let mut pos =
             ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
         let mut done = false;
@@ -572,7 +572,6 @@ impl CalcDraw for WorkingStorage {
                 * radius_circle_begin as f32;
         let dx2: Number = self.get_center().y
             + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
-        //        * -1.0
                 * radius_circle_begin as f32;
         let dy1: Number = self.get_center().x
             + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
@@ -580,7 +579,6 @@ impl CalcDraw for WorkingStorage {
                 * radius_circle_end as f32;
         let dy2: Number = self.get_center().y
             + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
-        //        * -1.0
                 * radius_circle_end as f32;
         [Offset { x: dx1, y: dx2 }, Offset { x: dy1, y: dy2 }]
     }
@@ -606,7 +604,6 @@ impl CalcDraw for WorkingStorage {
                 * radius_circle_begin as f32;
         let dy1: Number = self.get_center().y
             + (angular1 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
-        //        * -1.0
                 * radius_circle_begin as f32;
         let dx2: Number = self.get_center().x
             + (angular2 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
@@ -614,7 +611,6 @@ impl CalcDraw for WorkingStorage {
                 * radius_circle_begin as f32;
         let dy2: Number = self.get_center().y
             + (angular2 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
-        //        * -1.0
                 * radius_circle_begin as f32;
         let dx3: Number = self.get_center().x
             + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
@@ -622,7 +618,6 @@ impl CalcDraw for WorkingStorage {
                 * radius_circle_end as f32;
         let dy3: Number = self.get_center().y
             + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI).sin()
-        //        * -1.0
                 * radius_circle_end as f32;
         [
             Offset { x: dx1, y: dy1 },
@@ -641,7 +636,6 @@ impl CalcDraw for WorkingStorage {
             y: self.get_center().y
                 + (angular as f32 / CIRCLE as f32 * 2.0 * f32::consts::PI)
                     .sin()
-            //        * -1.0
                     * radius_circle as f32,
         }
     }
