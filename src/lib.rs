@@ -36,7 +36,7 @@ use std::io::{stdout, BufWriter};
 pub mod astrology_draw_svg;
 //pub mod svg_assets;
 pub use self::astrology_draw_svg::chart_html as export_chart_html;
-pub use self::astrology_draw_svg::{DataChartNatal, DataChartNatalC};
+pub use self::astrology_draw_svg::DataChartNatal;
 // pub use self::svg_assets::svg_draw_zodiac;
 pub use std::os::raw::{c_char, c_double, c_int};
 extern crate libc;
@@ -54,6 +54,19 @@ pub struct Data {
     sec: f64,
     lat: f64,
     lng: f64,
+}
+
+#[no_mangle]
+pub struct DataChartNatalC {
+    pub year: c_int,
+    pub month: c_int,
+    pub day: c_int,
+    pub hourf32: c_double,
+    pub hour: c_int,
+    pub min: c_int,
+    pub sec: c_double,
+    pub lat: c_double,
+    pub lng: c_double,
 }
 
 /// Simple write in console

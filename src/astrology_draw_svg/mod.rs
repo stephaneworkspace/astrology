@@ -42,8 +42,8 @@ use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
+use crate::DataChartNatalC;
 use serde::Serialize;
-use std::os::raw::{c_double, c_int};
 use strum::IntoEnumIterator;
 use svg_draw::*;
 
@@ -58,18 +58,6 @@ pub struct DataChartNatal {
     pub sec: f32,
     pub lat: f32,
     pub lng: f32,
-}
-
-pub struct DataChartNatalC {
-    pub year: c_int,
-    pub month: c_int,
-    pub day: c_int,
-    pub hourf32: c_double,
-    pub hour: c_int,
-    pub min: c_int,
-    pub sec: c_double,
-    pub lat: c_double,
-    pub lng: c_double,
 }
 
 /// Put the struct/enum in const file in future
