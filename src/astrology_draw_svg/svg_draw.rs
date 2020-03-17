@@ -46,7 +46,7 @@ const CIRCLE_SIZE: [(Number, bool); 7] = [
     (62.0, true),  // 1
     (67.0, true),  // 2
     (75.0, false), // 3
-    (80.0, false), // 4
+    (77.0, false), // 4
     (87.0, false), // 5
     (94.0, false), // 6
 ];
