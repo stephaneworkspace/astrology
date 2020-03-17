@@ -407,7 +407,7 @@ impl Draw for WorkingStorageDraw {
             (((DEG_SIZE * deg_ratio) / 100.0) * self.ws.max_size) / 100.0;
         let min_ratio: Number = 10.0; // To do a const
         let min_size =
-            (((MIN_SIZE * deg_ratio) / 100.0) * self.ws.max_size) / 100.0;
+            (((MIN_SIZE * min_ratio) / 100.0) * self.ws.max_size) / 100.0;
 
         let svg_planet = svg_draw_bodie(bodie.clone());
         let mut svg_deg = svg_draw_degre(0);
