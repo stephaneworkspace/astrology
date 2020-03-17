@@ -196,7 +196,7 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
             || b == Bodies::Uranus
             || b == Bodies::Neptune
             || b == Bodies::Pluto
-            || b == Bodies::TrueNode
+//         || b == Bodies::TrueNode
             || b == Bodies::Chiron
         {
             let draw = ws_draw.draw_bodie(b);
