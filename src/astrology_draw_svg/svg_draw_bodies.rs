@@ -234,7 +234,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("transform", "translate(-348.7552,-478.0905)")
                 .add(path1)
                 .add(path2)
-                .add(path3)
+                .add(path3);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
@@ -293,7 +293,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("transform", "translate(-348.7552,-478.0905)")
                 .add(path1)
                 .add(path2)
-                .add(path3)
+                .add(path3);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
@@ -366,7 +366,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path2)
                 .add(path3)
                 .add(path4)
-                .add(path5)
+                .add(path5);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
@@ -439,7 +439,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path3)
                 .add(path4)
                 .add(path5)
-                .add(path6)
+                .add(path6);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
@@ -488,7 +488,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(path4)
+                .add(path4);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
@@ -683,7 +683,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(path4)
+                .add(path4);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
