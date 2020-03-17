@@ -235,10 +235,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         Bodies::Saturn => {
             size = (50.0, 50.0);
@@ -294,10 +294,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         Bodies::Uranus => {
             size = (50.0, 50.0);
@@ -367,10 +367,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path3)
                 .add(path4)
                 .add(path5)
-                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         Bodies::Neptune => {
             size = (50.0, 50.0);
@@ -440,10 +440,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path4)
                 .add(path5)
                 .add(path6)
-                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         Bodies::Pluto => {
             size = (50.0, 50.0);
@@ -489,10 +489,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path2)
                 .add(path3)
                 .add(path4)
-                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         Bodies::TrueNode => {
             // Nord Node
@@ -684,10 +684,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path2)
                 .add(path3)
                 .add(path4)
-                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
