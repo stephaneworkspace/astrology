@@ -32,10 +32,10 @@ pub fn is_retrograde(sw: bool) -> Path {
             .cubic_curve_by((0.5, 0.4, 0.7, 1.1, 0.7, 1.8)) // c
             .cubic_curve_by((0.0, 1.2, -0.8, 2.1, -1.8, 2.4)) // c
             .vertical_line_by(0.0) // v
-	    .cubic_curve_by((0.7, 0.3, 1.2, 0.9, 1.4, 1.9)) // c
+            .cubic_curve_by((0.7, 0.3, 1.2, 0.9, 1.4, 1.9)) // c
             .cubic_curve_by((0.3, 1.3, 0.5, 2.2, 0.7, 2.6)) // c
             .horizontal_line_to(48.0) // H
-            .cubic_curve_by(-0.2, -0.3, -0.4, -1.1, -0.6, -2.3)) // c
+            .cubic_curve_by((-0.2, -0.3, -0.4, -1.1, -0.6, -2.3)) // c
             .cubic_curve_by((-0.3, -1.3, -0.8, -1.8, -1.9, -1.8)) // c
             .horizontal_line_by(-1.1) // h
             .vertical_line_by(4.1) // v
