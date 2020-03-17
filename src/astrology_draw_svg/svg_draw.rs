@@ -224,7 +224,7 @@ impl Draw for WorkingStorageDraw {
             let sign = i as i32;
             // 0°
             // temporary Aries 0°0'0"
-            let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
+            let off_pos_asc: f32 = 0.0; // self.ws.house[0].longitude as f32;
             let mut pos = (sign as f32 - 1.0) * 30.0 + &off_pos_asc;
             if pos > 360.0 {
                 pos = pos - 360.0;
@@ -376,7 +376,7 @@ impl Draw for WorkingStorageDraw {
         let zodiac_size =
             (((ZODIAC_SIZE * zodiac_ratio) / 100.0) * self.ws.max_size) / 100.0;
 
-        let off_pos_asc: f32 = self.ws.house[1].longitude as f32;
+        let off_pos_asc: f32 = 0.0; // self.ws.house[1].longitude as f32;
         let mut pos =
             ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
         let mut done = false;
