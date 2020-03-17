@@ -378,7 +378,7 @@ impl Draw for WorkingStorageDraw {
 
         let off_pos_asc: f32 = self.ws.house[0].longitude as f32;
         let mut pos =
-            ((sign.clone() as u64 - 0) as f32 * 30.0) + 15.0 + &off_pos_asc;
+            ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
         let mut done = false;
         while !done {
             if pos > 360.0 {
