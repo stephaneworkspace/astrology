@@ -104,10 +104,29 @@ pub struct ObjectCanvas {
 
 #[no_mangle]
 pub extern "C" fn compute(
-    data: DataChartNatalC,
+    year: c_int,
+    month: c_int,
+    day: c_int,
+    hourf32: c_double,
+    hour: c_int,
+    min: c_int,
+    sec: c_double,
+    lat: c_double,
+    lng: c_double,
     max_size: c_double,
 ) -> *const c_char {
-    let data = astrology_draw_svg::chart(max_size as f32, data);
+    let d = DataChartNatalC {
+        year: year,
+        month: month,
+        day: day,
+        hourf32: hourf32,
+        hour: hour,
+        min: min,
+        sec: sec,
+        lat: lat,
+        lng: lng,
+    };
+    let data = astrology_draw_svg::chart(max_size as f32, d);
     CString::new(serde_json::to_string(&data).unwrap())
         .unwrap()
         .into_raw()
