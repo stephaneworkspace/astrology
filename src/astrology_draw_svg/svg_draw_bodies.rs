@@ -146,11 +146,11 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(path4)
-                .add(is_retrograde(true));
+                .add(path4);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(group);
+                .add(group)
+                .add(is_retrograde(true));
         },
         Bodies::Venus => {
             size = (75.0, 75.0);
@@ -159,7 +159,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .horizontal_line_to(28.0) // H
                 .move_by((9.5, 10.0)) // m
                 .vertical_line_to(46.2) // v
-                .elliptical_arc_by((18.3, 18.3, 0, 1, 1, 0.1, 0)); // a
+                .elliptical_arc_by((18.3, 18.3, 0.0, 1.0, 1.0, 0.1, 0.0)); // a
             path = Path::new()
                 .set("fill", "none")
                 .set("stroke", "black")
