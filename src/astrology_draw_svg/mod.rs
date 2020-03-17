@@ -140,6 +140,7 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
                 bodies.clone().object_type(),
                 calc.longitude,
                 calc.latitude,
+                calc.speed_longitude,
             ));
         }
     }
