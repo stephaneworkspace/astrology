@@ -22,6 +22,40 @@ use svg::node::element::{Group, Path};
 use svg::Document;
 pub const BODIE_SIZE: Number = 50.0;
 
+pub fn is_retrograde(sw: bool) -> Path {
+    let data;
+    if sw {
+        data = Data::new()
+            .move_to((43.9, 41.6)) // M
+            .cubic_curve_by((0.5, -0.1, 1.3, -0.2, 2.0, -0.2)) // c
+            .cubic_curve_by((1.1, 0.0, 1.8, 0.2, 2.3, 0.7)) // c
+            .cubic_curve_by((0.4, 0.4, 0.6, 0.9, 0.6, 1.5)) // c
+            .cubic_curve_by((0.0, 1.1, -0.7, 1.8, -1.5, 2.1)) // c
+            .vertical_line_by(0) // v
+            .cubic_curve_by((0.6, 0.2, 1.0, 0.8, 1.2, 1.6)) // c
+            .cubic_curve_by((0.3, 1.1, 0.5, 1.9, 0.6, 2.2)) // c
+            .horizontal_line_by(-1.1) // h
+            .cubic_curve_by((-0.1, -0.2, -0.3, -0.9, -0.5, -1.9)) // c
+            .cubic_curve_by((-0.2, -1.1, -0.7, -1.5, -1.6, -1.6)) // c
+            .horizontal_line_by(-1.0) // h
+            .vertical_line_by(3.5) // v
+            .horizontal_line_by(-1) // h
+            .vertical_line_to(41.6) // V
+            .close() //z
+            .move_to((45.0, 45.2)) // M
+            .horizontal_line_to(46.0) // H
+            .cubic_curve_by((1.1, 0.0, 1.8, -0.6, 1.8, -1.5)) // c
+            .cubic_curve_by((0.0, -1.0, -0.8, -1.5, -1.9, -1.5)) // c
+            .cubic_curve_by((-0.5, 0.0, -0.9, 0.0, -1.0, 0.1)) // c
+            .vertical_line_to(45.2) // V
+            .close(); // z
+    } else {
+        data = Data::new();
+    }
+
+    Path::new().set("d", data)
+}
+
 pub fn draw_bodie(bodie: Bodies) -> Document {
     let size: (Number, Number);
     let path: Path;
@@ -46,7 +80,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(path);
+                .add(path)
+                .add(is_retrograde(true));
         },
         Bodies::Moon => {
             size = (50.0, 50.0);
@@ -62,7 +97,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(path);
+                .add(path)
+                .add(is_retrograde(true));
         },
         Bodies::Mercury => {
             size = (50.0, 50.0);
@@ -110,7 +146,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(path4);
+                .add(path4)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
@@ -130,7 +167,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(path);
+                .add(path)
+                .add(is_retrograde(true));
         },
         Bodies::Mars => {
             size = (50.0, 50.0);
@@ -149,7 +187,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(path);
+                .add(path)
+                .add(is_retrograde(true));
         },
         Bodies::Jupiter => {
             size = (50.0, 50.0);
@@ -195,7 +234,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("transform", "translate(-348.7552,-478.0905)")
                 .add(path1)
                 .add(path2)
-                .add(path3);
+                .add(path3)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
@@ -253,7 +293,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("transform", "translate(-348.7552,-478.0905)")
                 .add(path1)
                 .add(path2)
-                .add(path3);
+                .add(path3)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
@@ -325,7 +366,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path2)
                 .add(path3)
                 .add(path4)
-                .add(path5);
+                .add(path5)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
@@ -397,7 +439,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path3)
                 .add(path4)
                 .add(path5)
-                .add(path6);
+                .add(path6)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
@@ -445,7 +488,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(path4);
+                .add(path4)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
@@ -587,7 +631,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
-                .add(path);
+                .add(path)
+                .add(is_retrograde(true));
         },
         Bodies::Chiron => {
             size = (50.0, 50.0);
@@ -638,7 +683,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(path1)
                 .add(path2)
                 .add(path3)
-                .add(path4);
+                .add(path4)
+                .add(is_retrograde(true));
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group);
