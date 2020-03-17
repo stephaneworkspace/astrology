@@ -76,7 +76,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             path = Path::new()
                 .set("fill", "none")
                 .set("stroke", "black")
-                .set("stroke-width", 3)
+                .set("stroke-width", 2)
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
@@ -166,7 +166,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             path = Path::new()
                 .set("fill", "none")
                 .set("stroke", "black")
-                .set("stroke-width", 5)
+                .set("stroke-width", 3)
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
