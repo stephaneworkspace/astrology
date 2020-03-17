@@ -431,7 +431,7 @@ impl Draw for WorkingStorageDraw {
     }
 
     fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie {
-        let planet_ratio: Number = 10.0; // To do a const
+        let planet_ratio: Number = 15.0; // To do a const
         let planet_size =
             (((BODIE_SIZE * planet_ratio) / 100.0) * self.ws.max_size) / 100.0;
         let deg_ratio: Number = 6.0; // To do a const

@@ -153,14 +153,16 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .add(is_retrograde(true));
         },
         Bodies::Venus => {
-            size = (75.0, 75.0);
+            size = (50.0, 50.0);
             let data = Data::new()
-                .move_to((47.0, 59.0)) // M
-                .horizontal_line_to(28.0) // H
-                .move_by((9.5, 10.0)) // m
-                .vertical_line_to(46.2) // v
-                .elliptical_arc_by((18.3, 18.3, 0.0, 1.0, 1.0, 0.1, 0.0)) // a
-                .close();
+                .move_to((31.6, 39.1)) // M
+                .horizontal_line_to(17.9) // H
+                .move_to((24.8, 46.3)) // M
+                .vertical_line_to(29.9) // V
+                .cubic_curve_by((-7.3, 0.0, -13.2, -5.9, -13.1, -13.2)) // c
+                .cubic_curve_by((0.0, -7.3, 5.9, -13.2, 13.2, -13.1)) // c
+                .cubic_curve_to((32.1, 3.6, 38.0, 9.5, 38.0, 16.7)) // C
+                .cubic_curve_by((0.0, 7.2, -5.9, 13.1, -13.1, 13.1)); // c
             path = Path::new()
                 .set("fill", "none")
                 .set("stroke", "black")
@@ -175,7 +177,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             size = (50.0, 50.0);
             let data = Data::new()
                 .move_by((30.0, 21.0)) // m
-                .elliptical_arc_by((12.2, 12.2, 0, 1, 0, 2, 2))
+                .elliptical_arc_by((12.2, 12.2, 0.0, 1.0, 0.0, 2.0, 2.0))
                 .close()
                 .line_by((1, 1, 11, -11)) // l
                 .move_by((-9, 0)) // m
