@@ -448,7 +448,8 @@ impl Draw for WorkingStorageDraw {
 
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
-                pos = b.longitude as f32;
+                pos = 360.0 - self.ws.house[0].longitude as f32
+                    + b.longitude as f32;
                 svg_deg = svg_draw_degre(b.split.deg as i16);
                 svg_min = svg_draw_minute(b.split.min as i16);
                 break;
