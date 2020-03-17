@@ -26,28 +26,28 @@ pub fn is_retrograde(sw: bool) -> Path {
     let data;
     if sw {
         data = Data::new()
-            .move_to((43.9, 41.6)) // M
-            .cubic_curve_by((0.5, -0.1, 1.3, -0.2, 2.0, -0.2)) // c
-            .cubic_curve_by((1.1, 0.0, 1.8, 0.2, 2.3, 0.7)) // c
-            .cubic_curve_by((0.4, 0.4, 0.6, 0.9, 0.6, 1.5)) // c
-            .cubic_curve_by((0.0, 1.1, -0.7, 1.8, -1.5, 2.1)) // c
-            .vertical_line_by(0) // v
-            .cubic_curve_by((0.6, 0.2, 1.0, 0.8, 1.2, 1.6)) // c
-            .cubic_curve_by((0.3, 1.1, 0.5, 1.9, 0.6, 2.2)) // c
+            .move_to((43.1, 40.2)) // M
+            .cubic_curve_by((0.6, -0.1, 1.5, -0.2, 2.3, -0.2)) // c
+            .cubic_curve_by((1.3, 0.0, 2.1, 0.2, 2.7, 0.8)) // c
+            .cubic_curve_by((0.5, 0.4, 0.7, 1.1, 0.7, 1.8)) // c
+            .cubic_curve_by((0.0, 1.2, -0.8, 2.1, -1.8, 2.4)) // c
+            .vertical_line_by(0.0) // v
+	    .cubic_curve_by((0.7, 0.3, 1.2, 0.9, 1.4, 1.9)) // c
+            .cubic_curve_by((0.3, 1.3, 0.5, 2.2, 0.7, 2.6)) // c
+            .horizontal_line_to(48.0) // H
+            .cubic_curve_by(-0.2, -0.3, -0.4, -1.1, -0.6, -2.3)) // c
+            .cubic_curve_by((-0.3, -1.3, -0.8, -1.8, -1.9, -1.8)) // c
             .horizontal_line_by(-1.1) // h
-            .cubic_curve_by((-0.1, -0.2, -0.3, -0.9, -0.5, -1.9)) // c
-            .cubic_curve_by((-0.2, -1.1, -0.7, -1.5, -1.6, -1.6)) // c
-            .horizontal_line_by(-1.0) // h
-            .vertical_line_by(3.5) // v
-            .horizontal_line_by(-1) // h
-            .vertical_line_to(41.6) // V
-            .close() //z
-            .move_to((45.0, 45.2)) // M
-            .horizontal_line_to(46.0) // H
-            .cubic_curve_by((1.1, 0.0, 1.8, -0.6, 1.8, -1.5)) // c
-            .cubic_curve_by((0.0, -1.0, -0.8, -1.5, -1.9, -1.5)) // c
-            .cubic_curve_by((-0.5, 0.0, -0.9, 0.0, -1.0, 0.1)) // c
-            .vertical_line_to(45.2) // V
+            .vertical_line_by(4.1) // v
+            .horizontal_line_by(-1.2) // h
+            .vertical_line_to(40.2) // V
+            .close() // z
+            .move_to((44.3, 44.5)) // M
+            .horizontal_line_by(1.2) // h
+            .cubic_curve_by((1.3, 0.0, 2.1, -0.7, 2.1, -1.8)) // c
+            .cubic_curve_by((0.0, -1.2, -0.9, -1.8, -2.2, -1.8)) // c
+            .cubic_curve_by((-0.6, 0.0, -1.0, 0.1, -1.2, 0.1)) // c
+            .vertical_line_to(44.5) // V
             .close(); // z
     } else {
         data = Data::new();
