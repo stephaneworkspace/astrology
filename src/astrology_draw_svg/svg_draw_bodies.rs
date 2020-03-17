@@ -159,7 +159,8 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
                 .horizontal_line_to(28.0) // H
                 .move_by((9.5, 10.0)) // m
                 .vertical_line_to(46.2) // v
-                .elliptical_arc_by((18.3, 18.3, 0.0, 1.0, 1.0, 0.1, 0.0)); // a
+                .elliptical_arc_by((18.3, 18.3, 0.0, 1.0, 1.0, 0.1, 0.0)) // a
+                .close();
             path = Path::new()
                 .set("fill", "none")
                 .set("stroke", "black")
