@@ -89,20 +89,11 @@ pub struct ObjectCanvas {
     pos_y: c_double,
 }
 
-#[no_mangle] // *const c_char
-pub extern "C" fn simple_svg(max_size: c_double) -> *const c_char {
-    // DynArray {
-    let data = DataChartNatalC {
-        year: 2000,
-        month: 01,
-        day: 01,
-        hourf32: 0.0,
-        hour: 0,
-        min: 0,
-        sec: 0.0,
-        lat: 0.0,
-        lng: 0.0,
-    };
+#[no_mangle]
+pub extern "C" fn compute(
+    data: DataChartNatalC,
+    max_size: c_double,
+) -> *const c_char {
     let data = astrology_draw_svg::chart(max_size as f32, data);
     CString::new(serde_json::to_string(&data).unwrap())
         .unwrap()
