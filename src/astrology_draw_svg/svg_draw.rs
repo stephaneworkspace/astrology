@@ -451,9 +451,10 @@ impl Draw for WorkingStorageDraw {
         } else {
             pos_next = self.ws.house[numero as usize].longitude as f32;
         }
-        let pos_now: Number = self.ws.house[numero as usize - 1].longitude as f32;
+        let pos_now: Number =
+            self.ws.house[numero as usize - 1].longitude as f32;
         let mut pos: Number;
-        pos = pos_next - pos_now
+        pos = pos_next - pos_now;
         if pos_now > pos_next {
             pos = pos + 360.0;
         }
