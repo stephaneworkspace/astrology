@@ -445,14 +445,16 @@ impl Draw for WorkingStorageDraw {
         let house_ratio: Number = 10.0; // To do a const
         let house_size =
             (((HOUSE_SIZE * house_ratio) / 100.0) * self.ws.max_size) / 100.0;
+        let off_pos_asc: f32 = 360.0 - self.ws.house[0].longitude as f32;
         let pos_next: Number;
         if numero > 11 {
-            pos_next = self.ws.house[0].longitude as f32;
+            pos_next = self.ws.house[0].longitude as f32 + &off_pos_asc;
         } else {
-            pos_next = self.ws.house[numero as usize].longitude as f32;
+            pos_next =
+                self.ws.house[numero as usize].longitude as f32 + &off_pos_asc;
         }
         let pos_now: Number =
-            self.ws.house[numero as usize - 1].longitude as f32;
+            self.ws.house[numero as usize - 1].longitude as f32 + &off_pos_asc;
         let mut pos: Number;
         if pos_now > pos_next {
             pos = pos_now + ((pos_next - pos_now - 360.0) / 2.0);
