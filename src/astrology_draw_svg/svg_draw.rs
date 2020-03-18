@@ -456,7 +456,7 @@ impl Draw for WorkingStorageDraw {
         let mut pos: Number;
         pos = pos_now + ((pos_next - pos_now) / 2.0);
         if pos_now > pos_next {
-            pos = pos + 360.0;
+            pos = pos - 360.0;
         }
         println!("n° {} pos: {}", numero, pos);
         /*
