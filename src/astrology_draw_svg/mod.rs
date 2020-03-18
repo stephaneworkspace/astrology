@@ -37,7 +37,6 @@ use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
-use svg_draw_bodies::draw_bodie;
 use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
@@ -802,18 +801,18 @@ pub fn chart_html(
         ws.max_size.clone(),
         encode(&ws_draw.draw_base().to_string()),
         ws_draw.draw_base(),
-        draw_bodie(Bodies::Sun),
-        draw_bodie(Bodies::Moon),
-        draw_bodie(Bodies::Mercury),
-        draw_bodie(Bodies::Venus),
-        draw_bodie(Bodies::Mars),
-        draw_bodie(Bodies::Jupiter),
-        draw_bodie(Bodies::Saturn),
-        draw_bodie(Bodies::Uranus),
-        draw_bodie(Bodies::Neptune),
-        draw_bodie(Bodies::Pluto),
-        draw_bodie(Bodies::TrueNode),
-        draw_bodie(Bodies::Chiron),
+        ws_draw.draw_bodie(Bodies::Sun).svg,
+        ws_draw.draw_bodie(Bodies::Moon).svg,
+        ws_draw.draw_bodie(Bodies::Mercury).svg,
+        ws_draw.draw_bodie(Bodies::Venus).svg,
+        ws_draw.draw_bodie(Bodies::Mars).svg,
+        ws_draw.draw_bodie(Bodies::Jupiter).svg,
+        ws_draw.draw_bodie(Bodies::Saturn).svg,
+        ws_draw.draw_bodie(Bodies::Uranus).svg,
+        ws_draw.draw_bodie(Bodies::Neptune).svg,
+        ws_draw.draw_bodie(Bodies::Pluto).svg,
+        ws_draw.draw_bodie(Bodies::TrueNode).svg,
+        ws_draw.draw_bodie(Bodies::Chiron).svg,
         ws_draw.draw_zodiac(Signs::Aries).svg,
         ws_draw.draw_zodiac(Signs::Taurus).svg,
         ws_draw.draw_zodiac(Signs::Gemini).svg,

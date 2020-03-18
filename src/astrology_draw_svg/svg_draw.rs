@@ -17,7 +17,7 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::{Angle, Bodies, House, Object, Signs};
+use libswe_sys::sweconst::{Angle, Bodies, House, Object, ObjectPos, Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
@@ -441,7 +441,17 @@ impl Draw for WorkingStorageDraw {
         let min_size =
             (((MIN_SIZE * min_ratio) / 100.0) * self.ws.max_size) / 100.0;
 
-        let svg_planet = svg_draw_bodie(bodie.clone());
+        let mut sw_retrograde = false;
+        for o in self.ws.object {
+            if o.object_enum == bodie.clone() {
+                if o.obect_pos == ObjectPos::Retrograde {
+                    sw_retrograde = true;
+                }
+                break;
+            }
+        }
+
+        let svg_planet = svg_draw_bodie(bodie.clone(), sw_retrograde);
         let mut svg_deg = svg_draw_degre(0);
         let mut svg_min = svg_draw_minute(0);
         let mut pos: Number = 0.0;

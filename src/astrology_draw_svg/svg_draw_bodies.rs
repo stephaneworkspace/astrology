@@ -56,13 +56,12 @@ pub fn is_retrograde(sw: bool) -> Path {
     Path::new().set("d", data)
 }
 
-pub fn draw_bodie(bodie: Bodies) -> Document {
-    let size: (Number, Number);
+pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
+    let size: (Number, Number) = (BODIE_SIZE, BODIE_SIZE);
     let path: Path;
     let document: Document;
     match bodie {
         Bodies::Sun => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_by((7.0, 25.0)) // m
                 .elliptical_arc_by((18.0, 18.0, 0, 1, 1, 0, 0.1)) // a
@@ -81,10 +80,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Moon => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((12.5, 3.5)) // M
                 .elliptical_arc_by((22.5, 22.5, 0, 0, 1, 0, 43)) // a
@@ -98,10 +96,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Mercury => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((112.0, 36.5)) // M
                 .elliptical_arc_to((11.5, 11.5, 0, 1, 1, 89, 36.5)) // A
@@ -150,10 +147,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Venus => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((31.6, 39.1)) // M
                 .horizontal_line_to(17.9) // H
@@ -171,10 +167,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Mars => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_by((30.0, 21.0)) // m
                 .elliptical_arc_by((12.2, 12.2, 0.0, 1.0, 0.0, 2.0, 2.0))
@@ -191,10 +186,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Jupiter => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((382.83736, 486.87888))
                 .line_to((382.83736, 519.93338));
@@ -241,10 +235,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Saturn => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((368.54632, 484.01327)) // M
                 .line_to((368.54632, 513.01327)); // L
@@ -300,10 +293,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Uranus => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((363.40346, 509.72756)) // M
                 .line_to((356.40346, 509.72756)) // L
@@ -373,10 +365,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Neptune => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((363.87696, 487.23598)) // M
                 .cubic_curve_to((
@@ -446,10 +437,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Pluto => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((275.59914, 423.24813)) // M
                 .line_to((291.59914, 423.24813)); // L
@@ -495,11 +485,10 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::TrueNode => {
             // Nord Node
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((21.176252, 1.2059591)) // M
                 .cubic_curve_to((
@@ -635,10 +624,9 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         Bodies::Chiron => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((305.71428, 485.93362)) // M
                 .elliptical_arc_to((
@@ -690,7 +678,7 @@ pub fn draw_bodie(bodie: Bodies) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(true));
+                .add(is_retrograde(sw_retrograde));
         },
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
