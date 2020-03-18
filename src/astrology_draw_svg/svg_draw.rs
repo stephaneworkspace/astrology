@@ -438,6 +438,9 @@ impl Draw for WorkingStorageDraw {
         };
         svg_object
     }
+
+    /// draw_house
+    /// numero 1 to 12
     fn draw_house(&self, numero: i16) -> SvgObject {
         let house_ratio: Number = 10.0; // To do a const
         let house_size =
@@ -448,6 +451,13 @@ impl Draw for WorkingStorageDraw {
         } else {
             pos_next = self.ws.house[numero as usize].longitude as f32;
         }
+        let pos_now: Number = self.ws.house[numero as usize - 1].longitude as f32;
+        let mut pos: Number;
+        pos = pos_next - pos_now
+        if pos_now > pos_next {
+            pos = pos + 360.0;
+        }
+        /*
         let temp: Number;
         if self.ws.house[numero as usize - 1].longitude as f32 > pos_next {
             temp = 360.0 + pos_next
@@ -458,6 +468,7 @@ impl Draw for WorkingStorageDraw {
         }
         let mut pos =
             self.ws.house[numero as usize - 1].longitude as f32 + (temp / 2.0);
+        */
         let mut done = false;
         while !done {
             if pos >= 360.0 {
