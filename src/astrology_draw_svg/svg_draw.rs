@@ -23,6 +23,8 @@ use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
 use crate::astrology_draw_svg::svg_draw_bodies::draw_bodie as svg_draw_bodie;
 use crate::astrology_draw_svg::svg_draw_bodies::BODIE_SIZE;
+use crate::astrology_draw_svg::svg_draw_house::draw_house as svg_draw_house;
+use crate::astrology_draw_svg::svg_draw_house::HOUSE_SIZE;
 use crate::astrology_draw_svg::svg_draw_numbers::draw_degre as svg_draw_degre;
 use crate::astrology_draw_svg::svg_draw_numbers::draw_minute as svg_draw_minute;
 use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
@@ -111,6 +113,7 @@ pub struct SvgObjectBodie {
 pub trait Draw {
     fn draw_base(&self) -> Document;
     fn draw_zodiac(&self, sign: Signs) -> SvgObject;
+    fn draw_house(&self, numero: i16) -> SvgObject;
     fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie;
 }
 
@@ -125,9 +128,15 @@ pub trait CalcDraw {
         -> Number;
     fn get_radius_rules_inside_circle_house_for_pointer_top(&self) -> Number;
     fn get_radius_circle_zodiac(&self) -> Number;
+    fn get_radius_circle_house(&self) -> Number;
     fn get_center_equal(&self, max_size: Number) -> Offset;
     fn get_center(&self) -> Offset;
     fn get_center_item(&self, size: Number, offset: Offset) -> Offset;
+    fn get_distance_between_2_offset(
+        &self,
+        offset_1: Offset,
+        offset_2: Offset,
+    ) -> Number;
     fn get_line_trigo(
         &self,
         angular: Number,
@@ -429,6 +438,52 @@ impl Draw for WorkingStorageDraw {
         };
         svg_object
     }
+    fn draw_house(&self, numero: i16) -> SvgObject {
+        let house_ratio: Number = 10.0; // To do a const
+        let house_size =
+            (((HOUSE_SIZE * house_ratio) / 100.0) * self.ws.max_size) / 100.0;
+        let pos_next: Number;
+        if numero > 11 {
+            pos_next = self.ws.house[0].longitude as f32;
+        } else {
+            pos_next = self.ws.house[numero as usize].longitude as f32;
+        }
+        let temp: Number;
+        if self.ws.house[numero as usize - 1].longitude as f32 > pos_next {
+            temp = 360.0 + pos_next
+                - self.ws.house[numero as usize - 1].longitude as f32;
+        } else {
+            temp =
+                pos_next - self.ws.house[numero as usize - 1].longitude as f32;
+        }
+        let mut pos =
+            self.ws.house[numero as usize - 1].longitude as f32 + (temp / 2.0);
+        let mut done = false;
+        while !done {
+            if pos >= 360.0 {
+                pos = pos - 360.0;
+            }
+            if pos >= 360.0 {
+                //
+            } else {
+                done = true;
+            }
+        }
+        let offset: Offset = self.ws.get_center_item(
+            house_size,
+            self.ws
+                .get_pos_trigo(pos, self.ws.get_radius_circle_house()),
+        );
+        let svg = svg_draw_house(numero);
+        let svg_object: SvgObject = SvgObject {
+            svg: svg.to_string(),
+            size_x: house_size,
+            size_y: house_size,
+            pos_x: offset.x,
+            pos_y: offset.y,
+        };
+        svg_object
+    }
 
     fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie {
         let planet_ratio: Number = 12.0; // To do a const
@@ -573,6 +628,13 @@ impl CalcDraw for WorkingStorage {
             / 100.0
     }
 
+    fn get_radius_circle_house(&self) -> Number {
+        (self.get_radius_total()
+            * (((CIRCLE_SIZE[2].0 - CIRCLE_SIZE[1].0) / 2.0)
+                + CIRCLE_SIZE[1].0))
+            / 100.0
+    }
+
     fn get_center_equal(&self, max_size: Number) -> Offset {
         let result = max_size / 2.0;
         Offset {
@@ -593,6 +655,16 @@ impl CalcDraw for WorkingStorage {
             x: offset.x - (size / 2.0),
             y: offset.y - (size / 2.0),
         }
+    }
+
+    fn get_distance_between_2_offset(
+        &self,
+        offset_1: Offset,
+        offset_2: Offset,
+    ) -> Number {
+        let a = offset_1.x - offset_2.x;
+        let b = offset_2.y - offset_2.y;
+        ((a * a) + (b * b)).sqrt()
     }
 
     fn get_line_trigo(

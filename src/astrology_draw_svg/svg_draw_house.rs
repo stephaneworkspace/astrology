@@ -19,12 +19,13 @@ use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
 
+pub const HOUSE_SIZE: Number = 50.0;
+
 pub fn draw_house(house: i16) -> Document {
-    let size: (Number, Number);
+    let size: (Number, Number) = (HOUSE_SIZE, HOUSE_SIZE);
     let document: Document;
     match house {
         1 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((22.9, 14.3)) // M
                 .line_to((22.9, 14.3)) // L
@@ -46,7 +47,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         2 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((15.5, 36.2)) // M
                 .vertical_line_by(-2.1) // v
@@ -74,7 +74,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         3 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((16.3, 32.3)) // M
                 .cubic_curve_by((1.0, 0.6, 3.2, 1.6, 5.6, 1.6)) // c
@@ -106,7 +105,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         4 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((26.0, 36.2)) // M
                 .vertical_line_by(-6.8) // v
@@ -140,7 +138,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         5 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((30.5, 13.9)) // M
                 .horizontal_line_by(-9.6) // h
@@ -169,7 +166,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         6 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((29.8, 13.5)) // M
                 .cubic_curve_by((-0.7, 0.0, -1.6, 0.0, -2.5, 0.2)) // c
@@ -201,7 +197,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         7 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((31.8, 11.1)) // M
                 .vertical_line_by(2.2) // v
@@ -223,7 +218,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         8 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((15.2, 29.8)) // M
                 .cubic_curve_by((0.0, -3.2, 1.9, -5.4, 5.0, -6.7)) // c
@@ -259,7 +253,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         9 => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((17.5, 33.8)) // M
                 .cubic_curve_by((0.7, 0.1, 1.6, 0.0, 2.7, -0.1)) // c
@@ -292,7 +285,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(path);
         },
         10 => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((13.0, 14.3)) // M
                 .line_to((13.0, 14.3)) // L
@@ -333,7 +325,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(group);
         },
         11 => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((7.8, 17.3)) // M
                 .line_to((7.8, 17.3)) // L
@@ -390,7 +381,6 @@ pub fn draw_house(house: i16) -> Document {
                 .add(group);
         },
         12 => {
-            size = (50.0, 50.0);
             let data1 = Data::new()
                 .move_to((7.8, 17.3)) // M
                 .line_to((7.8, 17.3)) // L
