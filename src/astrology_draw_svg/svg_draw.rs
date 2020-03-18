@@ -442,9 +442,9 @@ impl Draw for WorkingStorageDraw {
             (((MIN_SIZE * min_ratio) / 100.0) * self.ws.max_size) / 100.0;
 
         let mut sw_retrograde = false;
-        for o in self.ws.object {
+        for o in self.ws.object.clone() {
             if o.object_enum == bodie.clone() {
-                if o.obect_pos == ObjectPos::Retrograde {
+                if o.object_pos == ObjectPos::Retrograde {
                     sw_retrograde = true;
                 }
                 break;
