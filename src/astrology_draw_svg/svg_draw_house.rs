@@ -326,26 +326,32 @@ pub fn draw_house(house: i16) -> Document {
         },
         11 => {
             let data1 = Data::new()
-                .move_to((7.8, 17.3)) // M
-                .line_to((7.8, 17.3)) // L
+                .move_to((13.0, 14.3)) // M
+                .line_to((13.0, 14.3)) // L
                 .line_by((-4.4, 2.4)) // l
-                .line_to((2.7, 17.0)) // L
+                .line_to((7.9, 14.0)) // L
                 .line_by((5.5, -2.9)) // l
                 .horizontal_line_by(2.9) // h
                 .vertical_line_by(25.1) // v
-                .horizontal_line_to(7.8) // H
-                .vertical_line_to(17.3) // V
+                .horizontal_line_to(13.0) // H
+                .vertical_line_to(14.3) // V
                 .close(); // z
             let data2 = Data::new()
-                .move_to((27.7, 17.3)) // M
-                .line_to((27.7, 17.3)) // L
-                .line_by((-4.4, 2.4)) // l
-                .line_to((22.6, 17.0)) // L
-                .line_by((5.5, -2.9)) // l
-                .horizontal_line_by(2.9) // h
-                .vertical_line_by(25.1) // v
-                .horizontal_line_by(-3.3) // h
-                .vertical_line_to(17.3)
+                .move_to((25.4, 36.2)) // M
+                .vertical_line_by(-2.1) // v
+                .line_by((2.7, -2.6)) // l
+                .cubic_curve_by((6.4, -6.1, 9.3, -9.3, 9.3, -13.1)) // c
+                .cubic_curve_by((0.0, -2.5, -1.2, -4.9, -5.0, -4.9)) // c
+                .cubic_curve_by((-2.3, 0.0, -4.2, 1.2, -5.3, 2.1)) // c
+                .line_to((26.0, 13.2)) // L
+                .cubic_curve_by((1.7, -1.5, 4.2, -2.6, 7.1, -2.6)) // c
+                .cubic_curve_by((5.4, 0.0, 7.7, 3.7, 7.7, 7.3)) // c
+                .cubic_curve_by((0.0, 4.6, -3.4, 8.4, -8.7, 13.5)) // c
+                .line_by((-2.0, 1.9)) // l
+                .vertical_line_by(0.1) // v
+                .horizontal_line_by(11.3) // h
+                .vertical_line_by(2.8) // v
+                .horizontal_line_to(25.4) // H
                 .close(); // z
             let path1 = Path::new()
                 .set("fill", "black")
@@ -364,15 +370,15 @@ pub fn draw_house(house: i16) -> Document {
         },
         12 => {
             let data1 = Data::new()
-                .move_to((7.8, 17.3)) // M
-                .line_to((7.8, 17.3)) // L
+                .move_to((13.0, 14.3)) // M
+                .line_to((13.0, 14.3)) // L
                 .line_by((-4.4, 2.4)) // l
-                .line_to((2.7, 17.0)) // L
+                .line_to((7.9, 14.0)) // L
                 .line_by((5.5, -2.9)) // l
                 .horizontal_line_by(2.9) // h
                 .vertical_line_by(25.1) // v
-                .horizontal_line_to(7.8) // H
-                .vertical_line_to(17.3) // V
+                .horizontal_line_to(13.0) // H
+                .vertical_line_to(14.3) // V
                 .close(); // z
             let data2 = Data::new()
                 .move_to((20.3, 39.2)) // M
