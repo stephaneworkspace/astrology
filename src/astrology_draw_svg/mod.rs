@@ -37,7 +37,6 @@ use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
-use svg_draw_house::draw_house;
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -173,6 +172,18 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         });
     }
 
+    for i in 0..12 {
+        let draw = ws_draw.draw_house(i);
+        res.push(DataObjectSvg {
+            svg: draw.svg,
+            object_type: DataObjectType::House,
+            size_x: draw.size_x as f32,
+            size_y: draw.size_y as f32,
+            pos_x: draw.pos_x as f32,
+            pos_y: draw.pos_y as f32,
+        });
+    }
+
     for b in Bodies::iter() {
         if b == Bodies::Sun
             || b == Bodies::Moon
@@ -184,8 +195,8 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
             || b == Bodies::Uranus
             || b == Bodies::Neptune
             || b == Bodies::Pluto
-//         || b == Bodies::TrueNode
-            || b == Bodies::Chiron
+        //          || b == Bodies::TrueNode
+        //          || b == Bodies::Chiron
         {
             let draw = ws_draw.draw_bodie(b);
             res.push(DataObjectSvg {
@@ -916,18 +927,18 @@ pub fn chart_html(
         draw_minute(57),
         draw_minute(58),
         draw_minute(59),
-        draw_house(1),
-        draw_house(2),
-        draw_house(3),
-        draw_house(4),
-        draw_house(5),
-        draw_house(6),
-        draw_house(7),
-        draw_house(8),
-        draw_house(9),
-        draw_house(10),
-        draw_house(11),
-        draw_house(12),
+        ws_draw.draw_house(1).svg,
+        ws_draw.draw_house(2).svg,
+        ws_draw.draw_house(3).svg,
+        ws_draw.draw_house(4).svg,
+        ws_draw.draw_house(5).svg,
+        ws_draw.draw_house(6).svg,
+        ws_draw.draw_house(7).svg,
+        ws_draw.draw_house(8).svg,
+        ws_draw.draw_house(9).svg,
+        ws_draw.draw_house(10).svg,
+        ws_draw.draw_house(11).svg,
+        ws_draw.draw_house(12).svg,
     );
 
     if path_and_file_export != "" {
