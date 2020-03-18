@@ -458,7 +458,10 @@ impl Draw for WorkingStorageDraw {
         if pos_now > pos_next {
             pos = 360.0 - pos;
         }
-        println!("n° {} pos: {}", numero, pos);
+        println!(
+            "n° {} pos: {} pos_next: {} pos_now: {}",
+            numero, pos, pos_next, pos_now
+        );
         /*
         let temp: Number;
         if self.ws.house[numero as usize - 1].longitude as f32 > pos_next {
