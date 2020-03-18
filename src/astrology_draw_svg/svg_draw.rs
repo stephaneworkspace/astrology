@@ -442,7 +442,7 @@ impl Draw for WorkingStorageDraw {
     /// draw_house
     /// numero 1 to 12
     fn draw_house(&self, numero: i16) -> SvgObject {
-        let house_ratio: Number = 7.0; // To do a const
+        let house_ratio: Number = 5.0; // To do a const
         let house_size =
             (((HOUSE_SIZE * house_ratio) / 100.0) * self.ws.max_size) / 100.0;
         let off_pos_asc: f32 = 360.0 - self.ws.house[0].longitude as f32;
