@@ -23,6 +23,10 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.41
+* Implement retrograde function
+* Draw house numero on chart
+
 0.1.40
 * Change interface for c -> rust -> c with chart data in params
 
