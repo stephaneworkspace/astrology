@@ -25,9 +25,10 @@ pub extern "C" fn sweversion() -> *const c_char {
 # Version
 0.1.42
 * Add Asc svg
-* Adds Fc Svg
+* Add Fc Svg
 * Add Desc svg
 * Add Mc Svg
+* Draw all angles in render svg chart
 
 0.1.41
 * Implement retrograde function
