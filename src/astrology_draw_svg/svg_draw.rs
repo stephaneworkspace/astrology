@@ -60,6 +60,8 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
     (71.0, false), // 8 correction planet between 2 and 3
 ];
 
+const BODIE_DISTANCE: Number = 5.0;
+
 // Working Storage - Enums
 // #[derive(Debug, Clone, PartialEq, Display)]
 pub enum LargerDrawLine {
@@ -175,6 +177,7 @@ pub trait CalcDraw {
         radius_circle_end: Number,
     ) -> [Offset; 3];
     fn get_fix_pos(&self, pos: Number) -> Number;
+    fn get_bodie_longitude(&self, bodie: Bodies) -> Number;
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number;
 }
 
@@ -592,18 +595,15 @@ impl Draw for WorkingStorageDraw {
         let svg_planet = svg_draw_bodie(bodie.clone(), sw_retrograde);
         let mut svg_deg = svg_draw_degre(0);
         let mut svg_min = svg_draw_minute(0);
-        let mut pos: Number = 0.0;
+        let pos: Number = self.ws.get_bodie_longitude(bodie.clone());
         let pos_fix: Number = self.ws.get_bodie_fix_longitude(bodie.clone());
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
-                pos = 360.0 - self.ws.house[0].longitude as f32
-                    + b.longitude as f32;
                 svg_deg = svg_draw_degre(b.split.deg as i16);
                 svg_min = svg_draw_minute(b.split.min as i16);
                 break;
             }
         }
-        pos = self.ws.get_fix_pos(pos);
         let offset_planet: Offset = self.ws.get_center_item(
             planet_size,
             self.ws
@@ -873,16 +873,7 @@ impl CalcDraw for WorkingStorage {
         pos
     }
 
-    fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
-        //#[derive(Debug, Clone)]
-        //pub struct TempPositionBodies
-        //    pub index: Number,
-        //    pub sw_bodie: bool,
-        //    pub longitude: Number,
-        //    pub space_left: Number,
-        //    pub space_right: Number
-        //    pub longitude_fix: Number,
-
+    fn get_bodie_longitude(&self, bodie: Bodies) -> Number {
         let mut pos: Number = 0.0;
         for b in self.object.clone() {
             if b.object_enum.clone() == bodie {
@@ -892,8 +883,22 @@ impl CalcDraw for WorkingStorage {
             }
         }
         pos = self.get_fix_pos(pos);
+        pos
+    }
+
+    fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
+        //#[derive(Debug, Clone)]
+        //pub struct TempPositionBodies
+        //    pub index: Number,
+        //    pub sw_bodie: bool,
+        //    pub longitude: Number,
+        //    pub space_left: Number,
+        //    pub space_right: Number
+        //    pub longitude_fix: Number,
+        // let temp: Vec<TempPositionBodies> = Vec::new();
+        let mut pos: Number = self.get_bodie_longitude(bodie);
         if bodie == Bodies::Sun {
-            pos = pos + 10.0;
+            pos = pos + BODIE_DISTANCE;
         }
         pos = self.get_fix_pos(pos);
         pos
