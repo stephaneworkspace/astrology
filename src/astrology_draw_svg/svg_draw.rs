@@ -37,6 +37,7 @@ use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
+
 // Working Storage - CONST
 
 // Const size in %
@@ -110,6 +111,11 @@ pub struct SvgObjectBodie {
     pub min_size_y: Number,
     pub min_pos_x: Number,
     pub min_pos_y: Number,
+    pub trait_svg: String,
+    pub trait_size_x: Number, // max_size
+    pub trait_size_y: Number, // max_size
+    pub trait_pos_x: Number,  // 0.0
+    pub trait_pos_y: Number,  // 0.0
 }
 
 // Interfaces
@@ -566,6 +572,11 @@ impl Draw for WorkingStorageDraw {
             min_size_y: min_size,
             min_pos_x: offset_min.x,
             min_pos_y: offset_min.y,
+            trait_svg: "".to_string(),
+            trait_size_x: 0.0, // max_size
+            trait_size_y: 0.0, // max_size
+            trait_pos_x: 0.0,  // 0.0
+            trait_pos_y: 0.0,  // 0.0
         };
         svg_object_bodie
     }
@@ -644,6 +655,11 @@ impl Draw for WorkingStorageDraw {
             min_size_y: min_size,
             min_pos_x: offset_min.x,
             min_pos_y: offset_min.y,
+            trait_svg: "".to_string(),
+            trait_size_x: 0.0, // max_size
+            trait_size_y: 0.0, // max_size
+            trait_pos_x: 0.0,  // 0.0
+            trait_pos_y: 0.0,  // 0.0
         };
         svg_object_bodie
     }

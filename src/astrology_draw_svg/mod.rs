@@ -76,12 +76,14 @@ pub enum DataObjectType {
     Angle,
     AngleDeg,
     AngleMin,
+    AngleTrait,
     Chart,
     House,
     Zodiac,
     Planet,
     PlanetDeg,
     PlanetMin,
+    PlanetTrait,
 }
 
 /// Create a chart for C export
@@ -219,6 +221,14 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
                 size_y: draw.min_size_y as f32,
                 pos_x: draw.min_pos_x as f32,
                 pos_y: draw.min_pos_y as f32,
+            });
+            res.push(DataObjectSvg {
+                svg: draw.trait_svg,
+                object_type: DataObjectType::AngleTrait,
+                size_x: draw.trait_size_x as f32,
+                size_y: draw.trait_size_y as f32,
+                pos_x: draw.trait_pos_x as f32,
+                pos_y: draw.trait_pos_y as f32,
             });
         }
     }
