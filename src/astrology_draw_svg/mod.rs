@@ -38,7 +38,7 @@ use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
-use svg_draw_angle::draw_asc;
+use svg_draw_angle::{draw_asc, draw_fc};
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
