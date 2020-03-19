@@ -52,10 +52,10 @@ const CIRCLE_SIZE: [(Number, bool); 8] = [
     (35.0, true),  // 0
     (62.0, true),  // 1
     (67.0, true),  // 2
-    (75.0, false), // 3
-    (77.0, false), // 4
-    (87.0, false), // 5
-    (94.0, false), // 6
+    (76.0, false), // 3
+    (78.0, false), // 4
+    (88.0, false), // 5
+    (95.0, false), // 6
     (71.0, false), // 7 between 2 and 3
 ];
 
@@ -557,6 +557,7 @@ impl Draw for WorkingStorageDraw {
             min_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
         );
+
         // Trait
         let t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
@@ -660,6 +661,27 @@ impl Draw for WorkingStorageDraw {
             min_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
         );
+
+        // Trait
+        let t_xy: [Offset; 2] = self.ws.get_line_trigo(
+            pos,
+            self.ws.get_radius_circle(2).0,
+            self.ws.get_radius_circle(7).0, // should be 3
+        );
+        let line = Line::new()
+            .set("x1", t_xy[0].x)
+            .set("y1", t_xy[0].y)
+            .set("x2", t_xy[1].x)
+            .set("y2", t_xy[1].y)
+            .set("stroke", "black")
+            .set("stroke-width", 1);
+        let document_trait = Document::new()
+            .set(
+                "viewBox",
+                (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
+            )
+            .add(line);
+
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg_planet.to_string(),
             size_x: planet_size,
@@ -676,11 +698,11 @@ impl Draw for WorkingStorageDraw {
             min_size_y: min_size,
             min_pos_x: offset_min.x,
             min_pos_y: offset_min.y,
-            trait_svg: "".to_string(),
-            trait_size_x: 0.0, // max_size
-            trait_size_y: 0.0, // max_size
-            trait_pos_x: 0.0,  // 0.0
-            trait_pos_y: 0.0,  // 0.0
+            trait_svg: document_trait.to_string(),
+            trait_size_x: self.ws.max_size,
+            trait_size_y: self.ws.max_size,
+            trait_pos_x: 0.0,
+            trait_pos_y: 0.0,
         };
         svg_object_bodie
     }
