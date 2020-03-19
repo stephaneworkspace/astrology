@@ -21,7 +21,7 @@ extern crate serde;
 // extern crate serde_json; // Deserialize
 extern crate strum;
 use libswe_sys::sweconst::{
-    Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
+    Angle, Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
@@ -73,6 +73,7 @@ pub struct DataObjectSvg {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub enum DataObjectType {
+    Angle,
     Chart,
     House,
     Zodiac,
@@ -187,6 +188,23 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         });
     }
 
+    for a in Angle::iter() {
+        if a == Angle::Asc
+            || a == Angle::Fc
+            || a == Angle::Desc
+            || a == Angle::Mc
+        {
+            let draw = ws_draw.draw_angle(a);
+            res.push(DataObjectSvg {
+                svg: draw.svg,
+                object_type: DataObjectType::Angle,
+                size_x: draw.size_x as f32,
+                size_y: draw.size_y as f32,
+                pos_x: draw.pos_x as f32,
+                pos_y: draw.pos_y as f32,
+            });
+        }
+    }
     for b in Bodies::iter() {
         if b == Bodies::Sun
             || b == Bodies::Moon

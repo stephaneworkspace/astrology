@@ -21,6 +21,10 @@ use libswe_sys::sweconst::{Angle, Bodies, House, Object, ObjectPos, Signs};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 // use strum::IntoEnumIterator; // Enum for loop
+use crate::astrology_draw_svg::svg_draw_angle::{
+    draw_asc as svg_draw_asc, draw_desc as svg_draw_desc,
+    draw_fc as svg_draw_fc, draw_mc as svg_draw_mc, ANGLE_SIZE,
+};
 use crate::astrology_draw_svg::svg_draw_bodies::draw_bodie as svg_draw_bodie;
 use crate::astrology_draw_svg::svg_draw_bodies::BODIE_SIZE;
 use crate::astrology_draw_svg::svg_draw_house::draw_house as svg_draw_house;
@@ -114,6 +118,7 @@ pub trait Draw {
     fn draw_base(&self) -> Document;
     fn draw_zodiac(&self, sign: Signs) -> SvgObject;
     fn draw_house(&self, numero: i16) -> SvgObject;
+    fn draw_angle(&self, angle: Angle) -> SvgObjectBodie;
     fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie;
 }
 
@@ -164,7 +169,7 @@ impl WorkingStorage {
         let mut h: Vec<House> = Vec::new();
         for (i, res) in house.clone().cusps.iter().enumerate() {
             if i > 0 {
-                // angle
+                // angle compatible Placidus
                 let angle;
                 angle = match i - 1 {
                     0 => Angle::Asc,
@@ -486,6 +491,83 @@ impl Draw for WorkingStorageDraw {
             pos_y: offset.y,
         };
         svg_object
+    }
+
+    fn draw_angle(&self, angle: Angle) -> SvgObjectBodie {
+        let angle_ratio: Number = 12.0; // To do a const
+        let angle_size =
+            (((ANGLE_SIZE * angle_ratio) / 100.0) * self.ws.max_size) / 100.0;
+        let deg_ratio: Number = 6.0; // To do a const
+        let deg_size =
+            (((DEG_SIZE * deg_ratio) / 100.0) * self.ws.max_size) / 100.0;
+        let min_ratio: Number = 5.5; // To do a const
+        let min_size =
+            (((MIN_SIZE * min_ratio) / 100.0) * self.ws.max_size) / 100.0;
+
+        // Tested with placidus
+        let svg_angle = match angle {
+            Angle::Asc => svg_draw_asc(),
+            Angle::Fc => svg_draw_fc(),
+            Angle::Desc => svg_draw_desc(),
+            Angle::Mc => svg_draw_mc(),
+            _ => Document::new(),
+        };
+
+        let mut svg_deg = svg_draw_degre(0);
+        let mut svg_min = svg_draw_minute(0);
+        let mut pos: Number = 0.0;
+
+        for h in self.ws.house.clone() {
+            if h.angle.clone() == angle {
+                pos = 360.0 - self.ws.house[0].longitude as f32
+                    + h.longitude as f32;
+                svg_deg = svg_draw_degre(h.split.deg as i16);
+                svg_min = svg_draw_minute(h.split.min as i16);
+                break;
+            }
+        }
+
+        let mut done = false;
+        while !done {
+            if pos >= 360.0 {
+                pos = pos - 360.0;
+            }
+            if pos >= 360.0 {
+                //
+            } else {
+                done = true;
+            }
+        }
+        let offset_angle: Offset = self.ws.get_center_item(
+            angle_size,
+            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
+        );
+        let offset_deg: Offset = self.ws.get_center_item(
+            deg_size,
+            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(5).0),
+        );
+        let offset_min: Offset = self.ws.get_center_item(
+            min_size,
+            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
+        );
+        let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
+            svg: svg_angle.to_string(),
+            size_x: angle_size,
+            size_y: angle_size,
+            pos_x: offset_angle.x,
+            pos_y: offset_angle.y,
+            deg_svg: svg_deg.to_string(),
+            deg_size_x: deg_size,
+            deg_size_y: deg_size,
+            deg_pos_x: offset_deg.x,
+            deg_pos_y: offset_deg.y,
+            min_svg: svg_min.to_string(),
+            min_size_x: min_size,
+            min_size_y: min_size,
+            min_pos_x: offset_min.x,
+            min_pos_y: offset_min.y,
+        };
+        svg_object_bodie
     }
 
     fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie {
