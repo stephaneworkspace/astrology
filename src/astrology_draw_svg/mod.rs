@@ -74,6 +74,8 @@ pub struct DataObjectSvg {
 #[derive(Serialize, Deserialize, Debug)]
 pub enum DataObjectType {
     Angle,
+    AngleDeg,
+    AngleMin,
     Chart,
     House,
     Zodiac,
@@ -202,6 +204,22 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
                 size_y: draw.size_y as f32,
                 pos_x: draw.pos_x as f32,
                 pos_y: draw.pos_y as f32,
+            });
+            res.push(DataObjectSvg {
+                svg: draw.deg_svg,
+                object_type: DataObjectType::AngleDeg,
+                size_x: draw.deg_size_x as f32,
+                size_y: draw.deg_size_y as f32,
+                pos_x: draw.deg_pos_x as f32,
+                pos_y: draw.deg_pos_y as f32,
+            });
+            res.push(DataObjectSvg {
+                svg: draw.min_svg,
+                object_type: DataObjectType::AngleMin,
+                size_x: draw.min_size_x as f32,
+                size_y: draw.min_size_y as f32,
+                pos_x: draw.min_pos_x as f32,
+                pos_y: draw.min_pos_y as f32,
             });
         }
     }
