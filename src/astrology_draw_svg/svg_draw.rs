@@ -120,6 +120,16 @@ pub struct SvgObjectBodie {
     pub trait_pos_y: Number,  // 0.0
 }
 
+#[derive(Debug, Clone)]
+pub struct TempPositionBodies {
+    pub index: Number,
+    pub sw_bodie: bool,
+    pub longitude: Number,
+    pub space_left: Number,
+    pub space_right: Number,
+    pub longitude_fix: Number,
+}
+
 // Interfaces
 
 pub trait Draw {
@@ -164,6 +174,8 @@ pub trait CalcDraw {
         radius_circle_begin: Number,
         radius_circle_end: Number,
     ) -> [Offset; 3];
+    fn get_fix_pos(&self, pos: Number) -> Number;
+    fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number;
 }
 
 // Methods - Constructors
@@ -248,18 +260,7 @@ impl Draw for WorkingStorageDraw {
             // temporary Aries 0°0'0"
             let off_pos_asc: f32 = 360.0 - self.ws.house[0].longitude as f32;
             let mut pos = sign as f32 * 30.0 + &off_pos_asc;
-            let mut done = false;
-            while !done {
-                if pos >= 360.0 {
-                    pos = pos - 360.0;
-                }
-                if pos >= 360.0 {
-                    //
-                } else {
-                    done = true;
-                }
-            }
-            // let pos = sign_pos_circle;
+            pos = self.ws.get_fix_pos(pos);
             let a_xy: [Offset; 2] = self.ws.get_line_trigo(
                 pos,
                 self.ws.get_radius_circle(1).0,
@@ -282,17 +283,7 @@ impl Draw for WorkingStorageDraw {
                     larger_draw_line = LargerDrawLine::Small;
                 }
                 pos = (sign as f32 * 30.0) + (j as f32 * 2.0) + &off_pos_asc;
-                done = false;
-                while !done {
-                    if pos >= 360.0 {
-                        pos = pos - 360.0;
-                    }
-                    if pos >= 360.0 {
-                        //
-                    } else {
-                        done = true;
-                    }
-                }
+                pos = self.ws.get_fix_pos(pos);
                 let a_xy_line: [Offset; 2] = self.ws.get_line_trigo(
                     pos,
                     self.ws.get_radius_circle(1).0,
@@ -328,17 +319,7 @@ impl Draw for WorkingStorageDraw {
             let offset_house: f32 = 360.0 - self.ws.house[0].longitude as f32;
             let mut house_pos: f32 =
                 offset_house + self.ws.house[i].longitude as f32;
-            let mut done = false;
-            while !done {
-                if house_pos >= 360.0 {
-                    house_pos = house_pos - 360.0;
-                }
-                if house_pos >= 360.0 {
-                    //
-                } else {
-                    done = true;
-                }
-            }
+            house_pos = self.ws.get_fix_pos(house_pos);
             let angular_pointer = 1.0; // Todo angular pointer varying
                                        // iphone/ipad, need to be a CONST
             let a_xy_tria: [Offset; 3];
@@ -425,17 +406,7 @@ impl Draw for WorkingStorageDraw {
         let off_pos_asc: f32 = 360.0 - self.ws.house[0].longitude as f32;
         let mut pos =
             ((sign.clone() as u64 - 1) as f32 * 30.0) + 15.0 + &off_pos_asc;
-        let mut done = false;
-        while !done {
-            if pos >= 360.0 {
-                pos = pos - 360.0;
-            }
-            if pos >= 360.0 {
-                //
-            } else {
-                done = true;
-            }
-        }
+        pos = self.ws.get_fix_pos(pos);
         let offset: Offset = self.ws.get_center_item(
             zodiac_size,
             self.ws
@@ -474,17 +445,7 @@ impl Draw for WorkingStorageDraw {
         } else {
             pos = pos_now + ((pos_next - pos_now) / 2.0);
         }
-        let mut done = false;
-        while !done {
-            if pos >= 360.0 {
-                pos = pos - 360.0;
-            }
-            if pos >= 360.0 {
-                //
-            } else {
-                done = true;
-            }
-        }
+        pos = self.ws.get_fix_pos(pos);
         let offset: Offset = self.ws.get_center_item(
             house_size,
             self.ws
@@ -535,17 +496,7 @@ impl Draw for WorkingStorageDraw {
             }
         }
 
-        let mut done = false;
-        while !done {
-            if pos >= 360.0 {
-                pos = pos - 360.0;
-            }
-            if pos >= 360.0 {
-                //
-            } else {
-                done = true;
-            }
-        }
+        pos = self.ws.get_fix_pos(pos);
         let offset_angle: Offset = self.ws.get_center_item(
             angle_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
@@ -642,7 +593,8 @@ impl Draw for WorkingStorageDraw {
         let mut svg_deg = svg_draw_degre(0);
         let mut svg_min = svg_draw_minute(0);
         let mut pos: Number = 0.0;
-
+        let pos_fix: Number = 360.0 - self.ws.house[0].longitude as f32
+            + self.ws.get_bodie_fix_longitude(bodie.clone());
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
                 pos = 360.0 - self.ws.house[0].longitude as f32
@@ -652,28 +604,21 @@ impl Draw for WorkingStorageDraw {
                 break;
             }
         }
-        let mut done = false;
-        while !done {
-            if pos >= 360.0 {
-                pos = pos - 360.0;
-            }
-            if pos >= 360.0 {
-                //
-            } else {
-                done = true;
-            }
-        }
+        pos = self.ws.get_fix_pos(pos);
         let offset_planet: Offset = self.ws.get_center_item(
             planet_size,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
+            self.ws
+                .get_pos_trigo(pos_fix, self.ws.get_radius_circle(4).0),
         );
         let offset_deg: Offset = self.ws.get_center_item(
             deg_size,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(5).0),
+            self.ws
+                .get_pos_trigo(pos_fix, self.ws.get_radius_circle(5).0),
         );
         let offset_min: Offset = self.ws.get_center_item(
             min_size,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
+            self.ws
+                .get_pos_trigo(pos_fix, self.ws.get_radius_circle(6).0),
         );
 
         // Trait
@@ -690,7 +635,7 @@ impl Draw for WorkingStorageDraw {
             .set("stroke", "black")
             .set("stroke-width", 1);
         t_xy = self.ws.get_line_trigo(
-            pos,
+            pos_fix,
             self.ws.get_radius_circle(7).0,
             self.ws.get_radius_circle(8).0,
         );
@@ -869,29 +814,9 @@ impl CalcDraw for WorkingStorage {
         radius_circle_end: Number,
     ) -> [Offset; 3] {
         let mut angular1 = angular as f32 - angular_pointer as f32;
-        let mut done = false;
-        while !done {
-            if angular1 >= 360.0 {
-                angular1 = angular - 360.0;
-            }
-            if angular >= 360.0 {
-                //
-            } else {
-                done = true;
-            }
-        }
+        angular1 = self.get_fix_pos(angular1);
         let mut angular2 = angular as f32 + angular_pointer as f32;
-        done = false;
-        while !done {
-            if angular2 >= 360.0 {
-                angular2 = angular - 360.0;
-            }
-            if angular >= 360.0 {
-                //
-            } else {
-                done = true;
-            }
-        }
+        angular2 = self.get_fix_pos(angular2);
         let dx1: Number = self.get_center().x
             + (angular1 / CIRCLE as f32 * 2.0 * f32::consts::PI).cos()
                 * -1.0
@@ -932,5 +857,46 @@ impl CalcDraw for WorkingStorage {
                     .sin()
                     * radius_circle as f32,
         }
+    }
+
+    fn get_fix_pos(&self, mut pos: Number) -> Number {
+        let mut done = false;
+        while !done {
+            if pos >= 360.0 {
+                pos = pos - 360.0;
+            }
+            if pos >= 360.0 {
+                //
+            } else {
+                done = true;
+            }
+        }
+        pos
+    }
+
+    fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
+        //#[derive(Debug, Clone)]
+        //pub struct TempPositionBodies
+        //    pub index: Number,
+        //    pub sw_bodie: bool,
+        //    pub longitude: Number,
+        //    pub space_left: Number,
+        //    pub space_right: Number
+        //    pub longitude_fix: Number,
+
+        let mut pos: Number = 0.0;
+        for b in self.object.clone() {
+            if b.object_enum.clone() == bodie {
+                pos =
+                    360.0 - self.house[0].longitude as f32 + b.longitude as f32;
+                break;
+            }
+        }
+        pos = self.get_fix_pos(pos);
+        if bodie == Bodies::Sun {
+            pos = pos + 10.0;
+        }
+        pos = self.get_fix_pos(pos);
+        pos
     }
 }
