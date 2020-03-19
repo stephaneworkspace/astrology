@@ -177,6 +177,7 @@ pub trait CalcDraw {
         radius_circle_end: Number,
     ) -> [Offset; 3];
     fn get_fix_pos(&self, pos: Number) -> Number;
+    fn get_angle_longitude(&self, angle: Angle) -> Number;
     fn get_bodie_longitude(&self, bodie: Bodies) -> Number;
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number;
 }
@@ -487,19 +488,16 @@ impl Draw for WorkingStorageDraw {
 
         let mut svg_deg = svg_draw_degre(0);
         let mut svg_min = svg_draw_minute(0);
-        let mut pos: Number = 0.0;
+        let pos: Number = self.ws.get_angle_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
-                pos = 360.0 - self.ws.house[0].longitude as f32
-                    + h.longitude as f32;
                 svg_deg = svg_draw_degre(h.split.deg as i16);
                 svg_min = svg_draw_minute(h.split.min as i16);
                 break;
             }
         }
 
-        pos = self.ws.get_fix_pos(pos);
         let offset_angle: Offset = self.ws.get_center_item(
             angle_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
@@ -514,24 +512,12 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
-        let mut t_xy: [Offset; 2] = self.ws.get_line_trigo(
+        let t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
-            self.ws.get_radius_circle(7).0, // should be 3
+            self.ws.get_radius_circle(8).0, // should be 3 / 8 is greater > 7
         );
-        let line_1 = Line::new()
-            .set("x1", t_xy[0].x)
-            .set("y1", t_xy[0].y)
-            .set("x2", t_xy[1].x)
-            .set("y2", t_xy[1].y)
-            .set("stroke", "black")
-            .set("stroke-width", 1);
-        t_xy = self.ws.get_line_trigo(
-            pos,
-            self.ws.get_radius_circle(7).0,
-            self.ws.get_radius_circle(8).0,
-        );
-        let line_2 = Line::new()
+        let line = Line::new()
             .set("x1", t_xy[0].x)
             .set("y1", t_xy[0].y)
             .set("x2", t_xy[1].x)
@@ -543,8 +529,7 @@ impl Draw for WorkingStorageDraw {
                 "viewBox",
                 (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
             )
-            .add(line_1)
-            .add(line_2);
+            .add(line);
 
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg_angle.to_string(),
@@ -870,6 +855,19 @@ impl CalcDraw for WorkingStorage {
                 done = true;
             }
         }
+        pos
+    }
+
+    fn get_angle_longitude(&self, angle: Angle) -> Number {
+        let mut pos: Number = 0.0;
+        for h in self.house.clone() {
+            if h.angle.clone() == angle {
+                pos =
+                    360.0 - self.house[0].longitude as f32 + h.longitude as f32;
+                break;
+            }
+        }
+        pos = self.get_fix_pos(pos);
         pos
     }
 
