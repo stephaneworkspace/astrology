@@ -510,15 +510,18 @@ impl Draw for WorkingStorageDraw {
 
         let offset_angle: Offset = self.ws.get_center_item(
             angle_size,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
+            self.ws
+                .get_pos_trigo(pos_fix, self.ws.get_radius_circle(4).0),
         );
         let offset_deg: Offset = self.ws.get_center_item(
             deg_size,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(5).0),
+            self.ws
+                .get_pos_trigo(pos_fix, self.ws.get_radius_circle(5).0),
         );
         let offset_min: Offset = self.ws.get_center_item(
             min_size,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
+            self.ws
+                .get_pos_trigo(pos_fix, self.ws.get_radius_circle(6).0),
         );
 
         // Trait
