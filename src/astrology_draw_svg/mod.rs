@@ -151,7 +151,8 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     }
 
     // Object calc draw for calcul in svg x,y width, height
-    let ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
+    let mut ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
+    ws.set_fix_compute();
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
 
     let mut res: Vec<DataObjectSvg> = Vec::new();
@@ -318,9 +319,28 @@ pub fn chart_html(
         data.lng as f64, // Todo in libswe_sys f64 -> f32
         'P',             // Placidus
     );
-    let object: Vec<Object> = Vec::new();
+    let mut object: Vec<Object> = Vec::new();
+    let mut calc: swerust::handler_swe03::CalcUtResult;
+    for bodies in Bodies::iter() {
+        if bodies.clone().object_type() == ObjectType::PlanetOrStar {
+            calc = swerust::handler_swe03::calc_ut(
+                utc_to_jd.julian_day_ut, // debug julianday in orginal file
+                bodies.clone(),
+                OptionalFlag::Speed as i32,
+            );
+            object.push(Object::new(
+                bodies.clone(),
+                bodies.clone().as_static(),
+                bodies.clone().object_type(),
+                calc.longitude,
+                calc.latitude,
+                calc.speed_longitude,
+            ));
+        }
+    }
     // Object calc draw for calcul in svg x,y width, height
-    let ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
+    let mut ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
+    ws.set_fix_compute();
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
     let document = format!(
         r#"
@@ -1005,8 +1025,6 @@ pub fn chart_html(
         file.write_all(&document.as_bytes())?;
     }
     //println!("{}", document.clone().to_string());
-    // DEBUG
-    ws.get_bodie_fix_longitude(Bodies::Sun);
     Ok(())
 }
 

@@ -75,6 +75,7 @@ pub struct WorkingStorage {
     pub max_size: Number,
     pub house: Vec<House>,
     pub object: Vec<Object>,
+    pub temp_position_bodies: Vec<TempPositionBodies>,
 }
 
 #[derive(Debug, Clone)]
@@ -128,7 +129,7 @@ pub struct TempPositionBodies {
     pub index: i16,
     pub sw_reserve: bool,
     pub sw_bodie: bool,
-    pub bodie: Bodies,
+    pub bodie_enum: Bodies,
     pub longitude: Number,
     pub space_left: Number,
     pub space_right: Number,
@@ -184,7 +185,9 @@ pub trait CalcDraw {
     fn get_bodie_is_on_chart(&self, bodie: Bodies) -> bool;
     fn get_angle_longitude(&self, angle: Angle) -> Number;
     fn get_bodie_longitude(&self, bodie: Bodies) -> Number;
+    fn get_angle_fix_longitude(&self, angle: Angle) -> Number;
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number;
+    fn set_fix_compute(&mut self);
 }
 
 // Methods - Constructors
@@ -217,6 +220,7 @@ impl WorkingStorage {
             max_size: max_size,
             house: h,
             object: object,
+            temp_position_bodies: Vec::new(),
         }
     }
 }
@@ -338,9 +342,9 @@ impl Draw for WorkingStorageDraw {
                     house_pos,
                     angular_pointer,
                     self.ws
-                        .get_radius_rules_inside_circle_house_for_pointer_bottom(),
+                    .get_radius_rules_inside_circle_house_for_pointer_bottom(),
                     self.ws
-                        .get_radius_rules_inside_circle_house_for_pointer_top(),
+                    .get_radius_rules_inside_circle_house_for_pointer_top(),
                 );
                 // Line for small pointer (only if angle is Angle::Nothing)
                 a_xy_line = self.ws.get_line_trigo(
@@ -494,6 +498,7 @@ impl Draw for WorkingStorageDraw {
         let mut svg_deg = svg_draw_degre(0);
         let mut svg_min = svg_draw_minute(0);
         let pos: Number = self.ws.get_angle_longitude(angle.clone());
+        let pos_fix: Number = self.ws.get_angle_fix_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
@@ -517,16 +522,28 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
-        let t_xy: [Offset; 2] = self.ws.get_line_trigo(
+        let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
-            self.ws.get_radius_circle(8).0, // should be 3 / 8 is greater > 7
+            self.ws.get_radius_circle(7).0, // should be 3
         );
-        let line = Line::new()
-            .set("x1", t_xy[0].x)
-            .set("y1", t_xy[0].y)
-            .set("x2", t_xy[1].x)
-            .set("y2", t_xy[1].y)
+        let line_1 = Line::new()
+            .set("x1", t_xy_begin[0].x)
+            .set("y1", t_xy_begin[0].y)
+            .set("x2", t_xy_begin[1].x)
+            .set("y2", t_xy_begin[1].y)
+            .set("stroke", "black")
+            .set("stroke-width", 1);
+        let t_xy_end: [Offset; 2] = self.ws.get_line_trigo(
+            pos_fix,
+            self.ws.get_radius_circle(7).0,
+            self.ws.get_radius_circle(8).0,
+        );
+        let line_2 = Line::new()
+            .set("x1", t_xy_begin[1].x)
+            .set("y1", t_xy_begin[1].y)
+            .set("x2", t_xy_end[1].x)
+            .set("y2", t_xy_end[1].y)
             .set("stroke", "black")
             .set("stroke-width", 1);
         let document_trait = Document::new()
@@ -534,7 +551,8 @@ impl Draw for WorkingStorageDraw {
                 "viewBox",
                 (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
             )
-            .add(line);
+            .add(line_1)
+            .add(line_2);
 
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg_angle.to_string(),
@@ -863,6 +881,8 @@ impl CalcDraw for WorkingStorage {
         pos
     }
 
+    /// Warning you can't remove Angle::Asc of if without rewrite
+    /// the get_bodie_fix_longitude function
     fn get_angle_is_on_chart(&self, angle: Angle) -> bool {
         if angle == Angle::Asc || angle == Angle::Mc {
             true
@@ -914,35 +934,55 @@ impl CalcDraw for WorkingStorage {
         pos
     }
 
+    fn get_angle_fix_longitude(&self, angle: Angle) -> Number {
+        let mut pos: Number = self.get_angle_longitude(angle.clone());
+        if angle == Angle::Mc {
+            pos = pos - BODIE_DISTANCE;
+        }
+        pos = self.get_fix_pos(pos);
+        pos
+    }
+
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
+        let mut pos: Number = self.get_bodie_longitude(bodie.clone());
+        if bodie == Bodies::Sun {
+            pos = pos + BODIE_DISTANCE;
+        }
+        pos = self.get_fix_pos(pos);
+        pos
+    }
+
+    fn set_fix_compute(&mut self) {
         let mut temp_no_order: Vec<TempPositionBodies> = Vec::new();
         let mut i: i16 = 0;
         for a in Angle::iter() {
             if self.get_angle_is_on_chart(a.clone()) {
                 if a.clone() == Angle::Asc {
                     i = i + 1;
+                    let longitude = self.get_angle_longitude(a.clone());
                     temp_no_order.push(TempPositionBodies {
                         init_index: i,
                         index: 1,
                         sw_reserve: true,
                         sw_bodie: false,
-                        bodie: Bodies::EclNut, // -1 Nothing, this variable
+                        bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
                         // is not used
-                        longitude: self.get_angle_longitude(a),
+                        longitude: longitude,
                         space_left: 0.0,
                         space_right: 0.0,
                         longitude_fix: 0.0,
                     });
                 } else {
                     i = i + 1;
+                    let longitude = self.get_angle_longitude(a.clone());
                     temp_no_order.push(TempPositionBodies {
                         init_index: i,
                         index: 0,
                         sw_reserve: false,
                         sw_bodie: false,
-                        bodie: Bodies::EclNut, // -1 Nothing, this variable
+                        bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
                         // is not used
-                        longitude: self.get_angle_longitude(a),
+                        longitude: longitude,
                         space_left: 0.0,
                         space_right: 0.0,
                         longitude_fix: 0.0,
@@ -953,13 +993,14 @@ impl CalcDraw for WorkingStorage {
         for b in Bodies::iter() {
             if self.get_bodie_is_on_chart(b) {
                 i = i + 1;
+                let longitude = self.get_bodie_longitude(b);
                 temp_no_order.push(TempPositionBodies {
                     init_index: i,
                     index: 0,
                     sw_reserve: false,
                     sw_bodie: true,
-                    bodie: b.clone(),
-                    longitude: self.get_bodie_longitude(b),
+                    bodie_enum: b,
+                    longitude: longitude,
                     space_left: 0.0,
                     space_right: 0.0,
                     longitude_fix: 0.0,
@@ -979,9 +1020,9 @@ impl CalcDraw for WorkingStorage {
             old_i = 0;
             next_lng = 0.0;
             for t in temp_no_order.clone() {
-                if t.index == 0 {
+                if t.index.clone() == 0 {
                     if done {
-                        if t.longitude < next_lng {
+                        if t.longitude < next_lng && t.longitude >= old_lng {
                             // not egal here
                             next_lng = t.longitude;
                             old_i = t.init_index;
@@ -996,6 +1037,7 @@ impl CalcDraw for WorkingStorage {
                 }
             }
             // Next - Detect of Not
+            done = false;
             if old_i > 0 {
                 old_lng = next_lng;
                 next_index = next_index + 1;
@@ -1007,7 +1049,7 @@ impl CalcDraw for WorkingStorage {
                             index: next_index,
                             sw_reserve: t.sw_reserve,
                             sw_bodie: t.sw_bodie,
-                            bodie: t.bodie,
+                            bodie_enum: t.bodie_enum,
                             longitude: t.longitude,
                             space_left: t.space_left,
                             space_right: t.space_right,
@@ -1028,18 +1070,12 @@ impl CalcDraw for WorkingStorage {
         }
         // Next order
         temp_order.clear();
-        for t in temp_no_order {
+        for t in temp_no_order.clone() {
             println!(
                 "i_index: {} index: {} bodie: {} longitude: {}",
-                t.init_index, t.index, t.bodie, t.longitude
+                t.init_index, t.index, t.bodie_enum, t.longitude
             );
         }
-
-        let mut pos: Number = self.get_bodie_longitude(bodie);
-        if bodie == Bodies::Sun {
-            pos = pos + BODIE_DISTANCE;
-        }
-        pos = self.get_fix_pos(pos);
-        pos
+        self.temp_position_bodies = temp_no_order;
     }
 }
