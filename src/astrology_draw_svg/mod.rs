@@ -38,7 +38,7 @@ use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
-use svg_draw_angle::{draw_asc, draw_dc, draw_fc};
+use svg_draw_angle::{draw_asc, draw_desc, draw_fc, draw_mc};
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -960,8 +960,8 @@ pub fn chart_html(
         ws_draw.draw_house(12).svg,
         draw_asc(),
         draw_fc(),
-        draw_dc(),
-        draw_asc()
+        draw_desc(),
+        draw_mc()
     );
 
     if path_and_file_export != "" {
