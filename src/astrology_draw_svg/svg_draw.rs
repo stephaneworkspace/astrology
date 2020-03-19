@@ -560,7 +560,7 @@ impl Draw for WorkingStorageDraw {
         let t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(3).0,
-            self.ws.get_radius_circle(4).0,
+            self.ws.get_radius_circle(2).0,
         );
         let line = Line::new()
             .set("x1", t_xy[0].x)
