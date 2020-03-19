@@ -568,7 +568,10 @@ impl Draw for WorkingStorageDraw {
             .set("y2", offset_trait.y)
             .set("stroke", "black")
             .set("stroke-width", 1);
-
+        println!(
+            "xy1:{}-{} xy2:{}-{}",
+            offset_angle.x, offset_angle.y, offset_trait.x, offset_trait.y
+        );
         let document_trait = Document::new()
             .set(
                 "viewBox",
