@@ -959,7 +959,7 @@ pub fn chart_html(
         ws_draw.draw_house(11).svg,
         ws_draw.draw_house(12).svg,
         draw_asc(),
-        draw_asc(),
+        draw_fc(),
         draw_asc(),
         draw_asc()
     );

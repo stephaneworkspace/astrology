@@ -71,3 +71,49 @@ pub fn draw_asc() -> Document {
         .add(group);
     document
 }
+
+pub fn draw_fc() -> Document {
+    let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
+    let document: Document;
+    let data1 = Data::new()
+        .move_to((7.2, 11.9)) // M
+        .horizontal_line_by(13.1) // h
+        .vertical_line_by(2.6) // v
+        .horizontal_line_by(-9.9) // h
+        .vertical_line_by(8.1) // v
+        .horizontal_line_by(9.2) // h
+        .vertical_line_by(2.6) // v
+        .horizontal_line_by(-9.2) // h
+        .vertical_line_by(11.0) // v
+        .horizontal_line_to(7.2) // H
+        .vertical_line_to(11.9) // V
+        .close(); // z
+    let data2 = Data::new()
+        .move_to((41.7, 35.4)) // M
+        .cubic_curve_by((-1.2, 0.6, -3.5, 1.2, -6.4, 1.2)) // c
+        .cubic_curve_by((-6.8, 0.0, -12.0, -4.3, -12.0, -12.3)) // c
+        .cubic_curve_by((0.0, -7.6, 5.1, -12.7, 12.7, -12.7)) // c
+        .cubic_curve_by((3.0, 0.0, 4.9, 0.6, 5.8, 1.1)) // c
+        .line_to((41.0, 15.2)) // L
+        .cubic_curve_by((-1.2, -0.6, -2.9, -1.0, -4.9, -1.0)) // c
+        .cubic_curve_by((-5.7, 0.0, -9.5, 3.6, -9.5, 10.0)) // c
+        .cubic_curve_by((0.0, 5.9, 3.4, 9.8, 9.3, 9.8)) // c
+        .cubic_curve_by((1.9, 0.0, 3.9, -0.4, 5.1, -1.0)) // c
+        .line_to((41.7, 35.4)) // L
+        .close(); // z
+    let path1 = Path::new()
+        .set("fill", "black")
+        .set("stroke", "black")
+        .set("stroke-width", 0)
+        .set("d", data1);
+    let path2 = Path::new()
+        .set("fill", "black")
+        .set("stroke", "black")
+        .set("stroke-width", 0)
+        .set("d", data2);
+    let group = Group::new().add(path1).add(path2);
+    document = Document::new()
+        .set("viewBox", (0, 0, size.0, size.1))
+        .add(group);
+    document
+}
