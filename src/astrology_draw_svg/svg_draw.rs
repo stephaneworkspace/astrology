@@ -621,28 +621,28 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
-        let mut t_xy: [Offset; 2] = self.ws.get_line_trigo(
+        let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
             self.ws.get_radius_circle(7).0, // should be 3
         );
         let line_1 = Line::new()
-            .set("x1", t_xy[0].x)
-            .set("y1", t_xy[0].y)
-            .set("x2", t_xy[1].x)
-            .set("y2", t_xy[1].y)
+            .set("x1", t_xy_begin[0].x)
+            .set("y1", t_xy_begin[0].y)
+            .set("x2", t_xy_begin[1].x)
+            .set("y2", t_xy_begin[1].y)
             .set("stroke", "black")
             .set("stroke-width", 1);
-        t_xy = self.ws.get_line_trigo(
+        let t_xy_end: [Offset; 2] = self.ws.get_line_trigo(
             pos_fix,
             self.ws.get_radius_circle(7).0,
             self.ws.get_radius_circle(8).0,
         );
         let line_2 = Line::new()
-            .set("x1", t_xy[0].x)
-            .set("y1", t_xy[0].y)
-            .set("x2", t_xy[1].x)
-            .set("y2", t_xy[1].y)
+            .set("x1", t_xy_begin[1].x)
+            .set("y1", t_xy_begin[1].y)
+            .set("x2", t_xy_end[1].x)
+            .set("y2", t_xy_end[1].y)
             .set("stroke", "black")
             .set("stroke-width", 1);
         let document_trait = Document::new()
