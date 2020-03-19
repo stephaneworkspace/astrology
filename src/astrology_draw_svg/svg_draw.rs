@@ -544,6 +544,10 @@ impl Draw for WorkingStorageDraw {
                 done = true;
             }
         }
+        let offset_trait: Offset = self.ws.get_center_item(
+            1.0,
+            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(3).0),
+        );
         let offset_angle: Offset = self.ws.get_center_item(
             angle_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
@@ -559,7 +563,7 @@ impl Draw for WorkingStorageDraw {
         // Trait
         let data_trait = Data::new()
             .move_to((offset_angle.x, offset_angle.y))
-            .line_to((offset_deg.x, offset_deg.y))
+            .line_by((offset_trait.x, offset_trait.y))
             .close();
         let path_trait = Path::new()
             .set("fill", "black")
