@@ -561,22 +561,20 @@ impl Draw for WorkingStorageDraw {
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
         );
         // Trait
-        let data_trait = Data::new()
-            .move_to((offset_angle.x, offset_angle.y))
-            .line_by((offset_trait.x, offset_trait.y))
-            .close();
-        let path_trait = Path::new()
-            .set("fill", "black")
+        let line = Line::new()
+            .set("x1", offset_angle.x)
+            .set("y1", offset_angle.y)
+            .set("x2", offset_trait.x)
+            .set("y2", offset_trait.y)
             .set("stroke", "black")
-            .set("stroke-width", 0)
-            .set("d", data_trait);
+            .set("stroke-width", 1);
 
         let document_trait = Document::new()
             .set(
                 "viewBox",
                 (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
             )
-            .add(path_trait);
+            .add(line);
 
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg_angle.to_string(),
