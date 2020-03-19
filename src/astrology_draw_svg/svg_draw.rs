@@ -48,7 +48,7 @@ const LARGER_DRAW_LINE_RULES_SMALL: Number = 0.1;
 const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 
 // tuple (visible/value)
-const CIRCLE_SIZE: [(Number, bool); 7] = [
+const CIRCLE_SIZE: [(Number, bool); 8] = [
     (35.0, true),  // 0
     (62.0, true),  // 1
     (67.0, true),  // 2
@@ -56,6 +56,7 @@ const CIRCLE_SIZE: [(Number, bool); 7] = [
     (77.0, false), // 4
     (87.0, false), // 5
     (94.0, false), // 6
+    (71.0, false), // 7 between 2 and 3
 ];
 
 // Working Storage - Enums
@@ -559,8 +560,8 @@ impl Draw for WorkingStorageDraw {
         // Trait
         let t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
-            self.ws.get_radius_circle(3).0,
             self.ws.get_radius_circle(2).0,
+            self.ws.get_radius_circle(7).0, // should be 3
         );
         let line = Line::new()
             .set("x1", t_xy[0].x)
