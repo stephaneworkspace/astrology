@@ -122,9 +122,11 @@ pub struct SvgObjectBodie {
     pub trait_pos_y: Number,  // 0.0
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct TempPositionBodies {
-    pub index: Number,
+    pub init_index: i16,
+    pub index: i16,
+    pub sw_reserve: bool,
     pub sw_bodie: bool,
     pub bodie: Bodies,
     pub longitude: Number,
@@ -333,13 +335,13 @@ impl Draw for WorkingStorageDraw {
             let a_xy_line: [Offset; 2];
             if self.ws.house[i].angle == Angle::Nothing {
                 a_xy_tria = self.ws.get_triangle_path(
-                  house_pos,
-                  angular_pointer,
-                  self.ws
-                      .get_radius_rules_inside_circle_house_for_pointer_bottom(),
-                  self.ws
-                      .get_radius_rules_inside_circle_house_for_pointer_top(),
-              );
+                    house_pos,
+                    angular_pointer,
+                    self.ws
+                        .get_radius_rules_inside_circle_house_for_pointer_bottom(),
+                    self.ws
+                        .get_radius_rules_inside_circle_house_for_pointer_top(),
+                );
                 // Line for small pointer (only if angle is Angle::Nothing)
                 a_xy_line = self.ws.get_line_trigo(
                     house_pos,
@@ -914,24 +916,47 @@ impl CalcDraw for WorkingStorage {
 
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
         let mut temp_no_order: Vec<TempPositionBodies> = Vec::new();
+        let mut i: i16 = 0;
         for a in Angle::iter() {
             if self.get_angle_is_on_chart(a.clone()) {
-                temp_no_order.push(TempPositionBodies {
-                    index: 0.0,
-                    sw_bodie: false,
-                    bodie: Bodies::EclNut, // -1 Nothing, this variable
-                    // is not used
-                    longitude: self.get_angle_longitude(a),
-                    space_left: 0.0,
-                    space_right: 0.0,
-                    longitude_fix: 0.0,
-                });
+                if a.clone() == Angle::Asc {
+                    i = i + 1;
+                    temp_no_order.push(TempPositionBodies {
+                        init_index: i,
+                        index: 1,
+                        sw_reserve: true,
+                        sw_bodie: false,
+                        bodie: Bodies::EclNut, // -1 Nothing, this variable
+                        // is not used
+                        longitude: self.get_angle_longitude(a),
+                        space_left: 0.0,
+                        space_right: 0.0,
+                        longitude_fix: 0.0,
+                    });
+                } else {
+                    i = i + 1;
+                    temp_no_order.push(TempPositionBodies {
+                        init_index: i,
+                        index: 0,
+                        sw_reserve: false,
+                        sw_bodie: false,
+                        bodie: Bodies::EclNut, // -1 Nothing, this variable
+                        // is not used
+                        longitude: self.get_angle_longitude(a),
+                        space_left: 0.0,
+                        space_right: 0.0,
+                        longitude_fix: 0.0,
+                    });
+                }
             }
         }
         for b in Bodies::iter() {
             if self.get_bodie_is_on_chart(b) {
+                i = i + 1;
                 temp_no_order.push(TempPositionBodies {
-                    index: 0.0,
+                    init_index: i,
+                    index: 0,
+                    sw_reserve: false,
                     sw_bodie: true,
                     bodie: b.clone(),
                     longitude: self.get_bodie_longitude(b),
@@ -942,7 +967,73 @@ impl CalcDraw for WorkingStorage {
             }
         }
         // Order by pos
-        // let mut temp_order: Vec<TempPositionBodies> = Vec::new();
+        let mut done = false;
+        let mut old_lng = 0.0; // Value ASC forced
+        let mut next_lng;
+        let mut old_i;
+        let mut next_index = 1;
+        let mut temp_order: Vec<TempPositionBodies> = Vec::new();
+
+        let mut done_main = false;
+        while !done_main {
+            old_i = 0;
+            next_lng = 0.0;
+            for t in temp_no_order.clone() {
+                if t.index == 0 {
+                    if done {
+                        if t.longitude < next_lng {
+                            // not egal here
+                            next_lng = t.longitude;
+                            old_i = t.init_index;
+                        }
+                    } else {
+                        if t.longitude >= old_lng {
+                            done = true;
+                            next_lng = t.longitude;
+                            old_i = t.init_index;
+                        }
+                    }
+                }
+            }
+            // Next - Detect of Not
+            if old_i > 0 {
+                old_lng = next_lng;
+                next_index = next_index + 1;
+                temp_order.clear();
+                for t in temp_no_order.clone() {
+                    if t.init_index == old_i {
+                        temp_order.push(TempPositionBodies {
+                            init_index: t.init_index,
+                            index: next_index,
+                            sw_reserve: t.sw_reserve,
+                            sw_bodie: t.sw_bodie,
+                            bodie: t.bodie,
+                            longitude: t.longitude,
+                            space_left: t.space_left,
+                            space_right: t.space_right,
+                            longitude_fix: t.longitude_fix,
+                        });
+                    } else {
+                        temp_order.push(t.clone());
+                    }
+                }
+                temp_no_order.clear();
+                for t in temp_order.clone() {
+                    temp_no_order.push(t);
+                }
+            } else {
+                // Nothing found
+                done_main = true;
+            }
+        }
+        // Next order
+        temp_order.clear();
+        for t in temp_no_order {
+            println!(
+                "i_index: {} index: {} bodie: {} longitude: {}",
+                t.init_index, t.index, t.bodie, t.longitude
+            );
+        }
 
         let mut pos: Number = self.get_bodie_longitude(bodie);
         if bodie == Bodies::Sun {

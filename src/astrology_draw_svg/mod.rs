@@ -1005,6 +1005,8 @@ pub fn chart_html(
         file.write_all(&document.as_bytes())?;
     }
     //println!("{}", document.clone().to_string());
+    // DEBUG
+    ws.get_bodie_fix_longitude(Bodies::Sun);
     Ok(())
 }
 
