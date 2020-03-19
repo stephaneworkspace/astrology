@@ -544,10 +544,6 @@ impl Draw for WorkingStorageDraw {
                 done = true;
             }
         }
-        let offset_trait: Offset = self.ws.get_center_item(
-            1.0,
-            self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(3).0),
-        );
         let offset_angle: Offset = self.ws.get_center_item(
             angle_size,
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(4).0),
@@ -561,17 +557,18 @@ impl Draw for WorkingStorageDraw {
             self.ws.get_pos_trigo(pos, self.ws.get_radius_circle(6).0),
         );
         // Trait
+        let t_xy: [Offset; 2] = self.ws.get_line_trigo(
+            pos,
+            self.ws.get_radius_circle(3).0,
+            self.ws.get_radius_circle(4).0,
+        );
         let line = Line::new()
-            .set("x1", offset_angle.x)
-            .set("y1", offset_angle.y)
-            .set("x2", offset_trait.x)
-            .set("y2", offset_trait.y)
+            .set("x1", t_xy[0].x)
+            .set("y1", t_xy[0].y)
+            .set("x2", t_xy[1].x)
+            .set("y2", t_xy[1].y)
             .set("stroke", "black")
             .set("stroke-width", 1);
-        println!(
-            "xy1:{}-{} xy2:{}-{}",
-            offset_angle.x, offset_angle.y, offset_trait.x, offset_trait.y
-        );
         let document_trait = Document::new()
             .set(
                 "viewBox",

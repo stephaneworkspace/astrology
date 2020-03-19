@@ -192,10 +192,9 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     }
 
     for a in Angle::iter() {
-        if a == Angle::Asc
-        //            || a == Angle::Fc
-        //            || a == Angle::Desc
-        //            || a == Angle::Mc
+        if a == Angle::Asc || a == Angle::Mc
+        //  || a == Angle::Fc
+        //  || a == Angle::Desc
         {
             let draw = ws_draw.draw_angle(a);
             res.push(DataObjectSvg {
