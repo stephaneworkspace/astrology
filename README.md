@@ -23,6 +23,12 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.42
+* Add Asc svg
+* Adds Fc Svg
+* Add Desc svg
+* Add Mc Svg
+
 0.1.41
 * Implement retrograde function
 * Draw house numero on chart

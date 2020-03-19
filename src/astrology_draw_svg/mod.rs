@@ -29,6 +29,7 @@ use svg::node::element::path::Data;
 use svg::node::element::path::Number;
 use svg::node::element::Path;
 use svg::Document;
+pub mod svg_draw_angle;
 pub mod svg_draw_bodies;
 pub mod svg_draw_house;
 pub mod svg_draw_numbers;
@@ -37,6 +38,7 @@ use base64::encode;
 use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
+use svg_draw_angle::draw_asc;
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -802,6 +804,22 @@ pub fn chart_html(
                     House 12
                     {}
                     -->
+                    <!--
+                    AC
+                    {}
+                    -->
+                    <!--
+                    FC
+                    {}
+                    -->
+                    <!--
+                    DC
+                    {}
+                    -->
+                    <!--
+                    MC
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -940,6 +958,10 @@ pub fn chart_html(
         ws_draw.draw_house(10).svg,
         ws_draw.draw_house(11).svg,
         ws_draw.draw_house(12).svg,
+        draw_asc(),
+        draw_asc(),
+        draw_asc(),
+        draw_asc()
     );
 
     if path_and_file_export != "" {
