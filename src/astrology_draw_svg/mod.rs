@@ -192,10 +192,7 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     }
 
     for a in Angle::iter() {
-        if a == Angle::Asc || a == Angle::Mc
-        //  || a == Angle::Fc
-        //  || a == Angle::Desc
-        {
+        if ws.get_angle_is_on_chart(a.clone()) {
             let draw = ws_draw.draw_angle(a);
             res.push(DataObjectSvg {
                 svg: draw.svg,
@@ -232,19 +229,7 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
         }
     }
     for b in Bodies::iter() {
-        if b == Bodies::Sun
-            || b == Bodies::Moon
-            || b == Bodies::Mars
-            || b == Bodies::Mercury
-            || b == Bodies::Venus
-            || b == Bodies::Jupiter
-            || b == Bodies::Saturn
-            || b == Bodies::Uranus
-            || b == Bodies::Neptune
-            || b == Bodies::Pluto
-        //          || b == Bodies::TrueNode
-        //          || b == Bodies::Chiron
-        {
+        if ws.get_bodie_is_on_chart(b.clone()) {
             let draw = ws_draw.draw_bodie(b);
             res.push(DataObjectSvg {
                 svg: draw.svg,

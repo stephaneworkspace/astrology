@@ -17,10 +17,6 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::{Angle, Bodies, House, Object, ObjectPos, Signs};
-use libswe_sys::swerust::handler_swe14::HousesResult;
-use std::f32;
-// use strum::IntoEnumIterator; // Enum for loop
 use crate::astrology_draw_svg::svg_draw_angle::{
     draw_asc as svg_draw_asc, draw_desc as svg_draw_desc,
     draw_fc as svg_draw_fc, draw_mc as svg_draw_mc, ANGLE_SIZE,
@@ -34,6 +30,10 @@ use crate::astrology_draw_svg::svg_draw_numbers::draw_minute as svg_draw_minute;
 use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
+use libswe_sys::sweconst::{Angle, Bodies, House, Object, ObjectPos, Signs};
+use libswe_sys::swerust::handler_swe14::HousesResult;
+use std::f32;
+use strum::IntoEnumIterator;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
@@ -126,6 +126,7 @@ pub struct SvgObjectBodie {
 pub struct TempPositionBodies {
     pub index: Number,
     pub sw_bodie: bool,
+    pub bodie: Bodies,
     pub longitude: Number,
     pub space_left: Number,
     pub space_right: Number,
@@ -177,6 +178,8 @@ pub trait CalcDraw {
         radius_circle_end: Number,
     ) -> [Offset; 3];
     fn get_fix_pos(&self, pos: Number) -> Number;
+    fn get_angle_is_on_chart(&self, angle: Angle) -> bool;
+    fn get_bodie_is_on_chart(&self, bodie: Bodies) -> bool;
     fn get_angle_longitude(&self, angle: Angle) -> Number;
     fn get_bodie_longitude(&self, bodie: Bodies) -> Number;
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number;
@@ -858,6 +861,31 @@ impl CalcDraw for WorkingStorage {
         pos
     }
 
+    fn get_angle_is_on_chart(&self, angle: Angle) -> bool {
+        if angle == Angle::Asc || angle == Angle::Mc {
+            true
+        } else {
+            false
+        }
+    }
+    fn get_bodie_is_on_chart(&self, bodie: Bodies) -> bool {
+        if bodie == Bodies::Sun
+            || bodie == Bodies::Moon
+            || bodie == Bodies::Mars
+            || bodie == Bodies::Mercury
+            || bodie == Bodies::Venus
+            || bodie == Bodies::Jupiter
+            || bodie == Bodies::Saturn
+            || bodie == Bodies::Uranus
+            || bodie == Bodies::Neptune
+            || bodie == Bodies::Pluto
+        {
+            true
+        } else {
+            false
+        }
+    }
+
     fn get_angle_longitude(&self, angle: Angle) -> Number {
         let mut pos: Number = 0.0;
         for h in self.house.clone() {
@@ -885,15 +913,37 @@ impl CalcDraw for WorkingStorage {
     }
 
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
-        //#[derive(Debug, Clone)]
-        //pub struct TempPositionBodies
-        //    pub index: Number,
-        //    pub sw_bodie: bool,
-        //    pub longitude: Number,
-        //    pub space_left: Number,
-        //    pub space_right: Number
-        //    pub longitude_fix: Number,
-        // let temp: Vec<TempPositionBodies> = Vec::new();
+        let mut temp_no_order: Vec<TempPositionBodies> = Vec::new();
+        for a in Angle::iter() {
+            if self.get_angle_is_on_chart(a.clone()) {
+                temp_no_order.push(TempPositionBodies {
+                    index: 0.0,
+                    sw_bodie: false,
+                    bodie: Bodies::EclNut, // -1 Nothing, this variable
+                    // is not used
+                    longitude: self.get_angle_longitude(a),
+                    space_left: 0.0,
+                    space_right: 0.0,
+                    longitude_fix: 0.0,
+                });
+            }
+        }
+        for b in Bodies::iter() {
+            if self.get_bodie_is_on_chart(b) {
+                temp_no_order.push(TempPositionBodies {
+                    index: 0.0,
+                    sw_bodie: true,
+                    bodie: b.clone(),
+                    longitude: self.get_bodie_longitude(b),
+                    space_left: 0.0,
+                    space_right: 0.0,
+                    longitude_fix: 0.0,
+                });
+            }
+        }
+        // Order by pos
+        // let mut temp_order: Vec<TempPositionBodies> = Vec::new();
+
         let mut pos: Number = self.get_bodie_longitude(bodie);
         if bodie == Bodies::Sun {
             pos = pos + BODIE_DISTANCE;
