@@ -593,8 +593,7 @@ impl Draw for WorkingStorageDraw {
         let mut svg_deg = svg_draw_degre(0);
         let mut svg_min = svg_draw_minute(0);
         let mut pos: Number = 0.0;
-        let pos_fix: Number = 360.0 - self.ws.house[0].longitude as f32
-            + self.ws.get_bodie_fix_longitude(bodie.clone());
+        let pos_fix: Number = self.ws.get_bodie_fix_longitude(bodie.clone());
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
                 pos = 360.0 - self.ws.house[0].longitude as f32
