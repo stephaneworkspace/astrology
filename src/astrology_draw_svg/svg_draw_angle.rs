@@ -117,3 +117,53 @@ pub fn draw_fc() -> Document {
         .add(group);
     document
 }
+
+pub fn draw_dc() -> Document {
+    let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
+    let document: Document;
+    let data1 = Data::new()
+        .move_to((4.0, 12.3)) // M
+        .cubic_curve_by((1.9, -0.3, 4.2, -0.5, 6.7, -0.5)) // c
+        .cubic_curve_by((4.5, 0.0, 7.7, 1.0, 9.8, 3.0)) // c
+        .cubic_curve_by((2.2, 2.0, 3.4, 4.8, 3.4, 8.7)) // c
+        .cubic_curve_by((0.0, 4.0, -1.2, 7.2, -3.5, 9.4)) // c
+        .cubic_curve_by((-2.3, 2.3, -6.0, 3.5, -10.7, 3.5)) // c
+        .cubic_curve_by((-2.2, 0.0, -4.1, -0.1, -5.7, -0.3)) // c
+        .vertical_line_to(12.3) // V
+        .close() // z
+        .move_to((7.1, 33.7)) // M
+        .cubic_curve_by((0.8, 0.1, 1.9, 0.2, 3.2, 0.2)) // c
+        .cubic_curve_by((6.7, 0.0, 10.3, -3.7, 10.3, -10.3)) // c
+        .cubic_curve_by((0.0, -5.7, -3.2, -9.4, -9.8, -9.4)) // c
+        .cubic_curve_by((-1.6, 0.0, -2.8, 0.1, -3.7, 0.3)) // c
+        .vertical_line_to(33.7) // V
+        .close(); // z
+    let data2 = Data::new()
+        .move_to((44.9, 35.4)) // M
+        .cubic_curve_by((-1.2, 0.6, -3.5, 1.2, -6.4, 1.2)) // c
+        .cubic_curve_by((-6.8, 0.0, -12.0, -4.3, -12.0, -12.3)) // c
+        .cubic_curve_by((0.0, -7.6, 5.1, -12.7, 12.7, -12.7)) // c
+        .cubic_curve_by((3.0, 0.0, 4.9, 0.6, 5.8, 1.1)) // c
+        .line_by((-0.8, 2.6)) // l
+        .cubic_curve_by((-1.2, -0.6, -2.9, -1.0, -4.9, -1.0)) // c
+        .cubic_curve_by((-5.7, 0.0, -9.5, 3.6, -9.5, 10.0)) // c
+        .cubic_curve_by((0.0, 5.9, 3.4, 9.8, 9.3, 9.8)) // c
+        .cubic_curve_by((1.9, 0.0, 3.9, -0.4, 5.1, -1.0)) // c
+        .line_to((44.9, 35.4)) // L
+        .close(); // z
+    let path1 = Path::new()
+        .set("fill", "black")
+        .set("stroke", "black")
+        .set("stroke-width", 0)
+        .set("d", data1);
+    let path2 = Path::new()
+        .set("fill", "black")
+        .set("stroke", "black")
+        .set("stroke-width", 0)
+        .set("d", data2);
+    let group = Group::new().add(path1).add(path2);
+    document = Document::new()
+        .set("viewBox", (0, 0, size.0, size.1))
+        .add(group);
+    document
+}
