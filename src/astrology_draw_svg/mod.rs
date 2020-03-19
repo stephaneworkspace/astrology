@@ -178,7 +178,6 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
     }
 
     for i in 0..12 {
-        println!("i = {}", i);
         let draw = ws_draw.draw_house(i + 1);
         res.push(DataObjectSvg {
             svg: draw.svg,
