@@ -665,7 +665,7 @@ impl Draw for WorkingStorageDraw {
         // Trait
         let t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
-            self.ws.get_radius_circle(2).0,
+            self.ws.get_radius_circle(1).0, // angle is egal 2
             self.ws.get_radius_circle(7).0, // should be 3
         );
         let line = Line::new()
