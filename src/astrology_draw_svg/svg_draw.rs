@@ -48,7 +48,7 @@ const LARGER_DRAW_LINE_RULES_SMALL: Number = 0.1;
 const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 
 // tuple (visible/value)
-const CIRCLE_SIZE: [(Number, bool); 8] = [
+const CIRCLE_SIZE: [(Number, bool); 9] = [
     (35.0, true),  // 0
     (62.0, true),  // 1
     (67.0, true),  // 2
@@ -56,7 +56,8 @@ const CIRCLE_SIZE: [(Number, bool); 8] = [
     (78.0, false), // 4
     (88.0, false), // 5
     (95.0, false), // 6
-    (71.0, false), // 7 between 2 and 3
+    (70.0, false), // 7 between 2 and 3
+    (71.0, false), // 8 correction planet between 2 and 3
 ];
 
 // Working Storage - Enums
@@ -559,12 +560,24 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
-        let t_xy: [Offset; 2] = self.ws.get_line_trigo(
+        let mut t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
             self.ws.get_radius_circle(7).0, // should be 3
         );
-        let line = Line::new()
+        let line_1 = Line::new()
+            .set("x1", t_xy[0].x)
+            .set("y1", t_xy[0].y)
+            .set("x2", t_xy[1].x)
+            .set("y2", t_xy[1].y)
+            .set("stroke", "black")
+            .set("stroke-width", 1);
+        t_xy = self.ws.get_line_trigo(
+            pos,
+            self.ws.get_radius_circle(7).0,
+            self.ws.get_radius_circle(8).0,
+        );
+        let line_2 = Line::new()
             .set("x1", t_xy[0].x)
             .set("y1", t_xy[0].y)
             .set("x2", t_xy[1].x)
@@ -576,7 +589,8 @@ impl Draw for WorkingStorageDraw {
                 "viewBox",
                 (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
             )
-            .add(line);
+            .add(line_1)
+            .add(line_2);
 
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg_angle.to_string(),
@@ -663,12 +677,24 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
-        let t_xy: [Offset; 2] = self.ws.get_line_trigo(
+        let mut t_xy: [Offset; 2] = self.ws.get_line_trigo(
             pos,
-            self.ws.get_radius_circle(1).0, // angle is egal 2
+            self.ws.get_radius_circle(2).0,
             self.ws.get_radius_circle(7).0, // should be 3
         );
-        let line = Line::new()
+        let line_1 = Line::new()
+            .set("x1", t_xy[0].x)
+            .set("y1", t_xy[0].y)
+            .set("x2", t_xy[1].x)
+            .set("y2", t_xy[1].y)
+            .set("stroke", "black")
+            .set("stroke-width", 1);
+        t_xy = self.ws.get_line_trigo(
+            pos,
+            self.ws.get_radius_circle(7).0,
+            self.ws.get_radius_circle(8).0,
+        );
+        let line_2 = Line::new()
             .set("x1", t_xy[0].x)
             .set("y1", t_xy[0].y)
             .set("x2", t_xy[1].x)
@@ -680,7 +706,8 @@ impl Draw for WorkingStorageDraw {
                 "viewBox",
                 (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
             )
-            .add(line);
+            .add(line_1)
+            .add(line_2);
 
         let svg_object_bodie: SvgObjectBodie = SvgObjectBodie {
             svg: svg_planet.to_string(),
