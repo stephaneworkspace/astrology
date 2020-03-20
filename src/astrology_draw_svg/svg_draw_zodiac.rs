@@ -324,7 +324,7 @@ pub fn draw_zodiac(sign: Signs) -> Document {
             let path = Path::new()
                 .set("fill", color.clone())
                 .set("stroke", color.clone())
-                .set("stroke-width", 0)
+                .set("stroke-width", 1)
                 .set(
                     "transform",
                     "matrix(4.260087,0,0,4.260933,-12024.51,-18381.66)",
@@ -438,7 +438,7 @@ pub fn draw_zodiac(sign: Signs) -> Document {
             let path = Path::new()
                 .set("fill", color.clone())
                 .set("stroke", color.clone())
-                .set("stroke-width", 0)
+                .set("stroke-width", 1)
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
@@ -542,7 +542,7 @@ pub fn draw_zodiac(sign: Signs) -> Document {
             let path = Path::new()
                 .set("fill", "none")
                 .set("stroke", color.clone())
-                .set("stroke-width", 4)
+                .set("stroke-width", 5)
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
