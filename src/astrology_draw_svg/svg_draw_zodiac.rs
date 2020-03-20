@@ -542,7 +542,7 @@ pub fn draw_zodiac(sign: Signs) -> Document {
             let path = Path::new()
                 .set("fill", "none")
                 .set("stroke", color.clone())
-                .set("stroke-width", 3)
+                .set("stroke-width", 4)
                 .set("d", data);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
