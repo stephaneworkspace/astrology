@@ -134,6 +134,7 @@ pub struct TempPositionBodies {
     pub longitude: Number,
     pub space_left: Number,
     pub space_right: Number,
+    pub fix: Number,
     pub longitude_fix: Number,
 }
 
@@ -973,6 +974,7 @@ impl CalcDraw for WorkingStorage {
                     longitude: longitude,
                     space_left: 0.0,
                     space_right: 0.0,
+                    fix: 0.0,
                     longitude_fix: 0.0,
                 });
             }
@@ -991,6 +993,7 @@ impl CalcDraw for WorkingStorage {
                     longitude: longitude,
                     space_left: 0.0,
                     space_right: 0.0,
+                    fix: 0.0,
                     longitude_fix: 0.0,
                 });
             }
@@ -1042,6 +1045,7 @@ impl CalcDraw for WorkingStorage {
                             longitude: t.longitude,
                             space_left: t.space_left,
                             space_right: t.space_right,
+                            fix: t.fix,
                             longitude_fix: t.longitude_fix,
                         });
                     } else {
@@ -1103,6 +1107,7 @@ impl CalcDraw for WorkingStorage {
                 longitude: row.longitude,
                 space_left: space_left,
                 space_right: row.space_right,
+                fix: row.fix,
                 longitude_fix: row.longitude_fix,
             });
             i = i + 1;
@@ -1139,6 +1144,7 @@ impl CalcDraw for WorkingStorage {
                 longitude: row.longitude,
                 space_left: row.space_left,
                 space_right: space_right,
+                fix: row.fix,
                 longitude_fix: row.longitude_fix,
             });
             i = i - 1;
@@ -1151,8 +1157,15 @@ impl CalcDraw for WorkingStorage {
 
         for t in temp_no_order.clone() {
             println!(
-                "i: {} bodie: {} longitude: {} left: {} right: {}",
-                t.index, t.bodie_enum, t.longitude, t.space_left, t.space_right
+                "i: {}{} lng: {} left: {} right: {} fix: {} fl: {} fr: {}",
+                t.index,
+                t.bodie_enum,
+                t.longitude,
+                t.space_left,
+                t.space_right,
+                t.fix,
+                (t.fix * -1.0) + t.space_left,
+                t.fix + t.space_right
             );
         }
 
