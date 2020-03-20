@@ -53,14 +53,14 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
     (62.0, true),  // 1
     (67.0, true),  // 2
     (77.0, false), // 3
-    (79.0, false), // 4
+    (80.0, false), // 4
     (89.0, false), // 5
     (96.0, false), // 6
     (70.0, false), // 7 between 2 and 3
     (71.0, false), // 8 correction planet between 2 and 3
 ];
 
-const BODIE_DISTANCE: Number = 9.0;
+const BODIE_DISTANCE: Number = 8.0;
 const BODIE_DISTANCE_OFFSET: Number = 0.5;
 
 // Working Storage - Enums
@@ -1257,6 +1257,7 @@ impl CalcDraw for WorkingStorage {
             }
         }
 
+        /*
         for t in temp_no_order.clone() {
             println!(
                 "i: {}{} lng: {} left: {} right: {} fix: {} fl: {} fr: {}",
@@ -1269,7 +1270,7 @@ impl CalcDraw for WorkingStorage {
                 (t.fix * -1.0) + t.space_left,
                 (t.fix * 1.0) + t.space_right
             );
-        }
+        }*/
 
         // Set
         self.temp_position_bodies = temp_no_order;
