@@ -941,8 +941,11 @@ impl CalcDraw for WorkingStorage {
 
     fn get_angle_fix_longitude(&self, angle: Angle) -> Number {
         let mut pos: Number = self.get_angle_longitude(angle.clone());
-        if angle == Angle::Mc {
-            pos = pos - BODIE_DISTANCE;
+        if angle != Angle::Nothing {
+            for a in self.temp_position_bodies {
+                if a.angle_enum == angle {
+                    pos = a.longitude_fix;
+            }
         }
         pos = self.get_fix_pos(pos);
         pos
@@ -950,8 +953,12 @@ impl CalcDraw for WorkingStorage {
 
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number {
         let mut pos: Number = self.get_bodie_longitude(bodie.clone());
-        if bodie == Bodies::Sun {
-            pos = pos + BODIE_DISTANCE;
+        if bodie != Bodies::EclNut {
+            for b in self.temp_position_bodies {
+                if b.bodie_enum == bodie {
+                    pos = a.longitude_fix;
+                }
+            }
         }
         pos = self.get_fix_pos(pos);
         pos
