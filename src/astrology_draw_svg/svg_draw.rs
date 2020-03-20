@@ -1072,13 +1072,31 @@ impl CalcDraw for WorkingStorage {
             }
         }
         // Next order
+
+        // order by index
         temp_order.clear();
+        i = 1;
+        done = false;
+        while !done {
+            for t in temp_no_order.clone() {
+                if t.index == i {
+                    temp_order.push(t);
+                    i = i + 1;
+                    break;
+                }
+            }
+            if i > temp_no_order.len() as i16 {
+                done = true;
+            }
+        }
+        temp_no_order = temp_order;
         for t in temp_no_order.clone() {
             println!(
                 "i_index: {} index: {} bodie: {} longitude: {}",
                 t.init_index, t.index, t.bodie_enum, t.longitude
             );
         }
-        self.temp_position_bodies = temp_no_order;
+
+        // ??? self.temp_position_bodies = temp_no_order;
     }
 }
