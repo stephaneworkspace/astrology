@@ -1163,11 +1163,13 @@ impl CalcDraw for WorkingStorage {
         while !done {
             let row = &temp_no_order[i as usize];
             let mut fix = row.fix.clone();
-            if row.space_left < BODIE_DISTANCE {
+            // Only to right
+            /*if row.space_left < BODIE_DISTANCE {
                 if row.space_right > BODIE_DISTANCE {
                     fix = BODIE_DISTANCE * -1.0;
                 }
-            } else if row.space_right < BODIE_DISTANCE {
+            } else*/
+            if row.space_right < BODIE_DISTANCE {
                 if row.space_left > BODIE_DISTANCE {
                     fix = BODIE_DISTANCE;
                 }
@@ -1191,6 +1193,8 @@ impl CalcDraw for WorkingStorage {
                 done = true;
             }
         }
+        temp_no_order = temp_order.clone();
+
         for t in temp_no_order.clone() {
             println!(
                 "i: {}{} lng: {} left: {} right: {} fix: {} fl: {} fr: {}",
