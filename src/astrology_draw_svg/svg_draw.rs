@@ -1077,7 +1077,6 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Left <-
-        //pub space_left: Number,
         temp_order.clear();
         i = 0;
         done = false;
@@ -1114,12 +1113,46 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Right ->
-        //pub space_right: Number,
+        temp_order.clear();
+        i = temp_no_order.len() as i16 - 1;
+        done = false;
+        while !done {
+            let row = &temp_no_order[i as usize];
+            let space_right;
+            if i == temp_no_order.len() as i16 - 1 {
+                let r_right = &temp_no_order[0];
+                space_right = self.get_fix_pos(
+                    360.0 + r_right.longitude - row.longitude.clone(),
+                );
+            } else {
+                let r_right = &temp_no_order[i as usize + 1];
+                space_right =
+                    self.get_fix_pos(r_right.longitude - row.longitude.clone());
+            };
+            temp_order.push(TempPositionBodies {
+                init_index: row.init_index,
+                index: row.index,
+                sw_reserve: row.sw_reserve,
+                sw_bodie: row.sw_bodie,
+                bodie_enum: row.bodie_enum,
+                angle_enum: row.angle_enum,
+                longitude: row.longitude,
+                space_left: row.space_left,
+                space_right: space_right,
+                longitude_fix: row.longitude_fix,
+            });
+            i = i - 1;
+            if i <= -1 {
+                done = true;
+            }
+        }
+        temp_order.reverse();
+        temp_no_order = temp_order.clone();
 
         for t in temp_no_order.clone() {
             println!(
-                "i: {} bodie: {} longitude: {} left: {}",
-                t.index, t.bodie_enum, t.longitude, t.space_left
+                "i: {} bodie: {} longitude: {} left: {} right: {}",
+                t.index, t.bodie_enum, t.longitude, t.space_left, t.space_right
             );
         }
 
