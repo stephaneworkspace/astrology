@@ -1184,7 +1184,7 @@ impl CalcDraw for WorkingStorage {
                     fix = BODIE_DISTANCE;
                 }
             }
-            let lng_fix = self.get_fix_pos(row.longitude.clone() + fix);
+            let lng_fix = self.get_fix_pos(row.longitude.clone() - fix);
             temp_order.push(TempPositionBodies {
                 init_index: row.init_index,
                 index: row.index,
