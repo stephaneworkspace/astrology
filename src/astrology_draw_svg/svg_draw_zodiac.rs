@@ -27,7 +27,7 @@ pub fn draw_zodiac(sign: Signs) -> Document {
     let color: String;
     match sign {
         Signs::Aries => {
-            color = format!("#{:x}", Element::Fire as i16;;
+            color = format!("#{:x}", Element::Fire as i16);
             let data = Data::new()
                 .move_to((22.7, 48.8)) // M
                 .vertical_line_to(45.0) // V
@@ -62,8 +62,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .vertical_line_by(3.8) // c
                 .horizontal_line_to(22.7); // H
             let path = Path::new()
-                .set("fill", color)
-                .set("stroke", color)
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
