@@ -21,13 +21,30 @@ use svg::node::element::Path;
 pub use svg::Document;
 pub const ZODIAC_SIZE: Number = 50.0;
 
+fn get_color_element_zodiac(sign: Signs) -> String {
+    let str_return = match sign {
+        Signs::Aries => format!("#{:X}", Element::Fire as i32),
+        Signs::Taurus => format!("#{:X}", Element::Earth as i32),
+        Signs::Gemini => format!("#{:X}", Element::Wind as i32),
+        Signs::Cancer => format!("#{:X}", Element::Water as i32),
+        Signs::Leo => format!("#{:X}", Element::Fire as i32),
+        Signs::Virgo => format!("#{:X}", Element::Earth as i32),
+        Signs::Libra => format!("#{:X}", Element::Wind as i32),
+        Signs::Scorpio => format!("#{:X}", Element::Water as i32),
+        Signs::Sagittarius => format!("#{:X}", Element::Fire as i32),
+        Signs::Capricorn => format!("#{:X}", Element::Earth as i32),
+        Signs::Aquarius => format!("#{:X}", Element::Wind as i32),
+        Signs::Pisces => format!("#{:X}", Element::Water as i32),
+    }
+    str_return
+}
+
 pub fn draw_zodiac(sign: Signs) -> Document {
     let size: (Number, Number) = (ZODIAC_SIZE, ZODIAC_SIZE);
     let document: Document;
-    let color: String;
+    let color: String = get_color_element_zodiac(sign);
     match sign {
         Signs::Aries => {
-            color = format!("#{:x}", Element::Fire as i16);
             let data = Data::new()
                 .move_to((22.7, 48.8)) // M
                 .vertical_line_to(45.0) // V
@@ -126,8 +143,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .cubic_curve_by((-0.6, -1.3, -1.4, -2.5, -2.4, -3.6)) // c
                 .cubic_curve_to((31.7, 24.5, 30.5, 23.7, 29.2, 23.1)); // C
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -159,8 +176,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .cubic_curve_by((2.9, 0.0, 5.7, 0.1, 8.4, 0.3)) // c
                 .vertical_line_to(7.7); // V
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -248,8 +265,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .cubic_curve_by((-0.2, -0.5, -0.6, -1.1, -1.0, -1.5)) // c
                 .cubic_curve_to((14.8, 16.2, 14.3, 15.8, 13.6, 15.5)); // C
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -306,8 +323,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 )) // c
                 .close(); // z
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set(
                     "transform",
@@ -365,8 +382,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .vertical_line_to(4453.5) // V
                 .close(); // z
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set(
                     "transform",
@@ -420,8 +437,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .vertical_line_by(4.7) // v
                 .horizontal_line_to(1.8); // H
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -477,8 +494,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .vertical_line_by(-3.4) // v
                 .horizontal_line_to(40.1); // H
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -506,8 +523,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .horizontal_line_by(-6.0) // h
                 .vertical_line_to(10.0); // V
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -525,7 +542,7 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .cubic_curve_by((0.0, 3.3, 0.3, 8.3, 1.0, 15.0)); // c
             let path = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data);
             document = Document::new()
@@ -565,8 +582,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .line_by((-3.6, -6.3)) // l
                 .line_to((17.0, 41.1)); // L
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -605,8 +622,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .cubic_curve_by((-2.6, -3.2, -4.7, -6.6, -6.0, -10.1)) // c
                 .cubic_curve_to((31.3, 36.0, 30.4, 31.9, 30.2, 27.5)); // C
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
