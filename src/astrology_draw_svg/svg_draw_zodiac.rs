@@ -23,18 +23,18 @@ pub const ZODIAC_SIZE: Number = 50.0;
 
 fn get_color_element_zodiac(sign: Signs) -> String {
     match sign {
-        Signs::Aries => format!("#{:X}", Element::Fire as i32),
-        Signs::Taurus => format!("#{:X}", Element::Earth as i32),
-        Signs::Gemini => format!("#{:X}", Element::Wind as i32),
-        Signs::Cancer => format!("#{:X}", Element::Water as i32),
-        Signs::Leo => format!("#{:X}", Element::Fire as i32),
-        Signs::Virgo => format!("#{:X}", Element::Earth as i32),
-        Signs::Libra => format!("#{:X}", Element::Wind as i32),
-        Signs::Scorpio => format!("#{:X}", Element::Water as i32),
-        Signs::Sagittarius => format!("#{:X}", Element::Fire as i32),
-        Signs::Capricorn => format!("#{:X}", Element::Earth as i32),
-        Signs::Aquarius => format!("#{:X}", Element::Wind as i32),
-        Signs::Pisces => format!("#{:X}", Element::Water as i32),
+        Signs::Aries => format!("#{:06X}", Element::Fire as i32),
+        Signs::Taurus => format!("#{:06X}", Element::Earth as i32),
+        Signs::Gemini => format!("#{:06X}", Element::Wind as i32),
+        Signs::Cancer => format!("#{:06X}", Element::Water as i32),
+        Signs::Leo => format!("#{:06X}", Element::Fire as i32),
+        Signs::Virgo => format!("#{:06X}", Element::Earth as i32),
+        Signs::Libra => format!("#{:06X}", Element::Wind as i32),
+        Signs::Scorpio => format!("#{:06X}", Element::Water as i32),
+        Signs::Sagittarius => format!("#{:06X}", Element::Fire as i32),
+        Signs::Capricorn => format!("#{:06X}", Element::Earth as i32),
+        Signs::Aquarius => format!("#{:06X}", Element::Wind as i32),
+        Signs::Pisces => format!("#{:06X}", Element::Water as i32),
     }
 }
 
