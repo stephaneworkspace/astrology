@@ -14,7 +14,7 @@ projects, you must adhere to the GPL license or buy a Swiss Ephemeris
 commercial license.
 
 # Use
-Actuallay the version is like a hello world (0.1), just this method is available:
+For get the version as a pointer const c_char :
 
 ```
 pub extern "C" fn sweversion() -> *const c_char {
@@ -22,7 +22,43 @@ pub extern "C" fn sweversion() -> *const c_char {
 }
 ```
 
+
+For get a json with all svg and position inside as a pointer const c_char:
+```
+pub extern "C" fn compute(
+    year: c_int,
+    month: c_int,
+    day: c_int,
+    hourf32: c_double,
+    hour: c_int,
+    min: c_int,
+    sec: c_double,
+    lat: c_double,
+    lng: c_double,
+    max_size: c_double,
+) -> *const c_char {
+    let d = DataChartNatalC {
+        year: year,
+        month: month,
+        day: day,
+        hourf32: hourf32,
+        hour: hour,
+        min: min,
+        sec: sec,
+        lat: lat,
+        lng: lng,
+    };
+    let data = astrology_draw_svg::chart(max_size as f32, d);
+    CString::new(serde_json::to_string(&data).unwrap())
+        .unwrap()
+        .into_raw()
+}
+```
 # Version
+0.1.44
+* Add zodiac color
+* Change README for call c extern
+
 0.1.43
 * Add collision bodies/angle detection for write the natal chart
 
