@@ -52,15 +52,15 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
     (35.0, true),  // 0
     (62.0, true),  // 1
     (67.0, true),  // 2
-    (76.0, false), // 3
-    (78.0, false), // 4
-    (88.0, false), // 5
-    (95.0, false), // 6
+    (77.0, false), // 3
+    (79.0, false), // 4
+    (89.0, false), // 5
+    (96.0, false), // 6
     (70.0, false), // 7 between 2 and 3
     (71.0, false), // 8 correction planet between 2 and 3
 ];
 
-const BODIE_DISTANCE: Number = 7.0;
+const BODIE_DISTANCE: Number = 9.0;
 const BODIE_DISTANCE_OFFSET: Number = 0.5;
 
 // Working Storage - Enums
@@ -1249,86 +1249,6 @@ impl CalcDraw for WorkingStorage {
                 }
             }
             temp_no_order = temp_order.clone();
-
-            //
-            //
-            /*
-            // Left <-
-            temp_order.clear();
-            i = 0;
-            done = false;
-            while !done {
-                let row = &temp_no_order[i as usize];
-                let space_left;
-                if i == 0 {
-                    let r_left = &temp_no_order[temp_no_order.len() - 1];
-                    space_left = self.get_fix_pos(
-                        row.longitude.clone() - r_left.longitude + 360.0,
-                    );
-                } else {
-                    let r_left = &temp_no_order[i as usize - 1];
-                    space_left = self
-                        .get_fix_pos(row.longitude.clone() - r_left.longitude);
-                };
-                temp_order.push(TempPositionBodies {
-                    init_index: row.init_index,
-                    index: row.index,
-                    sw_reserve: row.sw_reserve,
-                    sw_bodie: row.sw_bodie,
-                    bodie_enum: row.bodie_enum,
-                    angle_enum: row.angle_enum,
-                    longitude: row.longitude,
-                    space_left: space_left,
-                    space_right: row.space_right,
-                    fix: row.fix,
-                    longitude_fix: row.longitude_fix,
-                });
-                i = i + 1;
-                if i > temp_no_order.len() as i16 - 1 {
-                    done = true;
-                }
-            }
-            temp_no_order = temp_order.clone();
-
-            // Right ->
-            temp_order.clear();
-            i = temp_no_order.len() as i16 - 1;
-            done = false;
-            while !done {
-                let row = &temp_no_order[i as usize];
-                let space_right;
-                if i == temp_no_order.len() as i16 - 1 {
-                    let r_right = &temp_no_order[0];
-                    space_right = self.get_fix_pos(
-                        360.0 + r_right.longitude - row.longitude.clone(),
-                    );
-                } else {
-                    let r_right = &temp_no_order[i as usize + 1];
-                    space_right = self
-                        .get_fix_pos(r_right.longitude - row.longitude.clone());
-                };
-                temp_order.push(TempPositionBodies {
-                    init_index: row.init_index,
-                    index: row.index,
-                    sw_reserve: row.sw_reserve,
-                    sw_bodie: row.sw_bodie,
-                    bodie_enum: row.bodie_enum,
-                    angle_enum: row.angle_enum,
-                    longitude: row.longitude,
-                    space_left: row.space_left,
-                    space_right: space_right,
-                    fix: row.fix,
-                    longitude_fix: row.longitude_fix,
-                });
-                i = i - 1;
-                if i <= -1 {
-                    done = true;
-                }
-            }
-            temp_order.reverse();
-            temp_no_order = temp_order.clone();
-            */
-            //
 
             if j == 0 {
                 done_main = true;
