@@ -15,18 +15,19 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-pub use libswe_sys::sweconst::Signs;
+pub use libswe_sys::sweconst::{Element, Signs};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::Path;
 pub use svg::Document;
 pub const ZODIAC_SIZE: Number = 50.0;
 
 pub fn draw_zodiac(sign: Signs) -> Document {
-    let size: (Number, Number);
+    let size: (Number, Number) = (ZODIAC_SIZE, ZODIAC_SIZE);
     let document: Document;
+    let color: String;
     match sign {
         Signs::Aries => {
-            size = (50.0, 50.0);
+            color = format!("#{:x}", Element::Fire as i16;;
             let data = Data::new()
                 .move_to((22.7, 48.8)) // M
                 .vertical_line_to(45.0) // V
@@ -61,8 +62,8 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .vertical_line_by(3.8) // c
                 .horizontal_line_to(22.7); // H
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color)
+                .set("stroke", color)
                 .set("stroke-width", 0)
                 .set("d", data);
             document = Document::new()
@@ -70,7 +71,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Taurus => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((10.6, 12.6)) // M
                 .cubic_curve_to((10.0, 11.3, 9.2, 10.0, 8.2, 9.0)) // C
@@ -135,7 +135,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Gemini => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((38.2, 42.3)) // M
                 .cubic_curve_by((3.5, 0.5, 6.9, 1.1, 10.2, 2.0)) // c
@@ -169,7 +168,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Cancer => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((2.5, 32.2)) // M
                 .cubic_curve_by((1.9, 1.2, 3.7, 2.2, 5.5, 2.9)) // c
@@ -259,7 +257,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Leo => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((2833.0, 4324.7)) // M
                 .cubic_curve_by((-0.7, 0.6, -1.3, 0.9, -1.9, 0.9)) // c
@@ -322,7 +319,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Virgo => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((2873.0, 4448.4)) // M
                 .vertical_line_by(5.4) // v
@@ -382,7 +378,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Libra => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((19.7, 31.9)) // M
                 .horizontal_line_to(1.8) // H
@@ -434,7 +429,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Scorpio => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((40.1, 46.6)) // M
                 .cubic_curve_by((-1.3, 0.0, -2.4, -0.2, -3.2, -0.5)) // c
@@ -492,7 +486,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Sagittarius => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((44.1, 10.0)) // M
                 .line_to((22.7, 31.4)) // L
@@ -522,7 +515,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Capricorn => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((8.0, 1.5)) // M
                 .horizontal_line_by(33.0) // h
@@ -541,7 +533,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Aquarius => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((17.0, 21.0)) // M
                 .line_by((-3.6, -6.3)) // l
@@ -583,7 +574,6 @@ pub fn draw_zodiac(sign: Signs) -> Document {
                 .add(path);
         },
         Signs::Pisces => {
-            size = (50.0, 50.0);
             let data = Data::new()
                 .move_to((30.2, 27.5)) // M
                 .horizontal_line_to(20.1) // H
