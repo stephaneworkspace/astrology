@@ -1226,8 +1226,8 @@ impl CalcDraw for WorkingStorage {
                 t.space_left,
                 t.space_right,
                 t.fix,
-                (t.fix * -1.0) + t.space_left,
-                t.fix + t.space_right
+                (t.fix * 1.0) + t.space_left,
+                (t.fix * -1.0) + t.space_right
             );
         }
 
