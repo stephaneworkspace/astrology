@@ -1170,7 +1170,6 @@ impl CalcDraw for WorkingStorage {
         done_main = false;
         let mut j = 0;
         while !done_main {
-            //let mut temp_action: Vec<(i16, Number)> = Vec::new();
             temp_order.clear();
             i = temp_no_order.len() as i16 - 1;
             done = false;
@@ -1184,7 +1183,7 @@ impl CalcDraw for WorkingStorage {
                     }
                 } else*/
                 if row.space_right < BODIE_DISTANCE {
-                    if row.space_left > BODIE_DISTANCE {
+                    if row.space_left > BODIE_DISTANCE_OFFSET {
                         fix = fix + BODIE_DISTANCE_OFFSET;
                         j = j + 1;
                     }
@@ -1197,8 +1196,8 @@ impl CalcDraw for WorkingStorage {
                     sw_bodie: row.sw_bodie,
                     bodie_enum: row.bodie_enum,
                     angle_enum: row.angle_enum,
-                    longitude: lng_fix,
-                    space_left: row.space_left,
+                    longitude: row.longitude,
+                    space_left: row.space_left + fix,
                     space_right: row.space_right,
                     fix: fix,
                     longitude_fix: lng_fix,
@@ -1212,8 +1211,48 @@ impl CalcDraw for WorkingStorage {
             temp_order.reverse();
             temp_no_order = temp_order.clone();
 
-            //
+            temp_order.clear();
+            done = false;
+            i = 0;
+            while !done {
+                let row = &temp_no_order[i as usize];
+                let next_row;
+                let space_right;
+                if i == temp_no_order.len() as i16 - 1 {
+                    next_row = &temp_no_order[0];
+                    space_right = self.get_fix_pos(
+                        360.0 + next_row.longitude_fix
+                            - row.longitude_fix.clone(),
+                    );
+                } else {
+                    next_row = &temp_no_order[i as usize + 1];
+                    space_right = self.get_fix_pos(
+                        next_row.longitude_fix - row.longitude_fix.clone(),
+                    )
+                }
+                temp_order.push(TempPositionBodies {
+                    init_index: row.init_index,
+                    index: row.index,
+                    sw_reserve: row.sw_reserve,
+                    sw_bodie: row.sw_bodie,
+                    bodie_enum: row.bodie_enum,
+                    angle_enum: row.angle_enum,
+                    longitude: row.longitude,
+                    space_left: row.space_left,
+                    space_right: space_right,
+                    fix: row.fix,
+                    longitude_fix: row.longitude_fix,
+                });
+                i = i + 1;
+                if i > temp_no_order.len() as i16 - 1 {
+                    done = true;
+                }
+            }
+            temp_no_order = temp_order.clone();
 
+            //
+            //
+            /*
             // Left <-
             temp_order.clear();
             i = 0;
@@ -1288,7 +1327,7 @@ impl CalcDraw for WorkingStorage {
             }
             temp_order.reverse();
             temp_no_order = temp_order.clone();
-
+            */
             //
 
             if j == 0 {
