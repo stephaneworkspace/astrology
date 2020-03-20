@@ -128,7 +128,9 @@ pub struct TempPositionBodies {
     pub init_index: i16,
     pub index: i16,
     pub sw_reserve: bool,
+    pub sw_bodie: bool,
     pub bodie_enum: Bodies,
+    pub angle_enum: Angle,
     pub longitude: Number,
     pub space_left: Number,
     pub space_right: Number,
@@ -958,36 +960,21 @@ impl CalcDraw for WorkingStorage {
         let mut temp_no_order: Vec<TempPositionBodies> = Vec::new();
         let mut i: i16 = 0;
         for a in Angle::iter() {
-            if self.get_angle_is_on_chart(a.clone()) {
-                if a.clone() == Angle::Asc {
-                    i = i + 1;
-                    let longitude = self.get_angle_longitude(a.clone());
-                    temp_no_order.push(TempPositionBodies {
-                        init_index: i,
-                        index: 0,
-                        sw_reserve: false,
-                        bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
-                        // is not used
-                        longitude: longitude,
-                        space_left: 0.0,
-                        space_right: 0.0,
-                        longitude_fix: 0.0,
-                    });
-                } else {
-                    i = i + 1;
-                    let longitude = self.get_angle_longitude(a.clone());
-                    temp_no_order.push(TempPositionBodies {
-                        init_index: i,
-                        index: 0,
-                        sw_reserve: false,
-                        bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
-                        // is not used
-                        longitude: longitude,
-                        space_left: 0.0,
-                        space_right: 0.0,
-                        longitude_fix: 0.0,
-                    });
-                }
+            if self.get_angle_is_on_chart(a) {
+                i = i + 1;
+                let longitude = self.get_angle_longitude(a);
+                temp_no_order.push(TempPositionBodies {
+                    init_index: i,
+                    index: 0,
+                    sw_reserve: false,
+                    sw_bodie: false,
+                    bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
+                    angle_enum: a,
+                    longitude: longitude,
+                    space_left: 0.0,
+                    space_right: 0.0,
+                    longitude_fix: 0.0,
+                });
             }
         }
         for b in Bodies::iter() {
@@ -998,7 +985,9 @@ impl CalcDraw for WorkingStorage {
                     init_index: i,
                     index: 0,
                     sw_reserve: false,
+                    sw_bodie: true,
                     bodie_enum: b,
+                    angle_enum: Angle::Nothing,
                     longitude: longitude,
                     space_left: 0.0,
                     space_right: 0.0,
@@ -1047,7 +1036,9 @@ impl CalcDraw for WorkingStorage {
                             init_index: t.init_index,
                             index: next_index,
                             sw_reserve: t.sw_reserve,
+                            sw_bodie: t.sw_bodie,
                             bodie_enum: t.bodie_enum,
+                            angle_enum: t.angle_enum,
                             longitude: t.longitude,
                             space_left: t.space_left,
                             space_right: t.space_right,
@@ -1066,9 +1057,8 @@ impl CalcDraw for WorkingStorage {
                 done_main = true;
             }
         }
-        // Next order
 
-        // order by index
+        // Order by index
         temp_order.clear();
         i = 1;
         done = false;
@@ -1084,14 +1074,56 @@ impl CalcDraw for WorkingStorage {
                 done = true;
             }
         }
-        temp_no_order = temp_order;
+        temp_no_order = temp_order.clone();
+
+        // Left <-
+        //pub space_left: Number,
+        temp_order.clear();
+        i = 0;
+        done = false;
+        while !done {
+            let row = &temp_no_order[i as usize];
+            let space_left;
+            if i == 0 {
+                let r_left = &temp_no_order[temp_no_order.len() - 1];
+                space_left = self.get_fix_pos(
+                    row.longitude.clone() - r_left.longitude + 360.0,
+                );
+            } else {
+                let r_left = &temp_no_order[i as usize - 1];
+                space_left =
+                    self.get_fix_pos(row.longitude.clone() - r_left.longitude);
+            };
+            temp_order.push(TempPositionBodies {
+                init_index: row.init_index,
+                index: row.index,
+                sw_reserve: row.sw_reserve,
+                sw_bodie: row.sw_bodie,
+                bodie_enum: row.bodie_enum,
+                angle_enum: row.angle_enum,
+                longitude: row.longitude,
+                space_left: space_left,
+                space_right: row.space_right,
+                longitude_fix: row.longitude_fix,
+            });
+            i = i + 1;
+            if i > temp_no_order.len() as i16 - 1 {
+                done = true;
+            }
+        }
+        temp_no_order = temp_order.clone();
+
+        // Right ->
+        //pub space_right: Number,
+
         for t in temp_no_order.clone() {
             println!(
-                "i_index: {} index: {} bodie: {} longitude: {}",
-                t.init_index, t.index, t.bodie_enum, t.longitude
+                "i: {} bodie: {} longitude: {} left: {}",
+                t.index, t.bodie_enum, t.longitude, t.space_left
             );
         }
 
-        // ??? self.temp_position_bodies = temp_no_order;
+        // Set
+        self.temp_position_bodies = temp_no_order;
     }
 }
