@@ -23,6 +23,9 @@ pub extern "C" fn sweversion() -> *const c_char {
 ```
 
 # Version
+0.1.43
+* Add colision bodies/angle detection for write the natal chart
+
 0.1.42
 * Add Asc svg
 * Add Fc Svg
