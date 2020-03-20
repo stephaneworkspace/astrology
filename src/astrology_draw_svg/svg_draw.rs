@@ -1155,6 +1155,42 @@ impl CalcDraw for WorkingStorage {
         temp_order.reverse();
         temp_no_order = temp_order.clone();
 
+        // Fix
+        temp_order.clear();
+        i = 0;
+        done = false;
+
+        while !done {
+            let row = &temp_no_order[i as usize];
+            let mut fix = row.fix.clone();
+            if row.space_left < BODIE_DISTANCE {
+                if row.space_right > BODIE_DISTANCE {
+                    fix = BODIE_DISTANCE * -1.0;
+                }
+            } else if row.space_right < BODIE_DISTANCE {
+                if row.space_left > BODIE_DISTANCE {
+                    fix = BODIE_DISTANCE;
+                }
+            }
+            let lng_fix = self.get_fix_pos(row.longitude.clone() + fix);
+            temp_order.push(TempPositionBodies {
+                init_index: row.init_index,
+                index: row.index,
+                sw_reserve: row.sw_reserve,
+                sw_bodie: row.sw_bodie,
+                bodie_enum: row.bodie_enum,
+                angle_enum: row.angle_enum,
+                longitude: row.longitude,
+                space_left: row.space_left,
+                space_right: row.space_right,
+                fix: fix,
+                longitude_fix: lng_fix,
+            });
+            i = i + 1;
+            if i > temp_no_order.len() as i16 - 1 {
+                done = true;
+            }
+        }
         for t in temp_no_order.clone() {
             println!(
                 "i: {}{} lng: {} left: {} right: {} fix: {} fl: {} fr: {}",
