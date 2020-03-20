@@ -1166,45 +1166,131 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Fix
-        temp_order.clear();
-        i = temp_no_order.len() as i16 - 1;
-        done = false;
-
-        while !done {
-            let row = &temp_no_order[i as usize];
-            let mut fix = row.fix.clone();
-            // Only to right
-            /*if row.space_left < BODIE_DISTANCE {
-                if row.space_right > BODIE_DISTANCE {
-                    fix = BODIE_DISTANCE * -1.0;
+        done_main = false;
+        let mut j = 0;
+        while !done_main {
+            temp_order.clear();
+            i = temp_no_order.len() as i16 - 1;
+            done = false;
+            while !done {
+                let row = &temp_no_order[i as usize];
+                let mut fix = row.fix.clone();
+                // Only to right
+                /*if row.space_left < BODIE_DISTANCE {
+                    if row.space_right > BODIE_DISTANCE {
+                        fix = BODIE_DISTANCE * -1.0;
+                    }
+                } else*/
+                if row.space_right + fix < BODIE_DISTANCE {
+                    if row.space_left - fix > BODIE_DISTANCE {
+                        fix = BODIE_DISTANCE;
+                        j = j + 1;
+                    }
                 }
-            } else*/
-            if row.space_right < BODIE_DISTANCE {
-                if row.space_left > BODIE_DISTANCE {
-                    fix = BODIE_DISTANCE;
+                let lng_fix = self.get_fix_pos(row.longitude.clone() - fix);
+                temp_order.push(TempPositionBodies {
+                    init_index: row.init_index,
+                    index: row.index,
+                    sw_reserve: row.sw_reserve,
+                    sw_bodie: row.sw_bodie,
+                    bodie_enum: row.bodie_enum,
+                    angle_enum: row.angle_enum,
+                    longitude: row.longitude,
+                    space_left: row.space_left,
+                    space_right: row.space_right,
+                    fix: fix,
+                    longitude_fix: lng_fix,
+                });
+                i = i - 1;
+                if i <= -1 {
+                    done = true;
                 }
             }
-            let lng_fix = self.get_fix_pos(row.longitude.clone() - fix);
-            temp_order.push(TempPositionBodies {
-                init_index: row.init_index,
-                index: row.index,
-                sw_reserve: row.sw_reserve,
-                sw_bodie: row.sw_bodie,
-                bodie_enum: row.bodie_enum,
-                angle_enum: row.angle_enum,
-                longitude: row.longitude,
-                space_left: row.space_left,
-                space_right: row.space_right,
-                fix: fix,
-                longitude_fix: lng_fix,
-            });
-            i = i - 1;
-            if i <= -1 {
-                done = true;
+            // End compute
+            temp_order.reverse();
+            temp_no_order = temp_order.clone();
+
+            // Left <-
+            temp_order.clear();
+            i = 0;
+            done = false;
+            while !done {
+                let row = &temp_no_order[i as usize];
+                let mut space_left;
+                if i == 0 {
+                    let r_left = &temp_no_order[temp_no_order.len() - 1];
+                    space_left = self.get_fix_pos(
+                        row.longitude.clone() - r_left.longitude + 360.0,
+                    );
+                } else {
+                    let r_left = &temp_no_order[i as usize - 1];
+                    space_left = self
+                        .get_fix_pos(row.longitude.clone() - r_left.longitude);
+                };
+                space_left = self.get_fix_pos(space_left - row.fix.clone());
+                temp_order.push(TempPositionBodies {
+                    init_index: row.init_index,
+                    index: row.index,
+                    sw_reserve: row.sw_reserve,
+                    sw_bodie: row.sw_bodie,
+                    bodie_enum: row.bodie_enum,
+                    angle_enum: row.angle_enum,
+                    longitude: row.longitude,
+                    space_left: space_left,
+                    space_right: row.space_right,
+                    fix: row.fix,
+                    longitude_fix: row.longitude_fix,
+                });
+                i = i + 1;
+                if i > temp_no_order.len() as i16 - 1 {
+                    done = true;
+                }
+            }
+            temp_no_order = temp_order.clone();
+
+            // Right ->
+            i = temp_no_order.len() as i16 - 1;
+            done = false;
+            while !done {
+                let row = &temp_no_order[i as usize];
+                let mut space_right;
+                if i == temp_no_order.len() as i16 - 1 {
+                    let r_right = &temp_no_order[0];
+                    space_right = self.get_fix_pos(
+                        360.0 + r_right.longitude - row.longitude.clone(),
+                    );
+                } else {
+                    let r_right = &temp_no_order[i as usize + 1];
+                    space_right = self
+                        .get_fix_pos(r_right.longitude - row.longitude.clone());
+                };
+                space_right = self.get_fix_pos(space_right + row.fix.clone());
+                temp_order.push(TempPositionBodies {
+                    init_index: row.init_index,
+                    index: row.index,
+                    sw_reserve: row.sw_reserve,
+                    sw_bodie: row.sw_bodie,
+                    bodie_enum: row.bodie_enum,
+                    angle_enum: row.angle_enum,
+                    longitude: row.longitude,
+                    space_left: row.space_left,
+                    space_right: space_right,
+                    fix: row.fix,
+                    longitude_fix: row.longitude_fix,
+                });
+                i = i - 1;
+                if i <= -1 {
+                    done = true;
+                }
+            }
+            temp_order.reverse();
+            temp_no_order = temp_order.clone();
+            if j == 0 {
+                done_main = true;
+            } else {
+                j = 0;
             }
         }
-        temp_order.reverse();
-        temp_no_order = temp_order.clone();
 
         for t in temp_no_order.clone() {
             println!(
