@@ -22,7 +22,7 @@ pub use svg::Document;
 pub const ZODIAC_SIZE: Number = 50.0;
 
 fn get_color_element_zodiac(sign: Signs) -> String {
-    let str_return = match sign {
+    match sign {
         Signs::Aries => format!("#{:X}", Element::Fire as i32),
         Signs::Taurus => format!("#{:X}", Element::Earth as i32),
         Signs::Gemini => format!("#{:X}", Element::Wind as i32),
@@ -36,13 +36,12 @@ fn get_color_element_zodiac(sign: Signs) -> String {
         Signs::Aquarius => format!("#{:X}", Element::Wind as i32),
         Signs::Pisces => format!("#{:X}", Element::Water as i32),
     }
-    str_return
 }
 
 pub fn draw_zodiac(sign: Signs) -> Document {
     let size: (Number, Number) = (ZODIAC_SIZE, ZODIAC_SIZE);
     let document: Document;
-    let color: String = get_color_element_zodiac(sign);
+    let color: String = get_color_element_zodiac(sign.clone());
     match sign {
         Signs::Aries => {
             let data = Data::new()
