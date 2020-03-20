@@ -128,7 +128,6 @@ pub struct TempPositionBodies {
     pub init_index: i16,
     pub index: i16,
     pub sw_reserve: bool,
-    pub sw_bodie: bool,
     pub bodie_enum: Bodies,
     pub longitude: Number,
     pub space_left: Number,
@@ -965,9 +964,8 @@ impl CalcDraw for WorkingStorage {
                     let longitude = self.get_angle_longitude(a.clone());
                     temp_no_order.push(TempPositionBodies {
                         init_index: i,
-                        index: 1,
-                        sw_reserve: true,
-                        sw_bodie: false,
+                        index: 0,
+                        sw_reserve: false,
                         bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
                         // is not used
                         longitude: longitude,
@@ -982,7 +980,6 @@ impl CalcDraw for WorkingStorage {
                         init_index: i,
                         index: 0,
                         sw_reserve: false,
-                        sw_bodie: false,
                         bodie_enum: Bodies::EclNut, // -1 Nothing, this variable
                         // is not used
                         longitude: longitude,
@@ -1001,7 +998,6 @@ impl CalcDraw for WorkingStorage {
                     init_index: i,
                     index: 0,
                     sw_reserve: false,
-                    sw_bodie: true,
                     bodie_enum: b,
                     longitude: longitude,
                     space_left: 0.0,
@@ -1015,7 +1011,7 @@ impl CalcDraw for WorkingStorage {
         let mut old_lng = 0.0; // Value ASC forced
         let mut next_lng;
         let mut old_i;
-        let mut next_index = 1;
+        let mut next_index = 0;
         let mut temp_order: Vec<TempPositionBodies> = Vec::new();
 
         let mut done_main = false;
@@ -1051,7 +1047,6 @@ impl CalcDraw for WorkingStorage {
                             init_index: t.init_index,
                             index: next_index,
                             sw_reserve: t.sw_reserve,
-                            sw_bodie: t.sw_bodie,
                             bodie_enum: t.bodie_enum,
                             longitude: t.longitude,
                             space_left: t.space_left,
