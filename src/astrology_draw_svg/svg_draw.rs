@@ -61,6 +61,7 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
 ];
 
 const BODIE_DISTANCE: Number = 7.0;
+const BODIE_DISTANCE_OFFSET: Number = 0.5;
 
 // Working Storage - Enums
 // #[derive(Debug, Clone, PartialEq, Display)]
@@ -1169,7 +1170,7 @@ impl CalcDraw for WorkingStorage {
         done_main = false;
         let mut j = 0;
         while !done_main {
-            let mut temp_action: Vec<(i16, Number)> = Vec::new();
+            //let mut temp_action: Vec<(i16, Number)> = Vec::new();
             temp_order.clear();
             i = temp_no_order.len() as i16 - 1;
             done = false;
@@ -1184,7 +1185,7 @@ impl CalcDraw for WorkingStorage {
                 } else*/
                 if row.space_right < BODIE_DISTANCE {
                     if row.space_left > BODIE_DISTANCE {
-                        fix = fix + BODIE_DISTANCE;
+                        fix = fix + BODIE_DISTANCE_OFFSET;
                         j = j + 1;
                     }
                 }
