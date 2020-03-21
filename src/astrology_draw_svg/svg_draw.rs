@@ -916,6 +916,7 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::TrueNode
             || bodie == Bodies::Chiron
             || bodie == Bodies::Ceres
+            || bodie == Bodies::SouthNode
         {
             true
         } else {
