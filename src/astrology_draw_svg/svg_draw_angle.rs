@@ -15,6 +15,7 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
+use libswe_sys::sweconst::Bodies;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
@@ -23,6 +24,8 @@ pub const ANGLE_SIZE: Number = 50.0;
 pub fn draw_asc() -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
+    let color: String =
+        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
     let data1 = Data::new()
         .move_to((9.2, 28.6)) // M
         .line_by((-2.5, 7.6)) // l
@@ -56,13 +59,13 @@ pub fn draw_asc() -> Document {
         .line_to((43.7, 35.4)) // L
         .close(); // z
     let path1 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data1);
     let path2 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data2);
     let group = Group::new().add(path1).add(path2);
@@ -75,6 +78,8 @@ pub fn draw_asc() -> Document {
 pub fn draw_fc() -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
+    let color: String =
+        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
     let data1 = Data::new()
         .move_to((7.2, 11.9)) // M
         .horizontal_line_by(13.1) // h
@@ -102,13 +107,13 @@ pub fn draw_fc() -> Document {
         .line_to((41.7, 35.4)) // L
         .close(); // z
     let path1 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data1);
     let path2 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data2);
     let group = Group::new().add(path1).add(path2);
@@ -121,6 +126,8 @@ pub fn draw_fc() -> Document {
 pub fn draw_desc() -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
+    let color: String =
+        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
     let data1 = Data::new()
         .move_to((4.0, 12.3)) // M
         .cubic_curve_by((1.9, -0.3, 4.2, -0.5, 6.7, -0.5)) // c
@@ -152,13 +159,13 @@ pub fn draw_desc() -> Document {
         .line_to((44.9, 35.4)) // L
         .close(); // z
     let path1 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data1);
     let path2 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data2);
     let group = Group::new().add(path1).add(path2);
@@ -171,6 +178,8 @@ pub fn draw_desc() -> Document {
 pub fn draw_mc() -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
+    let color: String =
+        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
     let data1 = Data::new()
         .move_to((22.0, 25.5)) // M
         .cubic_curve_by((-0.2, -3.4, -0.4, -7.5, -0.4, -10.5)) // c
@@ -210,13 +219,13 @@ pub fn draw_mc() -> Document {
         .line_to((47.4, 35.4)) // L
         .close(); // z
     let path1 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data1);
     let path2 = Path::new()
-        .set("fill", "black")
-        .set("stroke", "black")
+        .set("fill", color.clone())
+        .set("stroke", color.clone())
         .set("stroke-width", 0)
         .set("d", data2);
     let group = Group::new().add(path1).add(path2);

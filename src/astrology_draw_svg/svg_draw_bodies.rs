@@ -60,6 +60,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
     let size: (Number, Number) = (BODIE_SIZE, BODIE_SIZE);
     let path: Path;
     let document: Document;
+    let color: String = format!("#{:06X}", bodie.object_color());
     match bodie {
         Bodies::Sun => {
             let data = Data::new()
@@ -74,7 +75,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .close(); // z
             path = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data);
             document = Document::new()
@@ -90,7 +91,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .close(); // z
             path = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data);
             document = Document::new()
@@ -115,13 +116,13 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .line_to((378.83706, 519.99267)); // L
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1)
                 .set("transform", "matrix(0.96,0,0,0.96,277.357,466.9525)");
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2)
                 .set(
@@ -130,12 +131,12 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 );
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3);
             let path4 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data4);
             let group = Group::new()
@@ -161,7 +162,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .cubic_curve_by((0.0, 7.2, -5.9, 13.1, -13.1, 13.1)); // c
             path = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data);
             document = Document::new()
@@ -180,7 +181,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .vertical_line_by(9); // v
             path = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3.3)
                 .set("d", data);
             document = Document::new()
@@ -214,17 +215,17 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 )); //C
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1);
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2);
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3);
             let group = Group::new()
@@ -272,17 +273,17 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 )); // C
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1);
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2);
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3);
             let group = Group::new()
@@ -331,27 +332,27 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .close();
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1);
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2);
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3);
             let path4 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data4);
             let path5 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 1)
                 .set("d", data5)
                 .set("transform", "translate(338.4034,305.7276)");
@@ -398,32 +399,32 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .line_to((389.95536, 490.15447)); // L
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1);
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2);
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3);
             let path4 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data4);
             let path5 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data5);
             let path6 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data6);
             let group = Group::new()
@@ -456,23 +457,23 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .elliptical_arc_to((12, 12, 0, 1, 1, 153, 184)); // A
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1);
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2);
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3)
                 .set("transform", "translate(118.5991,218.2481)");
             let path4 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data4)
                 .set("transform", "translate(118.5991,218.2481)");
@@ -617,8 +618,8 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 )) // C
                 .close(); // z
             let path = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 1)
                 .set("d", data);
             document = Document::new()
@@ -647,7 +648,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .line_to((290.02193, 410.32054)); // L
             let path1 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 7)
                 .set("d", data1)
                 .set(
@@ -656,17 +657,17 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 );
             let path2 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data2);
             let path3 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data3);
             let path4 = Path::new()
                 .set("fill", "none")
-                .set("stroke", "black")
+                .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data4);
             let group = Group::new()
