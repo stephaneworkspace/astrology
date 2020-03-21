@@ -914,6 +914,8 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::Neptune
             || bodie == Bodies::Pluto
             || bodie == Bodies::TrueNode
+            || bodie == Bodies::Chiron
+            || bodie == Bodies::Ceres
         {
             true
         } else {

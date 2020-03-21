@@ -132,17 +132,19 @@ pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
 
     let mut object: Vec<Object> = Vec::new();
     let mut calc: swerust::handler_swe03::CalcUtResult;
-    for bodies in Bodies::iter() {
-        if bodies.clone().object_type() == ObjectType::PlanetOrStar {
+    for bodie in Bodies::iter() {
+        if bodie.clone().object_type() == ObjectType::PlanetOrStar
+            || bodie.clone().object_type() == ObjectType::Fiction
+        {
             calc = swerust::handler_swe03::calc_ut(
                 utc_to_jd.julian_day_ut, // debug julianday in orginal file
-                bodies.clone(),
+                bodie.clone(),
                 OptionalFlag::Speed as i32,
             );
             object.push(Object::new(
-                bodies.clone(),
-                bodies.clone().as_static(),
-                bodies.clone().object_type(),
+                bodie.clone(),
+                bodie.clone().as_static(),
+                bodie.clone().object_type(),
                 calc.longitude,
                 calc.latitude,
                 calc.speed_longitude,
