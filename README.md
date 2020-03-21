@@ -22,7 +22,6 @@ pub extern "C" fn sweversion() -> *const c_char {
 }
 ```
 
-
 For get a json with all svg and position inside as a pointer const c_char:
 ```
 pub extern "C" fn compute(
@@ -55,6 +54,9 @@ pub extern "C" fn compute(
 }
 ```
 # Version
+0.1.45
+* Add zodiac color fix some bugs
+
 0.1.44
 * Add zodiac color
 * Change README for call c extern
