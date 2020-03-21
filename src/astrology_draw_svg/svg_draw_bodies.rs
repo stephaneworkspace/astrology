@@ -22,7 +22,7 @@ use svg::node::element::{Group, Path};
 use svg::Document;
 pub const BODIE_SIZE: Number = 50.0;
 
-pub fn is_retrograde(sw: bool) -> Path {
+pub fn is_retrograde(sw: bool, color: String) -> Path {
     let data;
     if sw {
         data = Data::new()
@@ -53,7 +53,7 @@ pub fn is_retrograde(sw: bool) -> Path {
         data = Data::new();
     }
 
-    Path::new().set("d", data)
+    Path::new().set("stroke", color).set("d", data)
 }
 
 pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
@@ -81,7 +81,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Moon => {
             let data = Data::new()
@@ -97,7 +97,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Mercury => {
             let data1 = Data::new()
@@ -148,7 +148,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Venus => {
             let data = Data::new()
@@ -168,7 +168,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Mars => {
             let data = Data::new()
@@ -187,7 +187,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Jupiter => {
             let data1 = Data::new()
@@ -236,7 +236,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Saturn => {
             let data1 = Data::new()
@@ -294,7 +294,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Uranus => {
             let data1 = Data::new()
@@ -366,7 +366,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Neptune => {
             let data1 = Data::new()
@@ -438,7 +438,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Pluto => {
             let data1 = Data::new()
@@ -486,7 +486,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::TrueNode => {
             // Nord Node
@@ -625,7 +625,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::Chiron => {
             let data1 = Data::new()
@@ -679,7 +679,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(group)
-                .add(is_retrograde(sw_retrograde));
+                .add(is_retrograde(sw_retrograde, color));
         },
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));

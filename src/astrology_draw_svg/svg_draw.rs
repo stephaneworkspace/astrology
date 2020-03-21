@@ -531,6 +531,8 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
+        let color: String =
+            format!("#{:06X}", ANGLE_BODIE.object_color() as i32);
         let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
@@ -541,7 +543,7 @@ impl Draw for WorkingStorageDraw {
             .set("y1", t_xy_begin[0].y)
             .set("x2", t_xy_begin[1].x)
             .set("y2", t_xy_begin[1].y)
-            .set("stroke", "black")
+            .set("stroke", color.clone())
             .set("stroke-width", 1);
         let t_xy_end: [Offset; 2] = self.ws.get_line_trigo(
             pos_fix,
@@ -553,7 +555,7 @@ impl Draw for WorkingStorageDraw {
             .set("y1", t_xy_begin[1].y)
             .set("x2", t_xy_end[1].x)
             .set("y2", t_xy_end[1].y)
-            .set("stroke", "black")
+            .set("stroke", color)
             .set("stroke-width", 1);
         let document_trait = Document::new()
             .set(
@@ -638,6 +640,7 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
+        let color: String = format!("#{:06X}", bodie.object_color() as i32);
         let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
@@ -648,7 +651,7 @@ impl Draw for WorkingStorageDraw {
             .set("y1", t_xy_begin[0].y)
             .set("x2", t_xy_begin[1].x)
             .set("y2", t_xy_begin[1].y)
-            .set("stroke", "black")
+            .set("stroke", color.clone())
             .set("stroke-width", 1);
         let t_xy_end: [Offset; 2] = self.ws.get_line_trigo(
             pos_fix,
@@ -660,7 +663,7 @@ impl Draw for WorkingStorageDraw {
             .set("y1", t_xy_begin[1].y)
             .set("x2", t_xy_end[1].x)
             .set("y2", t_xy_end[1].y)
-            .set("stroke", "black")
+            .set("stroke", color)
             .set("stroke-width", 1);
         let document_trait = Document::new()
             .set(
