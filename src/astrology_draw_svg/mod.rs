@@ -88,12 +88,16 @@ pub enum DataObjectType {
 
 /// Create a chart for C export
 /// Without path like chart_html for now
-pub fn chart(max_size: Number, data: DataChartNatalC) -> Vec<DataObjectSvg> {
+pub fn chart(
+    max_size: Number,
+    data: DataChartNatalC,
+    path: &str,
+) -> Vec<DataObjectSvg> {
     // Natal chart
     println!("Version swephem: {}", swerust::handler_swe02::version());
-    /*let swe02_path: &str =
-        "/Users/stephanebressani/Code/Rust/libswe-sys/src/swisseph/sweph/";
-    swerust::handler_swe02::set_ephe_path(&swe02_path);*/
+    //let swe02_path: &str =
+    //    "/Users/stephanebressani/Code/Rust/libswe-sys/src/swisseph/sweph/";
+    swerust::handler_swe02::set_ephe_path(&path);
     println!("{}", data.year);
     println!(
         "Library path (Todo): {}",

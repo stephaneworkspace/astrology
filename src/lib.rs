@@ -27,7 +27,7 @@ use libswe_sys::sweconst::Bodies; //, Calandar, House, Object, ObjectType, Optio
 use libswe_sys::swerust::handler_swe02;
 use serde::Deserialize;
 // use std::env;
-use std::ffi::CString;
+use std::ffi::{CStr, CString};
 // use std::fs::File;
 // use std::io::Read;
 use std::io::{stdout, BufWriter};
@@ -114,6 +114,7 @@ pub extern "C" fn compute(
     lat: c_double,
     lng: c_double,
     max_size: c_double,
+    path: *const c_char,
 ) -> *const c_char {
     let d = DataChartNatalC {
         year: year,
@@ -126,7 +127,9 @@ pub extern "C" fn compute(
         lat: lat,
         lng: lng,
     };
-    let data = astrology_draw_svg::chart(max_size as f32, d);
+    let path_c_str = unsafe { CStr::from_ptr(path) };
+    let path_str: &str = path_c_str.to_str().unwrap();
+    let data = astrology_draw_svg::chart(max_size as f32, d, &path_str);
     CString::new(serde_json::to_string(&data).unwrap())
         .unwrap()
         .into_raw()
