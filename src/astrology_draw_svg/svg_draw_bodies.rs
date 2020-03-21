@@ -617,7 +617,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
             let path2 = Path::new()
                 .set("fill", "none")
                 .set("stroke", color.clone())
-                .set("stroke-width", 2)
+                .set("stroke-width", 3)
                 .set("d", data2);
             document = Document::new()
                 .set("viewBox", (0, 0, size.0, size.1))
