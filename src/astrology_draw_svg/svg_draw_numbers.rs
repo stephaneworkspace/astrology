@@ -15,15 +15,22 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
+use libswe_sys::sweconst::Bodies;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
 pub const DEG_SIZE: Number = 50.0;
 pub const MIN_SIZE: Number = 50.0;
 
-pub fn draw_degre(degre: i16) -> Document {
+/// Draw degre
+/// ?°
+/// The first parameter is degre
+/// The second parameter is Bodies::EclNut for angle (because not used)
+pub fn draw_degre(degre: i16, bodie_or_angle: Bodies) -> Document {
     let size: (Number, Number);
     let document: Document;
+    let color: String =
+        format!("#{:06X}", bodie_or_angle.object_color() as i32);
     match degre {
         0 => {
             size = (50.0, 50.0);
@@ -54,13 +61,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -95,13 +102,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -142,13 +149,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -193,13 +200,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -246,13 +253,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -294,13 +301,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -345,13 +352,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -386,13 +393,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -441,13 +448,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -493,13 +500,13 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((32.7, 14.5, 31.7, 16.3, 31.7, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -547,18 +554,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -604,18 +611,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -667,18 +674,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -734,18 +741,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -803,18 +810,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -867,18 +874,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -934,18 +941,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -991,18 +998,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1062,18 +1069,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1130,18 +1137,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1195,18 +1202,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1258,18 +1265,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1327,18 +1334,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1400,18 +1407,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1475,18 +1482,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1545,18 +1552,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1618,18 +1625,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1681,18 +1688,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1758,18 +1765,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1832,18 +1839,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1901,18 +1908,18 @@ pub fn draw_degre(degre: i16) -> Document {
                 .cubic_curve_to((42.6, 14.5, 41.6, 16.3, 41.6, 17.9)) // C
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -1928,9 +1935,15 @@ pub fn draw_degre(degre: i16) -> Document {
     document
 }
 
-pub fn draw_minute(minute: i16) -> Document {
+/// Draw minute
+/// ?'
+/// The first parameter is minute
+/// The second parameter is Bodies::EclNut for angle (because not used)
+pub fn draw_minute(minute: i16, bodie_or_angle: Bodies) -> Document {
     let size: (Number, Number);
     let document: Document;
+    let color: String =
+        format!("#{:06X}", bodie_or_angle.object_color() as i32);
     match minute {
         0 => {
             size = (50.0, 50.0);
@@ -1955,13 +1968,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -1990,13 +2003,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2031,13 +2044,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2076,13 +2089,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2123,13 +2136,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2165,13 +2178,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2210,13 +2223,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2245,13 +2258,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2294,13 +2307,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2340,13 +2353,13 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((39.4, 12.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let group = Group::new().add(path1).add(path2);
@@ -2388,18 +2401,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2439,18 +2452,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2496,18 +2509,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2557,18 +2570,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2620,18 +2633,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2678,18 +2691,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2739,18 +2752,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2790,18 +2803,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2855,18 +2868,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2917,18 +2930,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -2976,18 +2989,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3033,18 +3046,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3096,18 +3109,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3163,18 +3176,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3232,18 +3245,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3296,18 +3309,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3363,18 +3376,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3420,18 +3433,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3491,18 +3504,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3559,18 +3572,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3622,18 +3635,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3683,18 +3696,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3750,18 +3763,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3821,18 +3834,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3894,18 +3907,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -3962,18 +3975,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4033,18 +4046,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4094,18 +4107,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4169,18 +4182,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4241,18 +4254,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4306,18 +4319,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4369,18 +4382,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4438,18 +4451,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4511,18 +4524,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4586,18 +4599,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4656,18 +4669,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4729,18 +4742,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4792,18 +4805,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4869,18 +4882,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -4943,18 +4956,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5003,18 +5016,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5061,18 +5074,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5125,18 +5138,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5193,18 +5206,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5263,18 +5276,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5328,18 +5341,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5396,18 +5409,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5454,18 +5467,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5526,18 +5539,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);
@@ -5595,18 +5608,18 @@ pub fn draw_minute(minute: i16) -> Document {
                 .line_to((48.3, 13.7)) // L
                 .close(); // z
             let path1 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data1);
             let path2 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data2);
             let path3 = Path::new()
-                .set("fill", "black")
-                .set("stroke", "black")
+                .set("fill", color.clone())
+                .set("stroke", color.clone())
                 .set("stroke-width", 0)
                 .set("d", data3);
             let group = Group::new().add(path1).add(path2).add(path3);

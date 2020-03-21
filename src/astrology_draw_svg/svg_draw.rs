@@ -60,6 +60,9 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
     (71.0, false), // 8 correction planet between 2 and 3
 ];
 
+// For draw min/sec (color for angle) / Bodies::EclNut = -1 not used
+const ANGLE_BODIE: Bodies = Bodies::EclNut;
+
 const BODIE_DISTANCE: Number = 8.0;
 const BODIE_DISTANCE_OFFSET: Number = 0.5;
 
@@ -498,15 +501,15 @@ impl Draw for WorkingStorageDraw {
             _ => Document::new(),
         };
 
-        let mut svg_deg = svg_draw_degre(0);
-        let mut svg_min = svg_draw_minute(0);
+        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE);
+        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE);
         let pos: Number = self.ws.get_angle_longitude(angle.clone());
         let pos_fix: Number = self.ws.get_angle_fix_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
-                svg_deg = svg_draw_degre(h.split.deg as i16);
-                svg_min = svg_draw_minute(h.split.min as i16);
+                svg_deg = svg_draw_degre(h.split.deg as i16, ANGLE_BODIE);
+                svg_min = svg_draw_minute(h.split.min as i16, ANGLE_BODIE);
                 break;
             }
         }
@@ -607,14 +610,14 @@ impl Draw for WorkingStorageDraw {
         }
 
         let svg_planet = svg_draw_bodie(bodie.clone(), sw_retrograde);
-        let mut svg_deg = svg_draw_degre(0);
-        let mut svg_min = svg_draw_minute(0);
+        let mut svg_deg = svg_draw_degre(0, bodie.clone());
+        let mut svg_min = svg_draw_minute(0, bodie.clone());
         let pos: Number = self.ws.get_bodie_longitude(bodie.clone());
         let pos_fix: Number = self.ws.get_bodie_fix_longitude(bodie.clone());
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
-                svg_deg = svg_draw_degre(b.split.deg as i16);
-                svg_min = svg_draw_minute(b.split.min as i16);
+                svg_deg = svg_draw_degre(b.split.deg as i16, bodie.clone());
+                svg_min = svg_draw_minute(b.split.min as i16, bodie.clone());
                 break;
             }
         }
