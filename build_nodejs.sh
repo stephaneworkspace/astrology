@@ -7,7 +7,7 @@ cargo build --target x86_64-apple-darwin
 #cargo build --target x86_64-unknown-linux-gnu
 #cargo build --target x86_64-pc-windows-gnu
 # Print NonFat -> Ok
-lipo -info ./target/x86_64-apple-dawrin/debug/libastrology.a
+lipo -info ./target/x86_64-apple-darwin/debug/libastrology.a
 #lipo -info ./target/x86_64-unknown-linux-gnu/debug/libastrology.a
 #lipo -info ./target/x86_64-pc-windows-gnu/debug/libastrology.a
 
