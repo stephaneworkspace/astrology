@@ -57,6 +57,9 @@ pub extern "C" fn compute(
 }
 ```
 # Version
+0.1.47
+* Add correct Ceres svg
+
 0.1.46
 * Add south node
 * Add bash script compilation for ffi export
