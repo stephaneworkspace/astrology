@@ -21,7 +21,7 @@ extern crate serde;
 // extern crate serde_json; // Deserialize
 extern crate strum;
 use libswe_sys::sweconst::{
-    Angle, Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
+    Angle, Bodies, Calandar, Object, OptionalFlag, Signs,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
