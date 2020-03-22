@@ -137,24 +137,19 @@ pub fn chart(
     let mut object: Vec<Object> = Vec::new();
     let mut calc: swerust::handler_swe03::CalcUtResult;
     for bodie in Bodies::iter() {
-        if bodie.clone().object_type() == ObjectType::PlanetOrStar
-            || bodie.clone().object_type() == ObjectType::Fiction
-            || bodie.clone().object_type() == ObjectType::Asteroid
-        {
-            calc = swerust::handler_swe03::calc_ut(
-                utc_to_jd.julian_day_ut, // debug julianday in orginal file
-                bodie.clone(),
-                OptionalFlag::Speed as i32,
-            );
-            object.push(Object::new(
-                bodie.clone(),
-                bodie.clone().as_static(),
-                bodie.clone().object_type(),
-                calc.longitude,
-                calc.latitude,
-                calc.speed_longitude,
-            ));
-        }
+        calc = swerust::handler_swe03::calc_ut(
+            utc_to_jd.julian_day_ut, // debug julianday in orginal file
+            bodie.clone(),
+            OptionalFlag::Speed as i32,
+        );
+        object.push(Object::new(
+            bodie.clone(),
+            bodie.clone().as_static(),
+            bodie.clone().object_type(),
+            calc.longitude,
+            calc.latitude,
+            calc.speed_longitude,
+        ));
     }
 
     // Object calc draw for calcul in svg x,y width, height
@@ -329,24 +324,19 @@ pub fn chart_html(
     let mut object: Vec<Object> = Vec::new();
     let mut calc: swerust::handler_swe03::CalcUtResult;
     for bodie in Bodies::iter() {
-        if bodie.clone().object_type() == ObjectType::PlanetOrStar
-            || bodie.clone().object_type() == ObjectType::Fiction
-            || bodie.clone().object_type() == ObjectType::Asteroid
-        {
-            calc = swerust::handler_swe03::calc_ut(
-                utc_to_jd.julian_day_ut, // debug julianday in orginal file
-                bodie.clone(),
-                OptionalFlag::Speed as i32,
-            );
-            object.push(Object::new(
-                bodie.clone(),
-                bodie.clone().as_static(),
-                bodie.clone().object_type(),
-                calc.longitude,
-                calc.latitude,
-                calc.speed_longitude,
-            ));
-        }
+        calc = swerust::handler_swe03::calc_ut(
+            utc_to_jd.julian_day_ut, // debug julianday in orginal file
+            bodie.clone(),
+            OptionalFlag::Speed as i32,
+        );
+        object.push(Object::new(
+            bodie.clone(),
+            bodie.clone().as_static(),
+            bodie.clone().object_type(),
+            calc.longitude,
+            calc.latitude,
+            calc.speed_longitude,
+        ));
     }
     // Object calc draw for calcul in svg x,y width, height
     let mut ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
