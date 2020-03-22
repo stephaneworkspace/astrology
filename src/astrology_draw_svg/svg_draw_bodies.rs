@@ -690,6 +690,28 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
         },
         Bodies::Ceres => {
             let data1 = Data::new()
+                .move_to((15.07, 19.22)) // M
+                .elliptical_arc_to((11.0, 11.0, 0.0, 1.0, 1.0, 24.9, 30.2)) // A
+                .move_by((-4.89, 8.05)) // m
+                .horizontal_line_by(12.0); //h
+            let path1 = Path::new()
+                .set("stroke", color.clone())
+                .set("stroke-width", 3)
+                .set("d", data1);
+            let data2 = Data::new()
+                .move_to((25.96, 28.69)) // M
+                .vertical_line_by(16.1);
+            let path2 = Path::new()
+                .set("stroke", color.clone())
+                .set("stroke-width", 3)
+                .set("d", data2);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path1)
+                .add(path2)
+                .add(is_retrograde(sw_retrograde, color));
+
+            /*let data1 = Data::new()
                 .move_to((32.2, 14.3)) // M
                 .cubic_curve_by((-1.8, -5.9, -8.1, -9.3, -14.1, -7.4)) // c
                 .cubic_curve_to((18.4, 7.0, 18.7, 7.1, 19.0, 7.2)) // C
@@ -727,6 +749,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .add(line)
                 .add(path2)
                 .add(is_retrograde(sw_retrograde, color));
+            */
         },
         _ => {
             document = Document::new().set("viewBox", (0, 0, 50, 50));
