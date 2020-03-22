@@ -695,6 +695,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .move_by((-4.89, 8.05)) // m
                 .horizontal_line_by(12.0); //h
             let path1 = Path::new()
+                .set("fill", "none")
                 .set("stroke", color.clone())
                 .set("stroke-width", 3)
                 .set("d", data1);
