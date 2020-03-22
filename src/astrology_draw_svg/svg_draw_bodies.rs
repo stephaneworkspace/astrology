@@ -661,7 +661,7 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .cubic_curve_by((-3.6, -1.1, -6.3, -3.9, -7.4, -7.4)) // c
                 .cubic_curve_to((23.4, 15.0, 26.8, 8.7, 32.7, 6.9)) // C
                 .cubic_curve_to((30.5, 6.2, 28.2, 6.2, 26.1, 6.9)) // C
-                .close();
+                .close(); // z
             let path1 = Path::new()
                 .set("stroke", color.clone())
                 .set("stroke-width", 1)
@@ -690,13 +690,18 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
         },
         Bodies::Ceres => {
             let data1 = Data::new()
-                .move_to((26.1, 6.9)) // M
-                .cubic_curve_to((20.1, 8.7, 16.8, 15.0, 18.6, 21.0)) // C
-                .cubic_curve_by((1.8, 5.9, 8.1, 9.3, 14.1, 7.4)) // c
-                .cubic_curve_by((-3.6, -1.1, -6.3, -3.9, -7.4, -7.4)) // c
-                .cubic_curve_to((23.4, 15.0, 26.8, 8.7, 32.7, 6.9)) // C
-                .cubic_curve_to((30.5, 6.2, 28.2, 6.2, 26.1, 6.9)) // C
-                .close();
+                .move_to((32.2, 14.3)) // M
+                .cubic_curve_by((-1.8, -5.9, -8.1, -9.3, -14.1, -7.4)) // c
+                .cubic_curve_to((18.4, 7.0, 18.7, 7.1, 19.0, 7.2)) // C
+                .cubic_curve_by((0.3, 0.0, 0.7, -0.1, 1.0, -0.1)) // c
+                .cubic_curve_by((1.6, 0.0, 3.0, 0.3, 4.2, 0.8)) // c
+                .cubic_curve_by((9.0, 2.6, 8.9, 16.9, -0.3, 19.3)) // c
+                .cubic_curve_by((-1.1, 0.5, -2.5, 0.8, -4.0, 0.8)) // c
+                .cubic_curve_by((-0.3, 0.0, -0.5, 0.0, -0.8, 0.0)) // c
+                .cubic_curve_by((-0.4, 0.2, -0.7, 0.3, -1.1, 0.4)) // c
+                .cubic_curve_by((2.2, 0.7, 4.5, 0.7, 6.6, 0.0)) // c
+                .cubic_curve_to((30.7, 26.6, 34.0, 20.3, 32.2, 14.3)) // C
+                .close(); // z
             let path1 = Path::new()
                 .set("stroke", color.clone())
                 .set("stroke-width", 1)

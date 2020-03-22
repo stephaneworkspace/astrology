@@ -139,6 +139,7 @@ pub fn chart(
     for bodie in Bodies::iter() {
         if bodie.clone().object_type() == ObjectType::PlanetOrStar
             || bodie.clone().object_type() == ObjectType::Fiction
+            || bodie.clone().object_type() == ObjectType::Asteroid
         {
             calc = swerust::handler_swe03::calc_ut(
                 utc_to_jd.julian_day_ut, // debug julianday in orginal file
@@ -330,6 +331,7 @@ pub fn chart_html(
     for bodie in Bodies::iter() {
         if bodie.clone().object_type() == ObjectType::PlanetOrStar
             || bodie.clone().object_type() == ObjectType::Fiction
+            || bodie.clone().object_type() == ObjectType::Asteroid
         {
             calc = swerust::handler_swe03::calc_ut(
                 utc_to_jd.julian_day_ut, // debug julianday in orginal file
