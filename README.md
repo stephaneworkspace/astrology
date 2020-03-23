@@ -57,6 +57,9 @@ pub extern "C" fn compute(
 }
 ```
 # Version
+0.1.48
+* Add Lilith mean to chart
+
 0.1.47
 * Add correct Ceres svg
 
