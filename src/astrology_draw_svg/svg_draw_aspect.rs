@@ -27,6 +27,23 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
     //let color: String =
     //    format!("#{:06X}", Bodies::EclNut.object_color() as i32);
     match aspect {
+        Aspects::Conjunction => {
+            let data = Data::new()
+                .move_to((28.5, 20.9)) // M
+                .cubic_curve_by((5.8, 5.5, 6.0, 14.7, 0.5, 20.4)) // c
+                .smooth_cubic_curve_by((-14.7, 6.0, -20.4, 0.5)) // s
+                .smooth_cubic_curve_by((-6.0, -14.7, -0.5, -20.4)) // s
+                .smooth_cubic_curve_to((22.7, 15.4, 28.5, 20.9)) // S
+                .line_by((18.1, -18.0));
+            let path = Path::new()
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         Aspects::Opposition => {
             let data = Data::new()
                 .move_to((20.6, 29.0)) // M

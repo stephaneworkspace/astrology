@@ -883,6 +883,10 @@ pub fn chart_html(
                     Aspect Opposition
                     {}
                     -->
+                    <!--
+                    Aspect Conjunction
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -1025,7 +1029,8 @@ pub fn chart_html(
         draw_fc(),
         draw_desc(),
         draw_mc(),
-        draw_aspect(Aspects::Opposition)
+        draw_aspect(Aspects::Opposition),
+        draw_aspect(Aspects::Conjunction)
     );
 
     if path_and_file_export != "" {
