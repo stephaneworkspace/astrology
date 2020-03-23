@@ -57,6 +57,9 @@ pub extern "C" fn compute(
 }
 ```
 # Version
+0.1.49
+* Add majors aspects svg
+
 0.1.48
 * Add Lilith mean to chart
 
