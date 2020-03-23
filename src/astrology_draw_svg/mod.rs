@@ -21,7 +21,7 @@ extern crate serde;
 // extern crate serde_json; // Deserialize
 extern crate strum;
 use libswe_sys::sweconst::{
-    Angle, Bodies, Calandar, Object, OptionalFlag, Signs,
+    Angle, Aspects, Bodies, Calandar, Object, OptionalFlag, Signs,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
@@ -30,6 +30,7 @@ use svg::node::element::path::Number;
 use svg::node::element::Path;
 use svg::Document;
 pub mod svg_draw_angle;
+pub mod svg_draw_aspect;
 pub mod svg_draw_bodies;
 pub mod svg_draw_house;
 pub mod svg_draw_numbers;
@@ -39,6 +40,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
 use svg_draw_angle::{draw_asc, draw_desc, draw_fc, draw_mc};
+use svg_draw_aspect::draw_aspect;
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -877,6 +879,10 @@ pub fn chart_html(
                     MC
                     {}
                     -->
+                    <!--
+                    Aspect Opposition
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -1018,7 +1024,8 @@ pub fn chart_html(
         draw_asc(),
         draw_fc(),
         draw_desc(),
-        draw_mc()
+        draw_mc(),
+        draw_aspect(Aspects::Opposition)
     );
 
     if path_and_file_export != "" {
