@@ -17,7 +17,7 @@
 extern crate strum;
 use libswe_sys::sweconst::Aspects;
 use svg::node::element::path::{Data, Number};
-use svg::node::element::{Group, Path};
+use svg::node::element::{Path, Rectangle};
 use svg::Document;
 pub const ASPECT_SIZE: Number = 50.0;
 
@@ -82,8 +82,35 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
-        _ => {
-            document = Document::new();
+        Aspects::Square => {
+            let rect = Rectangle::new()
+                .set("x", 4.6)
+                .set("y", 4.2)
+                .set("width", 40.6)
+                .set("height", 41.0)
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(rect);
+        },
+        Aspects::Sextile => {
+            let data = Data::new()
+                .move_to((48.0, 24.7)) // M
+                .horizontal_line_to(1.8) // H
+                .move_to((13.3, 4.8)) // M
+                .line_by((23.1, 39.9)) // l
+                .move_to((36.4, 4.8)) // M
+                .line_to((13.3, 44.7)); // L
+            let path = Path::new()
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
         },
     }
     document
