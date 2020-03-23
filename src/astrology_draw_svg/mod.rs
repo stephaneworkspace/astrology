@@ -887,6 +887,18 @@ pub fn chart_html(
                     Aspect Conjunction
                     {}
                     -->
+                    <!--
+                    Aspect Trine
+                    {}
+                    -->
+                    <!--
+                    Aspect Square
+                    {}
+                    -->
+                    <!--
+                    Aspect Sextile
+                    {}
+                    -->
                     </div>
                 </div>
             </center>
@@ -1030,7 +1042,10 @@ pub fn chart_html(
         draw_desc(),
         draw_mc(),
         draw_aspect(Aspects::Opposition),
-        draw_aspect(Aspects::Conjunction)
+        draw_aspect(Aspects::Conjunction),
+        draw_aspect(Aspects::Trine),
+        draw_aspect(Aspects::Square),
+        draw_aspect(Aspects::Sextile)
     );
 
     if path_and_file_export != "" {

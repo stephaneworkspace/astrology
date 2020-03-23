@@ -66,6 +66,22 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Aspects::Trine => {
+            let data = Data::new()
+                .move_to((5.5, 46.0)) // M
+                .horizontal_line_by(38.8) // h
+                .line_to((24.9, 7.2)) // L
+                .line_to((5.5, 46.0)) // L
+                .close(); // z
+            let path = Path::new()
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6)
+                .set("d", data);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path);
+        },
         _ => {
             document = Document::new();
         },
