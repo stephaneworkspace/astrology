@@ -653,7 +653,8 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .add(group)
                 .add(is_retrograde(sw_retrograde, color));
         },
-        Bodies::AsteroidLilith => {
+        Bodies::MeanApog => {
+            // != AsteroidLilith
             let data1 = Data::new()
                 .move_to((26.1, 6.9)) // M
                 .cubic_curve_to((20.1, 8.7, 16.8, 15.0, 18.6, 21.0)) // C
