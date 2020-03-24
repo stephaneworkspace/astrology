@@ -913,12 +913,13 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::Uranus
             || bodie == Bodies::Neptune
             || bodie == Bodies::Pluto
-            || bodie == Bodies::TrueNode
+            || bodie == Bodies::TrueNode // North Node true
             || bodie == Bodies::Chiron
-            || bodie == Bodies::MeanApog // AsteroidLilith != Dark moon
-            || bodie == Bodies::OscuApog
+       //     || bodie == Bodies::MeanApog // AsteroidLilith != Dark moon mean
+            || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true
             || bodie == Bodies::Ceres
             || bodie == Bodies::SouthNode
+        // true
         {
             true
         } else {
