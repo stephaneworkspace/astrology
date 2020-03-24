@@ -88,6 +88,14 @@ pub enum DataObjectType {
     PlanetTrait,
 }
 
+/// Put the struct/enum in const file in future
+#[derive(Serialize, Deserialize, Debug)]
+pub struct DataObjectAspectSvg {
+    pub svg: String,
+    pub text: String,
+    pub aspects: Vec<Aspects>,
+}
+
 /// Create a chart for C export
 /// Without path like chart_html for now
 pub fn chart(
@@ -271,6 +279,21 @@ pub fn chart(
         }
     }
 
+    res
+}
+
+pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
+    let mut res: Vec<DataObjectAspectSvg> = Vec::new();
+    for a in Aspects::iter() {
+        let mut va: Vec<Aspects> = Vec::new();
+        va.push(a as Aspects);
+        res.push(DataObjectAspectSvg {
+            svg: draw_aspect(a).to_string(),
+            text: "try".to_string(),
+            aspects: va.clone(),
+        });
+        va.clear()
+    }
     res
 }
 
