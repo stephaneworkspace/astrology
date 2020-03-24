@@ -311,7 +311,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         va.push(a as Aspects);
         res.push(DataObjectAspectSvg {
             svg: draw_aspect(a).to_string(),
-            text: "try".to_string(),
+            text: a.as_static().to_string(),
             aspects: va.clone(),
         });
         va.clear()
