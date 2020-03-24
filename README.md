@@ -56,7 +56,23 @@ pub extern "C" fn compute(
         .into_raw()
 }
 ```
+
+For all aspects (only major at this moment)
+
+```
+#[no_mangle]
+pub extern "C" fn aspects() -> *const c_char {
+    let data = astrology_draw_svg::all_aspects();
+    CString::new(serde_json::to_string(&data).unwrap())
+        .unwrap()
+        .into_raw()
+}
+
+```
 # Version
+0.1.51
+* Create a function for have all aspects (major at this moment only)
+
 0.1.50
 * Correct lilith value (true, not mean)
 
