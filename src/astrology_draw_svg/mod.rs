@@ -40,7 +40,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
 use svg_draw_angle::{draw_asc, draw_desc, draw_fc, draw_mc};
-use svg_draw_aspect::draw_aspect;
+use svg_draw_aspect::{draw_aspect, maj_aspect, no_aspect};
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -284,6 +284,28 @@ pub fn chart(
 
 pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
     let mut res: Vec<DataObjectAspectSvg> = Vec::new();
+    // No aspect
+    let va_no_aspect: Vec<Aspects> = Vec::new();
+    res.push(DataObjectAspectSvg {
+        svg: no_aspect().to_string(),
+        text: "No aspect".to_string(), // TO do const
+        aspects: va_no_aspect,
+    });
+
+    // Maj aspects
+    let mut va_maj_aspects: Vec<Aspects> = Vec::new();
+    va_maj_aspects.push(Aspects::Conjunction);
+    va_maj_aspects.push(Aspects::Opposition);
+    va_maj_aspects.push(Aspects::Trine);
+    va_maj_aspects.push(Aspects::Square);
+    va_maj_aspects.push(Aspects::Sextile);
+    res.push(DataObjectAspectSvg {
+        svg: maj_aspect().to_string(),
+        text: "Majors aspects".to_string(), // TO do const
+        aspects: va_maj_aspects,
+    });
+
+    // Single Maj aspects
     for a in Aspects::iter() {
         let mut va: Vec<Aspects> = Vec::new();
         va.push(a as Aspects);
