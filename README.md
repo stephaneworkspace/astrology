@@ -57,6 +57,9 @@ pub extern "C" fn compute(
 }
 ```
 # Version
+0.1.50
+* Correct lilith value (true, not mean)
+
 0.1.49
 * Add majors aspects svg
 
