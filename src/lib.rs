@@ -135,6 +135,14 @@ pub extern "C" fn compute(
         .into_raw()
 }
 
+#[no_mangle]
+pub extern "C" fn aspects() -> *const c_char {
+    let data = astrology_draw_svg::all_aspects();
+    CString::new(serde_json::to_string(&data).unwrap())
+        .unwrap()
+        .into_raw()
+}
+
 #[derive(Debug, Clone)]
 pub enum YewAction {
     Chart,
