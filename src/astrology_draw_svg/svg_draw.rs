@@ -916,6 +916,7 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::TrueNode
             || bodie == Bodies::Chiron
             || bodie == Bodies::MeanApog // AsteroidLilith != Dark moon
+            || bodie == Bodies::OscuApog
             || bodie == Bodies::Ceres
             || bodie == Bodies::SouthNode
         {

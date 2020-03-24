@@ -654,6 +654,44 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .add(is_retrograde(sw_retrograde, color));
         },
         Bodies::MeanApog => {
+            // medium
+            // != AsteroidLilith
+            let data1 = Data::new()
+                .move_to((26.1, 6.9)) // M
+                .cubic_curve_to((20.1, 8.7, 16.8, 15.0, 18.6, 21.0)) // C
+                .cubic_curve_by((1.8, 5.9, 8.1, 9.3, 14.1, 7.4)) // c
+                .cubic_curve_by((-3.6, -1.1, -6.3, -3.9, -7.4, -7.4)) // c
+                .cubic_curve_to((23.4, 15.0, 26.8, 8.7, 32.7, 6.9)) // C
+                .cubic_curve_to((30.5, 6.2, 28.2, 6.2, 26.1, 6.9)) // C
+                .close(); // z
+            let path1 = Path::new()
+                .set("stroke", color.clone())
+                .set("stroke-width", 1)
+                .set("d", data1);
+            let line = Line::new()
+                .set("x1", 32.7)
+                .set("y1", 37.0)
+                .set("x2", 18.5)
+                .set("y2", 37.0)
+                .set("stroke", color.clone())
+                .set("stroke-width", 1);
+            let data2 = Data::new()
+                .move_to((25.6, 44.5)) // M
+                .cubic_curve_by((0.0, -5.6, 0.0, -11.1, 0.0, -16.7));
+            let path2 = Path::new()
+                .set("fill", "none")
+                .set("stroke", color.clone())
+                .set("stroke-width", 3)
+                .set("d", data2);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path1)
+                .add(line)
+                .add(path2)
+                .add(is_retrograde(sw_retrograde, color));
+        },
+        Bodies::OscuApog => {
+            // True
             // != AsteroidLilith
             let data1 = Data::new()
                 .move_to((26.1, 6.9)) // M
