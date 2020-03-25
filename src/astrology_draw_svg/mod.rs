@@ -314,14 +314,21 @@ pub fn chart(
                     );
                     abs_separation = separation.abs();
                     // Conjunction 0° - orbe 10°
-                    asp = 0;
-                    /*println!(
+                    println!(
                         "{}->{} / sep: {} / orb: {}",
                         bodie.object_name,
                         b.object_name,
-                        separation,
+                        abs_separation,
                         (abs_separation - asp as f32).abs() // real ORBE HERE
-                    );*/
+                    );
+                    println!(
+                        "{}-60->{} / sep: {} / orb: {}",
+                        bodie.object_name,
+                        b.object_name,
+                        abs_separation,
+                        (abs_separation - 60 as f32).abs() // real ORBE HERE
+                    );
+                    asp = 0;
                     if (abs_separation - asp as f32).abs() <= 10.0 {
                         asp_vec.push(Aspects::Conjunction);
                         let draw = ws_draw.draw_aspect(
@@ -421,25 +428,25 @@ pub fn chart(
                         asp_vec.clear();
                     }
                 }
-            }
-            for i in 0..12 {
-                if i == 0 || i == 9 {
-                    // Only Asc et Mc
-                    asp = 0;
-                    separation = closestdistance(
-                        bodie.longitude as f32,
-                        ws.house.clone()[i].longitude as f32,
-                    );
-                    abs_separation = separation.abs();
-                    println!(
-                        "{}->Angle{} / sep: {} / orb: {}",
-                        bodie.object_name,
-                        i,
-                        separation,
-                        (abs_separation - asp as f32).abs() // real ORBE HERE
-                    );
-                }
-            }
+            } /*
+              for i in 0..12 {
+                  if i == 0 || i == 9 {
+                      // Only Asc et Mc
+                      asp = 0;
+                      separation = closestdistance(
+                          bodie.longitude as f32,
+                          ws.house.clone()[i].longitude as f32,
+                      );
+                      abs_separation = separation.abs();
+                      println!(
+                          "{}->Angle{} / sep: {} / orb: {}",
+                          bodie.object_name,
+                          i,
+                          separation,
+                          (abs_separation - asp as f32).abs() // real ORBE HERE
+                      );
+                  }
+              }*/
         }
     }
     res
