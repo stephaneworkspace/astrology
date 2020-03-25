@@ -80,6 +80,7 @@ pub enum DataObjectType {
     AngleDeg,
     AngleMin,
     AngleTrait,
+    Aspect,
     Chart,
     House,
     Zodiac,
@@ -315,6 +316,12 @@ pub fn chart(
                     separation,
                     (abs_separation - asp as f32).abs() // real ORBE HERE
                 );
+                if (abs_separation - asp as f32).abs() <= 10.0 {
+                    /*res.push(DataObjectSvg {
+                        svg: "".to_string(),
+                        object_type: DataObjectType::Aspect
+                    })*/
+                }
             }
         }
         for i in 0..12 {
