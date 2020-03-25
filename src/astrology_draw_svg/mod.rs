@@ -344,8 +344,8 @@ pub fn chart(
                     if (abs_separation - asp as f32).abs() <= 10.0 {
                         asp_vec.push(Aspects::Conjunction);
                         let draw = ws_draw.draw_aspect(
-                            bodie.longitude as f32,
-                            b.longitude as f32,
+                            ws.get_bodie_longitude(bodie.object_enum),
+                            ws.get_bodie_longitude(b.object_enum),
                             Aspects::Conjunction,
                         );
                         res.push(DataObjectSvg {
@@ -364,8 +364,8 @@ pub fn chart(
                     if (abs_separation - asp as f32).abs() <= 8.0 {
                         asp_vec.push(Aspects::Opposition);
                         let draw = ws_draw.draw_aspect(
-                            bodie.longitude as f32,
-                            b.longitude as f32,
+                            ws.get_bodie_longitude(bodie.object_enum),
+                            ws.get_bodie_longitude(b.object_enum),
                             Aspects::Opposition,
                         );
                         res.push(DataObjectSvg {
@@ -384,8 +384,8 @@ pub fn chart(
                     if (abs_separation - asp as f32).abs() <= 7.0 {
                         asp_vec.push(Aspects::Trine);
                         let draw = ws_draw.draw_aspect(
-                            bodie.longitude as f32,
-                            b.longitude as f32,
+                            ws.get_bodie_longitude(bodie.object_enum),
+                            ws.get_bodie_longitude(b.object_enum),
                             Aspects::Trine,
                         );
                         res.push(DataObjectSvg {
@@ -404,8 +404,8 @@ pub fn chart(
                     if (abs_separation - asp as f32).abs() <= 6.0 {
                         asp_vec.push(Aspects::Square);
                         let draw = ws_draw.draw_aspect(
-                            bodie.longitude as f32,
-                            b.longitude as f32,
+                            ws.get_bodie_longitude(bodie.object_enum),
+                            ws.get_bodie_longitude(b.object_enum),
                             Aspects::Square,
                         );
                         res.push(DataObjectSvg {
@@ -424,8 +424,8 @@ pub fn chart(
                     if (abs_separation - asp as f32).abs() <= 5.0 {
                         asp_vec.push(Aspects::Sextile);
                         let draw = ws_draw.draw_aspect(
-                            bodie.longitude as f32,
-                            b.longitude as f32,
+                            ws.get_bodie_longitude(bodie.object_enum),
+                            ws.get_bodie_longitude(b.object_enum),
                             Aspects::Sextile,
                         );
                         res.push(DataObjectSvg {
