@@ -21,7 +21,7 @@ extern crate serde;
 // extern crate serde_json; // Deserialize
 extern crate strum;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, Calandar, Object, OptionalFlag, Signs,
+    Angle, Aspects, Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
@@ -148,19 +148,23 @@ pub fn chart(
     let mut object: Vec<Object> = Vec::new();
     let mut calc: swerust::handler_swe03::CalcUtResult;
     for bodie in Bodies::iter() {
-        calc = swerust::handler_swe03::calc_ut(
-            utc_to_jd.julian_day_ut, // debug julianday in orginal file
-            bodie.clone(),
-            OptionalFlag::Speed as i32,
-        );
-        object.push(Object::new(
-            bodie.clone(),
-            bodie.clone().as_static(),
-            bodie.clone().object_type(),
-            calc.longitude,
-            calc.latitude,
-            calc.speed_longitude,
-        ));
+        if bodie.clone().object_type() == ObjectType::PlanetOrStar
+            || bodie.clone().object_type() == ObjectType::Fiction
+        {
+            calc = swerust::handler_swe03::calc_ut(
+                utc_to_jd.julian_day_ut, // debug julianday in orginal file
+                bodie.clone(),
+                OptionalFlag::Speed as i32,
+            );
+            object.push(Object::new(
+                bodie.clone(),
+                bodie.clone().as_static(),
+                bodie.clone().object_type(),
+                calc.longitude,
+                calc.latitude,
+                calc.speed_longitude,
+            ));
+        }
     }
 
     // Object calc draw for calcul in svg x,y width, height
@@ -293,12 +297,14 @@ pub fn chart(
         }
     }
     // Aspects
-    let mut separation: Number = 0.0;
+    let mut asp: u16 = 0;
     let mut abs_separation: Number = 0.0;
+    let mut separation: Number = 0.0;
     for bodie in ws.object.clone() {
         for b in ws.object.clone() {
             if bodie.object_enum != b.object_enum {
                 // Conjunction 0° - orbe 10°
+                asp = 0;
                 separation =
                     closestdistance(bodie.longitude as f32, b.longitude as f32);
                 abs_separation = separation.abs();
@@ -307,7 +313,7 @@ pub fn chart(
                     bodie.object_name,
                     b.object_name,
                     separation,
-                    (abs_separation - separation).abs()
+                    (abs_separation - asp as f32).abs()
                 );
             }
         }
