@@ -13,6 +13,8 @@ Therefore, if you want to use astro_compute_swisseph in your commercial
 projects, you must adhere to the GPL license or buy a Swiss Ephemeris
 commercial license.
 
+(https://i.ibb.co/9Gnsn62/theme30avril2007.png)
+
 # Use
 For get the version as a pointer const c_char :
 
