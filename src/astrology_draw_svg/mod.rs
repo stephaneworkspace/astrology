@@ -322,11 +322,11 @@ pub fn chart(
                         (abs_separation - 0 as f32).abs() // real ORBE HERE
                     );
                     println!(
-                        "{}-60->{} / sep: {} / orb: {}",
+                        "{}-120->{} / sep: {} / orb: {}",
                         bodie.object_name,
                         b.object_name,
                         abs_separation,
-                        (abs_separation - 60 as f32).abs() // real ORBE HERE
+                        (abs_separation - 120 as f32).abs() // real ORBE HERE
                     );
                     asp = 0;
                     if (abs_separation - asp as f32).abs() <= 10.0 {
