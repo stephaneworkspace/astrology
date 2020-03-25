@@ -302,12 +302,24 @@ pub fn chart(
     let mut asp: u16;
     let mut abs_separation: Number;
     let mut separation: Number;
+    let mut pair: Vec<(Bodies, Bodies)> = Vec::new();
     for bodie in ws.object.clone() {
         if ws.get_bodie_is_on_chart(bodie.object_enum) {
             for b in ws.object.clone() {
+                let mut sw = false;
+                for p in pair {
+                    if (p.0 == bodie.object_enum && p.1 == b.object_enum)
+                        || (p.0 == b.object_enum && p.1 = bodie.object_enum)
+                    {
+                        sw = true;
+                        break;
+                    }
+                }
                 if ws.get_bodie_is_on_chart(b.object_enum)
+                    && !sw
                     && bodie.object_enum != b.object_enum
                 {
+                    pair.push((bodie.object_enum, b.object_enum));
                     separation = closestdistance(
                         ws.get_bodie_longitude(bodie.object_enum),
                         ws.get_bodie_longitude(b.object_enum),
