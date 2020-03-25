@@ -303,136 +303,142 @@ pub fn chart(
     let mut abs_separation: Number;
     let mut separation: Number;
     for bodie in ws.object.clone() {
-        for b in ws.object.clone() {
-            if bodie.object_enum != b.object_enum {
-                separation =
-                    closestdistance(bodie.longitude as f32, b.longitude as f32);
-                abs_separation = separation.abs();
-                // Conjunction 0° - orbe 10°
-                asp = 0;
-                /*println!(
-                    "{}->{} / sep: {} / orb: {}",
-                    bodie.object_name,
-                    b.object_name,
-                    separation,
-                    (abs_separation - asp as f32).abs() // real ORBE HERE
-                );*/
-                if (abs_separation - asp as f32).abs() <= 10.0 {
-                    asp_vec.push(Aspects::Conjunction);
-                    let draw = ws_draw.draw_aspect(
+        if ws.get_bodie_is_on_chart(bodie.object_enum) {
+            for b in ws.object.clone() {
+                if ws.get_bodie_is_on_chart(b.object_enum)
+                    && bodie.object_enum != b.object_enum
+                {
+                    separation = closestdistance(
                         bodie.longitude as f32,
                         b.longitude as f32,
-                        Aspects::Conjunction,
                     );
-                    res.push(DataObjectSvg {
-                        svg: draw.svg,
-                        object_type: DataObjectType::Aspect,
-                        size_x: draw.size_x as f32,
-                        size_y: draw.size_y as f32,
-                        pos_x: draw.pos_x as f32,
-                        pos_y: draw.pos_y as f32,
-                        aspects: asp_vec.clone(),
-                    });
-                    asp_vec.clear();
-                }
-                // Opposition 180° - orbe 8°
-                asp = 180;
-                if (abs_separation - asp as f32).abs() <= 8.0 {
-                    asp_vec.push(Aspects::Opposition);
-                    let draw = ws_draw.draw_aspect(
-                        bodie.longitude as f32,
-                        b.longitude as f32,
-                        Aspects::Opposition,
-                    );
-                    res.push(DataObjectSvg {
-                        svg: draw.svg,
-                        object_type: DataObjectType::Aspect,
-                        size_x: draw.size_x as f32,
-                        size_y: draw.size_y as f32,
-                        pos_x: draw.pos_x as f32,
-                        pos_y: draw.pos_y as f32,
-                        aspects: asp_vec.clone(),
-                    });
-                    asp_vec.clear();
-                }
-                // Trine 120° - orbe 7°
-                asp = 120;
-                if (abs_separation - asp as f32).abs() <= 7.0 {
-                    asp_vec.push(Aspects::Trine);
-                    let draw = ws_draw.draw_aspect(
-                        bodie.longitude as f32,
-                        b.longitude as f32,
-                        Aspects::Trine,
-                    );
-                    res.push(DataObjectSvg {
-                        svg: draw.svg,
-                        object_type: DataObjectType::Aspect,
-                        size_x: draw.size_x as f32,
-                        size_y: draw.size_y as f32,
-                        pos_x: draw.pos_x as f32,
-                        pos_y: draw.pos_y as f32,
-                        aspects: asp_vec.clone(),
-                    });
-                    asp_vec.clear();
-                }
-                // Square 90° - orbe 6°
-                asp = 90;
-                if (abs_separation - asp as f32).abs() <= 6.0 {
-                    asp_vec.push(Aspects::Square);
-                    let draw = ws_draw.draw_aspect(
-                        bodie.longitude as f32,
-                        b.longitude as f32,
-                        Aspects::Square,
-                    );
-                    res.push(DataObjectSvg {
-                        svg: draw.svg,
-                        object_type: DataObjectType::Aspect,
-                        size_x: draw.size_x as f32,
-                        size_y: draw.size_y as f32,
-                        pos_x: draw.pos_x as f32,
-                        pos_y: draw.pos_y as f32,
-                        aspects: asp_vec.clone(),
-                    });
-                    asp_vec.clear();
-                }
-                // Sextile 60° - orbe 5°
-                asp = 60;
-                if (abs_separation - asp as f32).abs() <= 5.0 {
-                    asp_vec.push(Aspects::Sextile);
-                    let draw = ws_draw.draw_aspect(
-                        bodie.longitude as f32,
-                        b.longitude as f32,
-                        Aspects::Sextile,
-                    );
-                    res.push(DataObjectSvg {
-                        svg: draw.svg,
-                        object_type: DataObjectType::Aspect,
-                        size_x: draw.size_x as f32,
-                        size_y: draw.size_y as f32,
-                        pos_x: draw.pos_x as f32,
-                        pos_y: draw.pos_y as f32,
-                        aspects: asp_vec.clone(),
-                    });
-                    asp_vec.clear();
+                    abs_separation = separation.abs();
+                    // Conjunction 0° - orbe 10°
+                    asp = 0;
+                    /*println!(
+                        "{}->{} / sep: {} / orb: {}",
+                        bodie.object_name,
+                        b.object_name,
+                        separation,
+                        (abs_separation - asp as f32).abs() // real ORBE HERE
+                    );*/
+                    if (abs_separation - asp as f32).abs() <= 10.0 {
+                        asp_vec.push(Aspects::Conjunction);
+                        let draw = ws_draw.draw_aspect(
+                            bodie.longitude as f32,
+                            b.longitude as f32,
+                            Aspects::Conjunction,
+                        );
+                        res.push(DataObjectSvg {
+                            svg: draw.svg,
+                            object_type: DataObjectType::Aspect,
+                            size_x: draw.size_x as f32,
+                            size_y: draw.size_y as f32,
+                            pos_x: draw.pos_x as f32,
+                            pos_y: draw.pos_y as f32,
+                            aspects: asp_vec.clone(),
+                        });
+                        asp_vec.clear();
+                    }
+                    // Opposition 180° - orbe 8°
+                    asp = 180;
+                    if (abs_separation - asp as f32).abs() <= 8.0 {
+                        asp_vec.push(Aspects::Opposition);
+                        let draw = ws_draw.draw_aspect(
+                            bodie.longitude as f32,
+                            b.longitude as f32,
+                            Aspects::Opposition,
+                        );
+                        res.push(DataObjectSvg {
+                            svg: draw.svg,
+                            object_type: DataObjectType::Aspect,
+                            size_x: draw.size_x as f32,
+                            size_y: draw.size_y as f32,
+                            pos_x: draw.pos_x as f32,
+                            pos_y: draw.pos_y as f32,
+                            aspects: asp_vec.clone(),
+                        });
+                        asp_vec.clear();
+                    }
+                    // Trine 120° - orbe 7°
+                    asp = 120;
+                    if (abs_separation - asp as f32).abs() <= 7.0 {
+                        asp_vec.push(Aspects::Trine);
+                        let draw = ws_draw.draw_aspect(
+                            bodie.longitude as f32,
+                            b.longitude as f32,
+                            Aspects::Trine,
+                        );
+                        res.push(DataObjectSvg {
+                            svg: draw.svg,
+                            object_type: DataObjectType::Aspect,
+                            size_x: draw.size_x as f32,
+                            size_y: draw.size_y as f32,
+                            pos_x: draw.pos_x as f32,
+                            pos_y: draw.pos_y as f32,
+                            aspects: asp_vec.clone(),
+                        });
+                        asp_vec.clear();
+                    }
+                    // Square 90° - orbe 6°
+                    asp = 90;
+                    if (abs_separation - asp as f32).abs() <= 6.0 {
+                        asp_vec.push(Aspects::Square);
+                        let draw = ws_draw.draw_aspect(
+                            bodie.longitude as f32,
+                            b.longitude as f32,
+                            Aspects::Square,
+                        );
+                        res.push(DataObjectSvg {
+                            svg: draw.svg,
+                            object_type: DataObjectType::Aspect,
+                            size_x: draw.size_x as f32,
+                            size_y: draw.size_y as f32,
+                            pos_x: draw.pos_x as f32,
+                            pos_y: draw.pos_y as f32,
+                            aspects: asp_vec.clone(),
+                        });
+                        asp_vec.clear();
+                    }
+                    // Sextile 60° - orbe 5°
+                    asp = 60;
+                    if (abs_separation - asp as f32).abs() <= 5.0 {
+                        asp_vec.push(Aspects::Sextile);
+                        let draw = ws_draw.draw_aspect(
+                            bodie.longitude as f32,
+                            b.longitude as f32,
+                            Aspects::Sextile,
+                        );
+                        res.push(DataObjectSvg {
+                            svg: draw.svg,
+                            object_type: DataObjectType::Aspect,
+                            size_x: draw.size_x as f32,
+                            size_y: draw.size_y as f32,
+                            pos_x: draw.pos_x as f32,
+                            pos_y: draw.pos_y as f32,
+                            aspects: asp_vec.clone(),
+                        });
+                        asp_vec.clear();
+                    }
                 }
             }
-        }
-        for i in 0..12 {
-            if i == 0 || i == 9 {
-                // Only Asc et Mc
-                asp = 0;
-                separation = closestdistance(
-                    bodie.longitude as f32,
-                    ws.house.clone()[i].longitude as f32,
-                );
-                abs_separation = separation.abs();
-                println!(
-                    "{}->Angle{} / sep: {} / orb: {}",
-                    bodie.object_name,
-                    i,
-                    separation,
-                    (abs_separation - asp as f32).abs() // real ORBE HERE
-                );
+            for i in 0..12 {
+                if i == 0 || i == 9 {
+                    // Only Asc et Mc
+                    asp = 0;
+                    separation = closestdistance(
+                        bodie.longitude as f32,
+                        ws.house.clone()[i].longitude as f32,
+                    );
+                    abs_separation = separation.abs();
+                    println!(
+                        "{}->Angle{} / sep: {} / orb: {}",
+                        bodie.object_name,
+                        i,
+                        separation,
+                        (abs_separation - asp as f32).abs() // real ORBE HERE
+                    );
+                }
             }
         }
     }
