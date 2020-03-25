@@ -71,6 +71,7 @@ pub struct DataObjectSvg {
     pub size_y: f32,
     pub pos_x: f32,
     pub pos_y: f32,
+    pub aspects: Vec<Aspects>, // If null print ALL
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -169,6 +170,8 @@ pub fn chart(
 
     let mut res: Vec<DataObjectSvg> = Vec::new();
 
+    let aspects_null: Vec<Aspects> = Vec::new();
+
     // Chart
     res.push(DataObjectSvg {
         svg: ws_draw.draw_base().to_string(),
@@ -177,6 +180,7 @@ pub fn chart(
         size_y: max_size as f32,
         pos_x: 0.0,
         pos_y: 0.0,
+        aspects: aspects_null.clone(),
     });
 
     // Zodiac
@@ -189,6 +193,7 @@ pub fn chart(
             size_y: draw.size_y as f32,
             pos_x: draw.pos_x as f32,
             pos_y: draw.pos_y as f32,
+            aspects: aspects_null.clone(),
         });
     }
 
@@ -201,6 +206,7 @@ pub fn chart(
             size_y: draw.size_y as f32,
             pos_x: draw.pos_x as f32,
             pos_y: draw.pos_y as f32,
+            aspects: aspects_null.clone(),
         });
     }
 
@@ -214,6 +220,7 @@ pub fn chart(
                 size_y: draw.size_y as f32,
                 pos_x: draw.pos_x as f32,
                 pos_y: draw.pos_y as f32,
+                aspects: aspects_null.clone(),
             });
             res.push(DataObjectSvg {
                 svg: draw.deg_svg,
@@ -222,6 +229,7 @@ pub fn chart(
                 size_y: draw.deg_size_y as f32,
                 pos_x: draw.deg_pos_x as f32,
                 pos_y: draw.deg_pos_y as f32,
+                aspects: aspects_null.clone(),
             });
             res.push(DataObjectSvg {
                 svg: draw.min_svg,
@@ -230,6 +238,7 @@ pub fn chart(
                 size_y: draw.min_size_y as f32,
                 pos_x: draw.min_pos_x as f32,
                 pos_y: draw.min_pos_y as f32,
+                aspects: aspects_null.clone(),
             });
             res.push(DataObjectSvg {
                 svg: draw.trait_svg,
@@ -238,6 +247,7 @@ pub fn chart(
                 size_y: draw.trait_size_y as f32,
                 pos_x: draw.trait_pos_x as f32,
                 pos_y: draw.trait_pos_y as f32,
+                aspects: aspects_null.clone(),
             });
         }
     }
@@ -251,6 +261,7 @@ pub fn chart(
                 size_y: draw.size_y as f32,
                 pos_x: draw.pos_x as f32,
                 pos_y: draw.pos_y as f32,
+                aspects: aspects_null.clone(),
             });
             res.push(DataObjectSvg {
                 svg: draw.deg_svg,
@@ -259,6 +270,7 @@ pub fn chart(
                 size_y: draw.deg_size_y as f32,
                 pos_x: draw.deg_pos_x as f32,
                 pos_y: draw.deg_pos_y as f32,
+                aspects: aspects_null.clone(),
             });
             res.push(DataObjectSvg {
                 svg: draw.min_svg,
@@ -267,6 +279,7 @@ pub fn chart(
                 size_y: draw.min_size_y as f32,
                 pos_x: draw.min_pos_x as f32,
                 pos_y: draw.min_pos_y as f32,
+                aspects: aspects_null.clone(),
             });
             res.push(DataObjectSvg {
                 svg: draw.trait_svg,
@@ -275,10 +288,30 @@ pub fn chart(
                 size_y: draw.trait_size_y as f32,
                 pos_x: draw.trait_pos_x as f32,
                 pos_y: draw.trait_pos_y as f32,
+                aspects: aspects_null.clone(),
             });
         }
     }
-
+    // Aspects
+    let mut separation: Number = 0.0;
+    let mut absSeparation: Number = 0.0;
+    for bodie in ws.object.clone() {
+        for b in ws.object.clone() {
+            if bodie.object_enum != b.object_enum {
+                // Conjunction 0° - orbe 10°
+                separation =
+                    closestdistance(bodie.longitude as f32, b.longitude as f32);
+                abs_separation = separation.abs();
+                println!(
+                    "{}->{} / sep: {} / orb: {}",
+                    bodie.object_name,
+                    b.object_name,
+                    separation,
+                    (abs_separation - separation).abs()
+                );
+            }
+        }
+    }
     res
 }
 
@@ -317,6 +350,19 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         va.clear()
     }
     res
+}
+
+fn closestdistance(angle1: Number, angle2: Number) -> Number {
+    znorm(angle2 - angle1)
+}
+
+fn znorm(mut angle: Number) -> Number {
+    angle = angle % 360.0;
+    if angle <= 180.0 {
+        angle
+    } else {
+        angle - 360.0
+    }
 }
 
 /// Create a html file with the natal chart
