@@ -307,7 +307,7 @@ pub fn chart(
         if ws.get_bodie_is_on_chart(bodie.object_enum) {
             for b in ws.object.clone() {
                 let mut sw = false;
-                for p in pair {
+                for p in pair.clone() {
                     if (p.0 == bodie.object_enum && p.1 == b.object_enum)
                         || (p.0 == b.object_enum && p.1 == bodie.object_enum)
                     {
