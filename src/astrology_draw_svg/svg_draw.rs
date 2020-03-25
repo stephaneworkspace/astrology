@@ -30,7 +30,9 @@ use crate::astrology_draw_svg::svg_draw_numbers::draw_minute as svg_draw_minute;
 use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
-use libswe_sys::sweconst::{Angle, Bodies, House, Object, ObjectPos, Signs};
+use libswe_sys::sweconst::{
+    Angle, Aspects, Bodies, House, Object, ObjectPos, Signs,
+};
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 use strum::IntoEnumIterator;
@@ -150,6 +152,12 @@ pub trait Draw {
     fn draw_house(&self, numero: i16) -> SvgObject;
     fn draw_angle(&self, angle: Angle) -> SvgObjectBodie;
     fn draw_bodie(&self, bodie: Bodies) -> SvgObjectBodie;
+    fn draw_aspect(
+        &self,
+        lng_1: Number,
+        lng_2: Number,
+        aspect: Aspects,
+    ) -> SvgObject;
 }
 
 pub trait CalcDraw {
@@ -696,6 +704,22 @@ impl Draw for WorkingStorageDraw {
             trait_pos_y: 0.0,
         };
         svg_object_bodie
+    }
+
+    fn draw_aspect(
+        &self,
+        lng_1: Number,
+        lng_2: Number,
+        aspect: Aspects,
+    ) -> SvgObject {
+        let res = SvgObject {
+            svg: "".to_string(),
+            size_x: self.ws.max_size,
+            size_y: self.ws.max_size,
+            pos_x: 0.0,
+            pos_y: 0.0,
+        };
+        res
     }
 }
 
