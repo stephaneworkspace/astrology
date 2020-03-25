@@ -712,8 +712,65 @@ impl Draw for WorkingStorageDraw {
         lng_2: Number,
         aspect: Aspects,
     ) -> SvgObject {
+        let pos1 = self.ws.get_pos_trigo(lng_1, self.ws.get_radius_circle(0).0);
+        let pos2 = self.ws.get_pos_trigo(lng_2, self.ws.get_radius_circle(0).0);
+        let line;
+        match aspect {
+            Aspects::Conjunction => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "black")
+                    .set("stroke-width", 1);
+            },
+            Aspects::Opposition => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke-dasharray", "4, 1, 2")
+                    .set("stroke", "red")
+                    .set("stroke-width", 1);
+            },
+            Aspects::Trine => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "blue")
+                    .set("stroke-width", 1);
+            },
+            Aspects::Square => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "red")
+                    .set("stroke-width", 1);
+            },
+            Aspects::Sextile => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "green")
+                    .set("stroke-width", 1);
+            },
+        }
+        let document = Document::new()
+            .set(
+                "viewBox",
+                (0, 0, self.ws.max_size as i32, self.ws.max_size as i32),
+            )
+            .add(line);
         let res = SvgObject {
-            svg: "".to_string(),
+            svg: document.to_string(),
             size_x: self.ws.max_size,
             size_y: self.ws.max_size,
             pos_x: 0.0,
