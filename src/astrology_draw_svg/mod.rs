@@ -294,7 +294,7 @@ pub fn chart(
     }
     // Aspects
     let mut separation: Number = 0.0;
-    let mut absSeparation: Number = 0.0;
+    let mut abs_separation: Number = 0.0;
     for bodie in ws.object.clone() {
         for b in ws.object.clone() {
             if bodie.object_enum != b.object_enum {
