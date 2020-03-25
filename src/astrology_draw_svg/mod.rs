@@ -309,12 +309,12 @@ pub fn chart(
                     && bodie.object_enum != b.object_enum
                 {
                     separation = closestdistance(
-                        bodie.longitude as f32,
-                        b.longitude as f32,
+                        ws.get_bodie_longitude(bodie.object_enum),
+                        ws.get_bodie_longitude(b.object_enum),
                     );
                     abs_separation = separation.abs();
                     // Conjunction 0° - orbe 10°
-                    println!(
+                    /*println!(
                         "{}->{} / sep: {} / orb: {}",
                         bodie.object_name,
                         b.object_name,
@@ -327,7 +327,7 @@ pub fn chart(
                         b.object_name,
                         abs_separation,
                         (abs_separation - 120 as f32).abs() // real ORBE HERE
-                    );
+                    );*/
                     asp = 0;
                     if (abs_separation - asp as f32).abs() <= 10.0 {
                         asp_vec.push(Aspects::Conjunction);
