@@ -309,7 +309,7 @@ pub fn chart(
                 let mut sw = false;
                 for p in pair {
                     if (p.0 == bodie.object_enum && p.1 == b.object_enum)
-                        || (p.0 == b.object_enum && p.1 = bodie.object_enum)
+                        || (p.0 == b.object_enum && p.1 == bodie.object_enum)
                     {
                         sw = true;
                         break;
