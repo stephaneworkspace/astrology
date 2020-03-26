@@ -58,7 +58,7 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
     (80.0, false), // 4
     (89.0, false), // 5
     (96.0, false), // 6
-    (70.0, false), // 7 between 2 and 3
+    (69.0, false), // 7 between 2 and 3
     (71.0, false), // 8 correction planet between 2 and 3
 ];
 
