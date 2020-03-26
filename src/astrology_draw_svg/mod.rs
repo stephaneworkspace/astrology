@@ -428,21 +428,10 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
     }
     res
 }
-/*
-fn closestdistance(angle1: Number, angle2: Number) -> Number {
-    znorm(angle2 - angle1)
-}
-
-fn znorm(mut angle: Number) -> Number {
-    angle = angle % 360.0;
-    if angle <= 180.0 {
-        angle
-    } else {
-        angle - 360.0
-    }
-}*/
 
 /// Create a html file with the natal chart
+/// This function don't work, it's just a test function for test my svgs
+/// Only chart and all_aspects function work's in this file
 pub fn chart_html(
     max_size: Number,
     path_and_file_export: &str,
