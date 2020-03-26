@@ -202,6 +202,8 @@ pub trait CalcDraw {
     fn get_angle_fix_longitude(&self, angle: Angle) -> Number;
     fn get_bodie_fix_longitude(&self, bodie: Bodies) -> Number;
     fn set_fix_compute(&mut self);
+    fn get_closest_distance(&self, angle1: Number, angle2: Number) -> Number;
+    fn get_znorm(&self, angle: Number) -> Number;
 }
 
 // Methods - Constructors
@@ -1368,5 +1370,18 @@ impl CalcDraw for WorkingStorage {
 
         // Set
         self.temp_position_bodies = temp_no_order;
+    }
+
+    fn get_closest_distance(&self, angle1: Number, angle2: Number) -> Number {
+        self.get_znorm(angle2 - angle1)
+    }
+
+    fn get_znorm(&self, mut angle: Number) -> Number {
+        angle = angle % 360.0;
+        if angle <= 180.0 {
+            angle
+        } else {
+            angle - 360.0
+        }
     }
 }

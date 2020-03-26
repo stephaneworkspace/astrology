@@ -321,7 +321,7 @@ pub fn chart(
                     && bodie.object_enum != b.object_enum
                 {
                     pair.push((bodie.object_enum, b.object_enum));
-                    separation = closestdistance(
+                    separation = ws.get_closest_distance(
                         ws.get_bodie_longitude(bodie.object_enum),
                         ws.get_bodie_longitude(b.object_enum),
                     );
@@ -354,7 +354,7 @@ pub fn chart(
             for i in 0..12 {
                 if i == 0 || i == 9 {
                     // Only Asc et Mc
-                    separation = closestdistance(
+                    separation = ws.get_closest_distance(
                         bodie.longitude as f32,
                         ws.house.clone()[i].longitude as f32,
                     );
@@ -428,7 +428,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
     }
     res
 }
-
+/*
 fn closestdistance(angle1: Number, angle2: Number) -> Number {
     znorm(angle2 - angle1)
 }
@@ -440,7 +440,7 @@ fn znorm(mut angle: Number) -> Number {
     } else {
         angle - 360.0
     }
-}
+}*/
 
 /// Create a html file with the natal chart
 pub fn chart_html(
