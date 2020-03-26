@@ -402,9 +402,9 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
 
     // Maj aspects
     let mut va_maj_aspects: Vec<Aspects> = Vec::new();
-    for record_asp in Aspects::iter() {
-        if record_asp.maj() {
-            va_maj_aspects.push(record_asp.clone());
+    for a in Aspects::iter() {
+        if a.maj() {
+            va_maj_aspects.push(a.clone());
         }
     }
     res.push(DataObjectAspectSvg {
@@ -415,7 +415,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
 
     // Single Maj aspects
     for a in Aspects::iter() {
-        if record_asp.maj() {
+        if a.maj() {
             let mut va: Vec<Aspects> = Vec::new();
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
