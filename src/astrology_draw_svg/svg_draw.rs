@@ -772,7 +772,6 @@ impl Draw for WorkingStorageDraw {
                     .set("y2", pos2.y)
                     .set("stroke", "violet")
                     .set("stroke-width", 1);
-
             },
             Aspects::Semisquare => {
                 line = Line::new()
@@ -784,7 +783,7 @@ impl Draw for WorkingStorageDraw {
                     .set("stroke-width", 1);
             },
             Aspects::Sesquisquare => {
-                line = Line::new();
+                line = Line::new()
                     .set("x1", pos1.x)
                     .set("y1", pos1.y)
                     .set("x2", pos2.x)
@@ -802,7 +801,7 @@ impl Draw for WorkingStorageDraw {
                     .set("stroke", "green")
                     .set("stroke-dasharray", "4, 1, 2")
                     .set("stroke-width", 1);
-            }
+            },
         }
         let document = Document::new()
             .set(

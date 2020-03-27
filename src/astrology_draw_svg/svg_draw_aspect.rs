@@ -112,6 +112,51 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        Aspects::Inconjunction => {
+            let line1 = Line::new()
+                .set("x1", 48.0)
+                .set("y1", 23.0)
+                .set("x2", 2.0)
+                .set("y2", 23.0)
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6);
+            let line2 = Line::new()
+                .set("x1", 25.0)
+                .set("y1", 23.0)
+                .set("x2", 46.0)
+                .set("y2", 36.0)
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6);
+            let data1 = Data::new().move_to((75.1, 13.3)); // M
+            let path1 = Path::new()
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6)
+                .set("d", data1);
+            let data2 = Data::new().move_to((62.1, 34.3)); // M
+            let path2 = Path::new()
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6)
+                .set("d", data2);
+            let line3 = Line::new()
+                .set("x1", 25.0)
+                .set("y1", 23.0)
+                .set("x2", 12.0)
+                .set("y2", 33.0)
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(line1)
+                .add(line2)
+                .add(path1)
+                .add(path2)
+                .add(line3);
+        },
         _ => {
             document = Document::new().set("viewBox", (0, 0, size.0, size.1));
         },
