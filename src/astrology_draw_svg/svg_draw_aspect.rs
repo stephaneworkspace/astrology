@@ -401,3 +401,51 @@ pub fn min_aspect() -> Document {
         .add(group);
     document
 }
+
+pub fn all_aspect() -> Document {
+    let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
+    let document: Document;
+    //let color: String =
+    //    format!("#{:06X}", Bodies::EclNut.object_color() as i32);
+    let data1 = Data::new()
+        .move_to((14.0, 29.8)) // M
+        .line_by((-2.1, 6.4)) // l
+        .horizontal_line_to(9.2) // H
+        .line_to((16.1, 16.0)) // L
+        .horizontal_line_by(3.1) // h
+        .line_by((6.9, 20.2)) // l
+        .horizontal_line_by(-2.8) // h
+        .line_by((-2.2, -6.4)) // l
+        .horizontal_line_to(14.0) // H
+        .close() // z
+        .move_to((20.7, 27.8)) // M
+        .line_by((-2.0, -5.8)) // l
+        .cubic_curve_by((-0.5, -1.3, -0.8, -2.5, -1.1, -3.7)) // c
+        .horizontal_line_by(-0.1) // h
+        .cubic_curve_by((-0.3, 1.2, -0.6, 2.4, -1.0, 3.7)) // c
+        .line_by((-2.0, 5.9)) // l
+        .horizontal_line_to(20.7) // H
+        .close(); // z
+    let path1 = Path::new().set("d", data1);
+    let data2 = Data::new()
+        .move_to((28.9, 14.9)) // M
+        .horizontal_line_by(2.6) // h
+        .vertical_line_by(21.3) // v
+        .horizontal_line_by(-2.6) // h
+        .vertical_line_to(14.9) // V
+        .close(); // z
+    let path2 = Path::new().set("d", data2);
+    let data3 = Data::new()
+        .move_to((36.0, 14.9)) // M
+        .horizontal_line_by(2.6) // h
+        .vertical_line_by(21.3) // v
+        .horizontal_line_to(36.0) // H
+        .vertical_line_to(14.9) // V
+        .close(); // z
+    let path3 = Path::new().set("d", data3);
+    let group = Group::new().add(path1).add(path2).add(path3);
+    document = Document::new()
+        .set("viewBox", (0, 0, size.0, size.1))
+        .add(group);
+    document
+}

@@ -37,7 +37,9 @@ use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
 use svg_draw_angle::{draw_asc, draw_desc, draw_fc, draw_mc};
-use svg_draw_aspect::{draw_aspect, maj_aspect, min_aspect, no_aspect};
+use svg_draw_aspect::{
+    all_aspect, draw_aspect, maj_aspect, min_aspect, no_aspect,
+};
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -327,13 +329,6 @@ pub fn chart(
                     for record_asp in Aspects::iter() {
                         asp = record_asp.angle().0;
                         orb = record_asp.angle().1;
-                        if record_asp == Aspects::Conjunction {
-                            println!(
-                                "debug abs_separation:{} orb:{}",
-                                abs_separation.abs(),
-                                orb
-                            );
-                        }
                         if (abs_separation - asp as f32).abs() <= orb as f32 {
                             asp_vec.push(record_asp.clone());
                             let draw = ws_draw.draw_aspect(
@@ -457,6 +452,18 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
             va.clear()
         }
     }
+
+    // All aspects
+    let mut va_all_aspects: Vec<Aspects> = Vec::new();
+    for a in Aspects::iter() {
+        va_all_aspects.push(a.clone());
+    }
+    res.push(DataObjectAspectSvg {
+        svg: all_aspect().to_string(),
+        text: "All aspects".to_string(), // TO do const
+        aspects: va_all_aspects,
+    });
+
     res
 }
 

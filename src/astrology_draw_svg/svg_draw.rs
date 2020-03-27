@@ -725,7 +725,7 @@ impl Draw for WorkingStorageDraw {
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
                     .set("stroke", "red")
-                    .set("stroke-width", 1);
+                    .set("stroke-width", 2);
             },
             Aspects::Opposition => {
                 line = Line::new()
@@ -780,7 +780,6 @@ impl Draw for WorkingStorageDraw {
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
                     .set("stroke", "brown")
-                    .set("stroke-dasharray", "4, 1, 2")
                     .set("stroke-width", 1);
             },
             Aspects::Semisquare => {
@@ -798,8 +797,7 @@ impl Draw for WorkingStorageDraw {
                     .set("y1", pos1.y)
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
-                    .set("stroke", "green")
-                    .set("stroke-dasharray", "4, 1, 2")
+                    .set("stroke", "violet")
                     .set("stroke-width", 1);
             },
         }

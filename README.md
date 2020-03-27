@@ -74,6 +74,9 @@ pub extern "C" fn aspects() -> *const c_char {
 
 ```
 # Version
+0.1.53
+* Minors aspects drawed to the natal chart
+
 0.1.52
 * Majors aspects drawed to the natal chart
 
