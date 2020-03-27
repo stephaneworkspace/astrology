@@ -17,7 +17,7 @@
 extern crate strum;
 use libswe_sys::sweconst::Aspects;
 use svg::node::element::path::{Data, Number};
-use svg::node::element::{Ellipse, Group, Line, Path, Rectangle};
+use svg::node::element::{Group, Line, Path, Rectangle};
 use svg::Document;
 pub const ASPECT_SIZE: Number = 50.0;
 
@@ -227,7 +227,7 @@ pub fn no_aspect() -> Document {
     let document: Document;
     //let color: String =
     //    format!("#{:06X}", Bodies::EclNut.object_color() as i32);
-    let line = Line::new()
+    /*let line = Line::new()
         .set("x1", 2.4)
         .set("y1", 47.6)
         .set("x2", 47.6)
@@ -246,7 +246,53 @@ pub fn no_aspect() -> Document {
     document = Document::new()
         .set("viewBox", (0, 0, size.0, size.1))
         .add(line)
-        .add(ellipse);
+        .add(ellipse);*/
+    let data1 = Data::new()
+        .move_to((8.9, 36.2)) // M
+        .vertical_line_to(16.0) // V
+        .horizontal_line_by(2.9) // h
+        .line_by((6.5, 10.2)) // l
+        .cubic_curve_by((1.5, 2.4, 2.7, 4.5, 3.6, 6.6)) //
+        .line_by((0.1, 0.0)) // l
+        .cubic_curve_by((-0.2, -2.7, -0.3, -5.2, -0.3, -8.3)) // c
+        .vertical_line_to(16.0) // V
+        .horizontal_line_to(24.0) // H
+        .vertical_line_by(20.2) // v
+        .horizontal_line_by(-2.6) // h
+        .line_to((15.0, 25.9)) // L
+        .cubic_curve_by((-1.4, -2.2, -2.8, -4.6, -3.8, -6.7)) // c
+        .line_by((-0.1, 0.0)) // l
+        .cubic_curve_by((0.1, 2.6, 0.2, 5.0, 0.2, 8.3)) // c
+        .vertical_line_by(8.6) // v
+        .horizontal_line_to(8.9) // H
+        .close(); // z
+    let path1 = Path::new()
+        .set("fill", "none")
+        .set("stroke", "black")
+        .set("stroke-width", 3)
+        .set("d", data1);
+    let data2 = Data::new()
+        .move_to((41.6, 28.8)) // M
+        .cubic_curve_by((0.0, 5.4, -3.7, 7.7, -7.2, 7.7)) // c
+        .cubic_curve_by((-3.9, 0.0, -7.0, -2.9, -7.0, -7.5)) // c
+        .cubic_curve_by((0.0, -4.9, 3.2, -7.7, 7.2, -7.7)) // c
+        .cubic_curve_to((38.8, 21.3, 41.6, 24.4, 41.6, 28.8)) // C
+        .close() // z
+        .move_to((30.1, 29.0))
+        .cubic_curve_by((0.0, 3.2, 1.8, 5.6, 4.4, 5.6)) // c
+        .cubic_curve_by((2.5, 0.0, 4.4, -2.4, 4.4, -5.6)) // c
+        .cubic_curve_by((0.0, -2.5, -1.2, -5.6, -4.4, -5.6)) // c
+        .cubic_curve_to((31.5, 23.3, 30.1, 26.2, 30.1, 29.0)) // C
+        .close(); // z
+    let path2 = Path::new()
+        .set("fill", "none")
+        .set("stroke", "black")
+        .set("stroke-width", 3)
+        .set("d", data2);
+    document = Document::new()
+        .set("viewBox", (0, 0, size.0, size.1))
+        .add(path1)
+        .add(path2);
     document
 }
 

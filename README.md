@@ -17,7 +17,12 @@ commercial license.
 
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
-# Use
+# Use of example
+Create a data.json, modifie example/svg.rs for the path of swissephem files and 
+execute svg in example
+
+# Use of library
+
 For get the version as a pointer const c_char :
 
 ```
