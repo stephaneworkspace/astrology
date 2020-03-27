@@ -1038,7 +1038,7 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true
             || bodie == Bodies::Ceres
             || bodie == Bodies::SouthNode
-        //     || bodie == Bodies::FortunaPart
+            || bodie == Bodies::FortunaPart
         {
             true
         } else {
@@ -1103,6 +1103,7 @@ impl CalcDraw for WorkingStorage {
     fn set_fix_compute(&mut self) {
         let mut temp_no_order: Vec<TempPositionBodies> = Vec::new();
         let mut i: i16 = 0;
+        println!("A");
         for a in Angle::iter() {
             if self.get_angle_is_on_chart(a) {
                 i = i + 1;
@@ -1122,6 +1123,7 @@ impl CalcDraw for WorkingStorage {
                 });
             }
         }
+        println!("B");
         for b in Bodies::iter() {
             if self.get_bodie_is_on_chart(b) {
                 i = i + 1;
@@ -1141,6 +1143,7 @@ impl CalcDraw for WorkingStorage {
                 });
             }
         }
+        println!("C");
         // Order by pos
         let mut done = false;
         let mut old_lng = 0.0; // Value ASC forced
@@ -1150,9 +1153,7 @@ impl CalcDraw for WorkingStorage {
         let mut temp_order: Vec<TempPositionBodies> = Vec::new();
 
         let mut done_main = false;
-        let mut x_no_bug = 0;
         while !done_main {
-            x_no_bug = x_no_bug + 1;
             old_i = 0;
             next_lng = 0.0;
             for t in temp_no_order.clone() {
@@ -1205,16 +1206,16 @@ impl CalcDraw for WorkingStorage {
                 // Nothing found
                 done_main = true;
             }
-            if x_no_bug > 1000 {
-                done_main = true;
-            }
         }
+        println!("D");
 
         // Order by index
         temp_order.clear();
         i = 1;
         done = false;
+        let mut x_no_bug = 0;
         while !done {
+            x_no_bug = x_no_bug + 1;
             for t in temp_no_order.clone() {
                 if t.index == i {
                     temp_order.push(t);
@@ -1225,10 +1226,14 @@ impl CalcDraw for WorkingStorage {
             if i > temp_no_order.len() as i16 {
                 done = true;
             }
+            if x_no_bug > 1000 {
+                done = true;
+            }
         }
         temp_no_order = temp_order.clone();
 
         // Left <-
+        println!("E");
         temp_order.clear();
         i = 0;
         done = false;
@@ -1268,6 +1273,7 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Right ->
+        println!("F");
         temp_order.clear();
         i = temp_no_order.len() as i16 - 1;
         done = false;
@@ -1308,6 +1314,7 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Fix
+        println!("G");
         done_main = false;
         let mut j = 0;
         let mut x_no_bug = 0;
