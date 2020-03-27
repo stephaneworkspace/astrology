@@ -269,7 +269,7 @@ pub fn no_aspect() -> Document {
     let path1 = Path::new()
         .set("fill", "none")
         .set("stroke", "black")
-        .set("stroke-width", 3)
+        //.set("stroke-width", 3)
         .set("d", data1);
     let data2 = Data::new()
         .move_to((41.6, 28.8)) // M
@@ -287,7 +287,7 @@ pub fn no_aspect() -> Document {
     let path2 = Path::new()
         .set("fill", "none")
         .set("stroke", "black")
-        .set("stroke-width", 3)
+        //.set("stroke-width", 3)
         .set("d", data2);
     document = Document::new()
         .set("viewBox", (0, 0, size.0, size.1))
