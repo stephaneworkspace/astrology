@@ -157,7 +157,7 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .add(path2)
                 .add(line3);
         },
-        Aspects::Semisquare => {
+        Aspects::Sesquisquare => {
             let line1 = Line::new()
                 .set("x1", 17.0)
                 .set("y1", 26.0)
@@ -166,7 +166,7 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .set("fill", "none")
                 .set("stroke", "black")
                 .set("stroke-width", 6);
-            let line1 = Line::new()
+            let line2 = Line::new()
                 .set("x1", 19.1)
                 .set("y1", 26.9)
                 .set("x2", 4.0)
