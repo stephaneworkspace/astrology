@@ -791,8 +791,39 @@ pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
                 .add(is_retrograde(sw_retrograde, color));
             */
         },
+        Bodies::FortunaPart => {
+            let circle = Circle::new()
+                .set("cx", 24.5)
+                .set("cy", 25.5)
+                .set("r", 20.0)
+                .set("fill", "none")
+                .set("stroke", color.clone())
+                .set("stroke-width", 3);
+            let line1 = Line::new()
+                .set("x1", 11.5)
+                .set("y1", 10.5)
+                .set("x2", 38.5)
+                .set("y2", 38.5)
+                .set("fill", "none")
+                .set("stroke", color.clone())
+                .set("stroke-width", 3);
+            let line2 = Line::new()
+                .set("x1", 37.5)
+                .set("y1", 10.5)
+                .set("x2", 10.5)
+                .set("y2", 38.5)
+                .set("fill", "none")
+                .set("stroke", color.clone())
+                .set("stroke-width", 3);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(circle)
+                .add(line1)
+                .add(line2)
+                .add(is_retrograde(sw_retrograde, color));
+        },
         _ => {
-            document = Document::new().set("viewBox", (0, 0, 50, 50));
+            document = Document::new().set("viewBox", (-1, 0, 50, 50));
         },
     }
     document
