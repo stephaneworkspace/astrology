@@ -266,11 +266,7 @@ pub fn no_aspect() -> Document {
         .vertical_line_by(8.6) // v
         .horizontal_line_to(8.9) // H
         .close(); // z
-    let path1 = Path::new()
-        .set("fill", "none")
-        .set("stroke", "black")
-        //.set("stroke-width", 3)
-        .set("d", data1);
+    let path1 = Path::new().set("d", data1);
     let data2 = Data::new()
         .move_to((41.6, 28.8)) // M
         .cubic_curve_by((0.0, 5.4, -3.7, 7.7, -7.2, 7.7)) // c
@@ -284,11 +280,7 @@ pub fn no_aspect() -> Document {
         .cubic_curve_by((0.0, -2.5, -1.2, -5.6, -4.4, -5.6)) // c
         .cubic_curve_to((31.5, 23.3, 30.1, 26.2, 30.1, 29.0)) // C
         .close(); // z
-    let path2 = Path::new()
-        .set("fill", "none")
-        .set("stroke", "black")
-        //.set("stroke-width", 3)
-        .set("d", data2);
+    let path2 = Path::new().set("d", data2);
     document = Document::new()
         .set("viewBox", (0, 0, size.0, size.1))
         .add(path1)
