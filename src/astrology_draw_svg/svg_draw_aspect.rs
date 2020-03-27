@@ -112,6 +112,9 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .set("viewBox", (0, 0, size.0, size.1))
                 .add(path);
         },
+        _ => {
+            document = Document::new().set("viewBox", (0, 0, size.0, size.1));
+        },
     }
     document
 }
@@ -216,6 +219,77 @@ pub fn maj_aspect() -> Document {
         .cubic_curve_by((-1.0, 0.0, -1.6, -0.8, -1.6, -1.6)) // c
         .cubic_curve_by((0.0, -0.9, 0.7, -1.6, 1.7, -1.6)) // c
         .cubic_curve_to((45.3, 15.9, 45.9, 16.7, 45.9, 17.6)) // C
+        .close(); // z
+    let path3 = Path::new().set("d", data3);
+    let group = Group::new().add(path1).add(path2).add(path3);
+    document = Document::new()
+        .set("viewBox", (0, 0, size.0, size.1))
+        .add(group);
+    document
+}
+
+pub fn min_aspect() -> Document {
+    let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
+    let document: Document;
+    //let color: String =
+    //    format!("#{:06X}", Bodies::EclNut.object_color() as i32);
+    let data1 = Data::new()
+        .move_to((19.9, 27.3)) // M
+        .cubic_curve_by((-0.1, -2.8, -0.3, -6.2, -0.3, -8.7)) // c
+        .horizontal_line_by(-0.1) // h
+        .cubic_curve_to((18.9, 21.0, 18.0, 23.5, 17.0, 26.3)) // C
+        .line_by((-3.6, 9.8)) // l
+        .horizontal_line_by(-2.0) // h
+        .line_by((-3.3, -9.6)) // l
+        .cubic_curve_by((-1.0, -2.8, -1.8, -5.5, -2.3, -7.9)) // c
+        .horizontal_line_to(5.8) // H
+        .cubic_curve_by((-0.1, 2.5, -0.2, 5.9, -0.4, 8.9)) // c
+        .line_by((-0.5, 8.7)) // l
+        .horizontal_line_to(2.4) // H
+        .line_to((3.8, 16.0)) // L
+        .horizontal_line_by(3.3) // h
+        .line_by((3.5, 9.8)) // l
+        .cubic_curve_by((0.8, 2.5, 1.5, 4.7, 2.0, 6.8)) // c
+        .horizontal_line_by(0.1) // h
+        .cubic_curve_by((0.5, -2.0, 1.2, -4.3, 2.1, -6.8)) // c
+        .line_by((3.6, -9.8)) // l
+        .horizontal_line_by(3.3) // h
+        .line_to((23.0, 36.2)) // L
+        .horizontal_line_by(-2.5) // h
+        .line_to((19.9, 27.3)) // L
+        .close(); // z
+    let path1 = Path::new().set("d", data1);
+    let data2 = Data::new()
+        .move_to((30.2, 17.6)) // M
+        .cubic_curve_by((0.0, 0.9, -0.6, 1.6, -1.7, 1.6)) // c
+        .cubic_curve_by((-0.9, 0.0, -1.6, -0.7, -1.6, -1.6)) // c
+        .cubic_curve_by((0.0, -0.9, 0.7, -1.6, 1.6, -1.6)) // c
+        .cubic_curve_to((29.6, 15.9, 30.2, 16.7, 30.2, 17.6)) // C
+        .close() // z
+        .move_to((27.3, 36.2)) // M
+        .vertical_line_to(21.7) // V
+        .horizontal_line_by(2.6) // h
+        .vertical_line_by(14.5) // v
+        .horizontal_line_to(27.3) // H
+        .close(); // z
+    let path2 = Path::new().set("d", data2);
+    let data3 = Data::new()
+        .move_to((34.3, 25.6)) // M
+        .cubic_curve_by((0.0, -1.5, 0.0, -2.7, -0.1, -3.9)) // c
+        .horizontal_line_by(2.3) // h
+        .line_by((0.1, 2.4)) // l
+        .horizontal_line_by(0.1) // h
+        .cubic_curve_by((0.7, -1.4, 2.4, -2.7, 4.8, -2.7)) // c
+        .cubic_curve_by((2.0, 0.0, 5.1, 1.2, 5.1, 6.2)) // c
+        .vertical_line_by(8.7) // v
+        .horizontal_line_to(44.0) // H
+        .vertical_line_by(-8.4) // v
+        .cubic_curve_by((0.0, -2.3, -0.9, -4.3, -3.4, -4.3)) // c
+        .cubic_curve_by((-1.7, 0.0, -3.1, 1.2, -3.5, 2.7)) // c
+        .cubic_curve_by((-0.1, 0.3, -0.2, 0.8, -0.2, 1.2)) // c
+        .vertical_line_by(8.7) // v
+        .horizontal_line_by(-2.6) // h
+        .vertical_line_to(25.6) // V
         .close(); // z
     let path3 = Path::new().set("d", data3);
     let group = Group::new().add(path1).add(path2).add(path3);

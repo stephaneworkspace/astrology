@@ -764,6 +764,9 @@ impl Draw for WorkingStorageDraw {
                     .set("stroke", "green")
                     .set("stroke-width", 1);
             },
+            _ => {
+                line = Line::new();
+            },
         }
         let document = Document::new()
             .set(

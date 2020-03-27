@@ -37,7 +37,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use strum::AsStaticRef;
 use svg_draw_angle::{draw_asc, draw_desc, draw_fc, draw_mc};
-use svg_draw_aspect::{draw_aspect, maj_aspect, no_aspect};
+use svg_draw_aspect::{draw_aspect, maj_aspect, min_aspect, no_aspect};
 use svg_draw_numbers::{draw_degre, draw_minute};
 pub mod html_draw;
 pub mod svg_draw;
@@ -413,6 +413,33 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
     // Single Maj aspects
     for a in Aspects::iter() {
         if a.maj() {
+            let mut va: Vec<Aspects> = Vec::new();
+            va.push(a as Aspects);
+            res.push(DataObjectAspectSvg {
+                svg: draw_aspect(a).to_string(),
+                text: a.as_static().to_string(),
+                aspects: va.clone(),
+            });
+            va.clear()
+        }
+    }
+
+    // Min aspects
+    let mut va_min_aspects: Vec<Aspects> = Vec::new();
+    for a in Aspects::iter() {
+        if !a.maj() {
+            va_min_aspects.push(a.clone());
+        }
+    }
+    res.push(DataObjectAspectSvg {
+        svg: min_aspect().to_string(),
+        text: "Minors aspects".to_string(), // TO do const
+        aspects: va_min_aspects,
+    });
+
+    // Single Maj aspects
+    for a in Aspects::iter() {
+        if !a.maj() {
             let mut va: Vec<Aspects> = Vec::new();
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
