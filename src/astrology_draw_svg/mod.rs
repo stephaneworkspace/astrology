@@ -151,11 +151,21 @@ pub fn chart(
         if bodie.clone().object_type() == ObjectType::PlanetOrStar
             || bodie.clone().object_type() == ObjectType::Fiction
         {
-            calc = swerust::handler_swe03::calc_ut(
-                utc_to_jd.julian_day_ut, // debug julianday in orginal file
-                bodie.clone(),
-                OptionalFlag::Speed as i32,
-            );
+            calc = if bodie.clone() == Bodies::FortunaPart {
+                swerust::handler_swe03::calc_ut_fp(
+                    utc_to_jd.julian_day_ut,
+                    data.lat as f64,
+                    data.lng as f64,
+                    'P',
+                    OptionalFlag::Speed as i32,
+                )
+            } else {
+                swerust::handler_swe03::calc_ut(
+                    utc_to_jd.julian_day_ut, // debug julianday in orginal file
+                    bodie.clone(),
+                    OptionalFlag::Speed as i32,
+                )
+            };
             object.push(Object::new(
                 bodie.clone(),
                 bodie.clone().as_static(),
