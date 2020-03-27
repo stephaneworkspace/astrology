@@ -1038,7 +1038,7 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true
             || bodie == Bodies::Ceres
             || bodie == Bodies::SouthNode
-            || bodie == Bodies::FortunaPart
+        //     || bodie == Bodies::FortunaPart
         {
             true
         } else {
@@ -1150,7 +1150,9 @@ impl CalcDraw for WorkingStorage {
         let mut temp_order: Vec<TempPositionBodies> = Vec::new();
 
         let mut done_main = false;
+        let mut x_no_bug = 0;
         while !done_main {
+            x_no_bug = x_no_bug + 1;
             old_i = 0;
             next_lng = 0.0;
             for t in temp_no_order.clone() {
@@ -1203,6 +1205,9 @@ impl CalcDraw for WorkingStorage {
                 // Nothing found
                 done_main = true;
             }
+            if x_no_bug > 1000 {
+                done_main = true;
+            }
         }
 
         // Order by index
@@ -1227,7 +1232,9 @@ impl CalcDraw for WorkingStorage {
         temp_order.clear();
         i = 0;
         done = false;
+        let mut x_no_bug = 0;
         while !done {
+            x_no_bug = x_no_bug + 1;
             let row = &temp_no_order[i as usize];
             let space_left;
             if i == 0 {
@@ -1254,7 +1261,7 @@ impl CalcDraw for WorkingStorage {
                 longitude_fix: row.longitude_fix,
             });
             i = i + 1;
-            if i > temp_no_order.len() as i16 - 1 {
+            if (i > temp_no_order.len() as i16 - 1) || (x_no_bug > 1000) {
                 done = true;
             }
         }
@@ -1264,7 +1271,9 @@ impl CalcDraw for WorkingStorage {
         temp_order.clear();
         i = temp_no_order.len() as i16 - 1;
         done = false;
+        let mut x_no_bug = 0;
         while !done {
+            x_no_bug = x_no_bug + 1;
             let row = &temp_no_order[i as usize];
             let space_right;
             if i == temp_no_order.len() as i16 - 1 {
@@ -1291,7 +1300,7 @@ impl CalcDraw for WorkingStorage {
                 longitude_fix: row.longitude_fix,
             });
             i = i - 1;
-            if i <= -1 {
+            if i <= -1 || x_no_bug > 1000 {
                 done = true;
             }
         }
@@ -1301,7 +1310,9 @@ impl CalcDraw for WorkingStorage {
         // Fix
         done_main = false;
         let mut j = 0;
+        let mut x_no_bug = 0;
         while !done_main {
+            x_no_bug = x_no_bug + 1;
             temp_order.clear();
             i = temp_no_order.len() as i16 - 1;
             done = false;
@@ -1335,7 +1346,7 @@ impl CalcDraw for WorkingStorage {
                     longitude_fix: lng_fix,
                 });
                 i = i - 1;
-                if i <= -1 {
+                if i <= -1 || x_no_bug > 1000 {
                     done = true;
                 }
             }
@@ -1346,7 +1357,9 @@ impl CalcDraw for WorkingStorage {
             temp_order.clear();
             done = false;
             i = 0;
+            let mut x_no_bug = 0;
             while !done {
+                x_no_bug = x_no_bug + 1;
                 let row = &temp_no_order[i as usize];
                 let next_row;
                 let space_right;
@@ -1376,7 +1389,7 @@ impl CalcDraw for WorkingStorage {
                     longitude_fix: row.longitude_fix,
                 });
                 i = i + 1;
-                if i > temp_no_order.len() as i16 - 1 {
+                if i > temp_no_order.len() as i16 - 1 || x_no_bug > 1000 {
                     done = true;
                 }
             }
