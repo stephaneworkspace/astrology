@@ -724,7 +724,7 @@ impl Draw for WorkingStorageDraw {
                     .set("y1", pos1.y)
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
-                    .set("stroke", "black")
+                    .set("stroke", "red")
                     .set("stroke-width", 1);
             },
             Aspects::Opposition => {
@@ -764,9 +764,45 @@ impl Draw for WorkingStorageDraw {
                     .set("stroke", "green")
                     .set("stroke-width", 1);
             },
-            _ => {
-                line = Line::new();
+            Aspects::Inconjunction => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "violet")
+                    .set("stroke-width", 1);
+
             },
+            Aspects::Semisquare => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "brown")
+                    .set("stroke-width", 1);
+            },
+            Aspects::Sesquisquare => {
+                line = Line::new();
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "brown")
+                    .set("stroke-dasharray", "4, 1, 2")
+                    .set("stroke-width", 1);
+            },
+            Aspects::Semisextile => {
+                line = Line::new()
+                    .set("x1", pos1.x)
+                    .set("y1", pos1.y)
+                    .set("x2", pos2.x)
+                    .set("y2", pos2.y)
+                    .set("stroke", "green")
+                    .set("stroke-dasharray", "4, 1, 2")
+                    .set("stroke-width", 1);
+            }
         }
         let document = Document::new()
             .set(
