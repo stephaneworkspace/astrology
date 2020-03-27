@@ -45,15 +45,15 @@ pub use libc::size_t;
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Data {
-    year: i32,
-    month: i32,
-    day: i32,
-    hourf64: f64,
-    hour: i32,
-    min: i32,
-    sec: f64,
-    lat: f64,
-    lng: f64,
+    pub year: i32,
+    pub month: i32,
+    pub day: i32,
+    pub hourf32: f64,
+    pub hour: i32,
+    pub min: i32,
+    pub sec: f64,
+    pub lat: f64,
+    pub lng: f64,
 }
 
 #[no_mangle]
