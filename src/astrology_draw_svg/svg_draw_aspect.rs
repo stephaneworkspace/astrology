@@ -179,6 +179,28 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
                 .add(line1)
                 .add(line2);
         },
+        Aspects::Semisquare => {
+            let line1 = Line::new()
+                .set("x1", 2.0)
+                .set("y1", 26.0)
+                .set("x2", 48.0)
+                .set("y2", 26.0)
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6);
+            let line2 = Line::new()
+                .set("x1", 28.0)
+                .set("y1", 4.0)
+                .set("x2", 4.2)
+                .set("y2", 25.3)
+                .set("fill", "none")
+                .set("stroke", "black")
+                .set("stroke-width", 6);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(line1)
+                .add(line2);
+        },
         _ => {
             document = Document::new().set("viewBox", (0, 0, size.0, size.1));
         },

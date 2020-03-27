@@ -327,6 +327,13 @@ pub fn chart(
                     for record_asp in Aspects::iter() {
                         asp = record_asp.angle().0;
                         orb = record_asp.angle().1;
+                        if record_asp == Aspects::Opposition {
+                            println!(
+                                "debug abs_separation:{} orb:{}",
+                                abs_separation.abs(),
+                                orb
+                            );
+                        }
                         if (abs_separation - asp as f32).abs() <= orb as f32 {
                             asp_vec.push(record_asp.clone());
                             let draw = ws_draw.draw_aspect(
