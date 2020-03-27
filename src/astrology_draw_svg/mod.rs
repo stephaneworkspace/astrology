@@ -437,7 +437,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         aspects: va_min_aspects,
     });
 
-    // Single Maj aspects
+    // Single Min aspects
     for a in Aspects::iter() {
         if !a.maj() {
             let mut va: Vec<Aspects> = Vec::new();
