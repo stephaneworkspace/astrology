@@ -1038,8 +1038,7 @@ impl CalcDraw for WorkingStorage {
             || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true
             || bodie == Bodies::Ceres
             || bodie == Bodies::SouthNode
-            || bodie == Bodies::FortunaPart
-        // true
+        //     || bodie == Bodies::FortunaPart
         {
             true
         } else {
