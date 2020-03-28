@@ -1103,7 +1103,7 @@ impl CalcDraw for WorkingStorage {
     fn set_fix_compute(&mut self) {
         let mut temp_no_order: Vec<TempPositionBodies> = Vec::new();
         let mut i: i16 = 0;
-        println!("A");
+        //println!("A");
         for a in Angle::iter() {
             if self.get_angle_is_on_chart(a) {
                 i = i + 1;
@@ -1123,7 +1123,7 @@ impl CalcDraw for WorkingStorage {
                 });
             }
         }
-        println!("B");
+        //println!("B");
         for b in Bodies::iter() {
             if self.get_bodie_is_on_chart(b) {
                 i = i + 1;
@@ -1143,7 +1143,7 @@ impl CalcDraw for WorkingStorage {
                 });
             }
         }
-        println!("C");
+        //println!("C");
         // Order by pos
         let mut done = false;
         let mut old_lng = 0.0; // Value ASC forced
@@ -1207,7 +1207,7 @@ impl CalcDraw for WorkingStorage {
                 done_main = true;
             }
         }
-        println!("D");
+        //println!("D");
 
         // Order by index
         temp_order.clear();
@@ -1233,7 +1233,7 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Left <-
-        println!("E");
+        //println!("E");
         temp_order.clear();
         i = 0;
         done = false;
@@ -1273,7 +1273,7 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Right ->
-        println!("F");
+        //println!("F");
         temp_order.clear();
         i = temp_no_order.len() as i16 - 1;
         done = false;
@@ -1314,7 +1314,7 @@ impl CalcDraw for WorkingStorage {
         temp_no_order = temp_order.clone();
 
         // Fix
-        println!("G");
+        //println!("G");
         done_main = false;
         let mut j = 0;
         let mut x_no_bug = 0;
