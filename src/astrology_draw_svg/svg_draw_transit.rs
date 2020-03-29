@@ -68,6 +68,7 @@ const CIRCLE_SIZE: [(Number, bool); 10] = [
 const ANGLE_BODIE: Bodies = Bodies::EclNut;
 
 const BODIE_DISTANCE: Number = 8.0;
+const BODIE_DISTANCE_TRANSIT: Number = 20.0;
 const BODIE_DISTANCE_OFFSET: Number = 0.5;
 
 // Working Storage - Enums
@@ -1403,10 +1404,19 @@ impl CalcDrawTransit for WorkingStorageTransit {
                         fix = BODIE_DISTANCE * -1.0;
                     }
                 } else*/
-                if row.space_right < BODIE_DISTANCE {
-                    if row.space_left > BODIE_DISTANCE_OFFSET {
-                        fix = fix + BODIE_DISTANCE_OFFSET;
-                        j = j + 1;
+                if sw_transit {
+                    if row.space_right < BODIE_DISTANCE_TRANSIT {
+                        if row.space_left > BODIE_DISTANCE_OFFSET {
+                            fix = fix + BODIE_DISTANCE_OFFSET;
+                            j = j + 1;
+                        }
+                    }
+                } else {
+                    if row.space_right < BODIE_DISTANCE {
+                        if row.space_left > BODIE_DISTANCE_OFFSET {
+                            fix = fix + BODIE_DISTANCE_OFFSET;
+                            j = j + 1;
+                        }
                     }
                 }
                 let lng_fix = self.get_fix_pos(row.longitude.clone() - fix);
