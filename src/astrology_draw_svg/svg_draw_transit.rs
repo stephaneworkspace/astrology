@@ -62,8 +62,8 @@ const CIRCLE_SIZE: [(Number, bool); 12] = [
     (82.0, false), // 7 between 2 and 3
     (85.0, false), // 8 correction planet between 2 and 3
     (49.0, false), // 9 Planet pos transit
-    (57.0, false), // 10 - 7 transit
-    (55.5, false), // 11 - 8 transit
+    (57.5, false), // 10 - 7 transit
+    (54.5, false), // 11 - 8 transit
 ];
 
 // For draw min/sec (color for angle) / Bodies::EclNut = -1 not used
