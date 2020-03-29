@@ -53,7 +53,7 @@ const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 const CIRCLE_SIZE: [(Number, bool); 9] = [
     (35.0, true),  // 0 CIRCLE ASPECT
     (50.0, true),  // 1 CIRCLE TRANSIT
-    (72.0, true),  // 2 CIRCLE ZODIAC END
+    (80.0, true),  // 2 CIRCLE ZODIAC END
     (85.0, true),  // 3 CIRCLE HOUSE
     (87.0, false), // 4 CIRCLE INVISIBLE -
     (90.0, false), // 5 CIRCLE INVISIBLE PLANET
