@@ -61,6 +61,7 @@ const CIRCLE_SIZE: [(Number, bool); 9] = [
     (0.0, false),  // 6
     (79.0, false), // 7 between 2 and 3
     (88.0, false), // 8 correction planet between 2 and 3
+    (60.0, false), // 9 Planet pos transit
 ];
 
 // For draw min/sec (color for angle) / Bodies::EclNut = -1 not used
@@ -674,7 +675,7 @@ impl DrawTransit for WorkingStorageDrawTransit {
             self.ws.get_center_item(
                 planet_size,
                 self.ws
-                    .get_pos_trigo(pos_fix, self.ws.get_radius_circle(1).0),
+                    .get_pos_trigo(pos_fix, self.ws.get_radius_circle(9).0),
             )
         } else {
             self.ws.get_center_item(
