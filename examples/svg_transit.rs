@@ -18,7 +18,7 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 extern crate strum;
-use astrology::compute;
+use astrology::compute_transit;
 use astrology::Data;
 use std::env;
 use std::ffi::{CStr, CString};
@@ -26,6 +26,17 @@ use std::fs::File;
 use std::io::Read;
 use std::path::PathBuf;
 fn main() {
+    const PATH_TRANSIT: &str = "examples/transit.json";
+    let mut s_transit = String::new();
+    let mut file_path_transit = PathBuf::new();
+    file_path_transit.push(env::current_dir().unwrap().as_path());
+    file_path_transit.push(PATH_TRANSIT);
+    File::open(file_path_transit.as_path())
+        .unwrap()
+        .read_to_string(&mut s_transit)
+        .unwrap();
+    let data_transit: Data = serde_json::from_str(&s_transit).unwrap();
+    println!("Data: {:?}", data_transit);
     const PATH: &str = "examples/data.json";
     let mut s = String::new();
     let mut file_path = PathBuf::new();
@@ -42,7 +53,7 @@ fn main() {
     )
     .expect("CString::new failled");
     let data_c_str = unsafe {
-        CStr::from_ptr(compute(
+        CStr::from_ptr(compute_transit(
             data.year,
             data.month,
             data.day,
@@ -52,6 +63,15 @@ fn main() {
             data.sec,
             data.lat,
             data.lng,
+            data_transit.year,
+            data_transit.month,
+            data_transit.day,
+            data_transit.hourf32,
+            data_transit.hour,
+            data_transit.min,
+            data_transit.sec,
+            data_transit.lat,
+            data_transit.lng,
             550.0,
             path.as_ptr(),
         ))

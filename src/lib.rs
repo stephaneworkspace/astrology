@@ -136,6 +136,64 @@ pub extern "C" fn compute(
 }
 
 #[no_mangle]
+pub extern "C" fn compute_transit(
+    year: c_int,
+    month: c_int,
+    day: c_int,
+    hourf32: c_double,
+    hour: c_int,
+    min: c_int,
+    sec: c_double,
+    lat: c_double,
+    lng: c_double,
+    year_transit: c_int,
+    month_transit: c_int,
+    day_transit: c_int,
+    hourf32_transit: c_double,
+    hour_transit: c_int,
+    min_transit: c_int,
+    sec_transit: c_double,
+    lat_transit: c_double,
+    lng_transit: c_double,
+    max_size: c_double,
+    path: *const c_char,
+) -> *const c_char {
+    let d = DataChartNatalC {
+        year: year,
+        month: month,
+        day: day,
+        hourf32: hourf32,
+        hour: hour,
+        min: min,
+        sec: sec,
+        lat: lat,
+        lng: lng,
+    };
+    let d_t = DataChartNatalC {
+        year: year_transit,
+        month: month_transit,
+        day: day_transit,
+        hourf32: hourf32_transit,
+        hour: hour_transit,
+        min: min_transit,
+        sec: sec_transit,
+        lat: lat_transit,
+        lng: lng_transit,
+    };
+    let path_c_str = unsafe { CStr::from_ptr(path) };
+    let path_str: &str = path_c_str.to_str().unwrap();
+    let data = astrology_draw_svg::chart_with_transit(
+        max_size as f32,
+        d,
+        d_t,
+        &path_str,
+    );
+    CString::new(serde_json::to_string(&data).unwrap())
+        .unwrap()
+        .into_raw()
+}
+
+#[no_mangle]
 pub extern "C" fn aspects() -> *const c_char {
     let data = astrology_draw_svg::all_aspects();
     CString::new(serde_json::to_string(&data).unwrap())
