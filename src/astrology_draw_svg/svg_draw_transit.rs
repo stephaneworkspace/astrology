@@ -615,7 +615,7 @@ impl DrawTransit for WorkingStorageDrawTransit {
 
     fn draw_bodie(&self, bodie: Bodies, sw_transit: bool) -> SvgObjectBodie {
         let planet_ratio: Number = if sw_transit {
-            6.0 // To do a const
+            8.0 // To do a const
         } else {
             12.0 // To do a const
         };
