@@ -50,7 +50,7 @@ const LARGER_DRAW_LINE_RULES_SMALL: Number = 0.1;
 const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 
 // tuple (visible/value)
-const CIRCLE_SIZE: [(Number, bool); 9] = [
+const CIRCLE_SIZE: [(Number, bool); 10] = [
     (35.0, true),  // 0 CIRCLE ASPECT
     (50.0, true),  // 1 CIRCLE TRANSIT
     (70.0, true),  // 2 CIRCLE ZODIAC END
