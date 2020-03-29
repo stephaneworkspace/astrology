@@ -53,14 +53,14 @@ const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 const CIRCLE_SIZE: [(Number, bool); 9] = [
     (35.0, true),  // 0 CIRCLE ASPECT
     (50.0, true),  // 1 CIRCLE TRANSIT
-    (80.0, true),  // 2 CIRCLE ZODIAC END
-    (85.0, true),  // 3 CIRCLE HOUSE
+    (70.0, true),  // 2 CIRCLE ZODIAC END
+    (75.0, true),  // 3 CIRCLE HOUSE
     (87.0, false), // 4 CIRCLE INVISIBLE -
     (90.0, false), // 5 CIRCLE INVISIBLE PLANET
     //    (0.0, false), // 5
     (0.0, false),  // 6
     (79.0, false), // 7 between 2 and 3
-    (87.0, false), // 8 correction planet between 2 and 3
+    (88.0, false), // 8 correction planet between 2 and 3
 ];
 
 // For draw min/sec (color for angle) / Bodies::EclNut = -1 not used
@@ -430,6 +430,7 @@ impl DrawTransit for WorkingStorageDrawTransit {
             .add(circle[0].clone())
             .add(circle[1].clone())
             .add(circle[2].clone())
+            .add(circle[3].clone())
             .add(group_degre)
             .add(group_house);
         document
