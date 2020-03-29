@@ -710,7 +710,7 @@ impl DrawTransit for WorkingStorageDrawTransit {
                 self.ws.get_radius_circle(2).0,
                 self.ws.get_radius_circle(10).0, // should be 3
             )
-        } else
+        } else {
             self.ws.get_line_trigo(
                 pos,
                 self.ws.get_radius_circle(3).0,
