@@ -70,7 +70,7 @@ const CIRCLE_SIZE: [(Number, bool); 12] = [
 const ANGLE_BODIE: Bodies = Bodies::EclNut;
 
 const BODIE_DISTANCE: Number = 8.0;
-const BODIE_DISTANCE_TRANSIT: Number = 15.0;
+const BODIE_DISTANCE_TRANSIT: Number = 12.5;
 const BODIE_DISTANCE_OFFSET: Number = 0.5;
 
 // Working Storage - Enums
