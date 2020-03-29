@@ -678,6 +678,7 @@ pub fn chart_with_transit(
                 pos_y: draw.pos_y as f32,
                 aspects: aspects_null.clone(),
             });
+            /*
             res.push(DataObjectSvg {
                 svg: draw.deg_svg,
                 object_type: DataObjectType::PlanetDeg,
@@ -695,7 +696,7 @@ pub fn chart_with_transit(
                 pos_x: draw.min_pos_x as f32,
                 pos_y: draw.min_pos_y as f32,
                 aspects: aspects_null.clone(),
-            });
+            });*/
             res.push(DataObjectSvg {
                 svg: draw.trait_svg,
                 object_type: DataObjectType::PlanetTrait,
