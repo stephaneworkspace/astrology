@@ -51,7 +51,7 @@ const LARGER_DRAW_LINE_RULES_LARGE: Number = 0.2;
 
 // tuple (visible/value)
 const CIRCLE_SIZE: [(Number, bool); 12] = [
-    (50.0, true),  // 0 CIRCLE ASPECT
+    (45.0, true),  // 0 CIRCLE ASPECT
     (59.0, true),  // 1 CIRCLE TRANSIT
     (75.0, true),  // 2 CIRCLE ZODIAC END
     (80.0, true),  // 3 CIRCLE HOUSE
@@ -61,9 +61,9 @@ const CIRCLE_SIZE: [(Number, bool); 12] = [
     (0.0, false),  // 6
     (82.0, false), // 7 between 2 and 3
     (85.0, false), // 8 correction planet between 2 and 3
-    (54.0, false), // 9 Planet pos transit
-    (58.0, false), // 10 - 7 transit
-    (57.5, false), // 11 - 8 transit
+    (49.0, false), // 9 Planet pos transit
+    (53.0, false), // 10 - 7 transit
+    (51.5, false), // 11 - 8 transit
 ];
 
 // For draw min/sec (color for angle) / Bodies::EclNut = -1 not used
