@@ -717,6 +717,40 @@ pub fn chart_with_transit(
     let mut pair: Vec<(Bodies, Bodies)> = Vec::new();
     for bodie in ws.object_natal.clone() {
         if ws.get_bodie_is_on_chart(bodie.object_enum) {
+            // Transit
+            for bt in ws.object_transit.clone() {
+                separation = ws.get_closest_distance(
+                    ws.get_bodie_longitude(bodie.object_enum, false), // no transit
+                    ws.get_bodie_longitude(bt.object_enum, true),     // transit
+                );
+                abs_separation = separation.abs();
+                for record_asp in Aspects::iter() {
+                    asp = record_asp.angle().0;
+                    orb = record_asp.angle().1;
+                    if (abs_separation - asp as f32).abs() <= orb as f32 {
+                        asp_vec.push(record_asp.clone());
+                        let draw = ws_draw.draw_aspect(
+                            ws.get_bodie_longitude(
+                                bodie.object_enum,
+                                false, // no transit
+                            ),
+                            ws.get_bodie_longitude(bt.object_enum, true), // transit
+                            record_asp.clone(),
+                        );
+                        res.push(DataObjectSvg {
+                            svg: draw.svg,
+                            object_type: DataObjectType::Aspect,
+                            size_x: draw.size_x as f32,
+                            size_y: draw.size_y as f32,
+                            pos_x: draw.pos_x as f32,
+                            pos_y: draw.pos_y as f32,
+                            aspects: asp_vec.clone(),
+                        });
+                        asp_vec.clear();
+                    }
+                }
+            }
+            // Regular
             for b in ws.object_natal.clone() {
                 let mut sw = false;
                 for p in pair.clone() {
@@ -746,7 +780,7 @@ pub fn chart_with_transit(
                             let draw = ws_draw.draw_aspect(
                                 ws.get_bodie_longitude(
                                     bodie.object_enum,
-                                    false,
+                                    false, // no transit
                                 ),
                                 ws.get_bodie_longitude(b.object_enum, false),
                                 record_asp.clone(),
@@ -765,6 +799,7 @@ pub fn chart_with_transit(
                     }
                 }
             }
+            // Transit
             for i in 0..12 {
                 if i == 0 || i == 9 {
                     // Only Asc et Mc
@@ -781,7 +816,45 @@ pub fn chart_with_transit(
                             let draw = ws_draw.draw_aspect(
                                 ws.get_bodie_longitude(
                                     bodie.object_enum,
-                                    false,
+                                    true, // true = transit
+                                ),
+                                ws.get_angle_longitude(
+                                    ws.house.clone()[i].angle,
+                                ),
+                                record_asp.clone(),
+                            );
+                            res.push(DataObjectSvg {
+                                svg: draw.svg,
+                                object_type: DataObjectType::Aspect,
+                                size_x: draw.size_x as f32,
+                                size_y: draw.size_y as f32,
+                                pos_x: draw.pos_x as f32,
+                                pos_y: draw.pos_y as f32,
+                                aspects: asp_vec.clone(),
+                            });
+                            asp_vec.clear();
+                        }
+                    }
+                }
+            }
+            // Regular
+            for i in 0..12 {
+                if i == 0 || i == 9 {
+                    // Only Asc et Mc
+                    separation = ws.get_closest_distance(
+                        bodie.longitude as f32,
+                        ws.house.clone()[i].longitude as f32,
+                    );
+                    abs_separation = separation.abs();
+                    for record_asp in Aspects::iter() {
+                        asp = record_asp.angle().0;
+                        orb = record_asp.angle().1;
+                        if (abs_separation - asp as f32).abs() <= orb as f32 {
+                            asp_vec.push(record_asp.clone());
+                            let draw = ws_draw.draw_aspect(
+                                ws.get_bodie_longitude(
+                                    bodie.object_enum,
+                                    false, // no transit
                                 ),
                                 ws.get_angle_longitude(
                                     ws.house.clone()[i].angle,
