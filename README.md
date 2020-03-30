@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.56
+* Add transit aspects
+
 0.1.55
 * Add begining of transit, aspect in transit is not implemented in this version
 
