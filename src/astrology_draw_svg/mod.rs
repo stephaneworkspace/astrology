@@ -719,34 +719,36 @@ pub fn chart_with_transit(
         if ws.get_bodie_is_on_chart(bodie.object_enum) {
             // Transit
             for bt in ws.object_transit.clone() {
-                separation = ws.get_closest_distance(
-                    ws.get_bodie_longitude(bodie.object_enum, false), // no transit
-                    ws.get_bodie_longitude(bt.object_enum, true),     // transit
-                );
-                abs_separation = separation.abs();
-                for record_asp in Aspects::iter() {
-                    asp = record_asp.angle().0;
-                    orb = record_asp.angle().1;
-                    if (abs_separation - asp as f32).abs() <= orb as f32 {
-                        asp_vec.push(record_asp.clone());
-                        let draw = ws_draw.draw_aspect(
-                            ws.get_bodie_longitude(
-                                bodie.object_enum,
-                                false, // no transit
-                            ),
-                            ws.get_bodie_longitude(bt.object_enum, true), // transit
-                            record_asp.clone(),
-                        );
-                        res.push(DataObjectSvg {
-                            svg: draw.svg,
-                            object_type: DataObjectType::Aspect,
-                            size_x: draw.size_x as f32,
-                            size_y: draw.size_y as f32,
-                            pos_x: draw.pos_x as f32,
-                            pos_y: draw.pos_y as f32,
-                            aspects: asp_vec.clone(),
-                        });
-                        asp_vec.clear();
+                if ws.get_bodie_is_on_chart(bt.object_enum) {
+                    separation = ws.get_closest_distance(
+                        ws.get_bodie_longitude(bodie.object_enum, false), // no transit
+                        ws.get_bodie_longitude(bt.object_enum, true), // transit
+                    );
+                    abs_separation = separation.abs();
+                    for record_asp in Aspects::iter() {
+                        asp = record_asp.angle().0;
+                        orb = record_asp.angle().1;
+                        if (abs_separation - asp as f32).abs() <= orb as f32 {
+                            asp_vec.push(record_asp.clone());
+                            let draw = ws_draw.draw_aspect(
+                                ws.get_bodie_longitude(
+                                    bodie.object_enum,
+                                    false, // no transit
+                                ),
+                                ws.get_bodie_longitude(bt.object_enum, true), // transit
+                                record_asp.clone(),
+                            );
+                            res.push(DataObjectSvg {
+                                svg: draw.svg,
+                                object_type: DataObjectType::Aspect,
+                                size_x: draw.size_x as f32,
+                                size_y: draw.size_y as f32,
+                                pos_x: draw.pos_x as f32,
+                                pos_y: draw.pos_y as f32,
+                                aspects: asp_vec.clone(),
+                            });
+                            asp_vec.clear();
+                        }
                     }
                 }
             }
