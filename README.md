@@ -18,7 +18,7 @@ commercial license.
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Use of example
-Create a data.json, modifie example/svg.rs for the path of swissephem files and 
+Create a data.json, modify example/svg.rs for the path of swissephem files and 
 execute svg in example
 
 # Use of library
@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.57
+* Supress unused functions
+
 0.1.56
 * Add transit aspects
 
