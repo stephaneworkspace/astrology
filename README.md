@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.58
+* Compile with crate 0.1.48 libswe_sys (begining of support theme colors)
+
 0.1.57
 * Supress unused functions
 
