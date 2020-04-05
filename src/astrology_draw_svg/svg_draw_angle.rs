@@ -15,17 +15,20 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-use libswe_sys::sweconst::Bodies;
+use libswe_sys::sweconst::{Bodies, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
 pub const ANGLE_SIZE: Number = 50.0;
 
-pub fn draw_asc() -> Document {
+/// Draw the Asc svg
+/// The first parameter is the theme
+pub fn draw_asc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
+    // To do use Primary/Secondary/Etc... color for that
     let color: String =
-        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
+        format!("#{:06X}", Bodies::EclNut.object_color(theme) as i32);
     let data1 = Data::new()
         .move_to((9.2, 28.6)) // M
         .line_by((-2.5, 7.6)) // l
@@ -75,11 +78,13 @@ pub fn draw_asc() -> Document {
     document
 }
 
-pub fn draw_fc() -> Document {
+/// Draw the Fc svg
+/// The first parameter is the theme
+pub fn draw_fc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     let color: String =
-        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
+        format!("#{:06X}", Bodies::EclNut.object_color(theme) as i32);
     let data1 = Data::new()
         .move_to((7.2, 11.9)) // M
         .horizontal_line_by(13.1) // h
@@ -123,11 +128,13 @@ pub fn draw_fc() -> Document {
     document
 }
 
-pub fn draw_desc() -> Document {
+/// Draw the Desc svg
+/// The first parameter is the theme
+pub fn draw_desc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     let color: String =
-        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
+        format!("#{:06X}", Bodies::EclNut.object_color(theme) as i32);
     let data1 = Data::new()
         .move_to((4.0, 12.3)) // M
         .cubic_curve_by((1.9, -0.3, 4.2, -0.5, 6.7, -0.5)) // c
@@ -175,11 +182,13 @@ pub fn draw_desc() -> Document {
     document
 }
 
-pub fn draw_mc() -> Document {
+/// Draw the Mc svg
+/// The first parameter is the theme
+pub fn draw_mc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     let color: String =
-        format!("#{:06X}", Bodies::EclNut.object_color() as i32);
+        format!("#{:06X}", Bodies::EclNut.object_color(theme) as i32);
     let data1 = Data::new()
         .move_to((22.0, 25.5)) // M
         .cubic_curve_by((-0.2, -3.4, -0.4, -7.5, -0.4, -10.5)) // c

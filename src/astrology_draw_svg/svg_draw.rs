@@ -31,7 +31,7 @@ use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, House, Object, ObjectPos, Signs,
+    Angle, Aspects, Bodies, House, Object, ObjectPos, Signs, Theme,
 };
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
@@ -79,6 +79,7 @@ pub enum LargerDrawLine {
 #[derive(Debug, Clone)]
 pub struct WorkingStorage {
     pub max_size: Number,
+    pub theme: Theme,
     pub house: Vec<House>,
     pub object: Vec<Object>,
     pub temp_position_bodies: Vec<TempPositionBodies>,
@@ -211,6 +212,7 @@ pub trait CalcDraw {
 impl WorkingStorage {
     pub fn new(
         max_size: Number,
+        theme: Theme,
         house: HousesResult,
         object: Vec<Object>,
     ) -> WorkingStorage {
@@ -234,6 +236,7 @@ impl WorkingStorage {
         }
         WorkingStorage {
             max_size: max_size,
+            theme: theme,
             house: h,
             object: object,
             temp_position_bodies: Vec::new(),
@@ -441,7 +444,7 @@ impl Draw for WorkingStorageDraw {
             self.ws
                 .get_pos_trigo(pos, self.ws.get_radius_circle_zodiac()),
         );
-        let svg = svg_draw_zodiac(sign);
+        let svg = svg_draw_zodiac(sign, self.ws.theme);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: zodiac_size,
@@ -504,22 +507,30 @@ impl Draw for WorkingStorageDraw {
 
         // Tested with placidus
         let svg_angle = match angle {
-            Angle::Asc => svg_draw_asc(),
-            Angle::Fc => svg_draw_fc(),
-            Angle::Desc => svg_draw_desc(),
-            Angle::Mc => svg_draw_mc(),
+            Angle::Asc => svg_draw_asc(self.ws.theme),
+            Angle::Fc => svg_draw_fc(self.ws.theme),
+            Angle::Desc => svg_draw_desc(self.ws.theme),
+            Angle::Mc => svg_draw_mc(self.ws.theme),
             _ => Document::new(),
         };
 
-        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE);
-        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE);
+        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE, self.ws.theme);
+        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE, self.ws.theme);
         let pos: Number = self.ws.get_angle_longitude(angle.clone());
         let pos_fix: Number = self.ws.get_angle_fix_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
-                svg_deg = svg_draw_degre(h.split.deg as i16, ANGLE_BODIE);
-                svg_min = svg_draw_minute(h.split.min as i16, ANGLE_BODIE);
+                svg_deg = svg_draw_degre(
+                    h.split.deg as i16,
+                    ANGLE_BODIE,
+                    self.ws.theme,
+                );
+                svg_min = svg_draw_minute(
+                    h.split.min as i16,
+                    ANGLE_BODIE,
+                    self.ws.theme,
+                );
                 break;
             }
         }
@@ -542,7 +553,7 @@ impl Draw for WorkingStorageDraw {
 
         // Trait
         let color: String =
-            format!("#{:06X}", ANGLE_BODIE.object_color() as i32);
+            format!("#{:06X}", ANGLE_BODIE.object_color(self.ws.theme) as i32);
         let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,
@@ -621,15 +632,24 @@ impl Draw for WorkingStorageDraw {
             }
         }
 
-        let svg_planet = svg_draw_bodie(bodie.clone(), sw_retrograde);
-        let mut svg_deg = svg_draw_degre(0, bodie.clone());
-        let mut svg_min = svg_draw_minute(0, bodie.clone());
+        let svg_planet =
+            svg_draw_bodie(bodie.clone(), sw_retrograde, self.ws.theme);
+        let mut svg_deg = svg_draw_degre(0, bodie.clone(), self.ws.theme);
+        let mut svg_min = svg_draw_minute(0, bodie.clone(), self.ws.theme);
         let pos: Number = self.ws.get_bodie_longitude(bodie.clone());
         let pos_fix: Number = self.ws.get_bodie_fix_longitude(bodie.clone());
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
-                svg_deg = svg_draw_degre(b.split.deg as i16, bodie.clone());
-                svg_min = svg_draw_minute(b.split.min as i16, bodie.clone());
+                svg_deg = svg_draw_degre(
+                    b.split.deg as i16,
+                    bodie.clone(),
+                    self.ws.theme,
+                );
+                svg_min = svg_draw_minute(
+                    b.split.min as i16,
+                    bodie.clone(),
+                    self.ws.theme,
+                );
                 break;
             }
         }
@@ -650,7 +670,8 @@ impl Draw for WorkingStorageDraw {
         );
 
         // Trait
-        let color: String = format!("#{:06X}", bodie.object_color() as i32);
+        let color: String =
+            format!("#{:06X}", bodie.object_color(self.ws.theme) as i32);
         let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(2).0,

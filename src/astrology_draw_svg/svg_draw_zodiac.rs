@@ -15,33 +15,20 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-pub use libswe_sys::sweconst::{Element, Signs};
+pub use libswe_sys::sweconst::{Element, Signs, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::Path;
 pub use svg::Document;
 pub const ZODIAC_SIZE: Number = 50.0;
 
-fn get_color_element_zodiac(sign: Signs) -> String {
-    match sign {
-        Signs::Aries => format!("#{:06X}", Element::Fire as i32),
-        Signs::Taurus => format!("#{:06X}", Element::Earth as i32),
-        Signs::Gemini => format!("#{:06X}", Element::Wind as i32),
-        Signs::Cancer => format!("#{:06X}", Element::Water as i32),
-        Signs::Leo => format!("#{:06X}", Element::Fire as i32),
-        Signs::Virgo => format!("#{:06X}", Element::Earth as i32),
-        Signs::Libra => format!("#{:06X}", Element::Wind as i32),
-        Signs::Scorpio => format!("#{:06X}", Element::Water as i32),
-        Signs::Sagittarius => format!("#{:06X}", Element::Fire as i32),
-        Signs::Capricorn => format!("#{:06X}", Element::Earth as i32),
-        Signs::Aquarius => format!("#{:06X}", Element::Wind as i32),
-        Signs::Pisces => format!("#{:06X}", Element::Water as i32),
-    }
+fn get_color_element_zodiac(sign: Signs, theme: Theme) -> String {
+    format!("#{:06X}", sign.element().color(theme) as i32)
 }
 
-pub fn draw_zodiac(sign: Signs) -> Document {
+pub fn draw_zodiac(sign: Signs, theme: Theme) -> Document {
     let size: (Number, Number) = (ZODIAC_SIZE, ZODIAC_SIZE);
     let document: Document;
-    let color: String = get_color_element_zodiac(sign.clone());
+    let color: String = get_color_element_zodiac(sign.clone(), theme);
     match sign {
         Signs::Aries => {
             let data = Data::new()

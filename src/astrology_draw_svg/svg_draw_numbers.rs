@@ -15,7 +15,7 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-use libswe_sys::sweconst::Bodies;
+use libswe_sys::sweconst::{Bodies, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
@@ -26,11 +26,16 @@ pub const MIN_SIZE: Number = 50.0;
 /// ?°
 /// The first parameter is degre
 /// The second parameter is Bodies::EclNut for angle (because not used)
-pub fn draw_degre(degre: i16, bodie_or_angle: Bodies) -> Document {
+/// The third parameter is the theme
+pub fn draw_degre(
+    degre: i16,
+    bodie_or_angle: Bodies,
+    theme: Theme,
+) -> Document {
     let size: (Number, Number);
     let document: Document;
     let color: String =
-        format!("#{:06X}", bodie_or_angle.object_color() as i32);
+        format!("#{:06X}", bodie_or_angle.object_color(theme) as i32);
     match degre {
         0 => {
             size = (50.0, 50.0);
@@ -1939,11 +1944,16 @@ pub fn draw_degre(degre: i16, bodie_or_angle: Bodies) -> Document {
 /// ?'
 /// The first parameter is minute
 /// The second parameter is Bodies::EclNut for angle (because not used)
-pub fn draw_minute(minute: i16, bodie_or_angle: Bodies) -> Document {
+/// The third parameter is the Theme
+pub fn draw_minute(
+    minute: i16,
+    bodie_or_angle: Bodies,
+    theme: Theme,
+) -> Document {
     let size: (Number, Number);
     let document: Document;
     let color: String =
-        format!("#{:06X}", bodie_or_angle.object_color() as i32);
+        format!("#{:06X}", bodie_or_angle.object_color(theme) as i32);
     match minute {
         0 => {
             size = (50.0, 50.0);

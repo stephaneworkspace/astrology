@@ -31,7 +31,7 @@ use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
 use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
 use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, House, Object, ObjectPos, Signs,
+    Angle, Aspects, Bodies, House, Object, ObjectPos, Signs, Theme,
 };
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
@@ -84,6 +84,7 @@ pub enum LargerDrawLine {
 #[derive(Debug, Clone)]
 pub struct WorkingStorageTransit {
     pub max_size: Number,
+    pub theme: Theme,
     pub house: Vec<House>,
     pub object_natal: Vec<Object>,
     pub object_transit: Vec<Object>,
@@ -222,6 +223,7 @@ pub trait CalcDrawTransit {
 impl WorkingStorageTransit {
     pub fn new(
         max_size: Number,
+        theme: Theme,
         house: HousesResult,
         object_natal: Vec<Object>,
         object_transit: Vec<Object>,
@@ -246,6 +248,7 @@ impl WorkingStorageTransit {
         }
         WorkingStorageTransit {
             max_size: max_size,
+            theme: theme,
             house: h,
             object_natal: object_natal,
             object_transit: object_transit,
@@ -456,7 +459,7 @@ impl DrawTransit for WorkingStorageDrawTransit {
             self.ws
                 .get_pos_trigo(pos, self.ws.get_radius_circle_zodiac()),
         );
-        let svg = svg_draw_zodiac(sign);
+        let svg = svg_draw_zodiac(sign, self.ws.theme);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: zodiac_size,
@@ -519,22 +522,30 @@ impl DrawTransit for WorkingStorageDrawTransit {
 
         // Tested with placidus
         let svg_angle = match angle {
-            Angle::Asc => svg_draw_asc(),
-            Angle::Fc => svg_draw_fc(),
-            Angle::Desc => svg_draw_desc(),
-            Angle::Mc => svg_draw_mc(),
+            Angle::Asc => svg_draw_asc(self.ws.theme),
+            Angle::Fc => svg_draw_fc(self.ws.theme),
+            Angle::Desc => svg_draw_desc(self.ws.theme),
+            Angle::Mc => svg_draw_mc(self.ws.theme),
             _ => Document::new(),
         };
 
-        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE);
-        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE);
+        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE, self.ws.theme);
+        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE, self.ws.theme);
         let pos: Number = self.ws.get_angle_longitude(angle.clone());
         let pos_fix: Number = self.ws.get_angle_fix_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
-                svg_deg = svg_draw_degre(h.split.deg as i16, ANGLE_BODIE);
-                svg_min = svg_draw_minute(h.split.min as i16, ANGLE_BODIE);
+                svg_deg = svg_draw_degre(
+                    h.split.deg as i16,
+                    ANGLE_BODIE,
+                    self.ws.theme,
+                );
+                svg_min = svg_draw_minute(
+                    h.split.min as i16,
+                    ANGLE_BODIE,
+                    self.ws.theme,
+                );
                 break;
             }
         }
@@ -557,7 +568,7 @@ impl DrawTransit for WorkingStorageDrawTransit {
 
         // Trait
         let color: String =
-            format!("#{:06X}", ANGLE_BODIE.object_color() as i32);
+            format!("#{:06X}", ANGLE_BODIE.object_color(self.ws.theme) as i32);
         let t_xy_begin: [Offset; 2] = self.ws.get_line_trigo(
             pos,
             self.ws.get_radius_circle(3).0,
@@ -651,9 +662,10 @@ impl DrawTransit for WorkingStorageDrawTransit {
             }
         }
 
-        let svg_planet = svg_draw_bodie(bodie.clone(), sw_retrograde);
-        let mut svg_deg = svg_draw_degre(0, bodie.clone());
-        let mut svg_min = svg_draw_minute(0, bodie.clone());
+        let svg_planet =
+            svg_draw_bodie(bodie.clone(), sw_retrograde, self.ws.theme);
+        let mut svg_deg = svg_draw_degre(0, bodie.clone(), self.ws.theme);
+        let mut svg_min = svg_draw_minute(0, bodie.clone(), self.ws.theme);
         let pos: Number =
             self.ws.get_bodie_longitude(bodie.clone(), sw_transit);
         let pos_fix: Number =
@@ -661,18 +673,32 @@ impl DrawTransit for WorkingStorageDrawTransit {
         if sw_transit {
             for b in self.ws.object_transit.clone() {
                 if b.object_enum.clone() == bodie {
-                    svg_deg = svg_draw_degre(b.split.deg as i16, bodie.clone());
-                    svg_min =
-                        svg_draw_minute(b.split.min as i16, bodie.clone());
+                    svg_deg = svg_draw_degre(
+                        b.split.deg as i16,
+                        bodie.clone(),
+                        self.ws.theme,
+                    );
+                    svg_min = svg_draw_minute(
+                        b.split.min as i16,
+                        bodie.clone(),
+                        self.ws.theme,
+                    );
                     break;
                 }
             }
         } else {
             for b in self.ws.object_natal.clone() {
                 if b.object_enum.clone() == bodie {
-                    svg_deg = svg_draw_degre(b.split.deg as i16, bodie.clone());
-                    svg_min =
-                        svg_draw_minute(b.split.min as i16, bodie.clone());
+                    svg_deg = svg_draw_degre(
+                        b.split.deg as i16,
+                        bodie.clone(),
+                        self.ws.theme,
+                    );
+                    svg_min = svg_draw_minute(
+                        b.split.min as i16,
+                        bodie.clone(),
+                        self.ws.theme,
+                    );
                     break;
                 }
             }
@@ -703,7 +729,8 @@ impl DrawTransit for WorkingStorageDrawTransit {
         );
 
         // Trait
-        let color: String = format!("#{:06X}", bodie.object_color() as i32);
+        let color: String =
+            format!("#{:06X}", bodie.object_color(self.ws.theme) as i32);
         let t_xy_begin: [Offset; 2] = if sw_transit {
             self.ws.get_line_trigo(
                 pos,

@@ -22,6 +22,7 @@ extern crate serde;
 extern crate strum;
 use libswe_sys::sweconst::{
     Angle, Aspects, Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
+    Theme,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
@@ -100,6 +101,8 @@ pub fn chart(
     data: DataChartNatalC,
     path: &str,
 ) -> Vec<DataObjectSvg> {
+    // To do theme
+    let theme = Theme::Light;
     // Natal chart
     println!("Version swephem: {}", swerust::handler_swe02::version());
     //let swe02_path: &str =
@@ -174,7 +177,8 @@ pub fn chart(
     }
 
     // Object calc draw for calcul in svg x,y width, height
-    let mut ws = svg_draw::WorkingStorage::new(max_size, house_result, object);
+    let mut ws =
+        svg_draw::WorkingStorage::new(max_size, theme, house_result, object);
     ws.set_fix_compute();
     let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
 
@@ -402,6 +406,8 @@ pub fn chart_with_transit(
     data_transit: DataChartNatalC,
     path: &str,
 ) -> Vec<DataObjectSvg> {
+    // To do better
+    let theme: Theme = Theme::Light;
     // Natal chart
     println!("Version swephem: {}", swerust::handler_swe02::version());
     //let swe02_path: &str =
@@ -508,7 +514,8 @@ pub fn chart_with_transit(
                 )
             } else {
                 swerust::handler_swe03::calc_ut(
-                    utc_to_jd_transit.julian_day_ut, // debug julianday in orginal file
+                    utc_to_jd_transit.julian_day_ut, // debug julianday
+                    // in orginal file
                     bodie.clone(),
                     OptionalFlag::Speed as i32,
                 )
@@ -527,6 +534,7 @@ pub fn chart_with_transit(
     // Object calc draw for calcul in svg x,y width, height
     let mut ws = WorkingStorageTransit::new(
         max_size,
+        theme,
         house_result,
         object,
         object_transit,

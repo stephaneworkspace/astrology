@@ -16,7 +16,7 @@
  */
 extern crate strum;
 //use strum::AsStaticRef;
-use libswe_sys::sweconst::Bodies;
+use libswe_sys::sweconst::{Bodies, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
@@ -59,11 +59,19 @@ pub fn is_retrograde(sw: bool, color: String) -> Path {
         .set("d", data)
 }
 
-pub fn draw_bodie(bodie: Bodies, sw_retrograde: bool) -> Document {
+/// Draw bodie svg
+/// The first parameter is the bodie (Planet/Fiction/Asteroid)
+/// The second is if the bodie is retrograde
+/// The third is the theme
+pub fn draw_bodie(
+    bodie: Bodies,
+    sw_retrograde: bool,
+    theme: Theme,
+) -> Document {
     let size: (Number, Number) = (BODIE_SIZE, BODIE_SIZE);
     let path: Path;
     let document: Document;
-    let color: String = format!("#{:06X}", bodie.object_color());
+    let color: String = format!("#{:06X}", bodie.object_color(theme));
     match bodie {
         Bodies::Sun => {
             let data = Data::new()
