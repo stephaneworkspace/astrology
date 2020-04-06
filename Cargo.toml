@@ -1,11 +1,10 @@
 [package]
 name = "astrology"
-version = "0.1.59"
+version = "0.1.60"
 authors = ["Stéphane <s.bressani@bluewin.ch>"]
 edition = "2018"
-build = "build.rs"
 #keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
-documentation = "https://github.com/stephaneworkspace/astrology"
+documentation = "https://docs.rs/crate/astrology"
 repository = "https://github.com/stephaneworkspace/astrology"
 description = "Astrology lib connected to the C lib Swiss ephemeris"
 license-file = "LICENSE"
@@ -25,5 +24,5 @@ svg = "0.6.0"
 base64 = "0.11.0"
 libc = "0.2.67"
 
-[build-dependencies]
-cbindgen = "0.12"
+#[build-dependencies]
+#cbindgen = "0.12"
