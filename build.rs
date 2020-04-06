@@ -14,7 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-extern crate cbindgen;
+/*extern crate cbindgen;
 
 use std::env;
 
@@ -25,4 +25,5 @@ fn main() {
     cbindgen::generate_with_config(&crate_dir, config)
         .unwrap()
         .write_to_file("target/libastrology.h");
-}
+}*/
+ // ??? copy past from libswe-sys ???
