@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.60
+* Fix bug documentation docs.rs
+
 0.1.59
 * Optimization of svg_draw.rs with polymorphism, the code is clean now
 
