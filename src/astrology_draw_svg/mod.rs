@@ -38,12 +38,10 @@ use svg_draw_aspect::{
     all_aspect, draw_aspect, maj_aspect, min_aspect, no_aspect,
 };
 pub mod svg_draw;
-pub mod svg_draw_transit;
 use crate::DataChartNatalC;
 use serde::Serialize;
 use strum::IntoEnumIterator;
 use svg_draw::*;
-use svg_draw_transit::*;
 
 #[derive(Debug, Deserialize)]
 pub struct DataChartNatal {
@@ -177,10 +175,14 @@ pub fn chart(
     }
 
     // Object calc draw for calcul in svg x,y width, height
-    let mut ws =
-        svg_draw::WorkingStorage::new(max_size, theme, house_result, object);
-    ws.set_fix_compute();
-    let ws_draw = svg_draw::WorkingStorageDraw::new(ws.clone());
+    let mut ws = svg_draw::WorkingStoragePolyMorphNatal::new(
+        max_size,
+        theme,
+        house_result,
+        object,
+    );
+    ws.set_fix_compute(false);
+    let ws_draw = svg_draw::WorkingStorageDrawPolyMorphNatal::new(ws.clone());
 
     let mut res: Vec<DataObjectSvg> = Vec::new();
 
@@ -267,7 +269,7 @@ pub fn chart(
     }
     for b in Bodies::iter() {
         if ws.get_bodie_is_on_chart(b.clone()) {
-            let draw = ws_draw.draw_bodie(b);
+            let draw = ws_draw.draw_bodie(b, false);
             res.push(DataObjectSvg {
                 svg: draw.svg,
                 object_type: DataObjectType::Planet,
@@ -331,8 +333,8 @@ pub fn chart(
                 {
                     pair.push((bodie.object_enum, b.object_enum));
                     separation = ws.get_closest_distance(
-                        ws.get_bodie_longitude(bodie.object_enum),
-                        ws.get_bodie_longitude(b.object_enum),
+                        ws.get_bodie_longitude(bodie.object_enum, false),
+                        ws.get_bodie_longitude(b.object_enum, false),
                     );
                     abs_separation = separation.abs();
 
@@ -342,8 +344,11 @@ pub fn chart(
                         if (abs_separation - asp as f32).abs() <= orb as f32 {
                             asp_vec.push(record_asp.clone());
                             let draw = ws_draw.draw_aspect(
-                                ws.get_bodie_longitude(bodie.object_enum),
-                                ws.get_bodie_longitude(b.object_enum),
+                                ws.get_bodie_longitude(
+                                    bodie.object_enum,
+                                    false,
+                                ),
+                                ws.get_bodie_longitude(b.object_enum, false),
                                 record_asp.clone(),
                             );
                             res.push(DataObjectSvg {
@@ -374,7 +379,10 @@ pub fn chart(
                         if (abs_separation - asp as f32).abs() <= orb as f32 {
                             asp_vec.push(record_asp.clone());
                             let draw = ws_draw.draw_aspect(
-                                ws.get_bodie_longitude(bodie.object_enum),
+                                ws.get_bodie_longitude(
+                                    bodie.object_enum,
+                                    false,
+                                ),
                                 ws.get_angle_longitude(
                                     ws.house.clone()[i].angle,
                                 ),
@@ -532,7 +540,7 @@ pub fn chart_with_transit(
     }
 
     // Object calc draw for calcul in svg x,y width, height
-    let mut ws = WorkingStorageTransit::new(
+    let mut ws = WorkingStoragePolyMorphTransit::new(
         max_size,
         theme,
         house_result,
@@ -541,7 +549,7 @@ pub fn chart_with_transit(
     );
     ws.set_fix_compute(true);
     ws.set_fix_compute(false);
-    let ws_draw = WorkingStorageDrawTransit::new(ws.clone());
+    let ws_draw = WorkingStorageDrawPolyMorphTransit::new(ws.clone());
 
     let mut res: Vec<DataObjectSvg> = Vec::new();
 
