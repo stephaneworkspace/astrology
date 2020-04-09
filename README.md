@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.61
+* Optimization code and file naming
+
 0.1.60
 * Fix bug documentation docs.rs
 

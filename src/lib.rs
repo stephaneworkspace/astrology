@@ -24,11 +24,11 @@ extern crate strum_macros;
 use libswe_sys::swerust::handler_swe02;
 use serde::Deserialize;
 use std::ffi::{CStr, CString};
-pub mod astrology_draw_svg;
-pub use self::astrology_draw_svg::DataChartNatal;
+pub mod svg_draw;
+pub use self::svg_draw::DataChartNatal;
 pub use std::os::raw::{c_char, c_double, c_int};
 extern crate libc;
-pub use self::astrology_draw_svg::{DataObjectSvg, DataObjectType};
+pub use self::svg_draw::{DataObjectSvg, DataObjectType};
 pub use libc::size_t;
 
 #[derive(Deserialize, Debug, Clone)]
@@ -108,7 +108,7 @@ pub extern "C" fn compute(
     };
     let path_c_str = unsafe { CStr::from_ptr(path) };
     let path_str: &str = path_c_str.to_str().unwrap();
-    let data = astrology_draw_svg::chart(max_size as f32, d, &path_str);
+    let data = svg_draw::chart(max_size as f32, d, &path_str);
     CString::new(serde_json::to_string(&data).unwrap())
         .unwrap()
         .into_raw()
@@ -161,12 +161,7 @@ pub extern "C" fn compute_transit(
     };
     let path_c_str = unsafe { CStr::from_ptr(path) };
     let path_str: &str = path_c_str.to_str().unwrap();
-    let data = astrology_draw_svg::chart_with_transit(
-        max_size as f32,
-        d,
-        d_t,
-        &path_str,
-    );
+    let data = svg_draw::chart_with_transit(max_size as f32, d, d_t, &path_str);
     CString::new(serde_json::to_string(&data).unwrap())
         .unwrap()
         .into_raw()
@@ -174,7 +169,7 @@ pub extern "C" fn compute_transit(
 
 #[no_mangle]
 pub extern "C" fn aspects() -> *const c_char {
-    let data = astrology_draw_svg::all_aspects();
+    let data = svg_draw::all_aspects();
     CString::new(serde_json::to_string(&data).unwrap())
         .unwrap()
         .into_raw()

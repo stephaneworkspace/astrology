@@ -15,13 +15,29 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
+use crate::svg_draw::svg_draw::{
+    WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
+};
+use libswe_sys::sweconst::Theme;
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
 
 pub const HOUSE_SIZE: Number = 50.0;
 
-pub fn draw_house(house: i16) -> Document {
+impl WorkingStorageDrawPolyMorphNatal {
+    pub fn houses_draw(&self, house: i16) -> Document {
+        draw_house(house, self.ws.theme)
+    }
+}
+
+impl WorkingStorageDrawPolyMorphTransit {
+    pub fn houses_draw(&self, house: i16) -> Document {
+        draw_house(house, self.ws.theme)
+    }
+}
+
+fn draw_house(house: i16, _theme: Theme) -> Document {
     let size: (Number, Number) = (HOUSE_SIZE, HOUSE_SIZE);
     let document: Document;
     match house {

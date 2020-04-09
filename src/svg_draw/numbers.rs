@@ -15,6 +15,9 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
+use crate::svg_draw::svg_draw::{
+    WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
+};
 use libswe_sys::sweconst::{Bodies, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
@@ -22,16 +25,45 @@ use svg::Document;
 pub const DEG_SIZE: Number = 50.0;
 pub const MIN_SIZE: Number = 50.0;
 
-/// Draw degre
-/// ?°
-/// The first parameter is degre
+impl WorkingStorageDrawPolyMorphNatal {
+    pub fn numbers_draw_degre(
+        &self,
+        degre: i16,
+        bodie_or_angle: Bodies,
+    ) -> Document {
+        draw_degre(degre, bodie_or_angle, self.ws.theme)
+    }
+    pub fn numbers_draw_minute(
+        &self,
+        degre: i16,
+        bodie_or_angle: Bodies,
+    ) -> Document {
+        draw_minute(degre, bodie_or_angle, self.ws.theme)
+    }
+}
+
+impl WorkingStorageDrawPolyMorphTransit {
+    pub fn numbers_draw_degre(
+        &self,
+        degre: i16,
+        bodie_or_angle: Bodies,
+    ) -> Document {
+        draw_degre(degre, bodie_or_angle, self.ws.theme)
+    }
+    pub fn numbers_draw_minute(
+        &self,
+        degre: i16,
+        bodie_or_angle: Bodies,
+    ) -> Document {
+        draw_minute(degre, bodie_or_angle, self.ws.theme)
+    }
+}
+
+/// Draw degre "°"
+/// The first parameter is the degre
 /// The second parameter is Bodies::EclNut for angle (because not used)
 /// The third parameter is the theme
-pub fn draw_degre(
-    degre: i16,
-    bodie_or_angle: Bodies,
-    theme: Theme,
-) -> Document {
+fn draw_degre(degre: i16, bodie_or_angle: Bodies, theme: Theme) -> Document {
     let size: (Number, Number);
     let document: Document;
     let color: String =
@@ -1940,16 +1972,11 @@ pub fn draw_degre(
     document
 }
 
-/// Draw minute
-/// ?'
+/// Draw minute "'"
 /// The first parameter is minute
 /// The second parameter is Bodies::EclNut for angle (because not used)
 /// The third parameter is the Theme
-pub fn draw_minute(
-    minute: i16,
-    bodie_or_angle: Bodies,
-    theme: Theme,
-) -> Document {
+fn draw_minute(minute: i16, bodie_or_angle: Bodies, theme: Theme) -> Document {
     let size: (Number, Number);
     let document: Document;
     let color: String =

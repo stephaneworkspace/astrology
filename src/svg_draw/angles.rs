@@ -15,15 +15,47 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
+use crate::svg_draw::svg_draw::{
+    WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
+};
 use libswe_sys::sweconst::{Bodies, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Path};
 use svg::Document;
 pub const ANGLE_SIZE: Number = 50.0;
 
-/// Draw the Asc svg
-/// The first parameter is the theme
-pub fn draw_asc(theme: Theme) -> Document {
+impl WorkingStorageDrawPolyMorphNatal {
+    pub fn angles_draw_asc(&self) -> Document {
+        draw_asc(self.ws.theme)
+    }
+    pub fn angles_draw_fc(&self) -> Document {
+        draw_fc(self.ws.theme)
+    }
+    pub fn angles_draw_desc(&self) -> Document {
+        draw_desc(self.ws.theme)
+    }
+    pub fn angles_draw_mc(&self) -> Document {
+        draw_mc(self.ws.theme)
+    }
+}
+
+impl WorkingStorageDrawPolyMorphTransit {
+    pub fn angles_draw_asc(&self) -> Document {
+        draw_asc(self.ws.theme)
+    }
+    pub fn angles_draw_fc(&self) -> Document {
+        draw_fc(self.ws.theme)
+    }
+    pub fn angles_draw_desc(&self) -> Document {
+        draw_desc(self.ws.theme)
+    }
+    pub fn angles_draw_mc(&self) -> Document {
+        draw_mc(self.ws.theme)
+    }
+}
+
+/// Draw the Ascendant text (AS in english)
+fn draw_asc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     // To do use Primary/Secondary/Etc... color for that
@@ -78,9 +110,8 @@ pub fn draw_asc(theme: Theme) -> Document {
     document
 }
 
-/// Draw the Fc svg
-/// The first parameter is the theme
-pub fn draw_fc(theme: Theme) -> Document {
+/// Draw the Fc text (FC in english)
+fn draw_fc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     let color: String =
@@ -128,9 +159,8 @@ pub fn draw_fc(theme: Theme) -> Document {
     document
 }
 
-/// Draw the Desc svg
-/// The first parameter is the theme
-pub fn draw_desc(theme: Theme) -> Document {
+/// Draw the Desc text (DC in english)
+fn draw_desc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     let color: String =
@@ -182,9 +212,8 @@ pub fn draw_desc(theme: Theme) -> Document {
     document
 }
 
-/// Draw the Mc svg
-/// The first parameter is the theme
-pub fn draw_mc(theme: Theme) -> Document {
+/// Draw the Mc text (CC in english)
+fn draw_mc(theme: Theme) -> Document {
     let size: (Number, Number) = (ANGLE_SIZE, ANGLE_SIZE);
     let document: Document;
     let color: String =

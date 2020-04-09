@@ -16,13 +16,29 @@
  */
 extern crate strum;
 //use strum::AsStaticRef;
+use crate::svg_draw::svg_draw::{
+    WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
+};
 use libswe_sys::sweconst::{Bodies, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Circle, Group, Line, Path};
 use svg::Document;
 pub const BODIE_SIZE: Number = 50.0;
 
-pub fn is_retrograde(sw: bool, color: String) -> Path {
+impl WorkingStorageDrawPolyMorphNatal {
+    pub fn bodies_draw(&self, bodie: Bodies, sw_retrograde: bool) -> Document {
+        draw_bodie(bodie, sw_retrograde, self.ws.theme)
+    }
+}
+
+impl WorkingStorageDrawPolyMorphTransit {
+    pub fn bodies_draw(&self, bodie: Bodies, sw_retrograde: bool) -> Document {
+        draw_bodie(bodie, sw_retrograde, self.ws.theme)
+    }
+}
+
+/// Function for write the "R" char for Retrograde bodie
+fn is_retrograde(sw: bool, color: String) -> Path {
     let data;
     if sw {
         data = Data::new()
@@ -59,15 +75,8 @@ pub fn is_retrograde(sw: bool, color: String) -> Path {
         .set("d", data)
 }
 
-/// Draw bodie svg
-/// The first parameter is the bodie (Planet/Fiction/Asteroid)
-/// The second is if the bodie is retrograde
-/// The third is the theme
-pub fn draw_bodie(
-    bodie: Bodies,
-    sw_retrograde: bool,
-    theme: Theme,
-) -> Document {
+/// Draw bodie (Planet/Fiction/Asteroid) svg
+fn draw_bodie(bodie: Bodies, sw_retrograde: bool, theme: Theme) -> Document {
     let size: (Number, Number) = (BODIE_SIZE, BODIE_SIZE);
     let path: Path;
     let document: Document;

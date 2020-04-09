@@ -27,16 +27,17 @@ use libswe_sys::sweconst::{
 use libswe_sys::swerust;
 use serde::Deserialize;
 use svg::node::element::path::Number;
-pub mod svg_draw_angle;
-pub mod svg_draw_aspect;
-pub mod svg_draw_bodies;
-pub mod svg_draw_house;
-pub mod svg_draw_numbers;
-pub mod svg_draw_zodiac;
-use strum::AsStaticRef;
-use svg_draw_aspect::{
-    all_aspect, draw_aspect, maj_aspect, min_aspect, no_aspect,
+pub mod angles;
+pub mod aspects;
+pub mod bodies;
+pub mod houses;
+pub mod numbers;
+pub mod zodiacs;
+use aspects::{
+    aspects_all_aspects, aspects_draw, aspects_maj_aspects,
+    aspects_min_aspects, aspects_no_aspect,
 };
+use strum::AsStaticRef;
 pub mod svg_draw;
 use crate::DataChartNatalC;
 use serde::Serialize;
@@ -897,7 +898,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
     // No aspect
     let va_no_aspect: Vec<Aspects> = Vec::new();
     res.push(DataObjectAspectSvg {
-        svg: no_aspect().to_string(),
+        svg: aspects_no_aspect(Theme::Light).to_string(),
         text: "No aspect".to_string(), // TO do const
         aspects: va_no_aspect,
     });
@@ -910,7 +911,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         }
     }
     res.push(DataObjectAspectSvg {
-        svg: maj_aspect().to_string(),
+        svg: aspects_maj_aspects(Theme::Light).to_string(),
         text: "Majors aspects".to_string(), // TO do const
         aspects: va_maj_aspects,
     });
@@ -921,7 +922,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
             let mut va: Vec<Aspects> = Vec::new();
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
-                svg: draw_aspect(a).to_string(),
+                svg: aspects_draw(a, Theme::Light).to_string(),
                 text: a.as_static().to_string(),
                 aspects: va.clone(),
             });
@@ -937,7 +938,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         }
     }
     res.push(DataObjectAspectSvg {
-        svg: min_aspect().to_string(),
+        svg: aspects_min_aspects(Theme::Light).to_string(),
         text: "Minors aspects".to_string(), // TO do const
         aspects: va_min_aspects,
     });
@@ -948,7 +949,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
             let mut va: Vec<Aspects> = Vec::new();
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
-                svg: draw_aspect(a).to_string(),
+                svg: aspects_draw(a, Theme::Light).to_string(),
                 text: a.as_static().to_string(),
                 aspects: va.clone(),
             });
@@ -962,7 +963,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         va_all_aspects.push(a.clone());
     }
     res.push(DataObjectAspectSvg {
-        svg: all_aspect().to_string(),
+        svg: aspects_all_aspects(Theme::Light).to_string(),
         text: "All aspects".to_string(), // TO do const
         aspects: va_all_aspects,
     });

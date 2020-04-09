@@ -15,13 +15,15 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-use libswe_sys::sweconst::Aspects;
+use libswe_sys::sweconst::{Aspects, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Line, Path, Rectangle};
 use svg::Document;
+
 pub const ASPECT_SIZE: Number = 50.0;
 
-pub fn draw_aspect(aspect: Aspects) -> Document {
+/// Draw aspects text
+pub fn aspects_draw(aspect: Aspects, _theme: Theme) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -222,7 +224,8 @@ pub fn draw_aspect(aspect: Aspects) -> Document {
     document
 }
 
-pub fn no_aspect() -> Document {
+/// Draw text for no aspect
+pub fn aspects_no_aspect(_theme: Theme) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -288,7 +291,8 @@ pub fn no_aspect() -> Document {
     document
 }
 
-pub fn maj_aspect() -> Document {
+/// Draw text fort majors aspects
+pub fn aspects_maj_aspects(_theme: Theme) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -369,7 +373,8 @@ pub fn maj_aspect() -> Document {
     document
 }
 
-pub fn min_aspect() -> Document {
+/// Draw text for minors aspects
+pub fn aspects_min_aspects(_theme: Theme) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -440,7 +445,8 @@ pub fn min_aspect() -> Document {
     document
 }
 
-pub fn all_aspect() -> Document {
+/// Draw text for all aspects
+pub fn aspects_all_aspects(_theme: Theme) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =

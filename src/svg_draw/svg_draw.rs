@@ -17,19 +17,11 @@
 extern crate libswe_sys;
 extern crate strum;
 //use strum::AsStaticRef;
-use crate::astrology_draw_svg::svg_draw_angle::{
-    draw_asc as svg_draw_asc, draw_desc as svg_draw_desc,
-    draw_fc as svg_draw_fc, draw_mc as svg_draw_mc, ANGLE_SIZE,
-};
-use crate::astrology_draw_svg::svg_draw_bodies::draw_bodie as svg_draw_bodie;
-use crate::astrology_draw_svg::svg_draw_bodies::BODIE_SIZE;
-use crate::astrology_draw_svg::svg_draw_house::draw_house as svg_draw_house;
-use crate::astrology_draw_svg::svg_draw_house::HOUSE_SIZE;
-use crate::astrology_draw_svg::svg_draw_numbers::draw_degre as svg_draw_degre;
-use crate::astrology_draw_svg::svg_draw_numbers::draw_minute as svg_draw_minute;
-use crate::astrology_draw_svg::svg_draw_numbers::{DEG_SIZE, MIN_SIZE};
-use crate::astrology_draw_svg::svg_draw_zodiac::draw_zodiac as svg_draw_zodiac;
-use crate::astrology_draw_svg::svg_draw_zodiac::ZODIAC_SIZE;
+use crate::svg_draw::angles::ANGLE_SIZE;
+use crate::svg_draw::bodies::BODIE_SIZE;
+use crate::svg_draw::houses::HOUSE_SIZE;
+use crate::svg_draw::numbers::{DEG_SIZE, MIN_SIZE};
+use crate::svg_draw::zodiacs::ZODIAC_SIZE;
 use libswe_sys::sweconst::{
     Angle, Aspects, Bodies, House, Object, ObjectPos, Signs, Theme,
 };
@@ -124,14 +116,14 @@ pub struct WorkingStoragePolyMorphTransit {
 /// Polymorph on trait "Draw"
 #[derive(Debug, Clone)]
 pub struct WorkingStorageDrawPolyMorphNatal {
-    ws: WorkingStoragePolyMorphNatal,
+    pub ws: WorkingStoragePolyMorphNatal,
 }
 
 /// Working storage for transit chart
 /// Polymorph on traiit "Draw"
 #[derive(Debug, Clone)]
 pub struct WorkingStorageDrawPolyMorphTransit {
-    ws: WorkingStoragePolyMorphTransit,
+    pub ws: WorkingStoragePolyMorphTransit,
 }
 
 /// Offset position x and y
@@ -540,7 +532,7 @@ impl Draw for WorkingStorageDrawPolyMorphNatal {
             self.ws
                 .get_pos_trigo(pos, self.ws.get_radius_circle_zodiac()),
         );
-        let svg = svg_draw_zodiac(sign, self.ws.theme);
+        let svg = self.zodiacs_draw(sign);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: zodiac_size,
@@ -579,7 +571,7 @@ impl Draw for WorkingStorageDrawPolyMorphNatal {
             self.ws
                 .get_pos_trigo(pos, self.ws.get_radius_circle_house()),
         );
-        let svg = svg_draw_house(numero);
+        let svg = self.houses_draw(numero);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: house_size,
@@ -603,30 +595,24 @@ impl Draw for WorkingStorageDrawPolyMorphNatal {
 
         // Tested with placidus
         let svg_angle = match angle {
-            Angle::Asc => svg_draw_asc(self.ws.theme),
-            Angle::Fc => svg_draw_fc(self.ws.theme),
-            Angle::Desc => svg_draw_desc(self.ws.theme),
-            Angle::Mc => svg_draw_mc(self.ws.theme),
+            Angle::Asc => self.angles_draw_asc(),
+            Angle::Fc => self.angles_draw_fc(),
+            Angle::Desc => self.angles_draw_desc(),
+            Angle::Mc => self.angles_draw_mc(),
             _ => Document::new(),
         };
 
-        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE, self.ws.theme);
-        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE, self.ws.theme);
+        let mut svg_deg = self.numbers_draw_degre(0, ANGLE_BODIE);
+        let mut svg_min = self.numbers_draw_minute(0, ANGLE_BODIE);
         let pos: Number = self.ws.get_angle_longitude(angle.clone());
         let pos_fix: Number = self.ws.get_angle_fix_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
-                svg_deg = svg_draw_degre(
-                    h.split.deg as i16,
-                    ANGLE_BODIE,
-                    self.ws.theme,
-                );
-                svg_min = svg_draw_minute(
-                    h.split.min as i16,
-                    ANGLE_BODIE,
-                    self.ws.theme,
-                );
+                svg_deg =
+                    self.numbers_draw_degre(h.split.deg as i16, ANGLE_BODIE);
+                svg_min =
+                    self.numbers_draw_minute(h.split.min as i16, ANGLE_BODIE);
                 break;
             }
         }
@@ -731,25 +717,18 @@ impl Draw for WorkingStorageDrawPolyMorphNatal {
             }
         }
 
-        let svg_planet =
-            svg_draw_bodie(bodie.clone(), sw_retrograde, self.ws.theme);
-        let mut svg_deg = svg_draw_degre(0, bodie.clone(), self.ws.theme);
-        let mut svg_min = svg_draw_minute(0, bodie.clone(), self.ws.theme);
+        let svg_planet = self.bodies_draw(bodie.clone(), sw_retrograde);
+        let mut svg_deg = self.numbers_draw_degre(0, bodie.clone());
+        let mut svg_min = self.numbers_draw_minute(0, bodie.clone());
         let pos: Number = self.ws.get_bodie_longitude(bodie.clone(), false);
         let pos_fix: Number =
             self.ws.get_bodie_fix_longitude(bodie.clone(), false);
         for b in self.ws.object.clone() {
             if b.object_enum.clone() == bodie {
-                svg_deg = svg_draw_degre(
-                    b.split.deg as i16,
-                    bodie.clone(),
-                    self.ws.theme,
-                );
-                svg_min = svg_draw_minute(
-                    b.split.min as i16,
-                    bodie.clone(),
-                    self.ws.theme,
-                );
+                svg_deg =
+                    self.numbers_draw_degre(b.split.deg as i16, bodie.clone());
+                svg_min =
+                    self.numbers_draw_minute(b.split.min as i16, bodie.clone());
                 break;
             }
         }
@@ -1132,7 +1111,7 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
             self.ws
                 .get_pos_trigo(pos, self.ws.get_radius_circle_zodiac()),
         );
-        let svg = svg_draw_zodiac(sign, self.ws.theme);
+        let svg = self.zodiacs_draw(sign);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: zodiac_size,
@@ -1171,7 +1150,7 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
             self.ws
                 .get_pos_trigo(pos, self.ws.get_radius_circle_house()),
         );
-        let svg = svg_draw_house(numero);
+        let svg = self.houses_draw(numero);
         let svg_object: SvgObject = SvgObject {
             svg: svg.to_string(),
             size_x: house_size,
@@ -1195,30 +1174,24 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
 
         // Tested with placidus
         let svg_angle = match angle {
-            Angle::Asc => svg_draw_asc(self.ws.theme),
-            Angle::Fc => svg_draw_fc(self.ws.theme),
-            Angle::Desc => svg_draw_desc(self.ws.theme),
-            Angle::Mc => svg_draw_mc(self.ws.theme),
+            Angle::Asc => self.angles_draw_asc(),
+            Angle::Fc => self.angles_draw_fc(),
+            Angle::Desc => self.angles_draw_desc(),
+            Angle::Mc => self.angles_draw_mc(),
             _ => Document::new(),
         };
 
-        let mut svg_deg = svg_draw_degre(0, ANGLE_BODIE, self.ws.theme);
-        let mut svg_min = svg_draw_minute(0, ANGLE_BODIE, self.ws.theme);
+        let mut svg_deg = self.numbers_draw_degre(0, ANGLE_BODIE);
+        let mut svg_min = self.numbers_draw_minute(0, ANGLE_BODIE);
         let pos: Number = self.ws.get_angle_longitude(angle.clone());
         let pos_fix: Number = self.ws.get_angle_fix_longitude(angle.clone());
 
         for h in self.ws.house.clone() {
             if h.angle.clone() == angle {
-                svg_deg = svg_draw_degre(
-                    h.split.deg as i16,
-                    ANGLE_BODIE,
-                    self.ws.theme,
-                );
-                svg_min = svg_draw_minute(
-                    h.split.min as i16,
-                    ANGLE_BODIE,
-                    self.ws.theme,
-                );
+                svg_deg =
+                    self.numbers_draw_degre(h.split.deg as i16, ANGLE_BODIE);
+                svg_min =
+                    self.numbers_draw_minute(h.split.min as i16, ANGLE_BODIE);
                 break;
             }
         }
@@ -1335,10 +1308,9 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
             }
         }
 
-        let svg_planet =
-            svg_draw_bodie(bodie.clone(), sw_retrograde, self.ws.theme);
-        let mut svg_deg = svg_draw_degre(0, bodie.clone(), self.ws.theme);
-        let mut svg_min = svg_draw_minute(0, bodie.clone(), self.ws.theme);
+        let svg_planet = self.bodies_draw(bodie.clone(), sw_retrograde);
+        let mut svg_deg = self.numbers_draw_degre(0, bodie.clone());
+        let mut svg_min = self.numbers_draw_minute(0, bodie.clone());
         let pos: Number =
             self.ws.get_bodie_longitude(bodie.clone(), sw_transit);
         let pos_fix: Number =
@@ -1346,32 +1318,20 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
         if sw_transit {
             for b in self.ws.object_transit.clone() {
                 if b.object_enum.clone() == bodie {
-                    svg_deg = svg_draw_degre(
-                        b.split.deg as i16,
-                        bodie.clone(),
-                        self.ws.theme,
-                    );
-                    svg_min = svg_draw_minute(
-                        b.split.min as i16,
-                        bodie.clone(),
-                        self.ws.theme,
-                    );
+                    svg_deg = self
+                        .numbers_draw_degre(b.split.deg as i16, bodie.clone());
+                    svg_min = self
+                        .numbers_draw_minute(b.split.min as i16, bodie.clone());
                     break;
                 }
             }
         } else {
             for b in self.ws.object_natal.clone() {
                 if b.object_enum.clone() == bodie {
-                    svg_deg = svg_draw_degre(
-                        b.split.deg as i16,
-                        bodie.clone(),
-                        self.ws.theme,
-                    );
-                    svg_min = svg_draw_minute(
-                        b.split.min as i16,
-                        bodie.clone(),
-                        self.ws.theme,
-                    );
+                    svg_deg = self
+                        .numbers_draw_degre(b.split.deg as i16, bodie.clone());
+                    svg_min = self
+                        .numbers_draw_minute(b.split.min as i16, bodie.clone());
                     break;
                 }
             }

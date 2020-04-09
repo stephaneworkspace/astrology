@@ -15,17 +15,33 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
+use crate::svg_draw::svg_draw::{
+    WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
+};
 pub use libswe_sys::sweconst::{Element, Signs, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::Path;
 pub use svg::Document;
 pub const ZODIAC_SIZE: Number = 50.0;
 
+impl WorkingStorageDrawPolyMorphNatal {
+    pub fn zodiacs_draw(&self, sign: Signs) -> Document {
+        draw_zodiac(sign, self.ws.theme)
+    }
+}
+
+impl WorkingStorageDrawPolyMorphTransit {
+    pub fn zodiacs_draw(&self, sign: Signs) -> Document {
+        draw_zodiac(sign, self.ws.theme)
+    }
+}
+
 fn get_color_element_zodiac(sign: Signs, theme: Theme) -> String {
     format!("#{:06X}", sign.element().color(theme) as i32)
 }
 
-pub fn draw_zodiac(sign: Signs, theme: Theme) -> Document {
+/// Draw zodiac svg
+fn draw_zodiac(sign: Signs, theme: Theme) -> Document {
     let size: (Number, Number) = (ZODIAC_SIZE, ZODIAC_SIZE);
     let document: Document;
     let color: String = get_color_element_zodiac(sign.clone(), theme);

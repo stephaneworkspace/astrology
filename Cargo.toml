@@ -1,6 +1,6 @@
 [package]
 name = "astrology"
-version = "0.1.60"
+version = "0.1.61"
 authors = ["Stéphane <s.bressani@bluewin.ch>"]
 edition = "2018"
 #keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
