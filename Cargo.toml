@@ -1,6 +1,6 @@
 [package]
 name = "astrology"
-version = "0.1.61"
+version = "0.1.62"
 authors = ["Stéphane <s.bressani@bluewin.ch>"]
 edition = "2018"
 #keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
@@ -14,7 +14,7 @@ crate-type = ["lib", "staticlib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-libswe-sys = "0.1.48"
+libswe-sys = "0.1.49"
 serde = { version = "1.0.102", features = ["derive"] }
 serde_json = "1.0.41"
 serde_derive = "1.0.102"
