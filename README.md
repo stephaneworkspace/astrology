@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.62
+* Updated the crate libswe_sys for support wasm on mac os
+
 0.1.61
 * Optimization code and file naming
 
