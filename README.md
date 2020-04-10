@@ -142,6 +142,10 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.63
+* Support wasm on mac os with the last crate libswe_sys with path
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+
 0.1.62
 * Updated the crate libswe_sys for support wasm on mac os
 
