@@ -142,6 +142,10 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.66
+* Add another path for /usr/include for the last vrate libswe_sys for
+  compatibiliy with osx /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include
+
 0.1.65
 * Support wasm on mac with last crate libswe_sys with /usr/include for c
   headers
