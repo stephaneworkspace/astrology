@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.69
+* svg in exemple create svg picture
+
 0.1.68
 * Add another path /usr/local/opt/llvm/include for wasm (libsew_sys)
 

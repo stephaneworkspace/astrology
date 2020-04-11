@@ -39,7 +39,7 @@ use aspects::{
 };
 use strum::AsStaticRef;
 pub mod svg_draw;
-use crate::DataChartNatalC;
+pub use crate::DataChartNatalC; // TO do, set private in future
 use serde::Serialize;
 use strum::IntoEnumIterator;
 use svg_draw::*;
@@ -58,7 +58,7 @@ pub struct DataChartNatal {
 }
 
 /// Put the struct/enum in const file in future
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DataObjectSvg {
     pub svg: String,
     pub object_type: DataObjectType,
@@ -69,7 +69,7 @@ pub struct DataObjectSvg {
     pub aspects: Vec<Aspects>, // If null no aspects
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
 pub enum DataObjectType {
     Angle,
     AngleDeg,

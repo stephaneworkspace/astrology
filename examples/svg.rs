@@ -14,19 +14,27 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
+extern crate base64;
 extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 extern crate strum;
 use astrology::compute;
+use astrology::svg_draw::{
+    chart, DataChartNatalC, DataObjectSvg, DataObjectType,
+};
 use astrology::Data;
+use base64::encode;
 use std::env;
 use std::ffi::{CStr, CString};
 use std::fs::File;
-use std::io::Read;
+use std::io::{Read, Write};
 use std::path::PathBuf;
+
 fn main() {
     const PATH: &str = "examples/data.json";
+    const PATH_EXPORT: &str = "/Users/stephanebressani/Svg/chart.svg";
+    let mut file_export = File::create(PATH_EXPORT).unwrap();
     let mut s = String::new();
     let mut file_path = PathBuf::new();
     file_path.push(env::current_dir().unwrap().as_path());
@@ -41,7 +49,7 @@ fn main() {
         "/Users/stephanebressani/Code/Flutter/astro/ios/EphemFiles/",
     )
     .expect("CString::new failled");
-    let data_c_str = unsafe {
+    let _data_c_str = unsafe {
         CStr::from_ptr(compute(
             data.year,
             data.month,
@@ -56,6 +64,43 @@ fn main() {
             path.as_ptr(),
         ))
     };
-    let _data_str: &str = data_c_str.to_str().unwrap();
-    println!("{}", &_data_str);
+    //astrology::svg_draw::chart()
+    let d = DataChartNatalC {
+        year: data.year,
+        month: data.month,
+        day: data.day,
+        hourf32: data.hourf32,
+        hour: data.hour,
+        min: data.min,
+        sec: data.sec,
+        lat: data.lat,
+        lng: data.lng,
+    };
+    let path_c_str = unsafe { CStr::from_ptr(path.as_ptr()) };
+    let path_str: &str = path_c_str.to_str().unwrap();
+    let res: Vec<DataObjectSvg> = chart(1000.0, d, &path_str);
+    let mut svg_res: String = "".to_string();
+    for r in res.clone() {
+        if r.object_type == DataObjectType::Chart {
+            svg_res = r.svg;
+        }
+    }
+    if svg_res != "" {
+        svg_res = svg_res.replace("</svg>", "");
+        for r in res {
+            if r.object_type != DataObjectType::Chart {
+                // to do better inside after for real use
+                svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, r.size_x, r.size_y, r.pos_x, r.pos_y, encode(r.svg.as_str()));
+            }
+        }
+    } else {
+        svg_res = "<svg>".to_string();
+    }
+    svg_res = format!("{}</svg>", svg_res);
+    file_export.write_all(svg_res.as_bytes()).unwrap();
+    println!("File exported to: {}", PATH_EXPORT);
+    //let res: Vec<DataObjectSvg>;
+
+    //let _data_str: &str = data_c_str.to_str().unwrap();
+    //println!("{}", &_data_str);
 }
