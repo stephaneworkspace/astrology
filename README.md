@@ -142,6 +142,10 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.65
+* Support wasm on mac with last crate libswe_sys with /usr/include for c
+  headers
+
 0.1.64
 * Support wasm on mac os with last crate libswe-sys using llvm this time (bew
   install llvm)
