@@ -142,7 +142,7 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
-0.1.67
+0.1.68
 * Add another path /usr/local/opt/llvm/include for wasm (libsew_sys)
 
 0.1.66
