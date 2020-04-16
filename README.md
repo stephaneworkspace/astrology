@@ -142,8 +142,12 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.70
+* Translate on french some text for aspect in svg, now svg for english and
+  french
+
 0.1.69
-* svg in exemple create svg picture
+* Svg in exemple create svg picture
 
 0.1.68
 * Add another path /usr/local/opt/llvm/include for wasm (libsew_sys)
