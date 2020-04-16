@@ -23,7 +23,7 @@ use crate::svg_draw::houses::HOUSE_SIZE;
 use crate::svg_draw::numbers::{DEG_SIZE, MIN_SIZE};
 use crate::svg_draw::zodiacs::ZODIAC_SIZE;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, House, Object, ObjectPos, Signs, Theme,
+    Angle, Aspects, Bodies, House, Language, Object, ObjectPos, Signs, Theme,
 };
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
@@ -94,6 +94,7 @@ pub enum LargerDrawLine {
 pub struct WorkingStoragePolyMorphNatal {
     pub max_size: Number,
     pub theme: Theme,
+    pub lang: Language,
     pub house: Vec<House>,
     pub object: Vec<Object>,
     pub temp_position_bodies: Vec<TempPositionBodies>,
@@ -105,6 +106,7 @@ pub struct WorkingStoragePolyMorphNatal {
 pub struct WorkingStoragePolyMorphTransit {
     pub max_size: Number,
     pub theme: Theme,
+    pub lang: Language,
     pub house: Vec<House>,
     pub object_natal: Vec<Object>,
     pub object_transit: Vec<Object>,
@@ -255,6 +257,7 @@ impl WorkingStoragePolyMorphNatal {
     pub fn new(
         max_size: Number,
         theme: Theme,
+        lang: Language,
         house: HousesResult,
         object: Vec<Object>,
     ) -> WorkingStoragePolyMorphNatal {
@@ -279,6 +282,7 @@ impl WorkingStoragePolyMorphNatal {
         WorkingStoragePolyMorphNatal {
             max_size: max_size,
             theme: theme,
+            lang: lang,
             house: h,
             object: object,
             temp_position_bodies: Vec::new(),
@@ -290,6 +294,7 @@ impl WorkingStoragePolyMorphTransit {
     pub fn new(
         max_size: Number,
         theme: Theme,
+        lang: Language,
         house: HousesResult,
         object_natal: Vec<Object>,
         object_transit: Vec<Object>,
@@ -315,6 +320,7 @@ impl WorkingStoragePolyMorphTransit {
         WorkingStoragePolyMorphTransit {
             max_size: max_size,
             theme: theme,
+            lang: lang,
             house: h,
             object_natal: object_natal,
             object_transit: object_transit,

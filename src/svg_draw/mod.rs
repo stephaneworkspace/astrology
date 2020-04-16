@@ -21,8 +21,8 @@ extern crate serde;
 // extern crate serde_json; // Deserialize
 extern crate strum;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, Calandar, Object, ObjectType, OptionalFlag, Signs,
-    Theme,
+    Angle, Aspects, Bodies, Calandar, Language, Object, ObjectType,
+    OptionalFlag, Signs, Theme,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
@@ -99,6 +99,7 @@ pub fn chart(
     max_size: Number,
     data: DataChartNatalC,
     path: &str,
+    lang: Language,
 ) -> Vec<DataObjectSvg> {
     // To do theme
     let theme = Theme::Light;
@@ -179,6 +180,7 @@ pub fn chart(
     let mut ws = svg_draw::WorkingStoragePolyMorphNatal::new(
         max_size,
         theme,
+        lang,
         house_result,
         object,
     );
@@ -414,6 +416,7 @@ pub fn chart_with_transit(
     data: DataChartNatalC,
     data_transit: DataChartNatalC,
     path: &str,
+    lang: Language,
 ) -> Vec<DataObjectSvg> {
     // To do better
     let theme: Theme = Theme::Light;
@@ -544,6 +547,7 @@ pub fn chart_with_transit(
     let mut ws = WorkingStoragePolyMorphTransit::new(
         max_size,
         theme,
+        lang,
         house_result,
         object,
         object_transit,
@@ -893,12 +897,12 @@ pub fn chart_with_transit(
     res
 }
 
-pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
+pub fn all_aspects(lang: Language) -> Vec<DataObjectAspectSvg> {
     let mut res: Vec<DataObjectAspectSvg> = Vec::new();
     // No aspect
     let va_no_aspect: Vec<Aspects> = Vec::new();
     res.push(DataObjectAspectSvg {
-        svg: aspects_no_aspect(Theme::Light).to_string(),
+        svg: aspects_no_aspect(Theme::Light, lang).to_string(),
         text: "No aspect".to_string(), // TO do const
         aspects: va_no_aspect,
     });
@@ -911,7 +915,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         }
     }
     res.push(DataObjectAspectSvg {
-        svg: aspects_maj_aspects(Theme::Light).to_string(),
+        svg: aspects_maj_aspects(Theme::Light, lang).to_string(),
         text: "Majors aspects".to_string(), // TO do const
         aspects: va_maj_aspects,
     });
@@ -922,7 +926,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
             let mut va: Vec<Aspects> = Vec::new();
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
-                svg: aspects_draw(a, Theme::Light).to_string(),
+                svg: aspects_draw(a, Theme::Light, lang).to_string(),
                 text: a.as_static().to_string(),
                 aspects: va.clone(),
             });
@@ -938,7 +942,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         }
     }
     res.push(DataObjectAspectSvg {
-        svg: aspects_min_aspects(Theme::Light).to_string(),
+        svg: aspects_min_aspects(Theme::Light, lang).to_string(),
         text: "Minors aspects".to_string(), // TO do const
         aspects: va_min_aspects,
     });
@@ -949,7 +953,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
             let mut va: Vec<Aspects> = Vec::new();
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
-                svg: aspects_draw(a, Theme::Light).to_string(),
+                svg: aspects_draw(a, Theme::Light, lang).to_string(),
                 text: a.as_static().to_string(),
                 aspects: va.clone(),
             });
@@ -963,7 +967,7 @@ pub fn all_aspects() -> Vec<DataObjectAspectSvg> {
         va_all_aspects.push(a.clone());
     }
     res.push(DataObjectAspectSvg {
-        svg: aspects_all_aspects(Theme::Light).to_string(),
+        svg: aspects_all_aspects(Theme::Light, lang).to_string(),
         text: "All aspects".to_string(), // TO do const
         aspects: va_all_aspects,
     });

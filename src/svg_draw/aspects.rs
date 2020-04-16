@@ -15,7 +15,7 @@
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
 extern crate strum;
-use libswe_sys::sweconst::{Aspects, Theme};
+use libswe_sys::sweconst::{Aspects, Language, Theme};
 use svg::node::element::path::{Data, Number};
 use svg::node::element::{Group, Line, Path, Rectangle};
 use svg::Document;
@@ -23,7 +23,11 @@ use svg::Document;
 pub const ASPECT_SIZE: Number = 50.0;
 
 /// Draw aspects text
-pub fn aspects_draw(aspect: Aspects, _theme: Theme) -> Document {
+pub fn aspects_draw(
+    aspect: Aspects,
+    _theme: Theme,
+    _lang: Language,
+) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -225,7 +229,7 @@ pub fn aspects_draw(aspect: Aspects, _theme: Theme) -> Document {
 }
 
 /// Draw text for no aspect
-pub fn aspects_no_aspect(_theme: Theme) -> Document {
+pub fn aspects_no_aspect(_theme: Theme, lang: Language) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -250,92 +254,153 @@ pub fn aspects_no_aspect(_theme: Theme) -> Document {
         .set("viewBox", (0, 0, size.0, size.1))
         .add(line)
         .add(ellipse);*/
-    let data1 = Data::new()
-        .move_to((8.9, 36.2)) // M
-        .vertical_line_to(16.0) // V
-        .horizontal_line_by(2.9) // h
-        .line_by((6.5, 10.2)) // l
-        .cubic_curve_by((1.5, 2.4, 2.7, 4.5, 3.6, 6.6)) //
-        .line_by((0.1, 0.0)) // l
-        .cubic_curve_by((-0.2, -2.7, -0.3, -5.2, -0.3, -8.3)) // c
-        .vertical_line_to(16.0) // V
-        .horizontal_line_to(24.0) // H
-        .vertical_line_by(20.2) // v
-        .horizontal_line_by(-2.6) // h
-        .line_to((15.0, 25.9)) // L
-        .cubic_curve_by((-1.4, -2.2, -2.8, -4.6, -3.8, -6.7)) // c
-        .line_by((-0.1, 0.0)) // l
-        .cubic_curve_by((0.1, 2.6, 0.2, 5.0, 0.2, 8.3)) // c
-        .vertical_line_by(8.6) // v
-        .horizontal_line_to(8.9) // H
-        .close(); // z
-    let path1 = Path::new().set("d", data1);
-    let data2 = Data::new()
-        .move_to((41.6, 28.8)) // M
-        .cubic_curve_by((0.0, 5.4, -3.7, 7.7, -7.2, 7.7)) // c
-        .cubic_curve_by((-3.9, 0.0, -7.0, -2.9, -7.0, -7.5)) // c
-        .cubic_curve_by((0.0, -4.9, 3.2, -7.7, 7.2, -7.7)) // c
-        .cubic_curve_to((38.8, 21.3, 41.6, 24.4, 41.6, 28.8)) // C
-        .close() // z
-        .move_to((30.1, 29.0))
-        .cubic_curve_by((0.0, 3.2, 1.8, 5.6, 4.4, 5.6)) // c
-        .cubic_curve_by((2.5, 0.0, 4.4, -2.4, 4.4, -5.6)) // c
-        .cubic_curve_by((0.0, -2.5, -1.2, -5.6, -4.4, -5.6)) // c
-        .cubic_curve_to((31.5, 23.3, 30.1, 26.2, 30.1, 29.0)) // C
-        .close(); // z
-    let path2 = Path::new().set("d", data2);
-    document = Document::new()
-        .set("viewBox", (0, 0, size.0, size.1))
-        .add(path1)
-        .add(path2);
+    match lang {
+        Language::English => {
+            let data1 = Data::new()
+                .move_to((8.9, 36.2)) // M
+                .vertical_line_to(16.0) // V
+                .horizontal_line_by(2.9) // h
+                .line_by((6.5, 10.2)) // l
+                .cubic_curve_by((1.5, 2.4, 2.7, 4.5, 3.6, 6.6)) //
+                .line_by((0.1, 0.0)) // l
+                .cubic_curve_by((-0.2, -2.7, -0.3, -5.2, -0.3, -8.3)) // c
+                .vertical_line_to(16.0) // V
+                .horizontal_line_to(24.0) // H
+                .vertical_line_by(20.2) // v
+                .horizontal_line_by(-2.6) // h
+                .line_to((15.0, 25.9)) // L
+                .cubic_curve_by((-1.4, -2.2, -2.8, -4.6, -3.8, -6.7)) // c
+                .line_by((-0.1, 0.0)) // l
+                .cubic_curve_by((0.1, 2.6, 0.2, 5.0, 0.2, 8.3)) // c
+                .vertical_line_by(8.6) // v
+                .horizontal_line_to(8.9) // H
+                .close(); // z
+            let path1 = Path::new().set("d", data1);
+            let data2 = Data::new()
+                .move_to((41.6, 28.8)) // M
+                .cubic_curve_by((0.0, 5.4, -3.7, 7.7, -7.2, 7.7)) // c
+                .cubic_curve_by((-3.9, 0.0, -7.0, -2.9, -7.0, -7.5)) // c
+                .cubic_curve_by((0.0, -4.9, 3.2, -7.7, 7.2, -7.7)) // c
+                .cubic_curve_to((38.8, 21.3, 41.6, 24.4, 41.6, 28.8)) // C
+                .close() // z
+                .move_to((30.1, 29.0))
+                .cubic_curve_by((0.0, 3.2, 1.8, 5.6, 4.4, 5.6)) // c
+                .cubic_curve_by((2.5, 0.0, 4.4, -2.4, 4.4, -5.6)) // c
+                .cubic_curve_by((0.0, -2.5, -1.2, -5.6, -4.4, -5.6)) // c
+                .cubic_curve_to((31.5, 23.3, 30.1, 26.2, 30.1, 29.0)) // C
+                .close(); // z
+            let path2 = Path::new().set("d", data2);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path1)
+                .add(path2);
+        },
+        Language::French => {
+            let data1 = Data::new()
+                .move_to((3.7, 27.4)) // M
+                .line_by((-1.3, 3.8)) // l
+                .horizontal_line_to(0.8) // H
+                .line_by((4.1, -12.1)) // l
+                .horizontal_line_by(1.9) // h
+                .line_by((4.1, 12.1)) // l
+                .horizontal_line_to(9.3) // H
+                .line_to((8.0, 27.4)) // L
+                .horizontal_line_to(3.7) // H
+                .close() // z
+                .move_to((7.7, 26.2)) // M
+                .line_by((-1.2, -3.5)) // l
+                .cubic_curve_by((-0.3, -0.8, -0.4, -1.5, -0.6, -2.2)) // c
+                .horizontal_line_by(0.0) // h
+                .cubic_curve_by((-0.2, 0.7, -0.4, 1.5, -0.6, 2.2)) // c
+                .line_to((4.0, 26.2)) // L
+                .horizontal_line_to(7.7) // H
+                .close(); // z
+            let path1 = Path::new().set("d", data1);
+            let data2 = Data::new()
+                .move_to((19.7, 28.8)) // M
+                .cubic_curve_by((0.0, 0.9, 0.0, 1.7, 0.1, 2.4)) // c
+                .horizontal_line_by(-1.4) // h
+                .line_by((-0.1, -1.4)) // l
+                .horizontal_line_by(0.0) // h
+                .cubic_curve_by((-0.4, 0.7, -1.3, 1.6, -2.9, 1.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -3.0, -0.8, -3.0, -3.8)) // c
+                .vertical_line_by(-5.1) // v
+                .horizontal_line_to(14.0) // H
+                .vertical_line_by(4.8) // v
+                .cubic_curve_by((0.0, 1.7, 0.5, 2.8, 1.9, 2.8)) // c
+                .cubic_curve_by((1.1, 0.0, 1.8, -0.7, 2.1, -1.4)) // c
+                .cubic_curve_by((0.1, -0.2, 0.1, -0.5, 0.1, -0.8)) // c
+                .vertical_line_by(-5.3) // v
+                .horizontal_line_by(1.6) // h
+                .vertical_line_to(28.8) // V
+                .close(); // z
+            let path2 = Path::new().set("d", data2);
+            let data3 = Data::new()
+                .move_to((28.6, 30.9)) // M
+                .cubic_curve_by((-0.4, 0.2, -1.3, 0.5, -2.5, 0.5)) // c
+                .cubic_curve_by((-2.6, 0.0, -4.3, -1.8, -4.3, -4.4)) // c
+                .cubic_curve_by((0.0, -2.7, 1.8, -4.6, 4.7, -4.6)) // c
+                .cubic_curve_by((0.9, 0.0, 1.8, 0.2, 2.2, 0.5)) // c
+                .line_to((28.3, 24.0)) // L
+                .cubic_curve_by((-0.4, -0.2, -1.0, -0.4, -1.8, -0.4)) // c
+                .cubic_curve_by((-2.0, 0.0, -3.1, 1.5, -3.1, 3.3)) // c
+                .cubic_curve_by((0.0, 2.0, 1.3, 3.3, 3.0, 3.3)) // c
+                .cubic_curve_by((0.9, 0.0, 1.5, -0.2, 1.9, -0.4)) // c
+                .line_to((28.6, 30.9)) // L
+                .close(); // z
+            let path3 = Path::new().set("d", data3);
+            let data4 = Data::new()
+                .move_to((37.7, 28.8)) // M
+                .cubic_curve_by((0.0, 0.9, 0.0, 1.7, 0.1, 2.4)) // c
+                .horizontal_line_by(-1.4) // h
+                .line_by((-0.1, -1.4)) // l
+                .horizontal_line_by(0.0) // h
+                .cubic_curve_by((-0.4, 0.7, -1.3, 1.6, -2.9, 1.6)) // c
+                .cubic_curve_by((-1.4, 0.0, -3.0, -0.8, -3.0, -3.8)) // c
+                .vertical_line_by(-5.1) // v
+                .horizontal_line_to(32.0) // H
+                .vertical_line_by(4.8) // v
+                .cubic_curve_by((0.0, 1.7, 0.5, 2.8, 1.9, 2.8)) // c
+                .cubic_curve_by((1.1, 0.0, 1.8, -0.7, 2.1, -1.4)) // c
+                .cubic_curve_by((0.1, -0.2, 0.1, -0.5, 0.1, -0.8)) // c
+                .vertical_line_by(-5.3) // v
+                .horizontal_line_by(1.6) // h
+                .vertical_line_to(28.8) // V
+                .close(); // z
+            let path4 = Path::new().set("d", data4);
+            let data5 = Data::new()
+                .move_to((40.4, 24.8)) // M
+                .cubic_curve_by((0.0, -0.9, 0.0, -1.6, -0.1, -2.4)) // c
+                .horizontal_line_by(1.4) // h
+                .line_by((0.1, 1.4)) // l
+                .horizontal_line_by(0.0) // h
+                .cubic_curve_by((0.4, -0.8, 1.4, -1.6, 2.9, -1.6)) // c
+                .cubic_curve_by((1.2, 0.0, 3.1, 0.7, 3.1, 3.7)) // c
+                .vertical_line_by(5.2) // v
+                .horizontal_line_by(-1.6) // h
+                .vertical_line_by(-5.0) // v
+                .cubic_curve_by((0.0, -1.4, -0.5, -2.6, -2.0, -2.6)) // c
+                .cubic_curve_by((-1.0, 0.0, -1.9, 0.7, -2.1, 1.6)) // c
+                .cubic_curve_by((-0.1, 0.2, -0.1, 0.5, -0.1, 0.7)) // c
+                .vertical_line_by(5.2) // v
+                .horizontal_line_by(-1.6) // h
+                .vertical_line_by(24.8) // v
+                .close(); // z
+            let path5 = Path::new().set("d", data5);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(path1)
+                .add(path2)
+                .add(path3)
+                .add(path4)
+                .add(path5);
+        },
+    }
     document
-    // FRENCH
-    /*
-    <?xml version="1.0" encoding="utf-8"?>
-    <!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-    <svg version="1.0" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-         viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-    <g>
-        <path d="M3.7,27.4l-1.3,3.8H0.8l4.1-12.1h1.9l4.1,12.1H9.3L8,27.4H3.7z M7.7,26.2l-1.2-3.5c-0.3-0.8-0.4-1.5-0.6-2.2h0
-            c-0.2,0.7-0.4,1.5-0.6,2.2L4,26.2H7.7z"/>
-        <path d="M19.7,28.8c0,0.9,0,1.7,0.1,2.4h-1.4l-0.1-1.4h0c-0.4,0.7-1.3,1.6-2.9,1.6c-1.4,0-3-0.8-3-3.8v-5.1H14v4.8
-            c0,1.7,0.5,2.8,1.9,2.8c1.1,0,1.8-0.7,2.1-1.4c0.1-0.2,0.1-0.5,0.1-0.8v-5.3h1.6V28.8z"/>
-        <path d="M28.6,30.9c-0.4,0.2-1.3,0.5-2.5,0.5c-2.6,0-4.3-1.8-4.3-4.4c0-2.7,1.8-4.6,4.7-4.6c0.9,0,1.8,0.2,2.2,0.5L28.3,24
-            c-0.4-0.2-1-0.4-1.8-0.4c-2,0-3.1,1.5-3.1,3.3c0,2,1.3,3.3,3,3.3c0.9,0,1.5-0.2,1.9-0.4L28.6,30.9z"/>
-        <path d="M37.7,28.8c0,0.9,0,1.7,0.1,2.4h-1.4l-0.1-1.4h0c-0.4,0.7-1.3,1.6-2.9,1.6c-1.4,0-3-0.8-3-3.8v-5.1H32v4.8
-            c0,1.7,0.5,2.8,1.9,2.8c1.1,0,1.8-0.7,2.1-1.4c0.1-0.2,0.1-0.5,0.1-0.8v-5.3h1.6V28.8z"/>
-        <path d="M40.4,24.8c0-0.9,0-1.6-0.1-2.4h1.4l0.1,1.4h0c0.4-0.8,1.4-1.6,2.9-1.6c1.2,0,3.1,0.7,3.1,3.7v5.2h-1.6v-5
-            c0-1.4-0.5-2.6-2-2.6c-1,0-1.9,0.7-2.1,1.6c-0.1,0.2-0.1,0.5-0.1,0.7v5.2h-1.6V24.8z"/>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    </svg>
-
-         * */
 }
 
 /// Draw text fort majors aspects
-pub fn aspects_maj_aspects(_theme: Theme) -> Document {
+pub fn aspects_maj_aspects(_theme: Theme, _lang: Language) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -417,7 +482,7 @@ pub fn aspects_maj_aspects(_theme: Theme) -> Document {
 }
 
 /// Draw text for minors aspects
-pub fn aspects_min_aspects(_theme: Theme) -> Document {
+pub fn aspects_min_aspects(_theme: Theme, _lang: Language) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
@@ -489,90 +554,124 @@ pub fn aspects_min_aspects(_theme: Theme) -> Document {
 }
 
 /// Draw text for all aspects
-pub fn aspects_all_aspects(_theme: Theme) -> Document {
+pub fn aspects_all_aspects(_theme: Theme, lang: Language) -> Document {
     let size: (Number, Number) = (ASPECT_SIZE, ASPECT_SIZE);
     let document: Document;
     //let color: String =
     //    format!("#{:06X}", Bodies::EclNut.object_color() as i32);
-    let data1 = Data::new()
-        .move_to((14.0, 29.8)) // M
-        .line_by((-2.1, 6.4)) // l
-        .horizontal_line_to(9.2) // H
-        .line_to((16.1, 16.0)) // L
-        .horizontal_line_by(3.1) // h
-        .line_by((6.9, 20.2)) // l
-        .horizontal_line_by(-2.8) // h
-        .line_by((-2.2, -6.4)) // l
-        .horizontal_line_to(14.0) // H
-        .close() // z
-        .move_to((20.7, 27.8)) // M
-        .line_by((-2.0, -5.8)) // l
-        .cubic_curve_by((-0.5, -1.3, -0.8, -2.5, -1.1, -3.7)) // c
-        .horizontal_line_by(-0.1) // h
-        .cubic_curve_by((-0.3, 1.2, -0.6, 2.4, -1.0, 3.7)) // c
-        .line_by((-2.0, 5.9)) // l
-        .horizontal_line_to(20.7) // H
-        .close(); // z
-    let path1 = Path::new().set("d", data1);
-    let data2 = Data::new()
-        .move_to((28.9, 14.9)) // M
-        .horizontal_line_by(2.6) // h
-        .vertical_line_by(21.3) // v
-        .horizontal_line_by(-2.6) // h
-        .vertical_line_to(14.9) // V
-        .close(); // z
-    let path2 = Path::new().set("d", data2);
-    let data3 = Data::new()
-        .move_to((36.0, 14.9)) // M
-        .horizontal_line_by(2.6) // h
-        .vertical_line_by(21.3) // v
-        .horizontal_line_to(36.0) // H
-        .vertical_line_to(14.9) // V
-        .close(); // z
-    let path3 = Path::new().set("d", data3);
-    let group = Group::new().add(path1).add(path2).add(path3);
-    document = Document::new()
-        .set("viewBox", (0, 0, size.0, size.1))
-        .add(group);
+    match lang {
+        Language::English => {
+            let data1 = Data::new()
+                .move_to((14.0, 29.8)) // M
+                .line_by((-2.1, 6.4)) // l
+                .horizontal_line_to(9.2) // H
+                .line_to((16.1, 16.0)) // L
+                .horizontal_line_by(3.1) // h
+                .line_by((6.9, 20.2)) // l
+                .horizontal_line_by(-2.8) // h
+                .line_by((-2.2, -6.4)) // l
+                .horizontal_line_to(14.0) // H
+                .close() // z
+                .move_to((20.7, 27.8)) // M
+                .line_by((-2.0, -5.8)) // l
+                .cubic_curve_by((-0.5, -1.3, -0.8, -2.5, -1.1, -3.7)) // c
+                .horizontal_line_by(-0.1) // h
+                .cubic_curve_by((-0.3, 1.2, -0.6, 2.4, -1.0, 3.7)) // c
+                .line_by((-2.0, 5.9)) // l
+                .horizontal_line_to(20.7) // H
+                .close(); // z
+            let path1 = Path::new().set("d", data1);
+            let data2 = Data::new()
+                .move_to((28.9, 14.9)) // M
+                .horizontal_line_by(2.6) // h
+                .vertical_line_by(21.3) // v
+                .horizontal_line_by(-2.6) // h
+                .vertical_line_to(14.9) // V
+                .close(); // z
+            let path2 = Path::new().set("d", data2);
+            let data3 = Data::new()
+                .move_to((36.0, 14.9)) // M
+                .horizontal_line_by(2.6) // h
+                .vertical_line_by(21.3) // v
+                .horizontal_line_to(36.0) // H
+                .vertical_line_to(14.9) // V
+                .close(); // z
+            let path3 = Path::new().set("d", data3);
+            let group = Group::new().add(path1).add(path2).add(path3);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(group);
+        },
+        Language::French => {
+            let data1 = Data::new()
+                .move_to((6.5, 18.8)) // M
+                .horizontal_line_to(1.6) // H
+                .vertical_line_to(17.0) // V
+                .horizontal_line_by(12.0) // h
+                .vertical_line_by(1.8) // v
+                .horizontal_line_to(8.6) // H
+                .vertical_line_by(14.4) // v
+                .horizontal_line_to(6.5) // H
+                .vertical_line_to(18.8) // V
+                .close(); // z
+            let path1 = Path::new().set("d", data1);
+            let data2 = Data::new()
+                .move_to((24.1, 27.3)) // M
+                .cubic_curve_by((0.0, 4.3, -3.0, 6.2, -5.8, 6.2)) // c
+                .cubic_curve_by((-3.1, 0.0, -5.6, -2.3, -5.6, -6.0)) // c
+                .cubic_curve_by((0.0, -3.9, 2.5, -6.2, 5.8, -6.2)) // c
+                .cubic_curve_to((21.9, 21.3, 24.1, 23.7, 24.1, 27.3)) // C
+                .close() // z
+                .move_to((14.9, 27.4)) // M
+                .cubic_curve_by((0.0, 2.5, 1.5, 4.5, 3.5, 4.5)) // c
+                .cubic_curve_by((2.0, 0.0, 3.5, -1.9, 3.5, -4.5)) // c
+                .cubic_curve_by((0.0, -2.0, -1.0, -4.5, -3.5, -4.5)) // c
+                .smooth_cubic_curve_to((14.9, 25.2, 14.9, 27.4)) // S
+                .close(); // z
+            let path2 = Path::new().set("d", data2);
+            let data3 = Data::new()
+                .move_to((36.5, 30.0)) // M
+                .cubic_curve_by((0.0, 1.2, 0.0, 2.3, 0.1, 3.2)) // c
+                .horizontal_line_by(-1.9) // h
+                .line_by((-0.1, -1.9)) // l
+                .horizontal_line_by(0.0) // h
+                .cubic_curve_by((-0.6, 0.9, -1.8, 2.2, -3.8, 2.2)) // c
+                .cubic_curve_by((-1.8, 0.0, -4.0, -1.0, -4.0, -5.1)) // c
+                .vertical_line_by(-6.8) // v
+                .horizontal_line_by(2.1) // h
+                .vertical_line_to(28.0) // V
+                .cubic_curve_by((0.0, 2.2, 0.7, 3.7, 2.6, 3.7)) // c
+                .cubic_curve_by((1.4, 0.0, 2.4, -1.0, 2.8, -1.9)) // c
+                .cubic_curve_by((0.1, -0.3, 0.2, -0.7, 0.2, -1.1)) // c
+                .vertical_line_by(-7.1)
+                .horizontal_line_by(2.1) // h
+                .vertical_line_to(30.0) // V
+                .close(); // z
+            let path3 = Path::new().set("d", data3);
+            let data4 = Data::new()
+                .move_to((39.7, 31.0)) // M
+                .cubic_curve_by((0.6, 0.4, 1.7, 0.8, 2.8, 0.8)) // c
+                .cubic_curve_by((1.5, 0.0, 2.3, -0.8, 2.3, -1.7)) // c
+                .cubic_curve_by((0.0, -1.0, -0.6, -1.6, -2.2, -2.1)) // c
+                .cubic_curve_by((-2.1, -0.7, -3.1, -1.9, -3.1, -3.3)) // c
+                .cubic_curve_by((0.0, -1.9, 1.5, -3.4, 4.0, -3.4)) // c
+                .cubic_curve_by((1.2, 0.0, 2.2, 0.3, 2.9, 0.7)) // c
+                .line_by((-0.5, 1.5)) // l
+                .cubic_curve_by((-0.5, -0.3, -1.3, -0.7, -2.4, -0.7)) // c
+                .cubic_curve_by((-1.2, 0.0, -1.9, 0.7, -1.9, 1.6)) // c
+                .cubic_curve_by((0.0, 1.0, 0.7, 1.4, 2.2, 2.0)) // c
+                .cubic_curve_by((2.0, 0.8, 3.0, 1.8, 3.0, 3.5)) // c
+                .cubic_curve_by((0.0, 2.0, -1.6, 3.5, -4.3, 3.5)) // c
+                .cubic_curve_by((-1.3, 0.0, -2.4, -0.3, -3.3, -0.8)) // c
+                .line_to((39.7, 31.0)) // L
+                .close(); // z
+            let path4 = Path::new().set("d", data4);
+            let group =
+                Group::new().add(path1).add(path2).add(path3).add(path4);
+            document = Document::new()
+                .set("viewBox", (0, 0, size.0, size.1))
+                .add(group);
+        },
+    }
     document
-    /*
-    <?xml version="1.0" encoding="utf-8"?>
-    <!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-    <svg version="1.0" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-         viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-    <g>
-        <path d="M6.5,18.8H1.6V17h12v1.8H8.6v14.4H6.5V18.8z"/>
-        <path d="M24.1,27.3c0,4.3-3,6.2-5.8,6.2c-3.1,0-5.6-2.3-5.6-6c0-3.9,2.5-6.2,5.8-6.2C21.9,21.3,24.1,23.7,24.1,27.3z M14.9,27.4
-            c0,2.5,1.5,4.5,3.5,4.5c2,0,3.5-1.9,3.5-4.5c0-2-1-4.5-3.5-4.5S14.9,25.2,14.9,27.4z"/>
-        <path d="M36.5,30c0,1.2,0,2.3,0.1,3.2h-1.9l-0.1-1.9h0c-0.6,0.9-1.8,2.2-3.8,2.2c-1.8,0-4-1-4-5.1v-6.8h2.1V28
-            c0,2.2,0.7,3.7,2.6,3.7c1.4,0,2.4-1,2.8-1.9c0.1-0.3,0.2-0.7,0.2-1.1v-7.1h2.1V30z"/>
-        <path d="M39.7,31c0.6,0.4,1.7,0.8,2.8,0.8c1.5,0,2.3-0.8,2.3-1.7c0-1-0.6-1.6-2.2-2.1c-2.1-0.7-3.1-1.9-3.1-3.3
-            c0-1.9,1.5-3.4,4-3.4c1.2,0,2.2,0.3,2.9,0.7l-0.5,1.5c-0.5-0.3-1.3-0.7-2.4-0.7c-1.2,0-1.9,0.7-1.9,1.6c0,1,0.7,1.4,2.2,2
-            c2,0.8,3,1.8,3,3.5c0,2-1.6,3.5-4.3,3.5c-1.3,0-2.4-0.3-3.3-0.8L39.7,31z"/>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    </svg>
-
-             */
 }

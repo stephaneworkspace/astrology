@@ -25,6 +25,7 @@ use astrology::svg_draw::{
 };
 use astrology::Data;
 use base64::encode;
+use libswe_sys::sweconst::Language;
 use std::env;
 use std::ffi::{CStr, CString};
 use std::fs::File;
@@ -78,7 +79,8 @@ fn main() {
     };
     let path_c_str = unsafe { CStr::from_ptr(path.as_ptr()) };
     let path_str: &str = path_c_str.to_str().unwrap();
-    let res: Vec<DataObjectSvg> = chart(1000.0, d, &path_str);
+    let res: Vec<DataObjectSvg> =
+        chart(1000.0, d, &path_str, Language::English);
     let mut svg_res: String = "".to_string();
     for r in res.clone() {
         if r.object_type == DataObjectType::Chart {
