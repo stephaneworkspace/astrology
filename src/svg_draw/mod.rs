@@ -938,7 +938,7 @@ pub fn all_aspects(lang: Language) -> Vec<DataObjectAspectSvg> {
             va.push(a as Aspects);
             res.push(DataObjectAspectSvg {
                 svg: aspects_draw(a, Theme::Light, lang).to_string(),
-                text: a.as_static().to_string(),
+                text: a.text(lang),
                 aspects: va.clone(),
             });
             va.clear()
