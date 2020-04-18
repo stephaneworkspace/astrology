@@ -142,6 +142,9 @@ pub extern "C" fn compute_transit(
 ```
 
 # Version
+0.1.72
+* Crate reorganisation, the bridge c -> rust -> **c** is in crate libastro now
+
 0.1.71
 * Add some text for aspects on french
 

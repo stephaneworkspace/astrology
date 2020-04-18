@@ -39,7 +39,6 @@ use aspects::{
 };
 use strum::AsStaticRef;
 pub mod svg_draw;
-pub use crate::DataChartNatalC; // TO do, set private in future
 use serde::Serialize;
 use strum::IntoEnumIterator;
 use svg_draw::*;
@@ -93,11 +92,11 @@ pub struct DataObjectAspectSvg {
     pub aspects: Vec<Aspects>,
 }
 
-/// Create a chart for C export
+/// Create a chart
 /// Without path like chart_html for now
 pub fn chart(
     max_size: Number,
-    data: DataChartNatalC,
+    data: DataChartNatal,
     path: &str,
     lang: Language,
 ) -> Vec<DataObjectSvg> {
@@ -413,8 +412,8 @@ pub fn chart(
 /// Without path like chart_html for now
 pub fn chart_with_transit(
     max_size: Number,
-    data: DataChartNatalC,
-    data_transit: DataChartNatalC,
+    data: DataChartNatal,
+    data_transit: DataChartNatal,
     path: &str,
     lang: Language,
 ) -> Vec<DataObjectSvg> {

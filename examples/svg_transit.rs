@@ -14,18 +14,19 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-extern crate serde;
-extern crate serde_derive;
-extern crate serde_json;
-extern crate strum;
-use astrology::compute_transit;
-use astrology::Data;
+use astrology::svg_draw::{chart_with_transit, DataChartNatal, DataObjectType};
+use base64::encode;
+use libswe_sys::sweconst::Language;
 use std::env;
 use std::ffi::{CStr, CString};
 use std::fs::File;
-use std::io::Read;
+use std::io::{Read, Write};
 use std::path::PathBuf;
+
 fn main() {
+    const PATH_EXPORT: &str = "/Users/stephanebressani/Svg/chart.svg";
+    let mut file_export = File::create(PATH_EXPORT).unwrap();
+
     const PATH_TRANSIT: &str = "examples/transit.json";
     let mut s_transit = String::new();
     let mut file_path_transit = PathBuf::new();
@@ -35,7 +36,8 @@ fn main() {
         .unwrap()
         .read_to_string(&mut s_transit)
         .unwrap();
-    let data_transit: Data = serde_json::from_str(&s_transit).unwrap();
+    let data_transit: DataChartNatal =
+        serde_json::from_str(&s_transit).unwrap();
     println!("Data: {:?}", data_transit);
     const PATH: &str = "examples/data.json";
     let mut s = String::new();
@@ -46,36 +48,57 @@ fn main() {
         .unwrap()
         .read_to_string(&mut s)
         .unwrap();
-    let data: Data = serde_json::from_str(&s).unwrap();
+    let data: DataChartNatal = serde_json::from_str(&s).unwrap();
     println!("Data: {:?}", data);
     let path = CString::new(
         "/Users/stephanebressani/Code/Flutter/astro/ios/EphemFiles/",
     )
     .expect("CString::new failled");
-    let data_c_str = unsafe {
-        CStr::from_ptr(compute_transit(
-            data.year,
-            data.month,
-            data.day,
-            data.hourf32,
-            data.hour,
-            data.min,
-            data.sec,
-            data.lat,
-            data.lng,
-            data_transit.year,
-            data_transit.month,
-            data_transit.day,
-            data_transit.hourf32,
-            data_transit.hour,
-            data_transit.min,
-            data_transit.sec,
-            data_transit.lat,
-            data_transit.lng,
-            550.0,
-            path.as_ptr(),
-        ))
+
+    let lang = Language::English;
+    let d = DataChartNatal {
+        year: data.year,
+        month: data.month,
+        day: data.day,
+        hourf32: data.hourf32 as f32,
+        hour: data.hour,
+        min: data.min,
+        sec: data.sec as f32,
+        lat: data.lat as f32,
+        lng: data.lng as f32,
     };
-    let _data_str: &str = data_c_str.to_str().unwrap();
-    println!("{}", &_data_str);
+    let d_t = DataChartNatal {
+        year: data_transit.year,
+        month: data_transit.month,
+        day: data_transit.day,
+        hourf32: data_transit.hourf32 as f32,
+        hour: data_transit.hour,
+        min: data_transit.min,
+        sec: data_transit.sec as f32,
+        lat: data_transit.lat as f32,
+        lng: data_transit.lng as f32,
+    };
+    let path_c_str = unsafe { CStr::from_ptr(path.as_ptr()) };
+    let path_str: &str = path_c_str.to_str().unwrap();
+    let res = chart_with_transit(1000.0, d, d_t, &path_str, lang);
+    let mut svg_res: String = "".to_string();
+    for r in res.clone() {
+        if r.object_type == DataObjectType::Chart {
+            svg_res = r.svg;
+        }
+    }
+    if svg_res != "" {
+        svg_res = svg_res.replace("</svg>", "");
+        for r in res {
+            if r.object_type != DataObjectType::Chart {
+                // to do better inside after for real use
+                svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, r.size_x, r.size_y, r.pos_x, r.pos_y, encode(r.svg.as_str()));
+            }
+        }
+    } else {
+        svg_res = "<svg>".to_string();
+    }
+    svg_res = format!("{}</svg>", svg_res);
+    file_export.write_all(svg_res.as_bytes()).unwrap();
+    println!("File exported to: {}", PATH_EXPORT);
 }

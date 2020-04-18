@@ -14,16 +14,9 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-extern crate base64;
-extern crate serde;
-extern crate serde_derive;
-extern crate serde_json;
-extern crate strum;
-use astrology::compute;
 use astrology::svg_draw::{
-    chart, DataChartNatalC, DataObjectSvg, DataObjectType,
+    chart, DataChartNatal, DataObjectSvg, DataObjectType,
 };
-use astrology::Data;
 use base64::encode;
 use libswe_sys::sweconst::Language;
 use std::env;
@@ -44,38 +37,22 @@ fn main() {
         .unwrap()
         .read_to_string(&mut s)
         .unwrap();
-    let data: Data = serde_json::from_str(&s).unwrap();
+    let data: DataChartNatal = serde_json::from_str(&s).unwrap();
     println!("Data: {:?}", data);
     let path = CString::new(
         "/Users/stephanebressani/Code/Flutter/astro/ios/EphemFiles/",
     )
     .expect("CString::new failled");
-    let _data_c_str = unsafe {
-        CStr::from_ptr(compute(
-            data.year,
-            data.month,
-            data.day,
-            data.hourf32,
-            data.hour,
-            data.min,
-            data.sec,
-            data.lat,
-            data.lng,
-            550.0,
-            path.as_ptr(),
-        ))
-    };
-    //astrology::svg_draw::chart()
-    let d = DataChartNatalC {
+    let d = DataChartNatal {
         year: data.year,
         month: data.month,
         day: data.day,
-        hourf32: data.hourf32,
+        hourf32: data.hourf32 as f32,
         hour: data.hour,
         min: data.min,
-        sec: data.sec,
-        lat: data.lat,
-        lng: data.lng,
+        sec: data.sec as f32,
+        lat: data.lat as f32,
+        lng: data.lng as f32,
     };
     let path_c_str = unsafe { CStr::from_ptr(path.as_ptr()) };
     let path_str: &str = path_c_str.to_str().unwrap();
