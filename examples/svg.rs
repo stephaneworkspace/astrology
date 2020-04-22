@@ -47,7 +47,6 @@ fn main() {
         year: data.year,
         month: data.month,
         day: data.day,
-        hourf32: data.hourf32 as f32,
         hour: data.hour,
         min: data.min,
         sec: data.sec as f32,

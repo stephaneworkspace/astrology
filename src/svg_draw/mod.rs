@@ -48,7 +48,6 @@ pub struct DataChartNatal {
     pub year: i32,
     pub month: i32,
     pub day: i32,
-    pub hourf32: f32,
     pub hour: i32,
     pub min: i32,
     pub sec: f32,

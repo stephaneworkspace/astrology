@@ -14,30 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-/*extern crate serde;
-extern crate serde_derive;
-extern crate serde_json;
-extern crate strum;
-*/
-//#[macro_use]
-//extern crate strum_macros;
 pub mod svg_draw;
-//pub use self::svg_draw::DataChartNatal;
-//pub use self::svg_draw::{DataObjectSvg, DataObjectType};
-
-/*pub enum ObjectType {
-    Chart,
-    House,
-    Zodiac,
-}
-
-pub struct ObjectCanvas {
-    size_x: c_double,
-    size_y: c_double,
-    pos_x: c_double,
-    pos_y: c_double,
-}
-*/
 
 /// Unit test
 #[cfg(test)]
