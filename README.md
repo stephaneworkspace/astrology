@@ -24,6 +24,9 @@ https://github.com/stephaneworkspace/swisseph-for-astrology-crate.git) and
 execute svg in example or svg_transit
 
 # Version
+0.1.75
+* Fix one mistake in transit
+
 0.1.74
 * Change structure, supress hourf32 (deprecessed)
 
