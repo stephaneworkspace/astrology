@@ -17,11 +17,10 @@
 extern crate base64;
 extern crate libswe_sys;
 extern crate serde;
-// extern crate serde_derive; // Deserialize
-// extern crate serde_json; // Deserialize
 extern crate strum;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, Calandar, Language, Object, ObjectType, OptionalFlag, Signs, Theme,
+    Angle, Aspects, Bodies, Calandar, Language, Object, ObjectType,
+    OptionalFlag, Signs, Theme,
 };
 use libswe_sys::swerust;
 use serde::Deserialize;
@@ -33,7 +32,8 @@ pub mod houses;
 pub mod numbers;
 pub mod zodiacs;
 use aspects::{
-    aspects_all_aspects, aspects_draw, aspects_maj_aspects, aspects_min_aspects, aspects_no_aspect,
+    aspects_all_aspects, aspects_draw, aspects_maj_aspects,
+    aspects_min_aspects, aspects_no_aspect,
 };
 use strum::AsStaticRef;
 pub mod svg_draw;
@@ -41,6 +41,7 @@ use serde::Serialize;
 use strum::IntoEnumIterator;
 use svg_draw::*;
 
+/// Data chart
 #[derive(Debug, Deserialize)]
 pub struct DataChartNatal {
     pub year: i32,
@@ -53,7 +54,7 @@ pub struct DataChartNatal {
     pub lng: f32,
 }
 
-/// Put the struct/enum in const file in future
+/// Data object for json svg
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DataObjectSvg {
     pub svg: String,
@@ -65,6 +66,7 @@ pub struct DataObjectSvg {
     pub aspects: Vec<Aspects>, // If null no aspects
 }
 
+/// Type of object used in struct DataObjectSvg
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
 pub enum DataObjectType {
     Angle,
@@ -122,15 +124,16 @@ pub fn chart(
             2.0,
         ); // 2.0 = Timezone -> to compute
     println!("UtcTimeZone: {:?}", utc_time_zone);
-    let utc_to_jd: swerust::handler_swe08::UtcToJdResult = swerust::handler_swe08::utc_to_jd(
-        utc_time_zone.year[0],
-        utc_time_zone.month[0],
-        utc_time_zone.day[0],
-        utc_time_zone.hour[0],
-        utc_time_zone.min[0],
-        utc_time_zone.sec[0],
-        Calandar::Gregorian,
-    );
+    let utc_to_jd: swerust::handler_swe08::UtcToJdResult =
+        swerust::handler_swe08::utc_to_jd(
+            utc_time_zone.year[0],
+            utc_time_zone.month[0],
+            utc_time_zone.day[0],
+            utc_time_zone.hour[0],
+            utc_time_zone.min[0],
+            utc_time_zone.sec[0],
+            Calandar::Gregorian,
+        );
     println!("GregorianTimeZone: {:?}", utc_to_jd);
     let house_result = swerust::handler_swe14::houses(
         utc_to_jd.julian_day_ut,
@@ -172,8 +175,13 @@ pub fn chart(
     }
 
     // Object calc draw for calcul in svg x,y width, height
-    let mut ws =
-        svg_draw::WorkingStoragePolyMorphNatal::new(max_size, theme, lang, house_result, object);
+    let mut ws = svg_draw::WorkingStoragePolyMorphNatal::new(
+        max_size,
+        theme,
+        lang,
+        house_result,
+        object,
+    );
     ws.set_fix_compute(false);
     let ws_draw = svg_draw::WorkingStorageDrawPolyMorphNatal::new(ws.clone());
 
@@ -337,7 +345,10 @@ pub fn chart(
                         if (abs_separation - asp as f32).abs() <= orb as f32 {
                             asp_vec.push(record_asp.clone());
                             let draw = ws_draw.draw_aspect(
-                                ws.get_bodie_longitude(bodie.object_enum, false),
+                                ws.get_bodie_longitude(
+                                    bodie.object_enum,
+                                    false,
+                                ),
                                 ws.get_bodie_longitude(b.object_enum, false),
                                 record_asp.clone(),
                             );
@@ -369,8 +380,13 @@ pub fn chart(
                         if (abs_separation - asp as f32).abs() <= orb as f32 {
                             asp_vec.push(record_asp.clone());
                             let draw = ws_draw.draw_aspect(
-                                ws.get_bodie_longitude(bodie.object_enum, false),
-                                ws.get_angle_longitude(ws.house.clone()[i].angle),
+                                ws.get_bodie_longitude(
+                                    bodie.object_enum,
+                                    false,
+                                ),
+                                ws.get_angle_longitude(
+                                    ws.house.clone()[i].angle,
+                                ),
                                 record_asp.clone(),
                             );
                             res.push(DataObjectSvg {
@@ -425,15 +441,16 @@ pub fn chart_with_transit(
             2.0,
         ); // 2.0 = Timezone -> to compute
     println!("UtcTimeZone: {:?}", utc_time_zone);
-    let utc_to_jd: swerust::handler_swe08::UtcToJdResult = swerust::handler_swe08::utc_to_jd(
-        utc_time_zone.year[0],
-        utc_time_zone.month[0],
-        utc_time_zone.day[0],
-        utc_time_zone.hour[0],
-        utc_time_zone.min[0],
-        utc_time_zone.sec[0],
-        Calandar::Gregorian,
-    );
+    let utc_to_jd: swerust::handler_swe08::UtcToJdResult =
+        swerust::handler_swe08::utc_to_jd(
+            utc_time_zone.year[0],
+            utc_time_zone.month[0],
+            utc_time_zone.day[0],
+            utc_time_zone.hour[0],
+            utc_time_zone.min[0],
+            utc_time_zone.sec[0],
+            Calandar::Gregorian,
+        );
     println!("GregorianTimeZone: {:?}", utc_to_jd);
     let utc_time_zone_transit: swerust::handler_swe08::UtcTimeZoneResult =
         swerust::handler_swe08::utc_time_zone(
@@ -718,7 +735,7 @@ pub fn chart_with_transit(
                 if ws.get_bodie_is_on_chart(bt.object_enum) {
                     separation = ws.get_closest_distance(
                         ws.get_bodie_longitude(bodie.object_enum, false), // no transit
-                        ws.get_bodie_longitude(bt.object_enum, true),     // transit
+                        ws.get_bodie_longitude(bt.object_enum, true), // transit
                     );
                     abs_separation = separation.abs();
                     for record_asp in Aspects::iter() {
@@ -816,7 +833,9 @@ pub fn chart_with_transit(
                                     bodie.object_enum,
                                     true, // true = transit
                                 ),
-                                ws.get_angle_longitude(ws.house.clone()[i].angle),
+                                ws.get_angle_longitude(
+                                    ws.house.clone()[i].angle,
+                                ),
                                 record_asp.clone(),
                             );
                             res.push(DataObjectSvg {
@@ -852,7 +871,9 @@ pub fn chart_with_transit(
                                     bodie.object_enum,
                                     false, // no transit
                                 ),
-                                ws.get_angle_longitude(ws.house.clone()[i].angle),
+                                ws.get_angle_longitude(
+                                    ws.house.clone()[i].angle,
+                                ),
                                 record_asp.clone(),
                             );
                             res.push(DataObjectSvg {
