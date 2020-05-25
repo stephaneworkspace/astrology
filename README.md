@@ -1,6 +1,6 @@
 # Traditional astrology for rust
 
-Rust library by Stéphane Bressani (s.bressani@bluewin.ch)
+Rust library by Stéphane Bressani (stephane@astrologie-traditionnelle.net)
 
 Using swissephem c library by Astrodienst AG
 by Dieter Koch and Alois Treindl (https://www.astro.com/ftp/swisseph/)
@@ -24,6 +24,9 @@ https://github.com/stephaneworkspace/swisseph-for-astrology-crate.git) and
 execute svg in example or svg_transit
 
 # Version
+0.1.76
+* Small change in comments
+
 0.1.75
 * Fix one mistake in transit
 

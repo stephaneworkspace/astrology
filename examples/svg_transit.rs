@@ -23,6 +23,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::path::PathBuf;
 
+/// Write svg transit to PATH_EXPORT (change it for you)
 fn main() {
     const PATH_EXPORT: &str = "/Users/stephanebressani/Svg/chart.svg";
     let mut file_export = File::create(PATH_EXPORT).unwrap();

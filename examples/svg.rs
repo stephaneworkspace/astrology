@@ -25,6 +25,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::path::PathBuf;
 
+/// Write chart to PATH_EXPORT (change it for you)
 fn main() {
     const PATH: &str = "examples/data.json";
     const PATH_EXPORT: &str = "/Users/stephanebressani/Svg/chart.svg";
