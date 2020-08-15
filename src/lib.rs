@@ -14,6 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
+pub mod cfg;
 pub mod svg_draw;
 
 /// Unit test

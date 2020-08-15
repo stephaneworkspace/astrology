@@ -14,6 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
+use astrology::cfg::parse_args;
 use astrology::svg_draw::{
     chart, DataChartNatal, DataObjectSvg, DataObjectType,
 };
@@ -27,6 +28,9 @@ use std::path::PathBuf;
 
 /// Write chart to PATH_EXPORT (change it for you)
 fn main() {
+    let cfg = parse_args();
+    println!("Configuration: {:?}", cfg);
+
     const PATH: &str = "examples/data.json";
     const PATH_EXPORT: &str = "/Users/stephanebressani/Svg/chart.svg";
     let mut file_export = File::create(PATH_EXPORT).unwrap();
