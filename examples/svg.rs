@@ -42,7 +42,8 @@ fn main() {
     let path_str: &str = path_c_str.to_str().unwrap();
     println!("{}", &path_str);
 
-    let svg: String = chart_svg(1000.0, d, &path_str, Language::English);
+    let svg: String =
+        chart_svg(cfg.size as f32, d, &path_str, Language::English);
     file_export.write_all(svg.as_bytes()).unwrap();
     println!("File exported to: {}", cfg.path_and_file);
 }

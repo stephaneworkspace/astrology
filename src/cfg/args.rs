@@ -14,7 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-use super::validator::parse_path;
+use super::validator::{parse_path, parse_size};
 use chrono::format::ParseError;
 use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
 use clap::{App, Arg};
@@ -30,6 +30,7 @@ pub struct AstrologyConfig {
     pub lng: f32,
     pub path_and_file: String,
     pub path_ephem_files: String,
+    pub size: u32,
 }
 
 const DATE: &str = "date";
@@ -38,6 +39,7 @@ const LAT: &str = "lat";
 const LNG: &str = "lng";
 const PATH: &str = "path_and_file";
 const PATH_EPHEM: &str = "path_ephem";
+const SIZE: &str = "size";
 
 /// Parse args for clap
 pub fn parse_args() -> AstrologyConfig {
@@ -59,6 +61,7 @@ pub fn parse_args() -> AstrologyConfig {
         "{}/natal_chart.svg",
         env::current_dir().unwrap().as_path().display()
     );
+    let default_value_square = "1000";
     let matches = App::new("Astrology")
         .version(env!("CARGO_PKG_VERSION"))
         .author("Stéphane Bressani <stephane@astrologie-traditionnelle.net)")
@@ -76,6 +79,7 @@ commercial license.")
                 .short("d")
                 .value_name("DATE_CHART")
                 .default_value(&default_value_date)
+                .multiple(false)
                 .help("Date of birth in format: dd.mm.yyyy")
                 .required(true),
         )
@@ -84,6 +88,7 @@ commercial license.")
                 .short("t")
                 .value_name("TIME_CHART")
                 .default_value(&default_value_time)
+                .multiple(false)
                 .help("Time of birth in format: hh:mm:ss or hh:mm")
                 .required(true),
         )
@@ -91,12 +96,14 @@ commercial license.")
             Arg::with_name(LAT)
                 .value_name("LAT_CHART")
                 .required(true)
+                .multiple(false)
                 .help("Latitude of birth in float format: 99.99"),
         )
         .arg(
             Arg::with_name(LNG)
                 .value_name("LNG_CHART")
                 .required(true)
+                .multiple(false)
                 .help("Longitude of birth in float format: 99.99"),
         )
         .arg(
@@ -105,6 +112,7 @@ commercial license.")
                 .value_name("PATH_AND_FILE_CHART")
                 .default_value(&default_value_path)
                 .help("Path for svg draw on the disk")
+                .multiple(false)
                 .required(true),
         )
         .arg(
@@ -116,6 +124,16 @@ commercial license.")
                 .validator(parse_path)
                 .required(true),
         )
+        .arg(
+            Arg::with_name(SIZE)
+                .short("s")
+                .value_name("SIZE_SQUARE_IN_PX")
+                .default_value(&default_value_square)
+                .help("Size of the square")
+                .multiple(false)
+                .validator(parse_size)
+                .required(true),
+        )
         .get_matches();
     let date_final = parse_date_from_str(
         matches.value_of(DATE).unwrap_or(&default_value_date),
@@ -125,8 +143,10 @@ commercial license.")
         matches.value_of(TIME).unwrap_or(&default_value_time),
     )
     .unwrap();
-    let mut ephem = matches.values_of(PATH_EPHEM).unwrap();
-
+    let mut ephem_final = matches.values_of(PATH_EPHEM).unwrap();
+    let mut size_final = matches.values_of(SIZE).unwrap();
+    let size_final_string: String =
+        size_final.next().as_deref().unwrap().to_string();
     AstrologyConfig {
         date: date_final,
         time: time_final,
@@ -136,7 +156,8 @@ commercial license.")
             .value_of(PATH)
             .unwrap_or(&default_value_path)
             .to_string(),
-        path_ephem_files: ephem.next().as_deref().unwrap().to_string(),
+        path_ephem_files: ephem_final.next().as_deref().unwrap().to_string(),
+        size: size_final_string.parse::<u32>().unwrap(),
     }
 }
 
