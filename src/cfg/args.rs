@@ -22,11 +22,11 @@ use std::str::FromStr;
 
 #[derive(Debug)]
 pub struct AstrologyConfig {
-    date: NaiveDate,
-    time: NaiveTime,
-    lat: f32,
-    lng: f32,
-    path_and_file: String,
+    pub date: NaiveDate,
+    pub time: NaiveTime,
+    pub lat: f32,
+    pub lng: f32,
+    pub path_and_file: String,
 }
 
 const DATE: &str = "date";
