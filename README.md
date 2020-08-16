@@ -58,6 +58,7 @@ ARGS:
 0.2.0
 * Add cli
 * Remove a message with the wrong path of swiss ephem files
+* Code is cleaner now in ./src/svg_draw
 
 0.1.76
 * Small change in comments
