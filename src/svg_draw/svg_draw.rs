@@ -23,8 +23,10 @@ use crate::svg_draw::houses::HOUSE_SIZE;
 use crate::svg_draw::numbers::{DEG_SIZE, MIN_SIZE};
 use crate::svg_draw::zodiacs::ZODIAC_SIZE;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, House, Language, Object, ObjectPos, Signs, Theme,
+    Angle, Aspects, Bodies, Calandar, House, Language, Object, ObjectPos,
+    ObjectType, OptionalFlag, Signs, Theme,
 };
+use libswe_sys::swerust;
 use libswe_sys::swerust::handler_swe14::HousesResult;
 use std::f32;
 use strum::IntoEnumIterator;
