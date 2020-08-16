@@ -38,7 +38,8 @@ use strum::AsStaticRef;
 pub mod compute_chart;
 pub mod svg_draw;
 pub use self::compute_chart::{
-    chart, DataChartNatal, DataObjectAspectSvg, DataObjectSvg, DataObjectType,
+    chart, chart_svg, DataChartNatal, DataObjectAspectSvg, DataObjectSvg,
+    DataObjectType,
 };
 pub use self::svg_draw::{
     WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
