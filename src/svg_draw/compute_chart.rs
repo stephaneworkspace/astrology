@@ -19,6 +19,7 @@ use crate::svg_draw::{
     CalcDraw, Draw, WorkingStorageDrawPolyMorphNatal,
     WorkingStoragePolyMorphNatal,
 };
+use base64::encode;
 use libswe_sys::sweconst::{
     Angle, Aspects, Bodies, Calandar, Language, Object, ObjectType,
     OptionalFlag, Signs, Theme,
@@ -81,7 +82,6 @@ pub struct DataObjectAspectSvg {
 }
 
 /// Create a chart
-/// Without path like chart_html for now
 pub fn chart(
     max_size: Number,
     data: DataChartNatal,
@@ -397,4 +397,32 @@ pub fn chart(
         }
     }
     res
+}
+
+pub fn chart_svg(
+    max_size: Number,
+    data: DataChartNatal,
+    path: &str,
+    lang: Language,
+) -> String {
+    let res: Vec<DataObjectSvg> = chart(max_size, data, path, lang);
+    let mut svg_res: String = "".to_string();
+    for r in res.clone() {
+        if r.object_type == DataObjectType::Chart {
+            svg_res = r.svg;
+        }
+    }
+    if svg_res != "" {
+        svg_res = svg_res.replace("</svg>", "");
+        for r in res {
+            if r.object_type != DataObjectType::Chart {
+                // to do better inside after for real use
+                svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, r.size_x, r.size_y, r.pos_x, r.pos_y, encode(r.svg.as_str()));
+            }
+        }
+    } else {
+        svg_res = "<svg>".to_string();
+    }
+    svg_res = format!("{}</svg>", svg_res);
+    svg_res
 }

@@ -187,7 +187,6 @@ fn parse_time_from_str(time: &str) -> Result<NaiveTime, ParseError> {
         },
         _ => {},
     }
-    println!("{}", time_string);
     let t = NaiveTime::parse_from_str(time_string.as_str(), "%H:%M:%S")?;
     Ok(t)
 }
