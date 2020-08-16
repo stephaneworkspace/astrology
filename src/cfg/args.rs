@@ -14,7 +14,9 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-use super::validator::{parse_path, parse_size};
+use super::validator::{
+    validator_parse_date, validator_parse_path, validator_parse_size,
+};
 use chrono::format::ParseError;
 use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
 use clap::{App, Arg};
@@ -81,6 +83,7 @@ commercial license.")
                 .default_value(&default_value_date)
                 .multiple(false)
                 .help("Date of birth in format: dd.mm.yyyy")
+                .validator(validator_parse_date)
                 .required(true),
         )
         .arg(
@@ -121,7 +124,7 @@ commercial license.")
                 .value_name("PATH_SWISS_EPHEM_FILES")
                 .help("Path of swiss ephem files")
                 .multiple(false)
-                .validator(parse_path)
+                .validator(validator_parse_path)
                 .required(true),
         )
         .arg(
@@ -131,7 +134,7 @@ commercial license.")
                 .default_value(&default_value_square)
                 .help("Size of the square")
                 .multiple(false)
-                .validator(parse_size)
+                .validator(validator_parse_size)
                 .required(true),
         )
         .get_matches();

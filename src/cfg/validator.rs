@@ -1,7 +1,7 @@
 use std::path::Path;
 
 /// Check if the path for the swissephem files exist
-pub fn parse_path(path: String) -> Result<(), String> {
+pub fn validator_parse_path(path: String) -> Result<(), String> {
     if Path::new(path.clone().as_str()).exists() {
         Ok(())
     } else {
@@ -13,7 +13,7 @@ pub fn parse_path(path: String) -> Result<(), String> {
 }
 
 /// Check if size is ok
-pub fn parse_size(size: String) -> Result<(), String> {
+pub fn validator_parse_size(size: String) -> Result<(), String> {
     let i: u32 = size.parse::<u32>().unwrap();
     if i >= 800 && i <= 2000 {
         Ok(())
@@ -24,7 +24,7 @@ pub fn parse_size(size: String) -> Result<(), String> {
 
 /// Check if format of date is ok
 /// . (3) and - (0-1) for eventual BC date
-pub fn parse_date(date: String) -> Result<(), String> {
+pub fn validator_parse_date(date: String) -> Result<(), String> {
     let d: &str = &date.as_str();
     let items: Vec<_> = d.split(&['.', '-'][..]).collect();
     for item in &items {
@@ -39,7 +39,9 @@ pub fn parse_date(date: String) -> Result<(), String> {
             bc_4_item += 1;
         }
     }
-    if items.len() == 3 && (bc_4_item == 0 || bc_4_item == 1) {
+    if (items.len() == 3 && bc_4_item == 0)
+        || (items.len() == 4 && bc_4_item == 1)
+    {
         Ok(())
     } else {
         Err(format!("The date: {} is invalid. Please enter a date in format dd.mm.yyyy.", date))
