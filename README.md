@@ -15,11 +15,21 @@ commercial license.
 
 # Use
 
-Simple natal chart
+1) Download ephemfiles and put then in a directory
 
-cargo run --example svg -- 1.9 45.0 01.01.2000 23:23 -p ~/my_natal_chart.svg
+````
+git clone https://github.com/stephaneworkspace/ephem_files.git
+````
 
+2.1) Simple natal chart
+
+````
+cargo run --example svg -- 1.9 45.0 01.01.2000 23:23 --path_export ~/my_natal_chart.svg --path_ephem ~/Code/Binary/ephem_files
+````
+
+````
 cargo run --example svg -- --help
+````
 
 ````
 USAGE:
