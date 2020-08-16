@@ -59,18 +59,6 @@ pub fn parse_args() -> AstrologyConfig {
         "{}/natal_chart.svg",
         env::current_dir().unwrap().as_path().display()
     );
-    /*let default_value_path = if cfg!(windows) {
-        "C:\natal_chat.svg".to_string()
-    } else if cfg!(unix) {
-        "~/natal_chart.svg".to_string()
-    } else {
-        "~/natal_chart.svg".to_string()
-    };*/
-    // let mut file_path = PathBuf::new();
-    //TODO -> default path windows and unix
-    // file_path.push(env::current_dir().unwrap().as_path());
-    // file_path.push(PATH);
-
     let matches = App::new("Astrology")
         .version(env!("CARGO_PKG_VERSION"))
         .author("Stéphane Bressani <stephane@astrologie-traditionnelle.net)")
