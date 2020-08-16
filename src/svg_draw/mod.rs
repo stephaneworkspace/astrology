@@ -107,10 +107,12 @@ pub fn chart(
     //    "/Users/stephanebressani/Code/Rust/libswe-sys/src/swisseph/sweph/";
     swerust::handler_swe02::set_ephe_path(&path);
     println!("{}", data.year);
-    println!(
-        "Library path (Todo): {}",
-        swerust::handler_swe02::get_library_path()
-    );
+    //TODO: set_ephe_path(&path) work but get_library_path() return the path
+    //      of this directory, this is wrong, but the ephem files are loaded
+    //println!(
+    //    "Library path: {}",
+    //    swerust::handler_swe02::get_library_path()
+    //);
     // House natal chart
     println!("Hsys: {}", swerust::handler_swe14::house_name('P')); // Placidus
     let utc_time_zone: swerust::handler_swe08::UtcTimeZoneResult =

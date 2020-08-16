@@ -17,45 +17,37 @@ commercial license.
 
 Simple natal chart
 
+cargo run --example svg -- 1.9 45.0 01.01.2000 23:23 -p ~/my_natal_chart.svg
+
 cargo run --example svg -- --help
 
 ````
-Astrology 0.2.0
-Stéphane Bressani <stephane@astrologie-traditionnelle.net)
-Create svg natal chart using swissephem lib
-
 USAGE:
-    svg <LAT_CHART> <LNG_CHART> -d <DATE_CHART> -p <PATH_AND_FILE_CHART> -t <TIME_CHART>
+    svg <LAT_CHART> <LNG_CHART> -d <DATE_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -t <TIME_CHART>
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 OPTIONS:
-    -d <DATE_CHART>                 Date of birth in format: dd.mm.yyyy [default: 16.8.2020]
-    -p <PATH_AND_FILE_CHART>        Path for svg draw on the disk [default: ~/natal_chart.svg]
-    -t <TIME_CHART>                 Time of birth in format: hh:mm:ss [default: 0:0:0]
+    -d <DATE_CHART>                              Date of birth in format: dd.mm.yyyy [default: 16.8.2020]
+        --path_export <PATH_AND_FILE_CHART>      Path for svg draw on the disk [default: ~/Code/Rust/astrology/natal_chart.svg]
+
+        --path_ephem <PATH_SWISS_EPHEM_FILES>    Path of swiss ephem files
+    -t <TIME_CHART>                              Time of birth in format: hh:mm:ss or hh:mm [default: 0:0]
 
 ARGS:
     <LAT_CHART>    Latitude of birth in float format: 99.99
     <LNG_CHART>    Longitude of birth in float format: 99.99
 ````
-
-cargo run --example svg -- 01.01.2000 01:30:20 1.9 45.0 -p ~/my_natal_chart.svg
-
 # Example
 
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
-# Use of example
-Create a data.json (cp data_exemple.json data.json), modify example/svg.rs for 
-the path of output and the path of swissephem files (git clone
-https://github.com/stephaneworkspace/swisseph-for-astrology-crate.git) and 
-execute svg in example or svg_transit
-
 # Version
 0.2.0
 * Add cli
+* Remove a message with the wrong path of swiss ephem files
 
 0.1.76
 * Small change in comments

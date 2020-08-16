@@ -21,3 +21,5 @@ Cargo.lock
 
 # Vim
 /.vim
+
+my_natal_chart.sh

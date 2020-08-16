@@ -40,10 +40,8 @@ fn main() {
         lng: cfg.lng,
     };
     let mut file_export = File::create(&cfg.path_and_file).unwrap();
-    let path = CString::new(
-        "/Users/stephanebressani/Code/Flutter/astro/ios/EphemFiles/",
-    )
-    .expect("CString::new failled");
+    let path = CString::new(cfg.path_ephem_files.as_str())
+        .expect("CString::new failled");
     let path_c_str = unsafe { CStr::from_ptr(path.as_ptr()) };
     let path_str: &str = path_c_str.to_str().unwrap();
     println!("{}", &path_str);
