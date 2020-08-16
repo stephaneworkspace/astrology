@@ -33,7 +33,7 @@ const DATE: &str = "date";
 const TIME: &str = "time";
 const LAT: &str = "lat";
 const LNG: &str = "lng";
-const PATH_AND_FILE: &str = "path_and_file";
+const PATH: &str = "path_and_file";
 
 /// Parse args for clap
 pub fn parse_args() -> AstrologyConfig {
@@ -48,15 +48,11 @@ pub fn parse_args() -> AstrologyConfig {
     .to_string();
     //let time = parse_time(now.hour(), now.minute(), now.second()).unwrap();
     let time = parse_time(0, 0, 0).unwrap();
-    let default_value_time = format!(
-        "{}:{}:{}",
-        time.hour().to_string(),
-        time.minute().to_string(),
-        time.second().to_string()
-    )
-    .to_string();
+    let default_value_time =
+        format!("{}:{}", time.hour().to_string(), time.minute().to_string(),)
+            .to_string();
     let matches = App::new("Astrology")
-        .version("0.2.1") //TODO: get it from metadata
+        .version(env!("CARGO_PKG_VERSION"))
         .author("Stéphane Bressani <stephane@astrologie-traditionnelle.net)")
         .about("Create svg natal chart using swissephem lib")
         .arg(
@@ -76,26 +72,26 @@ pub fn parse_args() -> AstrologyConfig {
                 //.long("time")
                 .value_name("TIME_CHART")
                 .default_value(&default_value_time)
-                .help("Time of birth in format: hh:mm:ss")
+                .help("Time of birth in format: hh:mm:ss or hh:mm")
                 .required(true),
         )
         .arg(
             Arg::with_name(LAT)
                 .takes_value(true) //TODO: Test is this is nececary in LNG
-                // .long("latitude")
+                //.long("latitude")
                 .value_name("LAT_CHART")
                 .required(true)
                 .help("Latitude of birth in float format: 99.99"),
         )
         .arg(
             Arg::with_name(LNG)
-                // .long("longitude")
+                //.long("longitude")
                 .value_name("LNG_CHART")
                 .required(true)
                 .help("Longitude of birth in float format: 99.99"),
         )
         .arg(
-            Arg::with_name(PATH_AND_FILE)
+            Arg::with_name(PATH)
                 .short("p")
                 .value_name("PATH_AND_FILE_CHART")
                 .default_value("~/natal_chart.svg") //TODO: Crossplatform
@@ -105,15 +101,11 @@ pub fn parse_args() -> AstrologyConfig {
         //.validator(validat_ports)
         .get_matches();
     let date_final = parse_date_from_str(
-        matches
-            .value_of("DATE_CHART")
-            .unwrap_or(&default_value_date),
+        matches.value_of(DATE).unwrap_or(&default_value_date),
     )
     .unwrap();
     let time_final = parse_time_from_str(
-        matches
-            .value_of("TIME_CHART")
-            .unwrap_or(&default_value_time),
+        matches.value_of(TIME).unwrap_or(&default_value_time),
     )
     .unwrap();
 
@@ -135,7 +127,7 @@ pub fn parse_args() -> AstrologyConfig {
         lat: f32::from_str(matches.value_of(LAT).unwrap()).unwrap(),
         lng: f32::from_str(matches.value_of(LNG).unwrap()).unwrap(),
         path_and_file: matches
-            .value_of("PATH_AND_FILE_CHART")
+            .value_of(PATH)
             .unwrap_or("~/natal_chart.svg")
             .to_string(),
     }
@@ -167,6 +159,28 @@ fn parse_time(hour: i32, min: i32, sec: i32) -> Result<NaiveTime, ParseError> {
 
 /// Parse time from value &str to NaiveTime
 fn parse_time_from_str(time: &str) -> Result<NaiveTime, ParseError> {
-    let t = NaiveTime::parse_from_str(time, "%H:%M:%S")?;
+    let items: Vec<_> = time.clone().split(&[':'][..]).collect();
+    let mut time_string: String = "".to_string();
+    for (i, item) in items.iter().enumerate() {
+        if i > 2 {
+            break;
+        }
+        if i == 0 {
+            time_string = format!("{}", item);
+        } else {
+            time_string = format!("{}:{}", time_string, item);
+        }
+    }
+    match items.len() {
+        1 => {
+            time_string = format!("{}:0:0", time_string);
+        },
+        2 => {
+            time_string = format!("{}:0", time_string);
+        },
+        _ => {},
+    }
+    println!("{}", time_string);
+    let t = NaiveTime::parse_from_str(time_string.as_str(), "%H:%M:%S")?;
     Ok(t)
 }

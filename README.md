@@ -20,25 +20,25 @@ Simple natal chart
 cargo run --example svg -- --help
 
 ````
-Astrology 0.2.1
+Astrology 0.2.0
 Stéphane Bressani <stephane@astrologie-traditionnelle.net)
 Create svg natal chart using swissephem lib
 
 USAGE:
-    svg [OPTIONS] <DATE_CHART> <TIME_CHART> <LAT_CHART> <LNG_CHART>
+    svg <LAT_CHART> <LNG_CHART> -d <DATE_CHART> -p <PATH_AND_FILE_CHART> -t <TIME_CHART>
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 OPTIONS:
-    -p <PATH_AND_FILE_CHART>        Path for svg draw on the disk (default:  ~/natal_chart.svg)
+    -d <DATE_CHART>                 Date of birth in format: dd.mm.yyyy [default: 16.8.2020]
+    -p <PATH_AND_FILE_CHART>        Path for svg draw on the disk [default: ~/natal_chart.svg]
+    -t <TIME_CHART>                 Time of birth in format: hh:mm:ss [default: 0:0:0]
 
 ARGS:
-    <DATE_CHART>    Date of birth in format: dd.mm.yyyy [default: 15.8.2020]
-    <TIME_CHART>    Time of birth in format: hh:mm:ss [default: 0:0:0]
-    <LAT_CHART>     Latitude of birth in float format: 99.99
-    <LNG_CHART>     Longitude of birth in float format: (example) 99.99
+    <LAT_CHART>    Latitude of birth in float format: 99.99
+    <LNG_CHART>    Longitude of birth in float format: 99.99
 ````
 
 cargo run --example svg -- 01.01.2000 01:30:20 1.9 45.0 -p ~/my_natal_chart.svg
@@ -54,8 +54,8 @@ https://github.com/stephaneworkspace/swisseph-for-astrology-crate.git) and
 execute svg in example or svg_transit
 
 # Version
-0.2.1
-* Clean code
+0.2.0
+* Add cli
 
 0.1.76
 * Small change in comments
