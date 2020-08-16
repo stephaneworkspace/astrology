@@ -19,13 +19,11 @@ use astrology::svg_draw::{
     chart, DataChartNatal, DataObjectSvg, DataObjectType,
 };
 use base64::encode;
-use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
+use chrono::{Datelike, Timelike};
 use libswe_sys::sweconst::Language;
-use std::env;
 use std::ffi::{CStr, CString};
 use std::fs::File;
-use std::io::{Read, Write};
-use std::path::PathBuf;
+use std::io::Write;
 
 /// Write chart to PATH_EXPORT (change it for you)
 fn main() {
@@ -42,37 +40,14 @@ fn main() {
         lng: cfg.lng,
     };
     let mut file_export = File::create(&cfg.path_and_file).unwrap();
-
-    // const PATH: &str = "examples/data.json";
-    // const PATH_EXPORT: &str = "/Users/stephanebressani/Svg/chart.svg";
-    // let mut file_export = File::create(PATH_EXPORT).unwrap();
-    // let mut s = String::new();
-    // let mut file_path = PathBuf::new();
-    //TODO -> default path windows and unix
-    // file_path.push(env::current_dir().unwrap().as_path());
-    // file_path.push(PATH);
-    // File::open(file_path.as_path())
-    //    .unwrap()
-    //    .read_to_string(&mut s)
-    //    .unwrap();
-    // let data: DataChartNatal = serde_json::from_str(&s).unwrap();
-    // println!("Data: {:?}", data);
     let path = CString::new(
         "/Users/stephanebressani/Code/Flutter/astro/ios/EphemFiles/",
     )
     .expect("CString::new failled");
-    // let d = DataChartNatal {
-    //    year: data.year,
-    //    month: data.month,
-    //    day: data.day,
-    //    hour: data.hour,
-    //    min: data.min,
-    //    sec: data.sec as f32,
-    //    lat: data.lat as f32,
-    //    lng: data.lng as f32,
-    // };
     let path_c_str = unsafe { CStr::from_ptr(path.as_ptr()) };
     let path_str: &str = path_c_str.to_str().unwrap();
+    println!("{}", &path_str);
+
     let res: Vec<DataObjectSvg> =
         chart(1000.0, d, &path_str, Language::English);
     let mut svg_res: String = "".to_string();
@@ -95,7 +70,6 @@ fn main() {
     svg_res = format!("{}</svg>", svg_res);
     file_export.write_all(svg_res.as_bytes()).unwrap();
     println!("File exported to: {}", cfg.path_and_file);
-    //println!("File exported to: {}", PATH_EXPORT);
     //let res: Vec<DataObjectSvg>;
 
     //let _data_str: &str = data_c_str.to_str().unwrap();

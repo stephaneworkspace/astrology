@@ -17,6 +17,7 @@
 use chrono::format::ParseError;
 use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
 use clap::{App, Arg};
+use std::env;
 use std::format;
 use std::str::FromStr;
 
@@ -27,6 +28,7 @@ pub struct AstrologyConfig {
     pub lat: f32,
     pub lng: f32,
     pub path_and_file: String,
+    pub path_ephem_files: String,
 }
 
 const DATE: &str = "date";
@@ -34,6 +36,7 @@ const TIME: &str = "time";
 const LAT: &str = "lat";
 const LNG: &str = "lng";
 const PATH: &str = "path_and_file";
+const PATH_EPHEM: &str = "path_ephem";
 
 /// Parse args for clap
 pub fn parse_args() -> AstrologyConfig {
@@ -51,13 +54,22 @@ pub fn parse_args() -> AstrologyConfig {
     let default_value_time =
         format!("{}:{}", time.hour().to_string(), time.minute().to_string(),)
             .to_string();
-    let default_value_path = if cfg!(windows) {
+    let default_value_path = format!(
+        "{}/natal_chart.svg",
+        env::current_dir().unwrap().as_path().display()
+    );
+    /*let default_value_path = if cfg!(windows) {
         "C:\natal_chat.svg".to_string()
     } else if cfg!(unix) {
         "~/natal_chart.svg".to_string()
     } else {
         "~/natal_chart.svg".to_string()
-    };
+    };*/
+    // let mut file_path = PathBuf::new();
+    //TODO -> default path windows and unix
+    // file_path.push(env::current_dir().unwrap().as_path());
+    // file_path.push(PATH);
+
     let matches = App::new("Astrology")
         .version(env!("CARGO_PKG_VERSION"))
         .author("Stéphane Bressani <stephane@astrologie-traditionnelle.net)")
@@ -92,10 +104,19 @@ pub fn parse_args() -> AstrologyConfig {
         )
         .arg(
             Arg::with_name(PATH)
-                .short("p")
+                .long("path_export")
                 .value_name("PATH_AND_FILE_CHART")
                 .default_value(&default_value_path)
                 .help("Path for svg draw on the disk")
+                .required(true),
+        )
+        .arg(
+            Arg::with_name(PATH_EPHEM)
+                .long("path_ephem")
+                .value_name("PATH_SWISS_EPHEM_FILES")
+                .help("Path of swiss ephem files")
+                .multiple(false)
+                //TODO validator super exist
                 .required(true),
         )
         .get_matches();
@@ -107,6 +128,7 @@ pub fn parse_args() -> AstrologyConfig {
         matches.value_of(TIME).unwrap_or(&default_value_time),
     )
     .unwrap();
+    let mut ephem = matches.values_of(PATH_EPHEM).unwrap();
 
     AstrologyConfig {
         date: date_final,
@@ -117,6 +139,7 @@ pub fn parse_args() -> AstrologyConfig {
             .value_of(PATH)
             .unwrap_or(&default_value_path)
             .to_string(),
+        path_ephem_files: ephem.next().as_deref().unwrap().to_string(),
     }
 }
 
