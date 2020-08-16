@@ -22,8 +22,8 @@ use std::str::FromStr;
 
 #[derive(Debug)]
 pub struct AstrologyConfig {
-    date: String,
-    time: String,
+    date: NaiveDate,
+    time: NaiveTime,
     lat: f32,
     lng: f32,
     path_and_file: String,
@@ -35,6 +35,7 @@ const LAT: &str = "lat";
 const LNG: &str = "lng";
 const PATH_AND_FILE: &str = "path_and_file";
 
+/// Parse args for clap
 pub fn parse_args() -> AstrologyConfig {
     let now = Utc::now();
     let date = parse_date(now.day(), now.month(), now.year()).unwrap();
@@ -60,26 +61,27 @@ pub fn parse_args() -> AstrologyConfig {
         .about("Create svg natal chart using swissephem lib")
         .arg(
             Arg::with_name(DATE)
-                // .short("d")
-                // .long("date")
+                .short("d")
+                //.long("date")
                 .value_name("DATE_CHART")
                 .default_value(&default_value_date)
                 .help("Date of birth in format: dd.mm.yyyy")
                 //.validator(validate_ports)
-                .required(true)
-                .takes_value(true),
+                .required(true),
+            //.takes_value(true),
         )
         .arg(
             Arg::with_name(TIME)
-                // .short("t")
-                // .long("time")
+                .short("t")
+                //.long("time")
                 .value_name("TIME_CHART")
                 .default_value(&default_value_time)
-                .required(true)
-                .help("Time of birth in format: hh:mm:ss"),
+                .help("Time of birth in format: hh:mm:ss")
+                .required(true),
         )
         .arg(
             Arg::with_name(LAT)
+                .takes_value(true) //TODO: Test is this is nececary in LNG
                 // .long("latitude")
                 .value_name("LAT_CHART")
                 .required(true)
@@ -90,28 +92,48 @@ pub fn parse_args() -> AstrologyConfig {
                 // .long("longitude")
                 .value_name("LNG_CHART")
                 .required(true)
-                .help("Longitude of birth in float format: (example) 99.99"),
+                .help("Longitude of birth in float format: 99.99"),
         )
         .arg(
             Arg::with_name(PATH_AND_FILE)
                 .short("p")
                 .value_name("PATH_AND_FILE_CHART")
-                .required(false)
-                .help("Path for svg draw on the disk (default:  ~/natal_chart.svg)"),
+                .default_value("~/natal_chart.svg") //TODO: Crossplatform
+                .help("Path for svg draw on the disk")
+                .required(true),
         )
         //.validator(validat_ports)
         .get_matches();
-    AstrologyConfig {
-        date: matches
+    let date_final = parse_date_from_str(
+        matches
             .value_of("DATE_CHART")
-            .unwrap_or(&default_value_date)
-            .to_string(),
-        time: matches
+            .unwrap_or(&default_value_date),
+    )
+    .unwrap();
+    let time_final = parse_time_from_str(
+        matches
             .value_of("TIME_CHART")
-            .unwrap_or(&default_value_time)
-            .to_string(),
-        lat: f32::from_str(matches.value_of("LAT_CHART").unwrap()).unwrap(),
-        lng: f32::from_str(matches.value_of("LNG_CHART").unwrap()).unwrap(),
+            .unwrap_or(&default_value_time),
+    )
+    .unwrap();
+
+    println!("{:?}", matches);
+
+    if let Some(latitude) = matches.value_of(LAT) {
+        println!("{}", latitude);
+    };
+
+    if matches.is_present(LAT) {
+        println!("{}", matches.value_of(LAT).unwrap().to_string());
+    } else {
+        println!("Provide latitude argument");
+    }
+
+    AstrologyConfig {
+        date: date_final,
+        time: time_final,
+        lat: f32::from_str(matches.value_of(LAT).unwrap()).unwrap(),
+        lng: f32::from_str(matches.value_of(LNG).unwrap()).unwrap(),
         path_and_file: matches
             .value_of("PATH_AND_FILE_CHART")
             .unwrap_or("~/natal_chart.svg")
@@ -119,6 +141,7 @@ pub fn parse_args() -> AstrologyConfig {
     }
 }
 
+/// Parse date from value integer to NaiveDate
 fn parse_date(
     day: u32,
     month: u32,
@@ -129,8 +152,21 @@ fn parse_date(
     Ok(date)
 }
 
+/// Parse date from value &str to NaiveDate
+fn parse_date_from_str(date: &str) -> Result<NaiveDate, ParseError> {
+    let d = NaiveDate::parse_from_str(date, "%d.%m.%Y")?;
+    Ok(d)
+}
+
+/// Parse time from value integer to NaiveTime
 fn parse_time(hour: i32, min: i32, sec: i32) -> Result<NaiveTime, ParseError> {
     let f = format!("{}:{}:{}", hour, min, sec).to_string();
     let time = NaiveTime::parse_from_str(&f, "%H:%M:%S")?;
     Ok(time)
+}
+
+/// Parse time from value &str to NaiveTime
+fn parse_time_from_str(time: &str) -> Result<NaiveTime, ParseError> {
+    let t = NaiveTime::parse_from_str(time, "%H:%M:%S")?;
+    Ok(t)
 }
