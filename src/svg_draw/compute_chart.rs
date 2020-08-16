@@ -95,7 +95,7 @@ pub fn chart(
     //let swe02_path: &str =
     //    "/Users/stephanebressani/Code/Rust/libswe-sys/src/swisseph/sweph/";
     swerust::handler_swe02::set_ephe_path(&path);
-    println!("{}", data.year);
+    // println!("{}", data.year);
     //TODO: set_ephe_path(&path) work but get_library_path() return the path
     //      of this directory, this is wrong, but the ephem files are loaded
     //println!(

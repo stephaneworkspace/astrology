@@ -139,10 +139,8 @@ commercial license.")
         matches.value_of(DATE).unwrap_or(&default_value_date),
     )
     .unwrap();
-    let time_final = parse_time_from_str(
-        matches.value_of(TIME).unwrap_or(&default_value_time),
-    )
-    .unwrap();
+    let time_final =
+        parse_time_from_str(matches.value_of(TIME).unwrap()).unwrap();
     let mut ephem_final = matches.values_of(PATH_EPHEM).unwrap();
     let mut size_final = matches.values_of(SIZE).unwrap();
     let size_final_string: String =
