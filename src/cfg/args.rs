@@ -51,6 +51,13 @@ pub fn parse_args() -> AstrologyConfig {
     let default_value_time =
         format!("{}:{}", time.hour().to_string(), time.minute().to_string(),)
             .to_string();
+    let default_value_path = if cfg!(windows) {
+        "C:\natal_chat.svg".to_string()
+    } else if cfg!(unix) {
+        "~/natal_chart.svg".to_string()
+    } else {
+        "~/natal_chart.svg".to_string()
+    };
     let matches = App::new("Astrology")
         .version(env!("CARGO_PKG_VERSION"))
         .author("Stéphane Bressani <stephane@astrologie-traditionnelle.net)")
@@ -58,18 +65,14 @@ pub fn parse_args() -> AstrologyConfig {
         .arg(
             Arg::with_name(DATE)
                 .short("d")
-                //.long("date")
                 .value_name("DATE_CHART")
                 .default_value(&default_value_date)
                 .help("Date of birth in format: dd.mm.yyyy")
-                //.validator(validate_ports)
                 .required(true),
-            //.takes_value(true),
         )
         .arg(
             Arg::with_name(TIME)
                 .short("t")
-                //.long("time")
                 .value_name("TIME_CHART")
                 .default_value(&default_value_time)
                 .help("Time of birth in format: hh:mm:ss or hh:mm")
@@ -77,15 +80,12 @@ pub fn parse_args() -> AstrologyConfig {
         )
         .arg(
             Arg::with_name(LAT)
-                .takes_value(true) //TODO: Test is this is nececary in LNG
-                //.long("latitude")
                 .value_name("LAT_CHART")
                 .required(true)
                 .help("Latitude of birth in float format: 99.99"),
         )
         .arg(
             Arg::with_name(LNG)
-                //.long("longitude")
                 .value_name("LNG_CHART")
                 .required(true)
                 .help("Longitude of birth in float format: 99.99"),
@@ -94,11 +94,10 @@ pub fn parse_args() -> AstrologyConfig {
             Arg::with_name(PATH)
                 .short("p")
                 .value_name("PATH_AND_FILE_CHART")
-                .default_value("~/natal_chart.svg") //TODO: Crossplatform
+                .default_value(&default_value_path)
                 .help("Path for svg draw on the disk")
                 .required(true),
         )
-        //.validator(validat_ports)
         .get_matches();
     let date_final = parse_date_from_str(
         matches.value_of(DATE).unwrap_or(&default_value_date),
@@ -109,18 +108,6 @@ pub fn parse_args() -> AstrologyConfig {
     )
     .unwrap();
 
-    println!("{:?}", matches);
-
-    if let Some(latitude) = matches.value_of(LAT) {
-        println!("{}", latitude);
-    };
-
-    if matches.is_present(LAT) {
-        println!("{}", matches.value_of(LAT).unwrap().to_string());
-    } else {
-        println!("Provide latitude argument");
-    }
-
     AstrologyConfig {
         date: date_final,
         time: time_final,
@@ -128,7 +115,7 @@ pub fn parse_args() -> AstrologyConfig {
         lng: f32::from_str(matches.value_of(LNG).unwrap()).unwrap(),
         path_and_file: matches
             .value_of(PATH)
-            .unwrap_or("~/natal_chart.svg")
+            .unwrap_or(&default_value_path)
             .to_string(),
     }
 }
