@@ -14,6 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
+use super::validator::parse_path;
 use chrono::format::ParseError;
 use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
 use clap::{App, Arg};
@@ -124,7 +125,7 @@ commercial license.")
                 .value_name("PATH_SWISS_EPHEM_FILES")
                 .help("Path of swiss ephem files")
                 .multiple(false)
-                //TODO validator super exist
+                .validator(parse_path)
                 .required(true),
         )
         .get_matches();
