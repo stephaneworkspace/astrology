@@ -74,13 +74,13 @@ pub fn chart_with_transit(
     let utc_time_zone: swerust::handler_swe08::UtcTimeZoneResult =
         swerust::handler_swe08::utc_time_zone(
             data.year,
-            data.month,
-            data.day,
-            data.hour,
-            data.min,
-            data.sec as f64, // need to change libswe_sys f64 -> f32
-            2.0,
-        ); // 2.0 = Timezone -> to compute
+            data.month as i32,     //TODO
+            data.day as i32,       //TODO
+            data.hour as i32,      //TODO
+            data.min as i32,       //TODO
+            data.sec.into(),       //TODO need to change libswe_sys f64 -> f32
+            data.time_zone.into(), //TODO need to change f64 -> f32 without .into()
+        );
     println!("UtcTimeZone: {:?}", utc_time_zone);
     let utc_to_jd: swerust::handler_swe08::UtcToJdResult =
         swerust::handler_swe08::utc_to_jd(
@@ -96,13 +96,13 @@ pub fn chart_with_transit(
     let utc_time_zone_transit: swerust::handler_swe08::UtcTimeZoneResult =
         swerust::handler_swe08::utc_time_zone(
             data_transit.year,
-            data_transit.month,
-            data_transit.day,
-            data_transit.hour,
-            data_transit.min,
-            data_transit.sec as f64, // need to change libswe_sys f64 -> f32
-            2.0,
-        ); // 2.0 = Timezone -> to compute
+            data_transit.month as i32, //TODO
+            data_transit.day as i32,   //TODO
+            data_transit.hour as i32,  //TODO
+            data_transit.min as i32,   //TODO
+            data_transit.sec.into(), //TODO need to change libswe_sys f64 -> f32
+            data.time_zone.into(), //TODO need to change f64 -> f32 without .into()
+        );
     println!("UtcTimeZone transit: {:?}", utc_time_zone_transit);
     let utc_to_jd_transit: swerust::handler_swe08::UtcToJdResult =
         swerust::handler_swe08::utc_to_jd(

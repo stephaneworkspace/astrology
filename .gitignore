@@ -24,3 +24,5 @@ Cargo.lock
 
 my_natal_chart.sh
 natal_chart.svg
+my_transit_chart.sh
+transit_chart.svg

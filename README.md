@@ -58,7 +58,8 @@ ARGS:
 0.2.0
 * Add cli
 * Remove a message with the wrong path of swiss ephem files
-* Code is cleaner now in ./src/svg_draw
+* Code is cleaner now in ./src/svg_draw/mod.rs
+* Addeded timezone to set in library ./src/lib.rs
 
 0.1.76
 * Small change in comments

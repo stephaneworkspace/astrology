@@ -35,13 +35,14 @@ use svg::node::element::path::Number;
 #[derive(Debug, Deserialize)]
 pub struct DataChartNatal {
     pub year: i32,
-    pub month: i32,
-    pub day: i32,
-    pub hour: i32,
-    pub min: i32,
+    pub month: u32,
+    pub day: u32,
+    pub hour: u32,
+    pub min: u32,
     pub sec: f32,
     pub lat: f32,
     pub lng: f32,
+    pub time_zone: f32,
 }
 
 /// Data object for json svg
@@ -107,12 +108,12 @@ pub fn chart(
     let utc_time_zone: swerust::handler_swe08::UtcTimeZoneResult =
         swerust::handler_swe08::utc_time_zone(
             data.year,
-            data.month,
-            data.day,
-            data.hour,
-            data.min,
-            data.sec as f64, // need to change libswe_sys f64 -> f32
-            2.0,
+            data.month as i32,     //TODO
+            data.day as i32,       //TODO
+            data.hour as i32,      //TODO
+            data.min as i32,       //TODO
+            data.sec.into(),       //TODO need to change libswe_sys f64 -> f32
+            data.time_zone.into(), //TODO
         ); // 2.0 = Timezone -> to compute
     println!("UtcTimeZone: {:?}", utc_time_zone);
     let utc_to_jd: swerust::handler_swe08::UtcToJdResult =

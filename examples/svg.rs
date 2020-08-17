@@ -14,7 +14,7 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-use astrology::cfg::parse_args;
+use astrology::cfg::parse_args_natal;
 use astrology::svg_draw::{chart_svg, DataChartNatal};
 use chrono::{Datelike, Timelike};
 use libswe_sys::sweconst::Language;
@@ -24,16 +24,17 @@ use std::io::Write;
 
 /// Write chart to PATH_EXPORT (change it for you)
 fn main() {
-    let cfg = parse_args();
+    let cfg = parse_args_natal();
     let d = DataChartNatal {
         year: cfg.date.year(),
-        month: cfg.date.month() as i32,
-        day: cfg.date.day() as i32,
-        hour: cfg.time.hour() as i32,
-        min: cfg.time.minute() as i32,
+        month: cfg.date.month(),
+        day: cfg.date.day(),
+        hour: cfg.time.hour(),
+        min: cfg.time.minute(),
         sec: cfg.time.second() as f32,
         lat: cfg.lat,
         lng: cfg.lng,
+        time_zone: cfg.time_zone,
     };
     let mut file_export = File::create(&cfg.path_and_file).unwrap();
     let path = CString::new(cfg.path_ephem_files.as_str())

@@ -85,11 +85,8 @@ pub fn validator_parse_time(time: String) -> Result<(), String> {
 /// . (0-1)
 pub fn validator_parse_latlng(latlng: String) -> Result<(), String> {
     let d: &str = &latlng.as_str();
-    let items: Vec<_> = d.split(&['.'][..]).collect();
-    for (i, item) in items.clone().iter().enumerate() {
-        if i > 1 {
-            return Err(format!("{} is invalid because isn't a floating numeric value. Plese enteer in format 99.99", latlng));
-        }
+    let items: Vec<_> = d.split(&['.', '+', '-'][..]).collect();
+    for item in items.clone() {
         if !item.chars().all(char::is_numeric) {
             return Err(format!("{} is invalid because: {} isn't numeric. Please enter in format 99.99", latlng, item));
         }
@@ -105,8 +102,35 @@ pub fn validator_parse_latlng(latlng: String) -> Result<(), String> {
         }
     } else {
         Err(format!(
-            "{} is invalid. Please enter in format 99.99s",
+            "{} is invalid. Please enter in format 99.99",
             latlng
+        ))
+    }
+}
+
+/// Check if timezone is ok
+/// . (0-1)
+pub fn validator_parse_timezone(time_zone: String) -> Result<(), String> {
+    let d: &str = &time_zone.as_str();
+    let items: Vec<_> = d.split(&['.', '+', '-'][..]).collect();
+    for item in items.clone() {
+        if !item.chars().all(char::is_numeric) {
+            return Err(format!("{} is invalid because isn't numeric. Please enter in format numeric", time_zone));
+        }
+    }
+    if items.len() >= 1 {
+        if items.len() == 1 && !time_zone.chars().all(char::is_numeric) {
+            Err(format!(
+                "{} is invalid. Please enter in format numeric",
+                time_zone
+            ))
+        } else {
+            Ok(())
+        }
+    } else {
+        Err(format!(
+            "{} is invalid. Please enter in format numeric",
+            time_zone
         ))
     }
 }
