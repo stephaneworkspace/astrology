@@ -29,7 +29,7 @@ pub fn validator_parse_date(date: String) -> Result<(), String> {
     let items: Vec<_> = d.split(&['.', '-'][..]).collect();
     for item in &items {
         if !item.chars().all(char::is_numeric) {
-            return Err(format!("{} is invalid because: {} isn't numeric. Please enter a date in format dd.mm.yyyy", date, item));
+            return Err(format!("{} is invalid because: {} isn't numeric. Please enter in format dd.mm.yyyy", date, item));
         }
     }
     let mut bc_4_item = 0;
@@ -45,7 +45,7 @@ pub fn validator_parse_date(date: String) -> Result<(), String> {
         Ok(())
     } else {
         Err(format!(
-            "{} is invalid. Please enter a date in format dd.mm.yyyy.",
+            "{} is invalid. Please enter in format dd.mm.yyyy.",
             date
         ))
     }
@@ -61,19 +61,52 @@ pub fn validator_parse_time(time: String) -> Result<(), String> {
             break;
         }
         if !item.chars().all(char::is_numeric) {
-            return Err(format!("{} is invalid because: {} isn't numeric. Please enter time in format hh:mm or hh:mm:ss", time, item));
+            return Err(format!("{} is invalid because: {} isn't numeric. Please enter in format hh:mm or hh:mm:ss", time, item));
         }
     }
     if items.len() >= 1 {
         if items.len() == 1 && !time.chars().all(char::is_numeric) {
-            Err(format!("{} is invalid. Please  enter a time in format hh:mm or hh:mm:ss", time        ))
+            Err(format!(
+                "{} is invalid. Please enter in format hh:mm or hh:mm:ss",
+                time
+            ))
         } else {
             Ok(())
         }
     } else {
         Err(format!(
-            "{} is invalid. Please  enter a time in format hh:mm or hh:mm:ss",
+            "{} is invalid. Please enter in format hh:mm or hh:mm:ss",
             time
+        ))
+    }
+}
+
+/// Check if latitude or longitude is ok
+/// . (0-1)
+pub fn validator_parse_latlng(latlng: String) -> Result<(), String> {
+    let d: &str = &latlng.as_str();
+    let items: Vec<_> = d.split(&['.'][..]).collect();
+    for (i, item) in items.clone().iter().enumerate() {
+        if i > 1 {
+            return Err(format!("{} is invalid because isn't a floating numeric value. Plese enteer in format 99.99", latlng));
+        }
+        if !item.chars().all(char::is_numeric) {
+            return Err(format!("{} is invalid because: {} isn't numeric. Please enter in format 99.99", latlng, item));
+        }
+    }
+    if items.len() >= 1 {
+        if items.len() == 1 && !latlng.chars().all(char::is_numeric) {
+            Err(format!(
+                "{} is invalid. Please enter in format 99.99",
+                latlng
+            ))
+        } else {
+            Ok(())
+        }
+    } else {
+        Err(format!(
+            "{} is invalid. Please enter in format 99.99s",
+            latlng
         ))
     }
 }
