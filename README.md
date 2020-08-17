@@ -41,8 +41,7 @@ FLAGS:
 
 OPTIONS:
     -d <DATE_CHART>                              Date of birth in format: dd.mm.yyyy [default: 17.8.2020]
-        --path_export <PATH_AND_FILE_CHART>
-            Path for svg draw on the disk [default: /Users/stephanebressani/Code/Rust/astrology/natal_chart.svg]
+        --path_export <PATH_AND_FILE_CHART>      Path for svg draw on the disk [default: ./natal_chart.svg]
 
         --path_ephem <PATH_SWISS_EPHEM_FILES>    Path of swiss ephem files
     -s <SIZE_SQUARE_IN_PX>                       Size of the square [default: 1000]
@@ -79,8 +78,7 @@ OPTIONS:
         --transit_lat <LAT_TRANSIT_CHART>                Latitude of transit in float format: 99.99
         --natal_lng <LNG_NATAL_CHART>                    Longitude of birth in float format: 99.99
         --transit_lng <LNG_TRANSIT_CHART>                Longitude of transit in float format: 99.99
-        --path_export <PATH_AND_FILE_CHART>
-            Path for svg draw on the disk [default: /Users/stephanebressani/Code/Rust/astrology/transit_chart.svg]
+        --path_export <PATH_AND_FILE_CHART>              Path for svg draw on the disk [default: ./transit_chart.svg]
 
         --path_ephem <PATH_SWISS_EPHEM_FILES>            Path of swiss ephem files
     -s <SIZE_SQUARE_IN_PX>                               Size of the square [default: 1000]
