@@ -14,10 +14,10 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-extern crate base64;
-extern crate libswe_sys;
-extern crate serde;
-extern crate strum;
+//extern crate base64;
+//extern crate libswe_sys;
+//extern crate serde;
+//extern crate strum;
 pub mod angles;
 pub mod aspects;
 pub mod bodies;
