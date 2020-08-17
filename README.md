@@ -24,7 +24,7 @@ git clone https://github.com/stephaneworkspace/ephem_files.git
 2.1) Simple natal chart
 
 ````
-cargo run --example svg -- 1.9 45.0 01.01.2000 23:23 --path_export ~/my_natal_chart.svg --path_ephem ~/Code/Binary/ephem_files
+cargo run --example svg -- -1.9 45.0 +2 01.01.2000 23:23 --path_export ~/my_natal_chart.svg --path_ephem ~/Code/Binary/ephem_files
 ````
 
 ````
@@ -33,23 +33,59 @@ cargo run --example svg -- --help
 
 ````
 USAGE:
-    svg <LAT_CHART> <LNG_CHART> -d <DATE_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -t <TIME_CHART>
+    svg <LAT_CHART> <LNG_CHART> <TIME_ZONE_CHART> -d <DATE_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -s <SIZE_SQUARE_IN_PX> -t <TIME_CHART>
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 OPTIONS:
-    -d <DATE_CHART>                              Date of birth in format: dd.mm.yyyy [default: 16.8.2020]
-        --path_export <PATH_AND_FILE_CHART>      Path for svg draw on the disk [default: ~/Code/Rust/astrology/natal_chart.svg]
+    -d <DATE_CHART>                              Date of birth in format: dd.mm.yyyy [default: 17.8.2020]
+        --path_export <PATH_AND_FILE_CHART>
+            Path for svg draw on the disk [default: /Users/stephanebressani/Code/Rust/astrology/natal_chart.svg]
 
         --path_ephem <PATH_SWISS_EPHEM_FILES>    Path of swiss ephem files
+    -s <SIZE_SQUARE_IN_PX>                       Size of the square [default: 1000]
     -t <TIME_CHART>                              Time of birth in format: hh:mm:ss or hh:mm [default: 0:0]
 
 ARGS:
-    <LAT_CHART>    Latitude of birth in float format: 99.99
-    <LNG_CHART>    Longitude of birth in float format: 99.99
+    <LAT_CHART>          Latitude of birth in float format: 99.99
+    <LNG_CHART>          Longitude of birth in float format: 99.99
+    <TIME_ZONE_CHART>    Time zone of birth in numeric format
 ````
+
+2.2 Svg Natal + Transit chart
+
+````
+cargo run --example svg_transit -- --help
+````
+
+````
+USAGE:
+    svg_transit --natal_date <DATE_NATAL_CHART> --transit_date <DATE_NATAL_CHART> --natal_lat <LAT_NATAL_CHART> --transit_lat <LAT_TRANSIT_CHART> --natal_lng <LNG_NATAL_CHART> --transit_lng <LNG_TRANSIT_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -s <SIZE_SQUARE_IN_PX> --natal_time <TIME_NATAL_CHART> --transit_time <TIME_TRANSIT_CHART> --natal_time_zone <TIME_ZONE_NATAL_CHART> --transit_time_zone <TIME_ZONE_TRANSIT_CHART>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --natal_date <DATE_NATAL_CHART>                  Date of birth in format: dd.mm.yyyy
+        --transit_date <DATE_NATAL_CHART>                Date of transit in format: dd.mm.yyyy
+        --natal_lat <LAT_NATAL_CHART>                    Latitude of birth in float format: 99.99
+        --transit_lat <LAT_TRANSIT_CHART>                Latitude of transit in float format: 99.99
+        --natal_lng <LNG_NATAL_CHART>                    Longitude of birth in float format: 99.99
+        --transit_lng <LNG_TRANSIT_CHART>                Longitude of transit in float format: 99.99
+        --path_export <PATH_AND_FILE_CHART>
+            Path for svg draw on the disk [default: /Users/stephanebressani/Code/Rust/astrology/transit_chart.svg]
+
+        --path_ephem <PATH_SWISS_EPHEM_FILES>            Path of swiss ephem files
+    -s <SIZE_SQUARE_IN_PX>                               Size of the square [default: 1000]
+        --natal_time <TIME_NATAL_CHART>                  Time of birth in format: hh:mm:ss or hh:mm
+        --transit_time <TIME_TRANSIT_CHART>              Time of transit in format: hh:mm:ss or hh:mm
+        --natal_time_zone <TIME_ZONE_NATAL_CHART>        Time zone of birth in numeric format
+        --transit_time_zone <TIME_ZONE_TRANSIT_CHART>    Time zone of transit in numeric format
+````
+
 # Example
 
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)

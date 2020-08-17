@@ -22,7 +22,7 @@ use std::ffi::{CStr, CString};
 use std::fs::File;
 use std::io::Write;
 
-/// Write chart to PATH_EXPORT (change it for you)
+/// Write svg natal chart
 fn main() {
     let cfg = parse_args_natal();
     let d = DataChartNatal {

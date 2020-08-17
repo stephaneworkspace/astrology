@@ -921,6 +921,36 @@ pub fn chart_svg(
     svg_res
 }
 
+pub fn chart_svg_with_transit(
+    max_size: Number,
+    data_n: DataChartNatal,
+    data_t: DataChartNatal,
+    path: &str,
+    lang: Language,
+) -> String {
+    let res: Vec<DataObjectSvg> =
+        chart_with_transit(max_size, data_n, data_t, path, lang);
+    let mut svg_res: String = "".to_string();
+    for r in res.clone() {
+        if r.object_type == DataObjectType::Chart {
+            svg_res = r.svg;
+        }
+    }
+    if svg_res != "" {
+        svg_res = svg_res.replace("</svg>", "");
+        for r in res {
+            if r.object_type != DataObjectType::Chart {
+                // to do better inside after for real use
+                svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, r.size_x, r.size_y, r.pos_x, r.pos_y, encode(r.svg.as_str()));
+            }
+        }
+    } else {
+        svg_res = "<svg>".to_string();
+    }
+    svg_res = format!("{}</svg>", svg_res);
+    svg_res
+}
+
 pub fn all_aspects(lang: Language) -> Vec<DataObjectAspectSvg> {
     let mut res: Vec<DataObjectAspectSvg> = Vec::new();
     // No aspect
