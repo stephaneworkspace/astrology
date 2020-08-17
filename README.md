@@ -54,7 +54,11 @@ ARGS:
     <TIME_ZONE_CHART>    Time zone of birth in numeric format
 ````
 
-2.2 Svg Natal + Transit chart
+2.2) Svg Natal + Transit chart
+
+````
+cargo run --example svg_transit -- --natal_date 01.01.1900 --transit_date 01.08.2020 --natal_lat 46.0222 --transit_lat 46.0222 --natal_lng 6.14569 --transit_lng 6.14569 --path_export ~/my_transit_chart.svg --path_ephem ~/Code/Binary/ephem_files --natal_time 3:0 --transit_time 14:20 --natal_time_zone 2 --transit_time_zone 2
+````
 
 ````
 cargo run --example svg_transit -- --help
