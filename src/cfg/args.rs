@@ -16,6 +16,7 @@
  */
 use super::validator::{
     validator_parse_date, validator_parse_path, validator_parse_size,
+    validator_parse_time,
 };
 use chrono::format::ParseError;
 use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
@@ -93,6 +94,7 @@ commercial license.")
                 .default_value(&default_value_time)
                 .multiple(false)
                 .help("Time of birth in format: hh:mm:ss or hh:mm")
+                .validator(validator_parse_time)
                 .required(true),
         )
         .arg(
