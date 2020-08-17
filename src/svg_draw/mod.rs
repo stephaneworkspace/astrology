@@ -14,10 +14,6 @@
  * Therefore, if you want to this source in your commercial projects, you must
  * adhere to the GPL license or buy a Swiss Ephemeris commercial license.
  */
-//extern crate base64;
-//extern crate libswe_sys;
-//extern crate serde;
-//extern crate strum;
 pub mod angles;
 pub mod aspects;
 pub mod bodies;
@@ -30,11 +26,6 @@ pub use self::compute_chart::{
     chart, chart_svg, chart_with_transit, DataChartNatal, DataObjectAspectSvg,
     DataObjectSvg, DataObjectType,
 };
-pub use self::svg_draw::{
-    WorkingStorageDrawPolyMorphNatal, WorkingStorageDrawPolyMorphTransit,
-    WorkingStoragePolyMorphNatal, WorkingStoragePolyMorphTransit,
-};
-pub use svg_draw::*;
 
 #[cfg(test)]
 mod tests {

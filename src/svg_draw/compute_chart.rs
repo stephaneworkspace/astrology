@@ -19,7 +19,7 @@ use super::aspects::{
     aspects_all_aspects, aspects_draw, aspects_maj_aspects,
     aspects_min_aspects, aspects_no_aspect,
 };
-use crate::svg_draw::{
+use super::svg_draw::{
     CalcDraw, Draw, WorkingStorageDrawPolyMorphNatal,
     WorkingStorageDrawPolyMorphTransit, WorkingStoragePolyMorphNatal,
     WorkingStoragePolyMorphTransit,
