@@ -23,7 +23,7 @@ pub mod numbers;
 pub mod svg_draw;
 pub mod zodiacs;
 pub use self::compute_chart::{
-    chart, chart_svg, chart_svg_with_transit, chart_with_transit,
+    all_aspects, chart, chart_svg, chart_svg_with_transit, chart_with_transit,
     DataChartNatal, DataObjectAspectSvg, DataObjectSvg, DataObjectType,
 };
 
