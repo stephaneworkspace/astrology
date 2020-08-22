@@ -18,8 +18,9 @@ use super::parse::{
     parse_date, parse_date_from_str, parse_time, parse_time_from_str,
 };
 use super::validator::{
-    validator_parse_date, validator_parse_latlng, validator_parse_path,
-    validator_parse_size, validator_parse_time, validator_parse_timezone,
+    validator_parse_aspect, validator_parse_date, validator_parse_latlng,
+    validator_parse_path, validator_parse_size, validator_parse_time,
+    validator_parse_timezone,
 };
 use chrono::{Datelike, NaiveDate, NaiveTime, Timelike, Utc};
 use clap::{App, AppSettings, Arg};
@@ -37,6 +38,7 @@ pub struct AstrologyConfig {
     pub path_and_file: String,
     pub path_ephem_files: String,
     pub size: u32,
+    pub aspect: u32,
 }
 
 #[derive(Debug)]
@@ -54,6 +56,7 @@ pub struct AstrologyTransitConfig {
     pub path_and_file: String,
     pub path_ephem_files: String,
     pub size: u32,
+    pub aspect: u32,
 }
 
 const AUTHOR: &str =
@@ -64,6 +67,7 @@ const TIME: &str = "time";
 const LAT: &str = "lat";
 const LNG: &str = "lng";
 const TIME_ZONE: &str = "time_zone";
+const ASPECT: &str = "aspect";
 const PATH: &str = "path_and_file";
 const PATH_EPHEM: &str = "path_ephem";
 const SIZE: &str = "size";
@@ -185,6 +189,29 @@ commercial license.")
                 .validator(validator_parse_size)
                 .required(true),
         )
+        .arg(
+            Arg::with_name(ASPECT)
+                .short("a")
+                .value_name("ASPECT_CODE")
+                .default_value("0")
+                .help("Code of aspect :
+    All aspects = 0
+    All majors aspects = 1
+    Conjunction = 2
+    Opposition = 3
+    Trine = 4
+    Square = 5
+    Sextile = 6
+    All minors aspect = 7
+    Inconjunction = 8
+    Sesquisquare = 9
+    Semisquare = 10
+    Semisextile = 11
+    No aspects = 12")
+                .multiple(false)
+                .validator(validator_parse_aspect)
+                .required(false),
+        )
         .get_matches();
     let date_final =
         parse_date_from_str(matches.value_of(DATE).unwrap()).unwrap();
@@ -194,6 +221,9 @@ commercial license.")
     let mut size_final = matches.values_of(SIZE).unwrap();
     let size_final_string: String =
         size_final.next().as_deref().unwrap().to_string();
+    let mut aspect_final = matches.values_of(ASPECT).unwrap();
+    let aspect_final_string: String =
+        aspect_final.next().as_deref().unwrap().to_string();
     AstrologyConfig {
         date: date_final,
         time: time_final,
@@ -206,6 +236,7 @@ commercial license.")
             .to_string(),
         path_ephem_files: ephem_final.next().as_deref().unwrap().to_string(),
         size: size_final_string.parse::<u32>().unwrap(),
+        aspect: aspect_final_string.parse::<u32>().unwrap(),
     }
 }
 
@@ -346,6 +377,29 @@ commercial license.")
                 .validator(validator_parse_size)
                 .required(true),
         )
+        .arg(
+            Arg::with_name(ASPECT)
+                .short("a")
+                .value_name("ASPECT_CODE")
+                .default_value("0")
+                .help("Code of aspect :
+    All aspects = 0
+    All majors aspects = 1
+    Conjunction = 2
+    Opposition = 3
+    Trine = 4
+    Square = 5
+    Sextile = 6
+    All minors aspect = 7
+    Inconjunction = 8
+    Sesquisquare = 9
+    Semisquare = 10
+    Semisextile = 11
+    No aspects = 12")
+                .multiple(false)
+                .validator(validator_parse_aspect)
+                .required(false),
+        )
         .get_matches();
     let date_n_final =
         parse_date_from_str(matches.value_of(DATE_N).unwrap()).unwrap();
@@ -359,6 +413,9 @@ commercial license.")
     let mut size_final = matches.values_of(SIZE).unwrap();
     let size_final_string: String =
         size_final.next().as_deref().unwrap().to_string();
+    let mut aspect_final = matches.values_of(ASPECT).unwrap();
+    let aspect_final_string: String =
+        aspect_final.next().as_deref().unwrap().to_string();
     AstrologyTransitConfig {
         date_n: date_n_final,
         time_n: time_n_final,
@@ -378,5 +435,6 @@ commercial license.")
             .to_string(),
         path_ephem_files: ephem_final.next().as_deref().unwrap().to_string(),
         size: size_final_string.parse::<u32>().unwrap(),
+        aspect: aspect_final_string.parse::<u32>().unwrap(),
     }
 }

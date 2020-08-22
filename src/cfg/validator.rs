@@ -134,3 +134,16 @@ pub fn validator_parse_timezone(time_zone: String) -> Result<(), String> {
         ))
     }
 }
+
+/// Check if aspect is valid
+pub fn validator_parse_aspect(aspect: String) -> Result<(), String> {
+    let i: u32 = aspect.parse::<u32>().unwrap();
+    if i <= 12 {
+        Ok(())
+    } else {
+        Err(format!(
+            "{} isn't between 0 and 12 (--help for code list)",
+            aspect
+        ))
+    }
+}

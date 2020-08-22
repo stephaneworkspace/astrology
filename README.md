@@ -33,15 +33,31 @@ cargo run --example svg -- --help
 
 ````
 USAGE:
-    svg <LAT_CHART> <LNG_CHART> <TIME_ZONE_CHART> -d <DATE_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -s <SIZE_SQUARE_IN_PX> -t <TIME_CHART>
+    svg [OPTIONS] <LAT_CHART> <LNG_CHART> <TIME_ZONE_CHART> -d <DATE_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -s <SIZE_SQUARE_IN_PX> -t <TIME_CHART>
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 OPTIONS:
-    -d <DATE_CHART>                              Date of birth in format: dd.mm.yyyy [default: 17.8.2020]
-        --path_export <PATH_AND_FILE_CHART>      Path for svg draw on the disk [default: ./natal_chart.svg]
+    -a <ASPECT_CODE>
+            Code of aspect :
+                All aspects = 0
+                All majors aspects = 1
+                Conjunction = 2
+                Opposition = 3
+                Trine = 4
+                Square = 5
+                Sextile = 6
+                All minors aspect = 7
+                Inconjunction = 8
+                Sesquisquare = 9
+                Semisquare = 10
+                Semisextile = 11
+                No aspects = 12 [default: 0]
+    -d <DATE_CHART>                              Date of birth in format: dd.mm.yyyy [default: 22.8.2020]
+        --path_export <PATH_AND_FILE_CHART>
+                                                 Path for svg draw on the disk [default: ./natal_chart.svg]
 
         --path_ephem <PATH_SWISS_EPHEM_FILES>    Path of swiss ephem files
     -s <SIZE_SQUARE_IN_PX>                       Size of the square [default: 1000]
@@ -65,20 +81,36 @@ cargo run --example svg_transit -- --help
 
 ````
 USAGE:
-    svg_transit --natal_date <DATE_NATAL_CHART> --transit_date <DATE_NATAL_CHART> --natal_lat <LAT_NATAL_CHART> --transit_lat <LAT_TRANSIT_CHART> --natal_lng <LNG_NATAL_CHART> --transit_lng <LNG_TRANSIT_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -s <SIZE_SQUARE_IN_PX> --natal_time <TIME_NATAL_CHART> --transit_time <TIME_TRANSIT_CHART> --natal_time_zone <TIME_ZONE_NATAL_CHART> --transit_time_zone <TIME_ZONE_TRANSIT_CHART>
+    svg_transit [OPTIONS] --natal_date <DATE_NATAL_CHART> --transit_date <DATE_NATAL_CHART> --natal_lat <LAT_NATAL_CHART> --transit_lat <LAT_TRANSIT_CHART> --natal_lng <LNG_NATAL_CHART> --transit_lng <LNG_TRANSIT_CHART> --path_export <PATH_AND_FILE_CHART> --path_ephem <PATH_SWISS_EPHEM_FILES> -s <SIZE_SQUARE_IN_PX> --natal_time <TIME_NATAL_CHART> --transit_time <TIME_TRANSIT_CHART> --natal_time_zone <TIME_ZONE_NATAL_CHART> --transit_time_zone <TIME_ZONE_TRANSIT_CHART>
 
 FLAGS:
     -h, --help       Prints help information
     -V, --version    Prints version information
 
 OPTIONS:
+    -a <ASPECT_CODE>
+            Code of aspect :
+                All aspects = 0
+                All majors aspects = 1
+                Conjunction = 2
+                Opposition = 3
+                Trine = 4
+                Square = 5
+                Sextile = 6
+                All minors aspect = 7
+                Inconjunction = 8
+                Sesquisquare = 9
+                Semisquare = 10
+                Semisextile = 11
+                No aspects = 12 [default: 0]
         --natal_date <DATE_NATAL_CHART>                  Date of birth in format: dd.mm.yyyy
         --transit_date <DATE_NATAL_CHART>                Date of transit in format: dd.mm.yyyy
         --natal_lat <LAT_NATAL_CHART>                    Latitude of birth in float format: 99.99
         --transit_lat <LAT_TRANSIT_CHART>                Latitude of transit in float format: 99.99
         --natal_lng <LNG_NATAL_CHART>                    Longitude of birth in float format: 99.99
         --transit_lng <LNG_TRANSIT_CHART>                Longitude of transit in float format: 99.99
-        --path_export <PATH_AND_FILE_CHART>              Path for svg draw on the disk [default: ./transit_chart.svg]
+        --path_export <PATH_AND_FILE_CHART>
+                                                         Path for svg draw on the disk [default: ./transit_chart.svg]
 
         --path_ephem <PATH_SWISS_EPHEM_FILES>            Path of swiss ephem files
     -s <SIZE_SQUARE_IN_PX>                               Size of the square [default: 1000]
@@ -93,6 +125,9 @@ OPTIONS:
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Version
+0.2.4
+* Aspects filter in cli
+
 0.2.3
 * Aspects filter function, new field in main lib function
 
