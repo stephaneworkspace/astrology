@@ -93,6 +93,9 @@ OPTIONS:
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Version
+0.2.3
+* Aspects filter function, new field in main lib function
+
 0.2.2
 * Added all_aspect, in mod.rs of svg_draw (for compatibiliy with 0.1.*)
 

@@ -17,7 +17,7 @@
 use astrology::cfg::parse_args_natal;
 use astrology::svg_draw::{chart_svg, DataChartNatal};
 use chrono::{Datelike, Timelike};
-use libswe_sys::sweconst::Language;
+use libswe_sys::sweconst::{AspectsFilter, Language};
 use std::ffi::{CStr, CString};
 use std::fs::File;
 use std::io::Write;
@@ -43,8 +43,13 @@ fn main() {
     let path_str: &str = path_c_str.to_str().unwrap();
     println!("{}", &path_str);
 
-    let svg: String =
-        chart_svg(cfg.size as f32, d, &path_str, Language::English);
+    let svg: String = chart_svg(
+        cfg.size as f32,
+        d,
+        &path_str,
+        Language::English,
+        AspectsFilter::AllAspects,
+    );
     file_export.write_all(svg.as_bytes()).unwrap();
     println!("File exported to: {}", cfg.path_and_file);
 }

@@ -26,8 +26,8 @@ use super::svg_draw::{
 };
 use base64::encode;
 use libswe_sys::sweconst::{
-    Angle, Aspects, Bodies, Calandar, Language, Object, ObjectType,
-    OptionalFlag, Signs, Theme,
+    Angle, Aspects, AspectsFilter, Bodies, Calandar, Language, Object,
+    ObjectType, OptionalFlag, Signs, Theme,
 };
 use libswe_sys::swerust;
 use serde::{Deserialize, Serialize};
@@ -422,10 +422,10 @@ pub fn chart_with_transit(
     //    "/Users/stephanebressani/Code/Rust/libswe-sys/src/swisseph/sweph/";
     swerust::handler_swe02::set_ephe_path(&path);
     println!("{}", data.year);
-    println!(
-        "Library path (Todo): {}",
-        swerust::handler_swe02::get_library_path()
-    );
+    //println!(
+    //    "Library path (Todo): {}",
+    //    swerust::handler_swe02::get_library_path()
+    //);
     // House natal chart
     println!("Hsys: {}", swerust::handler_swe14::house_name('P')); // Placidus
     let utc_time_zone: swerust::handler_swe08::UtcTimeZoneResult =
@@ -438,7 +438,7 @@ pub fn chart_with_transit(
             data.sec.into(),       //TODO need to change libswe_sys f64 -> f32
             data.time_zone.into(), //TODO need to change f64 -> f32 without .into()
         );
-    println!("UtcTimeZone: {:?}", utc_time_zone);
+    // println!("UtcTimeZone: {:?}", utc_time_zone);
     let utc_to_jd: swerust::handler_swe08::UtcToJdResult =
         swerust::handler_swe08::utc_to_jd(
             utc_time_zone.year[0],
@@ -449,7 +449,7 @@ pub fn chart_with_transit(
             utc_time_zone.sec[0],
             Calandar::Gregorian,
         );
-    println!("GregorianTimeZone: {:?}", utc_to_jd);
+    // println!("GregorianTimeZone: {:?}", utc_to_jd);
     let utc_time_zone_transit: swerust::handler_swe08::UtcTimeZoneResult =
         swerust::handler_swe08::utc_time_zone(
             data_transit.year,
@@ -460,7 +460,7 @@ pub fn chart_with_transit(
             data_transit.sec.into(), //TODO need to change libswe_sys f64 -> f32
             data.time_zone.into(), //TODO need to change f64 -> f32 without .into()
         );
-    println!("UtcTimeZone transit: {:?}", utc_time_zone_transit);
+    // println!("UtcTimeZone transit: {:?}", utc_time_zone_transit);
     let utc_to_jd_transit: swerust::handler_swe08::UtcToJdResult =
         swerust::handler_swe08::utc_to_jd(
             utc_time_zone_transit.year[0],
@@ -471,7 +471,7 @@ pub fn chart_with_transit(
             utc_time_zone_transit.sec[0],
             Calandar::Gregorian,
         );
-    println!("GregorianTimeZonei transit: {:?}", utc_to_jd_transit);
+    // println!("GregorianTimeZonei transit: {:?}", utc_to_jd_transit);
     let house_result = swerust::handler_swe14::houses(
         utc_to_jd.julian_day_ut,
         data.lat as f64, // Todo in libswe_sys f64 -> f32
@@ -893,64 +893,33 @@ pub fn chart_with_transit(
     res
 }
 
+/// Svg natal chart
 pub fn chart_svg(
     max_size: Number,
     data: DataChartNatal,
     path: &str,
     lang: Language,
+    aspects: AspectsFilter,
 ) -> String {
-    let res: Vec<DataObjectSvg> = chart(max_size, data, path, lang);
-    let mut svg_res: String = "".to_string();
-    for r in res.clone() {
-        if r.object_type == DataObjectType::Chart {
-            svg_res = r.svg;
-        }
-    }
-    if svg_res != "" {
-        svg_res = svg_res.replace("</svg>", "");
-        for r in res {
-            if r.object_type != DataObjectType::Chart {
-                // to do better inside after for real use
-                svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, r.size_x, r.size_y, r.pos_x, r.pos_y, encode(r.svg.as_str()));
-            }
-        }
-    } else {
-        svg_res = "<svg>".to_string();
-    }
-    svg_res = format!("{}</svg>", svg_res);
-    svg_res
+    parse_svg(chart(max_size, data, path, lang.clone()), aspects)
 }
 
+/// Svg transit chart
 pub fn chart_svg_with_transit(
     max_size: Number,
     data_n: DataChartNatal,
     data_t: DataChartNatal,
     path: &str,
     lang: Language,
+    aspects: AspectsFilter,
 ) -> String {
-    let res: Vec<DataObjectSvg> =
-        chart_with_transit(max_size, data_n, data_t, path, lang);
-    let mut svg_res: String = "".to_string();
-    for r in res.clone() {
-        if r.object_type == DataObjectType::Chart {
-            svg_res = r.svg;
-        }
-    }
-    if svg_res != "" {
-        svg_res = svg_res.replace("</svg>", "");
-        for r in res {
-            if r.object_type != DataObjectType::Chart {
-                // to do better inside after for real use
-                svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, r.size_x, r.size_y, r.pos_x, r.pos_y, encode(r.svg.as_str()));
-            }
-        }
-    } else {
-        svg_res = "<svg>".to_string();
-    }
-    svg_res = format!("{}</svg>", svg_res);
-    svg_res
+    parse_svg(
+        chart_with_transit(max_size, data_n, data_t, path, lang),
+        aspects,
+    )
 }
 
+/// DataObjectAspectSvg of Aspects with svg + text
 pub fn all_aspects(lang: Language) -> Vec<DataObjectAspectSvg> {
     let mut res: Vec<DataObjectAspectSvg> = Vec::new();
     // No aspect
@@ -1048,4 +1017,40 @@ pub fn all_aspects(lang: Language) -> Vec<DataObjectAspectSvg> {
     });
 
     res
+}
+
+/// Filter svg with AspectsFilter
+fn parse_svg(data: Vec<DataObjectSvg>, aspects: AspectsFilter) -> String {
+    let mut svg_res: String = "".to_string();
+    for d in data.clone() {
+        if d.object_type == DataObjectType::Chart {
+            svg_res = d.svg;
+        }
+    }
+    if svg_res != "" {
+        svg_res = svg_res.replace("</svg>", "");
+        for d in data {
+            if d.object_type != DataObjectType::Chart {
+                if d.object_type == DataObjectType::Aspect {
+                    let mut sw_res = false;
+                    for a in d.aspects {
+                        for aa in &aspects.vec_aspects() {
+                            if a == *aa {
+                                sw_res = true;
+                            }
+                        }
+                    }
+                    if sw_res {
+                        svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, d.size_x, d.size_y, d.pos_x, d.pos_y, encode(d.svg.as_str()));
+                    }
+                } else {
+                    svg_res = format!("{}<image width=\"{}\" height=\"{}\" x=\"{}\" y=\"{}\" href=\"data:image/svg+xml;base64,{}\"/>", svg_res, d.size_x, d.size_y, d.pos_x, d.pos_y, encode(d.svg.as_str()));
+                }
+            }
+        }
+    } else {
+        svg_res = "<svg>".to_string();
+    }
+    svg_res = format!("{}</svg>", svg_res);
+    svg_res
 }
