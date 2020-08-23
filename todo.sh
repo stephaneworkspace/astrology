@@ -1,2 +1,2 @@
 #!/bin/bash
-git grep TODO
+git grep -n TODO
