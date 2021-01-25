@@ -1,7 +1,7 @@
 [package]
 name = "astrology"
-version = "0.2.5"
-authors = ["Stéphane <stephane@astrologie-traditionnelle.net>"]
+version = "0.2.6"
+authors = ["Stéphane <s.bressani@bluewin.ch>"]
 edition = "2018"
 #keyword = ["astrology", "swiss ephememeris", "planet", "ephemeris"]
 documentation = "https://docs.rs/crate/astrology"
