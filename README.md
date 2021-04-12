@@ -1,17 +1,13 @@
 # Traditional astrology for rust
 
-Rust library by Stéphane Bressani (stephane@astrologie-traditionnelle.net)
+Rust library by Stéphane Bressani
 
 Using swissephem c library by Astrodienst AG
 by Dieter Koch and Alois Treindl (https://www.astro.com/ftp/swisseph/)
 
 # Use
 
-1) Download ephemfiles and put then in a directory
-
-````
-git clone https://github.com/stephaneworkspace/ephem_files.git
-````
+1) Download ephemfiles on https://www.astro.com/ftp/swisseph/ and put then in a directory
 
 2.1) Simple natal chart
 
@@ -117,6 +113,9 @@ OPTIONS:
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Version
+0.2.6
+* Change in comments
+
 0.2.5
 * License
 => If the developer choses the GNU GPL software license, he or she must fulfill the conditions of that license, which includes the obligation to place his or her whole software project under the GNU GPL or a compatible license. 
