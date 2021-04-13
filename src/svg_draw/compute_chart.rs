@@ -146,9 +146,9 @@ pub fn chart(
             };
             // If no ephem files, calculate planet
             if &path == &"" {
-                if bodie.clone().object_type() == ObjectType::Fiction {
+                if bodie.clone().object_type() == ObjectType::Fiction || bodie.clone().object_type() == ObjectType::PlanetOrStar {
                     match bodie.clone() {
-                        Bodies::TrueNode => {
+                        Bodies::TrueNode | Bodies::SouthNode => {
                             object.push(Object::new(
                                 bodie.clone(),
                                 bodie.clone().as_static(),
