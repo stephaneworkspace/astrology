@@ -114,7 +114,7 @@ OPTIONS:
 
 # Version
 1.0.0
-* TODO 
+* Conditional if no ephem files
 
 0.2.6
 * Change in comments
