@@ -160,6 +160,15 @@ pub fn chart(
                         },
                         _ => {}
                     }
+                } else {
+                    object.push(Object::new(
+                        bodie.clone(),
+                        bodie.clone().as_static(),
+                        bodie.clone().object_type(),
+                        calc.longitude,
+                        calc.latitude,
+                        calc.speed_longitude,
+                    ));
                 }
             } else {
                 object.push(Object::new(

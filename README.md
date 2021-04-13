@@ -113,6 +113,9 @@ OPTIONS:
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Version
+1.0.1
+* Fix bug add on from 1.0.0
+
 1.0.0
 * Conditional if no ephem files
 
