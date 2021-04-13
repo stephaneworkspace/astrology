@@ -144,14 +144,34 @@ pub fn chart(
                     OptionalFlag::Speed as i32,
                 )
             };
-            object.push(Object::new(
-                bodie.clone(),
-                bodie.clone().as_static(),
-                bodie.clone().object_type(),
-                calc.longitude,
-                calc.latitude,
-                calc.speed_longitude,
-            ));
+            // If no ephem files, calculate planet
+            if &path == &"" {
+                if bodie.clone().object_type() == ObjectType::Fiction {
+                    match bodie.clone() {
+                        Bodies::TrueNode => {
+                            object.push(Object::new(
+                                bodie.clone(),
+                                bodie.clone().as_static(),
+                                bodie.clone().object_type(),
+                                calc.longitude,
+                                calc.latitude,
+                                calc.speed_longitude,
+                            ));
+                        },
+                        _ => {}
+                    }
+                }
+            } else {
+                object.push(Object::new(
+                    bodie.clone(),
+                    bodie.clone().as_static(),
+                    bodie.clone().object_type(),
+                    calc.longitude,
+                    calc.latitude,
+                    calc.speed_longitude,
+                ));
+
+            }
         }
     }
 
