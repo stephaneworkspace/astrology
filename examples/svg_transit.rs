@@ -42,14 +42,19 @@ fn main() {
         Some(a) => a,
         None => AspectsFilter::NoAspects,
     };
-    let svg: String = chart_svg_with_transit(
+    // String - Vec<String>
+    let (svg, vec_aspect) = chart_svg_with_transit(
         1000.0,
         d_n,
         d_t,
         &path_str,
         Language::English,
-        aspect,
+        aspect.clone(),
     );
+
+    for x in vec_aspect {
+        println!("{}", x);
+    }
     file_export.write_all(svg.as_bytes()).unwrap();
     println!("File exported to: {}", cfg.path_and_file);
 }

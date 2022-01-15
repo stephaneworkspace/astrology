@@ -814,7 +814,7 @@ impl Draw for WorkingStorageDrawPolyMorphNatal {
                     .set("y1", pos1.y)
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
-                    .set("stroke", "red")
+                    .set("stroke", "yellow")
                     .set("stroke-width", 2);
             },
             Aspects::Opposition => {
@@ -824,7 +824,7 @@ impl Draw for WorkingStorageDrawPolyMorphNatal {
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
                     .set("stroke-dasharray", "4, 1, 2")
-                    .set("stroke", "red")
+                    .set("stroke", "orange")
                     .set("stroke-width", 1);
             },
             Aspects::Trine => {
@@ -1443,7 +1443,7 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
                     .set("y1", pos1.y)
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
-                    .set("stroke", "red")
+                    .set("stroke", "yellow")
                     .set("stroke-width", 2);
             },
             Aspects::Opposition => {
@@ -1453,7 +1453,7 @@ impl Draw for WorkingStorageDrawPolyMorphTransit {
                     .set("x2", pos2.x)
                     .set("y2", pos2.y)
                     .set("stroke-dasharray", "4, 1, 2")
-                    .set("stroke", "red")
+                    .set("stroke", "orange")
                     .set("stroke-width", 1);
             },
             Aspects::Trine => {
@@ -1755,12 +1755,12 @@ impl CalcDraw for WorkingStoragePolyMorphNatal {
             || bodie == Bodies::Neptune
             || bodie == Bodies::Pluto
             || bodie == Bodies::TrueNode // North Node true
-            || bodie == Bodies::Chiron
+        //    || bodie == Bodies::Chiron
        //     || bodie == Bodies::MeanApog // AsteroidLilith != Dark moon mean
-            || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true
-            || bodie == Bodies::Ceres
-            || bodie == Bodies::SouthNode
-            || bodie == Bodies::FortunaPart
+           || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true 13-17
+       //     || bodie == Bodies::Ceres // 13-17
+       //     || bodie == Bodies::SouthNode
+          //  || bodie == Bodies::FortunaPart
         {
             true
         } else {
@@ -2395,12 +2395,12 @@ impl CalcDraw for WorkingStoragePolyMorphTransit {
             || bodie == Bodies::Neptune
             || bodie == Bodies::Pluto
             || bodie == Bodies::TrueNode // North Node true
-            || bodie == Bodies::Chiron
+       //     || bodie == Bodies::Chiron
        //     || bodie == Bodies::MeanApog // AsteroidLilith != Dark moon mean
             || bodie == Bodies::OscuApog // AsteroidLilith != Dark moon true
-            || bodie == Bodies::Ceres
-            || bodie == Bodies::SouthNode
-            || bodie == Bodies::FortunaPart
+         //   || bodie == Bodies::Ceres
+          //  || bodie == Bodies::SouthNode
+           // || bodie == Bodies::FortunaPart
         {
             true
         } else {

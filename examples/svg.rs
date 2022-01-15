@@ -32,8 +32,11 @@ fn main() {
         None => AspectsFilter::NoAspects,
     };
 
-    let svg: String =
+    let (svg, vec_aspect) =
         chart_svg(cfg.size as f32, d, &path_str, Language::English, aspect);
+    for x in vec_aspect {
+        println!("{}", x);
+    }
     file_export.write_all(svg.as_bytes()).unwrap();
     println!("File exported to: {}", cfg.path_and_file);
 }
