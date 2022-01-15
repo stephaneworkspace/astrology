@@ -113,6 +113,9 @@ OPTIONS:
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Version
+3.0.0
+* Rewrite with more clean code in svg_draw/compute_chart.rs
+
 1.0.2
 * Add South node + FortunaPart to conditional part 1.0.1/1.0.0
 
