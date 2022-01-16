@@ -7,7 +7,7 @@ by Dieter Koch and Alois Treindl (https://www.astro.com/ftp/swisseph/)
 
 # Use
 
-1) Download ephemfiles on https://www.astro.com/ftp/swisseph/ and put then in a directory
+1) Download ephemfiles (see ephem_files1.png ephem_files2.png ephem_files3.png) on https://www.astro.com/ftp/swisseph/ and put then in a directory
 
 2.1) Simple natal chart
 
@@ -113,6 +113,9 @@ OPTIONS:
 ![Example](https://i.ibb.co/zRm7fsW/theme30avril2007.png)
 
 # Version
+3.0.3
+* Add infos in console for natal and transit
+* 
 3.0.0
 * Rewrite with more clean code in svg_draw/compute_chart.rs
 

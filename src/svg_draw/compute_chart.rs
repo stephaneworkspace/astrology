@@ -476,11 +476,10 @@ impl Chart {
                                     aspects: asp_vec.clone(),
                                 });
                                 self.vec_aspects.push(format!(
-                                    "{:?} {:?} {:?} {:?}",
+                                    "{:?} {:?} {:?}",
                                     asp_vec.clone(),
                                     bodie.object_enum,
                                     b.object_enum,
-                                    record_asp.clone()
                                 ));
                                 asp_vec.clear();
                             }
@@ -872,11 +871,10 @@ impl Chart {
                                             aspects: asp_vec.clone(),
                                         });
                                         self.vec_aspects.push(format!(
-                                            "{:?} N-{:?} T-{:?} {:?}",
+                                            "{:?} Natal-{:?} Transit-{:?}",
                                             asp_vec.clone(),
                                             bodie.object_enum,
                                             bt.object_enum,
-                                            record_asp.clone()
                                         ));
                                         asp_vec.clear();
                                     }
@@ -936,11 +934,10 @@ impl Chart {
                                     aspects: asp_vec.clone(),
                                 });
                                 self.vec_aspects.push(format!(
-                                    "{:?} N-{:?} N-{:?} {:?}",
+                                    "{:?} Natal-{:?} Natal-{:?}",
                                     asp_vec.clone(),
                                     bodie.object_enum,
                                     b.object_enum,
-                                    record_asp.clone()
                                 ));
                                 asp_vec.clear();
                             }
